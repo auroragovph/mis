@@ -1,0 +1,29 @@
+DOCUMENT TYPE
+
+
+10 - PROCUREMENT
+101 - PURCHASE REQUEST
+102 - PURCHASE ORDER
+
+
+20 - OBR MAIN
+200 - OBR MAIN
+
+
+30 - TRAVEL
+301 - TRAVEL ORDER
+
+
+DOCUMENT STATUS
+0 - CANCELLED                       -   DANGER
+1 - WAITING FOR ACTIVATION          -   WARNING
+2 - ON PROCESS                      -   PRIMARY
+3 - APPROVED                        -   SUCCESS
+4 - DISAPPROVED                     -   DANGER
+5 - PENDING                         -   INFO
+
+
+
+
+0 - RELEASE
+1 - RECEIVE

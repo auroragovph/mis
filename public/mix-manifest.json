@@ -1,0 +1,13 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/filemanagement/app.js": "/js/filemanagement/app.js",
+    "/css/filemanagement/app.css": "/css/filemanagement/app.css",
+    "/css/style.css": "/css/style.css",
+    "/js/filemanagement/document-activate.js": "/js/filemanagement/document-activate.js",
+    "/js/filemanagement/document-number.js": "/js/filemanagement/document-number.js",
+    "/js/filemanagement/obr-create.js": "/js/filemanagement/obr-create.js",
+    "/js/filemanagement/pr-create.js": "/js/filemanagement/pr-create.js",
+    "/js/system/app.js": "/js/system/app.js",
+    "/js/system/signin.js": "/js/system/signin.js",
+    "/js/system/user-create.js": "/js/system/user-create.js"
+}

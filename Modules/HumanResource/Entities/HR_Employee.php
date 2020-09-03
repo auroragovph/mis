@@ -14,6 +14,12 @@ class HR_Employee extends Model
     protected $guarded = [];
     protected $table = 'hrm_employee';
 
+    protected $casts = [
+        'name' => 'json',
+        'info' => 'json',
+        'employement' => 'json'
+    ];
+
     public function scopeLiaison($query)
     {
         return $query->where('liaison', 1);

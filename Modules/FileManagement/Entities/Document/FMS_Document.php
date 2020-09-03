@@ -2,15 +2,16 @@
 
 namespace Modules\FileManagement\Entities\Document;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
-use Modules\FileManagement\Entities\Procurement\FMS_PurchaseRequest;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
-use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
-use Modules\FileManagement\Entities\Obr\FMS_ObligationRequest;
 use Modules\FileManagement\Entities\Travel\FMS_TravelOrder;
+use Modules\FileManagement\Entities\Obr\FMS_ObligationRequest;
+use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
+use Modules\FileManagement\Entities\Procurement\FMS_PurchaseRequest;
 
 class FMS_Document extends Model
 {
@@ -27,6 +28,11 @@ class FMS_Document extends Model
             'encoder_id' => Auth::user()->id,
             'type' => $type
         ]);
+    }
+
+    public function getQrAttribute()
+    {
+        return Carbon::parse($this->created_at)->format('Ymd').$this->id;
     }
 
     public function encoder()

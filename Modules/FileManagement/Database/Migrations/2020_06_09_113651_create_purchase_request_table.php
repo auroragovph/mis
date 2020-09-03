@@ -20,6 +20,7 @@ class CreatePurchaseRequestTable extends Migration
             $table->text('purpose');
             $table->integer('charging_id')->nullable();
             $table->integer('requesting_id');
+            $table->json('lists');
             $table->timestamps();
         });
     }

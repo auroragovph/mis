@@ -122,15 +122,20 @@ class TravelOrderController extends Controller
         ]);
 
         foreach($request->employees as $employee){
+
             FMS_TravelOrderData::create([
                 'travel_id' => $to->id,
                 'employee_id' => $employee
             ]);
+            
         }
 
-
-         // logging
-         FMS_DocumentLog::log($document->id, 'Create the document.');
+        // logging
+        FMS_DocumentLog::log($document->id, 'Show the document.');
+        activity('fms')->withProperties([
+             'id' => $document->id, 
+             'type' => 301
+        ])->log('Create new travel order');
 
         return redirect(route('fms.travel.order.show', $document->id))->with('alert-success', 'Travel order has been created.');
 
@@ -148,8 +153,10 @@ class TravelOrderController extends Controller
 
         // dd($document->travel_order->employees68);
 
-         // logging
-         FMS_DocumentLog::log($document->id, 'Show the document.');
+        // logging
+        FMS_DocumentLog::log($document->id, 'Show the document.');
+        activity('fms')->log('Show the document.');
+        
 
         return view('filemanagement::form-travel.order.show', [
             'document' => $document

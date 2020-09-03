@@ -44,7 +44,7 @@ Travel Order
                      @foreach($documents as $document)
                      <tr>
                         <td>{{ Carbon\Carbon::parse($document->created_at)->format('Y-m-d h:i A') }}</td>
-                        <td>{{ convert_to_series($document) }}</td>
+                        <td>{{ $document->qr }}</td>
                         <td>{{ $document->travel_order->number }}</td>
                         <td>{{ travel_order_helper($document->travel_order->employees) }}</td>
                         <td>{{ $document->travel_order->destination }}</td>

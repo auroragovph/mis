@@ -321,11 +321,11 @@ function padding_helper($string, $length, $pad = STR_PAD_BOTH){
  * @param array
  * @return string
  */
-function name_helper($object, $arrangement = 'LFMI'){
+function name_helper($object, $arrangement = 'FMIL'){
 
     
     switch($arrangement){
-
+    
         case 'LFMI':
             // checking if fname is available
             if($object['mname'] != ''){
@@ -642,7 +642,7 @@ function travel_order_helper($employees){
 
 
     foreach($employees as $employee){
-        $string .= name_helper($employee->employee, 'FMIL').", ";
+        $string .= name_helper($employee->employee->name, 'FMIL').", ";
     }
 
 

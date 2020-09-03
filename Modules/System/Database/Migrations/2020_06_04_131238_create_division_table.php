@@ -16,7 +16,7 @@ class CreateDivisionTable extends Migration
         Schema::create('sys_division', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 255)->default('MAIN');
-            $table->string('alias', 255)->default('MAIN')->nullable();
+            $table->string('alias', 255)->nullable();
             $table->integer('office_id');
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();

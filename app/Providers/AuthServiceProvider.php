@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //
         Gate::before(function ($user) {
-            if ($user->hasPermissionTo('sys.sudo')) {
+            if ($user->hasPermissionTo('godmode')) {
                 return true;
             }
         });

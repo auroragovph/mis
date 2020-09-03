@@ -14,10 +14,11 @@ class CreateDocumentFMSDocumentLogsTable extends Migration
     public function up()
     {
         Schema::create('fms_documents_log', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('document_id');
-            $table->integer('user_id');
-            $table->string('action', 255);
+            $table->id();
+            $table->bigInteger('document_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->text('description')->nullable();
+            $table->json('properties')->nullable();
             $table->timestamps();
         });
     }

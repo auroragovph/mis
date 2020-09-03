@@ -6,19 +6,26 @@ use Faker\Generator as Faker;
 
 $factory->define(Modules\HumanResource\Entities\HR_Employee::class, function (Faker $faker) {
     return [
-        'fname' => $faker->firstName,
-        'lname' => $faker->lastName,
-        'mname' => $faker->lastName,
-        'gender' => $faker->numberBetween(1, 3),
-        'address' => $faker->address,
-        'birthday' => $faker->date,
-        'civil_status' => $faker->randomElement($array = array('single', 'married', 'separated', 'widowed', 'union')),
-        'phone_number' => $faker->phoneNumber,
-        'position' => $faker->jobTitle,
-        'division_id' => $faker->randomDigit,
-        'employment_type' => $faker->numberBetween(1, 3),
-        'employment_status' => $faker->boolean,
-        'id_no' => $faker->randomNumber,
+        'division_id' => $faker->numberBetween(1, 25),
+        'position_id' => $faker->numberBetween(1, 25),
+        
+        'name' => array(
+            'fname' => $faker->firstName,
+            'mname' => $faker->lastName,
+            'lname' => $faker->lastName,
+        ),
+        'info' => array(
+            'gender' => $faker->randomElement($array = array (1, 2)),
+            'address' => $faker->address,
+            'birthday' => $faker->date(),
+            'civilStatus' => $faker->randomElement($array = array (1, 2, 3, 4)),
+            'phoneNumber' => $faker->phoneNumber
+        ),
+        'employement' => array(
+            'type' => $faker->numberBetween(1, 3),
+            'status' => $faker->numberBetween(1, 2)
+        ),
+        'card' => $faker->randomNumber,
         'liaison' => $faker->boolean
     ];
 });

@@ -9,6 +9,7 @@ class FMS_ObligationRequest extends Model
 {
     protected $guarded = [];
     protected $table = 'fms_form_obr';
+    protected $casts = ['lists' => 'collection'];
 
     public function lists()
     {

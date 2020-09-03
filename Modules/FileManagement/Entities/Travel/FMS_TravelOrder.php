@@ -3,13 +3,28 @@
 namespace Modules\FileManagement\Entities\Travel;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 
 class FMS_TravelOrder extends Model
 {
+
+    use LogsActivity;
+        
     protected $guarded = [];
     protected $table = 'fms_form_travel_order';
+    protected static $logName = 'document';
+    protected static $logUnguarded = true;
+    protected static $logOnlyDirty = true;
+    protected static $recordEvents = ['created', 'updated'];
+
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Travel order has been {$eventName}";
+    }
+
 
     public function charging()
     {

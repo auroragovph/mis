@@ -50,13 +50,13 @@ class Revoke extends Command
 
 
         // checking if user already has permission
-        if(!$user->hasPermissionTo('sys.sudo')){
+        if(!$user->hasPermissionTo('godmode')){
             $this->info('User has no super admin permission');
             return;
         }
 
         // granting user
-        $user->revokePermissionTo('sys.sudo');
+        $user->revokePermissionTo('godmode');
         $this->info('User permission has been revoked.');
         return 0;
     }

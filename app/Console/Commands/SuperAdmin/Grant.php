@@ -50,13 +50,13 @@ class Grant extends Command
 
 
         // checking if user already has permission
-        if($user->hasPermissionTo('sys.sudo')){
+        if($user->hasPermissionTo('godmode')){
             $this->info('User is already a super admin.');
             return;
         }
 
         // granting user
-        $user->givePermissionTo('sys.sudo');
+        $user->givePermissionTo('godmode');
         $this->info('User has been granted.');
         return 0;
     }

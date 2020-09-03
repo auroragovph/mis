@@ -21,6 +21,7 @@ class CreateObligationRequestTable extends Migration
             $table->text('address');
             $table->integer('dh_id');
             $table->integer('bo_id');
+            $table->json('lists');
             $table->timestamps();
         });
     }

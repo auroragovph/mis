@@ -21,11 +21,10 @@
                 <!--begin::User-->
                 <div class="text-center mb-10">
                     {!! QrCode::size(150)->generate($document->id); !!}
-                    <br>
-                    <br>
+                    <div class="text-grey mb-2 mt-1">{{ $document->qr }}</div>
+
                     {!! show_status($document->status) !!}
                     <h4 class="font-weight-bold text-dark mt-2 mb-2">OBLIGATION REQUEST</h4>
-                    <div class="text-grey mb-2">{{ convert_to_series($document) }}</div>
                 </div>
                 <!--end::User-->
                
@@ -36,11 +35,11 @@
                     </tr>
                     <tr>
                         <td><strong>Liaison Officer:</strong></td>
-                        <td>{{ name_helper($document->liaison) }}</td>
+                        <td>{{ name_helper($document->liaison->name) }}</td>
                     </tr>
                     <tr>
                         <td><strong>Encoded By: </strong></td>
-                        <td>{{ name_helper($document->encoder) }}</td>
+                        <td>{{ name_helper($document->encoder->name) }}</td>
                     </tr>
                     <tr>
                         <td><strong>Encoded Date: </strong></td>
@@ -96,7 +95,7 @@
                              <td><strong>Charging Office:</strong></td>
                              <td>{{ office_helper($document->travel_order->charging) }}</td>
                              <td><strong>Approval Officer: </strong></td>
-                             <td>{{ name_helper($document->travel_order->approval, 'FMIL') }}</td>
+                             <td>{{ name_helper($document->travel_order->approval->name) }}</td>
                          </tr>
      
                          <tr>
@@ -123,8 +122,8 @@
                             @foreach($document->travel_order->employees as $employee)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                   <td>{{ name_helper($employee->employee, 'FMIL') }}</td>
-                                   <td>{{ $employee->employee->position }}</td>
+                                   <td>{{ name_helper($employee->employee->name) }}</td>
+                                   <td>{{ $employee->employee->position->position }}</td>
                                    <td></td>
                                 </tr>
                             @endforeach

@@ -10,6 +10,7 @@ class FMS_PurchaseRequest extends Model
 {
     protected $guarded = [];
     protected $table = 'fms_form_purchase_request';
+    protected $casts = ['lists' => 'collection'];
 
     public function lists()
     {

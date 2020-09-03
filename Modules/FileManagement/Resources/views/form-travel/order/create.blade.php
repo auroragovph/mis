@@ -27,7 +27,7 @@
                             <label for="">Employees</label>
                             <select class="form-control select2" name="employees[]" multiple="multiple" required>
                                 @foreach($employees as $employee)
-                                    <option value="{{ $employee->id }}">{{ name_helper($employee) }} - {{ $employee->position }}</option>
+                                    <option value="{{ $employee->id }}">{{ name_helper($employee->name) }} - {{ $employee->position->position }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -92,7 +92,7 @@
                             <select class="form-control select2" name="approval" required>
                                 <option value="" selected hidden></option>
                                 @foreach($employees as $employee)
-                                    <option value="{{ $employee->id }}">{{ name_helper($employee) }}</option>
+                                    <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -101,7 +101,6 @@
                 
                <div class="separator separator-solid separator-border-2 separator-success mt-6"></div>
     
-                @php($liaisons = $employee->where('liaison', 1))
                 <h4 class="mt-10">Liaison Officer</h4>
                 <hr>
                 <div class="form-group">
@@ -110,7 +109,7 @@
                         <option value="" hidden disabled selected></option>
                         <?php $liaisons = $employees->where('liaison', 1); ?>
                         @foreach($liaisons as $liaison)
-                           <option value="{{ $liaison->id }}">{{ name_helper($liaison) }}</option>
+                           <option value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
                         @endforeach
                     </select>
                 </div>

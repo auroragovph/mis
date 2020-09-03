@@ -24,14 +24,7 @@ class CreateUserTable extends Migration
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
-
-        $user = SYS_User::create([
-            'employee_id' => 1,
-            'username' => 'admin',
-            'password' => bcrypt('admin123'),
-            'status' => 1
-        ]);
-
+      
     }
 
     /**

@@ -91,6 +91,11 @@ class PurchaseRequestController extends Controller
         $employees = HR_Employee::where('division_id', Auth::user()->employee->division_id)->get();
         $divisions = SYS_Division::with('office')->get();
 
+
+
+        // $employee = HR_Employee::first();
+        // dd(array_key_exists('fname', $employee->name));
+
         return view('filemanagement::form-procurement.request.create', [
             'employees' => $employees,
             'divisions' => $divisions

@@ -26,7 +26,7 @@ class RRController extends Controller
     public function form(Request $request)
     {
         // converting DOCUMENT QR
-        $id = series_to_id($request->document);
+        $id = series($request->document);
 
         $document = FMS_Document::with('encoder', 'liaison', 'division.office')->find($id);
 
@@ -69,13 +69,6 @@ class RRController extends Controller
             }
         }
 
-
-        $datas['Requesting Office'] = office_helper($document->division);
-        $datas['Liaison Officer'] = name_helper($document->liaison);
-        $datas['Encoded By'] = name_helper($document->encoder);
-        $datas['Encoded Date'] = Carbon::parse($document->created_at)->format('F d, Y h:i A');
-
-
         switch($document->type){
 
             case 101: // PURCHASE REQUEST
@@ -112,7 +105,7 @@ class RRController extends Controller
                 $employees = '';
 
                 foreach($to->employees as $employee){
-                    $employees .= name_helper($employee->employee, 'FMIL').", ";
+                    $employees .= name_helper($employee->employee->name).", ";
                 }
 
                 $datas['Employees'] = substr($employees, 0, -2);

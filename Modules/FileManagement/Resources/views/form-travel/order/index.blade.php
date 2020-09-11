@@ -19,12 +19,11 @@ Travel Order
         <div class="card card-default">
             <div class="card-header">
                 <h3 class="card-title mt-1">Lists</h3>
-                @canany(['fms.create', 'sys.sudo'])
-
-                <div class="card-tools">
-                   <a href="{{ route('fms.travel.order.create') }}" class="btn btn-sm bg-gradient-primary"><i class="fas fa-plus"></i> Create New Travel Order</a>
-                  </div>
-                  @endcanany
+                @canany(['fms.create'])
+                    <div class="card-tools">
+                        <a href="{{ route('fms.travel.order.create') }}" class="btn btn-sm bg-gradient-primary"><i class="fas fa-plus"></i> Create New Travel Order</a>
+                    </div>
+                @endcanany
             </div>
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">

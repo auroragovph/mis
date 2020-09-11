@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 // Authentication module
 Route::prefix('auth')->group(function(){
     Route::get('/signin', 'Auth\SignInController@form')->name('login');

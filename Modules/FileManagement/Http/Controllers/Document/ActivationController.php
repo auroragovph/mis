@@ -31,13 +31,12 @@ class ActivationController extends Controller
     public function info(Request $request)
     {
 
-        $id = series_to_id($request->document);
-
-        
+        $id = series($request->document);
 
         $document = FMS_Document::find($id);
 
-        if($document == null){
+
+        if($document == null || $request->document != $document->qr){
             $response['message'] = 'Document not found';
             return response()->json($response, 406);
         }

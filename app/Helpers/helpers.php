@@ -11,82 +11,21 @@
  *	@link			https://github.com/jmprns/fms
 */
 
-/**
- * Convert numbers into series EG: 1 => PGA-{TYPE}-{DATE_ENCODED}{ID}
- * @param object $string    DOCUMENT OBJECT
- * @return string $series   STRING
- */
-function convert_to_series($document){
+if (! function_exists('series')) {
+    /**
+     * Convert series to document ID
+     * @param string 
+     * @return string
+     */
+    function series($string){
 
-
-    $type = $document->type;
-    $date = Carbon\Carbon::parse($document->created_at)->format('mdY');
-    $id = $document->id;
-
-    return "PGA-{$type}-{$date}{$id}";
-
-}
-
-
-/**
- * Convert series to document ID
- * @param string 
- * @return string
- */
-function series_to_id($string, $type = 'id'){
-
-    $checker = substr($string, 1);
-
-    if(!is_numeric($string)){
-
-        // counting the dashes
-        $counts = substr_count($string, '-');
-
-        if($counts != 2){
-            return null;
+        if(strlen($string) <= 8){
+            return 0;
         }
 
-        $ext =  explode('-', $string);
-        $real = $ext[2];
-
-
-
-    }else{
-        $real = $string;
-        return $real;
+        return (int)substr($string, 8, 8);
     }
-
-    
-    switch($type){
-
-        case 'id': 
-            $id = substr($real, 8);
-        break;
-
-        case 'both':
-
-            $id['id'] = substr($real, 8);
-            $id['date'] = substr($real,0, 8);
-
-        break;
-
-        case 'date': 
-            $id = substr($real,0, 8);
-        break;
-
-        default: 
-            $id = null;
-        break;
-
-    }
-
-    return $id;
-
 }
-
-
-
-
 
 /**
  * Return color of the status in the show form
@@ -321,58 +260,43 @@ function padding_helper($string, $length, $pad = STR_PAD_BOTH){
  * @param array
  * @return string
  */
-function name_helper($object, $arrangement = 'FMIL'){
+function name_helper($name, $arrangement = 'FMIL'){
+
+    $name = (array)$name;
+
+    $fname = (array_key_exists('fname', $name)) ? ucfirst($name['fname']) : "";
+    $lname = (array_key_exists('lname', $name)) ? ucfirst($name['lname']) : "";
+    $mname = (array_key_exists('mname', $name)) ? ucfirst($name['mname']) : "";
+
+    // $fname = @$name['fname'];
+    // $mname = @$name['mname'];
+    // $lname = @$name['lname'];
+
 
     
     switch($arrangement){
     
         case 'LFMI':
-            // checking if fname is available
-            if($object['mname'] != ''){
-                $name = $object['lname'].", ".$object['fname']." ".$object['mname'][0].".";
-            }else{
-                $name = $object['lname'].", ".$object['fname'];
-            }
-
+          $name = $lname.", ".$fname." ".@$mname[0].".";
         break;
 
         case 'LFM':
-            // checking if fname is available
-            if($object['mname'] != ''){
-                $name = $object['lname'].", ".$object['fname']." ".$object['mname'];
-            }else{
-                $name = $object['lname'].", ".$object['fname'];
-            }
+            $name = $lname.", ".$fname." ".$mname;
         break;
 
         case 'FMIL':  
-            // checking if fname is available
-            if($object['mname'] != ''){
-                $name = $object['fname']." ".$object['mname'][0].". ".$object['lname'];
-            }else{
-                $name = $object['fname']." ".$object['lname'];
-            }
+            $name = $fname." ".@$mname[0].". ".$lname;
         break;
 
         case 'FL': 
-            $name = $object['fname']." ".$object['lname'];
+            $name = $fname." ".$lname;
         break;
     
         case 'FMNL':  
-            // checking if fname is available
-            if($object['mname'] != ''){
-                $name = $object['fname']." ".$object['mname']." ".$object['lname'];
-            }else{
-                $name = $object['fname']." ".$object['lname'];
-            }
+            $name = $fname." ".$mname." ".$lname;
         break;
         default:
-            // checking if fname is available
-            if($object['mname'] != ''){
-                $name = $object['lname'].", ".$object['fname']." ".$object['mname'][0].".";
-            }else{
-                $name = $object['lname'].", ".$object['fname'];
-            }
+           $name = null;
         break;
 
     }
@@ -642,7 +566,7 @@ function travel_order_helper($employees){
 
 
     foreach($employees as $employee){
-        $string .= name_helper($employee->employee->name, 'FMIL').", ";
+        $string .= name_helper($employee->employee->name).", ";
     }
 
 
@@ -655,7 +579,7 @@ function travel_order_helper($employees){
 function employee_id_helper($string)
 {
     if (strpos($string, '||') !== true) {
-        return null;
+        return $string;
     }
 
     $arr = explode('||', $string);

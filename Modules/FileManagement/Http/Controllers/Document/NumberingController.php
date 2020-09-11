@@ -28,23 +28,20 @@ class NumberingController extends Controller
 
     public function search(Request $request)
     {
-        $id = series_to_id($request->document);
+        $id = series($request->document);
 
         $document = FMS_Document::find($id);
 
-        if($document == null){
+        if($document == null || $document->qr != $request->document){
             return response()->json(['message' => 'Document not found!'], 404);
         }
 
 
-         // logging
-         FMS_DocumentLog::log($document->id, 'Check the document if numberable.');
-
-
+        // logging
+        FMS_DocumentLog::log($document->id, 'Check the document if numberable.');
 
         $numberable = [101, 102, 200, 301];
         // $numberable = [500];
-
 
         if(!in_array($document->type, $numberable)){
             return response()->json(['message' => 'You cannot attach number to this document'], 406);
@@ -91,10 +88,6 @@ class NumberingController extends Controller
                     $response['status'] = 406;
                     $response['message'] = 'This document has already numbered.';
                 }
-
-
-               
-
                 
             break;
 
@@ -200,10 +193,6 @@ class NumberingController extends Controller
                 $response['message'] = 'This number already exists in the database.';
                 $response['status'] = 406;
             }
-
-
-            
-
             
 
         }else{
@@ -213,7 +202,6 @@ class NumberingController extends Controller
         }
 
 
-        
         return response()->json($response, $response['status']);
 
     }

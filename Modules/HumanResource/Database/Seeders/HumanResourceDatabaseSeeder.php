@@ -16,6 +16,10 @@ class HumanResourceDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(EmployeeTableSeeder::class);
+        $this->call([
+            EmployeeTableSeeder::class,
+            SalaryGradeTableSeeder::class,
+            PositionTableSeeder::class,
+        ]);
     }
 }

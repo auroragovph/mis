@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> File Management System  | SR-00000000013  </title>
+    <title> Travel Order  |  {{ $document->qr }} </title>
 
     <link rel="stylesheet" href="{{ asset('css/filemanagement/paper.css') }}">
     <link rel="stylesheet" href="{{ asset('css/filemanagement/paperstyle.css') }}">
@@ -54,8 +54,8 @@
                 </td>
     
                 <td width="20%" class="center qr-div" id="qr-div">
-                    <img width="75" height="75" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(500)->generate($document->id)) !!}" alt="" class="symbol-label">
-                    <span style="display: block; font-size: 10px">{{ convert_to_series($document) }}</span>
+                    <img width="75" height="75" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(500)->generate($document->qr)) !!}" alt="" class="symbol-label">
+                    <span style="display: block; font-size: 10px">{{ $document->qr }}</span>
                     
                 </td>
             </tr>
@@ -91,7 +91,7 @@
                 </td>
                 <td width="60%">
                     @foreach($document->travel_order->employees as $employee)
-                    <p class="namedes"><strong>{{ name_helper($employee->employee, 'FMIL') }}</strong> - {{ $employee->employee->position }} </p>
+                    <p class="namedes"><strong>{{ name_helper($employee->employee->name) }}</strong> - {{ $employee->employee->position->position }} </p>
                     @endforeach
                 </td>
             </tr>
@@ -167,11 +167,11 @@
         <br><br>
         <table>
             <tr>
-                <td class="text-center" width="40%"><strong>{{strtoupper(name_helper($document->travel_order->approval, 'FMIL'))}}</strong></td>
+                <td class="text-center" width="40%"><strong>{{strtoupper(name_helper($document->travel_order->approval->name))}}</strong></td>
                 <td class="text-center" width="60%">&nbsp;</td>
             </tr>
             <tr>
-                <td class="text-center"><em> {{ $document->travel_order->approval->position }}  </em></td>
+                <td class="text-center"><em> {{ $document->travel_order->approval->position->position }}  </em></td>
                 <td>&nbsp;</td>
             </tr>
         </table>

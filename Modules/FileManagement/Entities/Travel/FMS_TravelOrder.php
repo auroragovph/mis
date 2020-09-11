@@ -14,10 +14,10 @@ class FMS_TravelOrder extends Model
         
     protected $guarded = [];
     protected $table = 'fms_form_travel_order';
-    protected static $logName = 'document';
+    protected static $logName = 'fms';
     protected static $logUnguarded = true;
     protected static $logOnlyDirty = true;
-    protected static $recordEvents = ['created', 'updated'];
+    protected static $recordEvents = ['updated'];
 
 
     public function getDescriptionForEvent(string $eventName): string

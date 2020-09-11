@@ -20,35 +20,8 @@
 @isset($document)
 <div class="row">
 
-    <div class="col-md-3">
-        <div class="card card-default">
-
-            <div class="card-body pt-15">
-                <!--begin::User-->
-                <div class="text-center mb-10">
-                    {!! QrCode::size(150)->generate($document->id) ?? '' !!}
-                    <br>
-                    <br>
-                    {!! show_status($document->status) !!}
-                    <h4 class="font-weight-bold text-dark mt-2 mb-2">{{ strtoupper(doc_type_only($document->type)) }}</h4>
-                    <div class="text-grey mb-2">{{ convert_to_series($document) }}</div>
-                </div>
-                <!--end::User-->
-               
-                <table class="table">
-                    @foreach($datas as $key => $data)
-                        <tr>
-                            <td><strong>{{ $key }}</strong>:</td>
-                            <td>{{ $data }}</td>
-                        </tr>
-                    @endforeach
-                </table>
-             
-            </div>
-            
-        
-        </div>
-    </div>
+    <x-fms-qr size="sm-3" :document="$document" :datas="$datas" />
+    
 
     <div class="col-md-9">
         <div class="card card-default">
@@ -82,10 +55,10 @@
                             </td>
                             <td>{{ $track->purpose }}</td>
                             <td>{!! tracking_table_status($track->status) !!}</td>
-                            <td>{{ name_helper($track->clerk) }}</td>
+                            <td>{{ name_helper($track->clerk->name) }}</td>
                             <td>
                                 @if($track->liaison_id != 0)
-                                {{ name_helper($track->liaison) }}
+                                {{ name_helper($track->liaison->name) }}
                                 @endif
                             </td>
                             <td>

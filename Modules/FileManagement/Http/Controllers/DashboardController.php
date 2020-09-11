@@ -15,6 +15,6 @@ class DashboardController extends Controller
     {
         $counts['documents'] = FMS_Document::where('division_id', Auth::user()->employee->division_id)->get()->count();
         $counts['employees'] = FMS_Document::where('division_id', Auth::user()->employee->division_id)->get()->count();
-        return view('filemanagement::dashboard.index', compact($counts));
+        return view('filemanagement::dashboard.index', compact('counts'));
     }
 }

@@ -9,8 +9,6 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 
-use Modules\FileManagement\Transformers\Procurement\Procurement;
-use Modules\FileManagement\Transformers\Procurement\ProcurementCollection;
 
 class ProcurementController extends Controller
 {

@@ -37,7 +37,7 @@
                     <div class="col-xl-6">
                         <div class="form-group">
                             <label>Departure</label>
-                            <input type="date" name="departure" class="form-control datepickerform" placeholder="Select a date" required />
+                            <input type="date" name="departure" min="{{ date('Y-m-d') }}" class="form-control datepickerform" placeholder="Select a date" required />
                         </div>
                     </div>
                     <div class="col-xl-6">

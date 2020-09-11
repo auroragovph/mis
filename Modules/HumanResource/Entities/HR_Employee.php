@@ -2,10 +2,11 @@
 
 namespace Modules\HumanResource\Entities;
 
+use Illuminate\Support\Facades\Auth;
+use Modules\System\Entities\SYS_User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\System\Entities\Office\SYS_Division;
-use Modules\System\Entities\SYS_User;
 
 class HR_Employee extends Model
 {
@@ -15,7 +16,7 @@ class HR_Employee extends Model
     protected $table = 'hrm_employee';
 
     protected $casts = [
-        'name' => 'json',
+        'name' => 'array',
         'info' => 'json',
         'employement' => 'json'
     ];
@@ -27,7 +28,12 @@ class HR_Employee extends Model
 
     public function scopeWhereIdCard($query, $id)
     {
-        return $query->where('id_no', $id);
+        return $query->where('card', $id);
+    }
+
+    public function scopeOnlyDivision($query)
+    {
+        return $query->where('division_id', Auth::user()->employee->division_id);
     }
 
     public function division()

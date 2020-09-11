@@ -16,43 +16,9 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-3">
-        <div class="card card-default">
-            <div class="card-body pt-15">
-                <!--begin::User-->
-                <div class="text-center mb-10">
-                    {!! QrCode::size(150)->generate($document->id); !!}
-                    <br>
-                    <br>
-                    {!! show_status($document->status) !!}
-                    <h4 class="font-weight-bold text-dark mt-2 mb-2">OBLIGATION REQUEST</h4>
-                    <div class="text-grey mb-2">{{ convert_to_series($document) }}</div>
-                </div>
-                <!--end::User-->
-               
-                <table class="table">
-                    <tr>
-                        <td><strong>Requesting Office:</strong></td>
-                        <td>{{ office_helper($document->division) }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Liaison Officer:</strong></td>
-                        <td>{{ name_helper($document->liaison) }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Encoded By: </strong></td>
-                        <td>{{ name_helper($document->encoder) }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Encoded Date: </strong></td>
-                        <td>{{ Carbon\Carbon::parse($document->created_at)->format('F d, Y h:i A') }}</td>
-                    </tr>
-                </table>
-             
-            </div>
-        </div>
-    </div>
-    <div class="col-md-9">
+    <x-fms-qr size="sm-4" :document="$document" />
+
+    <div class="col-md-8">
         <!--begin::Card-->
         <div class="card card-default">
 

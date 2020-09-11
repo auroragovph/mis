@@ -37,6 +37,9 @@ class TravelOrderController extends Controller
             ->where('division_id', Auth::user()->employee->division_id)
             ->get();
 
+        // Activity logging
+        activity()->log('Show the travel order');
+
         return view('filemanagement::form-travel.order.index', [
             'documents' => $documents
         ]);
@@ -91,8 +94,16 @@ class TravelOrderController extends Controller
      */
     public function create()
     {
-        $employees = HR_Employee::get();
+        $employees = HR_Employee::onlyDivision()->get();
         $divisions = SYS_Division::with('office')->get();
+
+
+        // Activity logging
+        activity()->log('Request to create a new travel order.');
+
+
+        // dd(Auth::user()->division_id);
+
 
         return view('filemanagement::form-travel.order.create', [
             'employees' => $employees,
@@ -132,7 +143,7 @@ class TravelOrderController extends Controller
 
         // logging
         FMS_DocumentLog::log($document->id, 'Show the document.');
-        activity('fms')->withProperties([
+        activity()->withProperties([
              'id' => $document->id, 
              'type' => 301
         ])->log('Create new travel order');
@@ -155,7 +166,7 @@ class TravelOrderController extends Controller
 
         // logging
         FMS_DocumentLog::log($document->id, 'Show the document.');
-        activity('fms')->log('Show the document.');
+        activity()->log('Show the document.');
         
 
         return view('filemanagement::form-travel.order.show', [

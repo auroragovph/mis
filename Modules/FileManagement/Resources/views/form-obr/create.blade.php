@@ -45,7 +45,7 @@
                             <select required name="dh" class="form-control select2" required>
                                 <option value="" selected hidden></option>
                                 @foreach($employees as $employee)
-                                    <option value="{{ $employee->id }}">{{ name_helper($employee) }}</option>
+                                    <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -56,7 +56,7 @@
                             <select required name="bo" class="form-control select2">
                                 <option value="" selected hidden></option>
                                 @foreach($employees as $employee)
-                                        <option value="{{ $employee->id }}">{{ name_helper($employee) }}</option>
+                                        <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -115,7 +115,7 @@
                         <option value="" hidden disabled selected></option>
                         <?php $liaisons = $employees->where('liaison', 1); ?>
                         @foreach($liaisons as $liaison)
-                           <option value="{{ $liaison->id }}">{{ name_helper($liaison) }}</option>
+                           <option value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -15,10 +15,11 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12">
+        <x-fms-qr size="sm-4" :document="$document" />
+        <div class="col-sm-8">
             <div class="card">
                 <div class="card-body">
-                    <h3>Document Cancellation for: {{ convert_to_series($document) }}</h3>
+                    <h3>Document Cancellation for: {{ $document->qr }}</h3>
                     <hr>
                     <form action="{{ route('fms.documents.cancel2', $document->id) }}" method="POST">
                         @csrf

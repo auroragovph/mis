@@ -9,7 +9,7 @@
       <img src="{{ asset('images/user-default.png') }}" class="img-responsive elevation-2 d-inline-block" alt="" srcset="" width="120px" height="120px">
 
 
-      <h4 class="d-block mt-3">{{ name_helper(Auth::user()->employee, 'FMIL') }}</h4>
+      <h4 class="d-block mt-3">{{ name_helper(Auth::user()->employee->name) }}</h4>
         <p class="text-muted h6 d-inline">{{ Auth::user()->employee->position->position }}</p>
         <p class="text-muted h6">{{ '@'.Auth::user()->username }}</p>
       

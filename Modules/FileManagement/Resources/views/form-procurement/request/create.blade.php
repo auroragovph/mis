@@ -27,7 +27,7 @@
                                 <select name="requesting" class="form-control select2" required data-size="5" data-live-search="true">
                                     <option value="" selected hidden></option>
                                     @foreach($employees as $employee)
-                                        <option value="{{ $employee->id }}">{{ name_helper($employee) }}</option>
+                                        <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -100,7 +100,7 @@
                             <option value="" hidden disabled selected></option>
                             <?php $liaisons = $employees->where('liaison', 1); ?>
                             @foreach($liaisons as $liaison)
-                               <option value="{{ $liaison->id }}">{{ name_helper($liaison) }}</option>
+                               <option value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
                             @endforeach
                         </select>
                     </div>

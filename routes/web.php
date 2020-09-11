@@ -21,3 +21,10 @@ Route::get('/', function () {
 Route::get('/home', function(){
     return view('home');
 })->name('root.home')->middleware('auth:web');
+
+
+
+
+Route::prefix('dev')->group(function(){
+    // Route::get('/csv', 'DevPController@csv');
+});

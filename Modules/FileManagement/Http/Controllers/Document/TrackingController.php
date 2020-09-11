@@ -17,27 +17,16 @@ class TrackingController extends Controller
 {
     public function track(Request $request)
     {
-        $id = series_to_id($request->document);
+        $id = series($request->document);
 
 
         $document = FMS_Document::with('liaison', 'encoder', 'division.office')->find($id);
 
     
-        if($document == null || !$document) {
+        if($document == null || !$document || $request->document != $document->qr) {
             Session::flash('alert-error', 'Document not found!');
             return view('filemanagement::documents.track');
         }
-
-
-
-
-
-        $datas['Requesting Office'] = office_helper($document->division);
-        $datas['Liaison Officer'] = name_helper($document->liaison);
-        $datas['Encoded By'] = name_helper($document->encoder);
-        $datas['Encoded Date'] = Carbon::parse($document->created_at)->format('F d, Y h:i A');
-
-        
 
         switch($document->type){
 
@@ -46,7 +35,7 @@ class TrackingController extends Controller
                 $pr = FMS_PurchaseRequest::with('requesting', 'charging', 'lists')->where('document_id', $id)->get()->first();
         
                 $datas['PR Number'] = $pr->number;
-                $datas['Requesting Officer'] = name_helper($pr->requesting);
+                $datas['Requesting Officer'] = name_helper($pr->requesting->name);
                 $datas['Charging Officer'] = office_helper($pr->charging);
                 $datas['Purpose'] = $pr->purpose;
                 $datas['Amount'] = number_format($pr->lists->sum(function($row){return $row->qty * $row->cost;}),2);
@@ -75,7 +64,7 @@ class TrackingController extends Controller
                 $employees = '';
 
                 foreach($to->employees as $employee){
-                    $employees .= name_helper($employee->employee, 'FMIL').", ";
+                    $employees .= name_helper($employee->employee->name).", ";
                 }
 
                 $datas['Employees'] = substr($employees, 0, -2);

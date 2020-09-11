@@ -15,41 +15,9 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-3">
-        <div class="card card-default">
-            <div class="card-body pt-15">
-                <!--begin::User-->
-                <div class="text-center mb-10">
-                    {!! QrCode::size(150)->generate($document->id); !!}
-                    <div class="text-grey mb-2 mt-1">{{ $document->qr }}</div>
-
-                    {!! show_status($document->status) !!}
-                    <h4 class="font-weight-bold text-dark mt-2 mb-2">OBLIGATION REQUEST</h4>
-                </div>
-                <!--end::User-->
-               
-                <table class="table">
-                    <tr>
-                        <td><strong>Requesting Office:</strong></td>
-                        <td>{{ office_helper($document->division) }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Liaison Officer:</strong></td>
-                        <td>{{ name_helper($document->liaison->name) }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Encoded By: </strong></td>
-                        <td>{{ name_helper($document->encoder->name) }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Encoded Date: </strong></td>
-                        <td>{{ Carbon\Carbon::parse($document->created_at)->format('F d, Y h:i A') }}</td>
-                    </tr>
-                </table>
-             
-            </div>
-        </div>
-    </div>
+    
+    <x-fms-qr size="sm-3" :document="$document" />
+   
     <div class="col-md-9">
         <!--begin::Card-->
         <div class="card card-default">
@@ -136,7 +104,7 @@
 
                 
 
-                <h3 class="font-weight-bold">Attached Documents</h3>
+                <h4 class="font-weight-bold">Attached Documents</h4>
                 
 
                 <div class="table-responsive">
@@ -158,7 +126,7 @@
                                 <td>{{ $attachment->description }}</td>
                                 <td>{{ $attachment->mime }}</td>
                                 <td>{{ Carbon\Carbon::parse($attachment->created_at)->format('F d, Y h:i A') }}</td>
-                                <td>{{ name_helper($attachment->employee) }}</td>
+                                <td>{{ name_helper($attachment->employee->name) }}</td>
                                 <td>
                                     @if($attachment->mime == 'image' || $attachment->mime == 'pdf')
                                         <a href="{{ Storage::url($attachment->url) }}" target="_blank" class="btn btn-xs bg-gradient-primary"><i class="fas fa-eye"></i> View</a>

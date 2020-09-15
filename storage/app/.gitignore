@@ -1,4 +1,4 @@
 *
 !public/
 !.gitignore
-!seeders_documents/
+!seeders_documents/*.csv

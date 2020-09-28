@@ -106,15 +106,32 @@ $(function () {
 var createCafoa = new Vue({
   el: '#app-root',
   data: {
-    employee: '',
-    leaveType: ''
-  },
-  methods: {
-    updateType: function updateType() {
-      console.log('Hey!');
+    v1: 0,
+    v2: 0,
+    s1: 0,
+    s2: 0,
+    vacation: {
+      type: '',
+      details: ''
+    },
+    sick: {
+      inh: false
     }
   },
-  created: function created() {}
+  watch: {
+    v1: function v1() {
+      return this.v1 = parseFloat(this.v1);
+    },
+    v2: function v2() {
+      return this.v2 = parseFloat(this.v2);
+    },
+    s1: function s1() {
+      return this.s1 = parseFloat(this.s1);
+    },
+    s2: function s2() {
+      return this.s2 = parseFloat(this.s2);
+    }
+  }
 });
 
 /***/ }),

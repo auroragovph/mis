@@ -17,7 +17,9 @@
 <div class="row" id="app-root">
     <div class="col-md-12">
         <div class="card card-default px-5 py-3">
-            <form action="#">
+            <form action="{{route('fms.afl.store')}}" method="POST">
+                @method('PUT')
+                @csrf 
 
                 <h5>Employee Details</h5>
                 <hr>
@@ -67,35 +69,76 @@
                     @case('Vacation')
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group clearfix">
-                                    <div class="icheck-primary">
-                                    <input type="radio" id="vacation-tse" name="vacation1">
+                                <div class="form-group">
+
+                                    <input type="radio" id="vacation-tse" name="vacation1" value="vac-tse" v-model="vacation.type">
                                     <label for="vacation-tse">To seek employement</label>
-                                    </div>
-                                    <div class="icheck-primary">
-                                        <input type="radio" id="vacation-os" name="vacation1">
-                                        <label for="vacation-os">Others (Specify)</label>
-                                    </div>
+                                    <br>
+                                    <input type="radio" id="vacation-os" name="vacation1" value="vac-oth" v-model="vacation.type">
+                                    <label for="vacation-os">Others (Specify)</label>
+                                </div>
+
+                                <div class="form-group" v-if="vacation.type == 'vac-oth' ">
+                                    <input type="text" class="form-control" name="vac-oth">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group clearfix">
+                                <div class="form-group">
                                     <label for="">In case of Vacation Leave</label>
-                                    <div class="icheck-primary">
-                                    <input type="radio" id="vacation-witp" name="vacation2">
+                                    <br>
+                                    <input type="radio" id="vacation-witp" name="vacation2" value="vac-ph" v-model="vacation.details">
                                     <label for="vacation-witp">Within in the Philippines</label>
-                                    </div>
-                                    <div class="icheck-primary">
-                                        <input type="radio" id="vacation-as" name="vacation2">
-                                        <label for="vacation-as">Abroad (Specify)</label>
-                                    </div>
+                                    <br>
+                                    <input type="radio" id="vacation-as" name="vacation2" value="vac-abr" v-model="vacation.details">
+                                    <label for="vacation-as">Abroad (Specify)</label>
+                                </div>
+
+                                <div class="form-group" v-if="vacation.details == 'vac-abr' ">
+                                    <input type="text" class="form-control" name="vac-abr">
+                                </div>
+                            </div>
+                        </div>
+                    @break
+
+                    @case('Sick')
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="">In case of sick leave</label>
+
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="sick-inh" id="sick-inh" v-model="sick.inh">
+                                    <label class="form-check-label" for="sick-inh">In hospital</label>
+                                </div>
+
+                                <div class="form-group mt-2" v-if="sick.inh">
+                                    <label for="">Specify:</label>
+                                    <input type="text" class="form-control" name="sick-spec">
+                                </div>
+                            </div>
+                        </div>
+                    @break
+
+                    @case('Maternity')
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">Specify your leave</label>
+                                    <input type="text" class="form-control" value="Maternity" readonly>
                                 </div>
                             </div>
                         </div>
                     @break
 
                     @default 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">Specify your leave</label>
+                                <input type="text" class="form-control" name="leave-other">
+                            </div>
+                        </div>
+                    </div>
                     @break 
                 @endswitch
 
@@ -116,11 +159,11 @@
                             <label for="">Commutation</label>
 
                             <div class="icheck-primary">
-                            <input type="radio" id="com-req" name="commutation">
+                            <input type="radio" id="com-req" name="commutation" value="1">
                             <label for="com-req">Requested</label>
                             </div>
                             <div class="icheck-primary">
-                                <input type="radio" id="com-nreq" name="commutation">
+                                <input type="radio" id="com-nreq" name="commutation" value="0">
                                 <label for="com-nreq">Not Requested</label>
                             </div>
                         </div>
@@ -131,8 +174,15 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
-                        <label>Credits as of {{ date('Y-m-d') }}</label>
-                        <table class="table table-bordered table-sm">
+
+
+                        <label>Credits as of :</label>
+                        <input type="date" class="form-control" name="caf">
+
+
+
+                        
+                        <table class="table table-bordered table-sm mt-3">
                             <thead>
                                 <tr>
                                     <td>Vacation</td>
@@ -142,28 +192,80 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{ $employee->employement['leave']['vacation'] }}</td>
-                                    <td>{{ $employee->employement['leave']['sick'] }}</td>
-                                    <td>
-                                        {{ $employee->employement['leave']['vacation'] + $employee->employement['leave']['sick'] }}</td>
+                                    <td><input type="number" min="0" name="v1" class="form-control" v-model.null="v1"></td>
+                                    <td><input type="number" min="0" name="s1" class="form-control" v-model.null="s1"></td>
+                                    <td>@{{ v1 + s1 }}</td>
                                 </tr>
                                 <tr>
-                                    <td><input type="number" class="form-control"></td>
-                                    <td><input type="number" class="form-control"></td>
-                                    <td></td>
+                                    <td><input type="number" min="0" name="v2" class="form-control" v-model.null="v2"></td>
+                                    <td><input type="number" min="0" name="s2" class="form-control" v-model.null="s2"></td>
+                                    <td>@{{ v2 + s2 }}</td>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>@{{ v1 - v2 }}</td>
+                                    <td>@{{ s1 - s2 }}</td>
+                                    <td>@{{ (v1 + s1) - (v2 + s2) }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <hr>
 
+                <h5 class="mt-3">Days Approved</h5>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Days with pay</label>
+                        <input type="number" name="days-with-pay" class="form-control" value="0">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Days without pay</label>
+                        <input type="number" name="days-without-pay" class="form-control" value="0">
+                    </div>
+                </div>
+
+
+                <h5 class="mt-3">Signatories</h5>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Approval</label>
+                        <select name="approval" class="form-control select2">
+                            <option value=""></option>
+                            <?php $approvals = $employees->where('division_id', Auth::user()->employee->division_id); ?>
+                            @foreach($approvals as $approval)
+                                <option value="{{ $approval->id }}">{{ name_helper($approval->name) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">HR Officer</label>
+                        <select name="hr" class="form-control select2">
+                            <?php $hrs = $employees->where('division_id', config('constants.office.HRMO')) ?>
+                            <option value=""></option>
+                            @foreach($hrs as $hr)
+                                <option value="{{ $hr->id }}">{{ name_helper($hr->name) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <h5 class="mt-3">Liaison Officer</h5>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                       <select name="liaison" id="" class="form-control select2">
+                            <option value=""></option>
+                            <?php $liaisons = $employees->where('division_id', Auth::user()->employee->division_id)->where('liaison', true); ?>
+                            @foreach($liaisons as $liaison)
+                                <option value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
+                            @endforeach
+                       </select>
+                    </div>
+                </div>
+
+                <hr>
                 <button class="btn bg-gradient-primary">Submit</button>
 
             </form>
@@ -184,9 +286,10 @@
 
 
 @section('js-vendor')
+<script src="{{ asset('plugins/vue/vue.js') }}"></script>
+
 <script src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('plugins/vue/vue.js') }}"></script>
 @endsection
 
 @section('js-custom')

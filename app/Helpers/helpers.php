@@ -290,12 +290,28 @@ if (! function_exists('office_helper')) {
 if (! function_exists('hrefroute')) {
     /**
     * Hyperlink to route show helper
-    * @param int
-    * @param string
+    * @param int $id
+    * @param string $route
     * @return string
     */
-    function hrefroute($id, $route){
-        return "<a href=".route($route, $id)." class=\"btn btn-xs bg-gradient-primary\" target=\"_blank\"> <i class=\"fal fa-eye\"></i>  View</a>";
+    function hrefroute($id, $route, $size = 'xs', $color = 'primary', $icon = 'eye', $verb = 'View'){
+
+        $route = route($route, $id);
+
+        return "
+            <a 
+            target=\"_blank\"
+            href=\"{$route}\"
+            class=\"btn btn-{$size} bg-gradient-{$color}\"
+            >
+
+            <i class=\"fal fa-{$icon}\"></i>
+
+            {$verb}
+
+            </a>
+        ";
+    
     }
 }
 

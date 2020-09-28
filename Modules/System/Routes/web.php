@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+// Route::get('dev', function(){
+//     dd(boolval('0'));
+// });
+
+
 // Authentication module
 Route::prefix('auth')->group(function(){
     Route::get('/signin', 'Auth\SignInController@form')->name('login');

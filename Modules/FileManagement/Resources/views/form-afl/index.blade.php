@@ -61,7 +61,7 @@
           @csrf
           <div class="form-group">
             <label for="">Employee</label> <br>
-            <select name="employee" class="form-control select2 d-block" style="width: 100%">
+            <select name="employee" class="form-control select2 d-block" style="width: 100%" required>
               <option value=""></option>
               @foreach($employees as $employee)
                 <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
@@ -71,7 +71,7 @@
 
           <div class="form-group">
             <label for="">Type</label> <br>
-            <select name="type" class="form-control select2 d-block" style="width: 100%">
+            <select name="type" class="form-control select2 d-block" style="width: 100%" required>
               <option value=""></option>
               <option>Vacation</option>
               <option>Sick</option>

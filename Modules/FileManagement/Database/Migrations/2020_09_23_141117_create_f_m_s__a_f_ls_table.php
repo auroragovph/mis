@@ -15,6 +15,7 @@ class CreateFMSAFLsTable extends Migration
     {
         Schema::create('fms_form_afl', function (Blueprint $table) {
             $table->id();
+            $table->integer('document_id');
             $table->integer('employee_id');
             $table->json('properties');
             $table->json('credits');

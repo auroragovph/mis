@@ -138,6 +138,7 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
     Route::prefix('application-for-leave')->namespace('Forms\AFL')->group(function(){
         Route::get('/', 'AFLController@index')->name('fms.afl.index');
         Route::post('/create', 'AFLController@create')->name('fms.afl.create');
+        Route::put('/create', 'AFLController@store')->name('fms.afl.store');
         Route::get('/{id}/show', 'AFLController@show')->name('fms.afl.show');
     });
 

@@ -19,7 +19,7 @@
             <div class="card-header">
                 <h3 class="card-title mt-1">Lists</h3>
                 <div class="card-tools">
-                   <a href="{{ route('fms.obr.create') }}" class="btn btn-sm bg-gradient-primary"><i class="fal fa-plus"></i> Register New Employee</a>
+                   <a href="#" class="btn btn-sm bg-gradient-primary"><i class="fal fa-plus"></i> Register New Employee</a>
                   </div>
             </div>
             <div class="card-body">
@@ -39,7 +39,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td></td>
-                            <td>{{ name_helper($employee) }}</td>
+                            <td>{{ name_helper($employee->name) }}</td>
                             <td>{{ @office_helper($employee->division) }}</td>
                             <td>{{ $employee->position->position }}</td>
                             <td>

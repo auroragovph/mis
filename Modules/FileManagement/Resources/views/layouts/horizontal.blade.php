@@ -27,7 +27,7 @@
     <!-- SEARCH FORM -->
     <form class="form-inline ml-0 ml-md-3" action="{{ route('fms.documents.track') }}" method="GET">
       <div class="input-group input-group-sm">
-        <input name="document" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input name="document" class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" value="{{ request()->get('document') }}">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
             <i class="fal fa-search"></i>

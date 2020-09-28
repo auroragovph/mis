@@ -24,6 +24,7 @@ class CreateTravelOrderTable extends Migration
             $table->text('instruction')->nullable();
             $table->integer('approval_id');
             $table->integer('charging_id');
+            $table->json('lists');
             $table->timestamps();
         });
     }

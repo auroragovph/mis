@@ -10,10 +10,16 @@ use Modules\System\Entities\Office\SYS_Division;
 class FMS_TravelOrder extends Model
 {
 
+    use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
     use LogsActivity;
         
     protected $guarded = [];
     protected $table = 'fms_form_travel_order';
+
+    protected $casts = [
+        'lists' => 'json'
+    ];
+
     protected static $logName = 'fms';
     protected static $logUnguarded = true;
     protected static $logOnlyDirty = true;
@@ -38,7 +44,7 @@ class FMS_TravelOrder extends Model
 
     public function employees()
     {
-        return $this->hasMany(FMS_TravelOrderData::class, 'travel_id', 'id');
+        return $this->belongsToJson(HR_Employee::class, 'lists', 'id');
     }
 
 

@@ -91,7 +91,7 @@
                 </td>
                 <td width="60%">
                     @foreach($document->travel_order->employees as $employee)
-                    <p class="namedes"><strong>{{ name_helper($employee->employee->name) }}</strong> - {{ $employee->employee->position->position }} </p>
+                    <p class="namedes"><strong>{{ name_helper($employee->name) }}</strong> - {{ $employee->position->position }} </p>
                     @endforeach
                 </td>
             </tr>

@@ -40,14 +40,14 @@
                      @foreach($sgs as $sg)
                         <tr>
                             <td>{{ $sg->id }}</td>
-                            <td>{{ number_format($sg->step1, 2) }}</td>
-                            <td>{{ number_format($sg->step2, 2) }}</td>
-                            <td>{{ number_format($sg->step3, 2) }}</td>
-                            <td>{{ number_format($sg->step4, 2) }}</td>
-                            <td>{{ number_format($sg->step5, 2) }}</td>
-                            <td>{{ number_format($sg->step6, 2) }}</td>
-                            <td>{{ number_format($sg->step7, 2) }}</td>
-                            <td>{{ number_format($sg->step8, 2) }}</td>
+                            <td>{{ number_format((integer)$sg->step1, 2) }}</td>
+                            <td>{{ number_format((integer)$sg->step2, 2) }}</td>
+                            <td>{{ number_format((integer)$sg->step3, 2) }}</td>
+                            <td>{{ number_format((integer)$sg->step4, 2) }}</td>
+                            <td>{{ number_format((integer)$sg->step5, 2) }}</td>
+                            <td>{{ number_format((integer)$sg->step6, 2) }}</td>
+                            <td>{{ number_format((integer)$sg->step7, 2) }}</td>
+                            <td>{{ number_format((integer)$sg->step8, 2) }}</td>
                             <td></td>
                         </tr>
                      @endforeach

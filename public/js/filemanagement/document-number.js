@@ -190,7 +190,7 @@ $('#form-num').submit(function (e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\aurora-mis\Modules\FileManagement\Resources\assets\js\document\document-number.js */"./Modules/FileManagement/Resources/assets/js/document/document-number.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/mis/Modules/FileManagement/Resources/assets/js/document/document-number.js */"./Modules/FileManagement/Resources/assets/js/document/document-number.js");
 
 
 /***/ })

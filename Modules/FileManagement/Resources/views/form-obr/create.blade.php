@@ -106,7 +106,7 @@
                 <button @click="deleteLastRow" type="button" v-show="itemCount > 1" class="btn btn-warning btn-sm mr-3"><i class="flaticon-close"></i> Remove Last Row</button>
 
                 <hr>
-                @php($liaisons = $employee->where('liaison', 1))
+                <?php $liaisons = $employee->where('liaison', 1); ?>
                 <h4 class="mt-10">Liaison Officer</h4>
                 <hr>
                 <div class="form-group">

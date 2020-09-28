@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -19366,14 +19366,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ 8:
+/***/ 10:
 /*!***********************************!*\
   !*** multi ./resources/js/app.js ***!
   \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\aurora-mis\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/mis/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

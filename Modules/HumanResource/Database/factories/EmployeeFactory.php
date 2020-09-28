@@ -23,7 +23,11 @@ $factory->define(Modules\HumanResource\Entities\HR_Employee::class, function (Fa
         ),
         'employement' => array(
             'type' => $faker->numberBetween(1, 3),
-            'status' => $faker->numberBetween(1, 2)
+            'status' => $faker->numberBetween(1, 2),
+            'leave' => [
+                'vacation' => $faker->numberBetween(1, 20),
+                'sick' => $faker->numberBetween(1, 20)
+            ]
         ),
         'card' => $faker->randomNumber,
         'liaison' => $faker->boolean

@@ -7,13 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Travel\FMS_TravelOrder;
 use Modules\FileManagement\Entities\Document\FMS_DocumentLog;
-use Modules\FileManagement\Entities\Travel\FMS_TravelOrderData;
 
 class TravelOrderController extends Controller
 {
@@ -23,71 +21,46 @@ class TravelOrderController extends Controller
         $this->middleware('fms.document.check', ['only' => ['show', 'edit', 'update', 'print']]);
         $this->middleware(['permission:fms.create'], ['only' => ['create', 'store']]);
         $this->middleware(['permission:fms.edit|fms.edit.power'], ['only' => ['edit', 'update']]);
+
+
     }
     /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $documents = FMS_Document::with(
-            'travel_order.employees.employee'
-            )
-            ->where('type', 301)
-            ->where('division_id', Auth::user()->employee->division_id)
-            ->get();
+        if($request->ajax()){
+            $documents = FMS_Document::with(
+                'travel_order.employees'
+                )
+                ->where('type', 301)
+                ->where('division_id', Auth::user()->employee->division_id)
+                ->get();
+
+            $records['data'] = array();
+
+            foreach($documents as $i => $document){
+                $records['data'][$i]['id'] = $document->id;
+                $records['data'][$i]['encoded'] = Carbon::parse($document->created_at)->format('F d, Y h:i A');
+                $records['data'][$i]['qr'] = $document->qr;
+                $records['data'][$i]['number'] = $document->travel_order->number;
+                $records['data'][$i]['employees'] = tonh($document->travel_order->employees);
+                $records['data'][$i]['destination'] = $document->travel_order->destination;
+                $records['data'][$i]['departure'] = $document->travel_order->departure;
+                $records['data'][$i]['status'] = show_status($document->status);
+                $records['data'][$i]['action'] = hrefroute($document->id, 'fms.travel.order.show');
+            }
+
+            return response()->json($records, 200);
+        }
+       
 
         // Activity logging
         activity()->log('Show the travel order');
 
-        return view('filemanagement::form-travel.order.index', [
-            'documents' => $documents
-        ]);
+        return view('filemanagement::form-travel.order.index');
     }
-
-    public function lists()
-    {
-        $documents = FMS_Document::with(
-            'travel_order.employees.employee'
-            )
-            ->where('type', 301)
-            ->where('division_id', Auth::user()->employee->division_id)
-            ->get();
-        
-        $response = array('data' => []);
-
-        foreach($documents as $document){
-
-            if($document->travel_order == null){
-                continue;
-            }
-
-            if($document->travel_order->employees->count() <= 1){
-                $employees = name_helper($document->travel_order->employees[0]['employee']);
-            }else{
-                $employees = name_helper($document->travel_order->employees[0]['employee'])." et al. ";
-            }
-
-            $response['data'][] = array(
-                'id' => $document->id,
-                'did' => convert_to_series($document),
-                'number' => $document->travel_order->number,
-                'employees' => $employees,
-                'destination' => $document->travel_order->destination,
-                'departure' => Carbon::parse($document->travel_order->departure)->format('F d, Y'),
-                'arrival' => Carbon::parse($document->travel_order->arrival)->format('F d, Y'),
-                'purpose' => $document->travel_order->purpose,
-                'status' => $document->status,
-                'encoded' => Carbon::parse($document->created_at)->format('F d, Y h:i A'),
-                'actions' => ''
-
-            );
-
-        }
-
-        return response()->json($response, 200);
-    }
-
     /**
      * Show the form for creating a new resource.
      * @return Response
@@ -121,6 +94,7 @@ class TravelOrderController extends Controller
     {
         $document = FMS_Document::directStore($request->liaison, 301);
 
+
         $to = FMS_TravelOrder::create([
             'document_id' => $document->id,
             'destination' => $request->destination,
@@ -129,17 +103,9 @@ class TravelOrderController extends Controller
             'purpose' => $request->purpose,
             'instruction' => $request->instruction,
             'approval_id' => $request->approval,
-            'charging_id' => $request->charging
+            'charging_id' => $request->charging,
+            'lists' => $request->employees
         ]);
-
-        foreach($request->employees as $employee){
-
-            FMS_TravelOrderData::create([
-                'travel_id' => $to->id,
-                'employee_id' => $employee
-            ]);
-            
-        }
 
         // logging
         FMS_DocumentLog::log($document->id, 'Show the document.');
@@ -150,7 +116,6 @@ class TravelOrderController extends Controller
 
         return redirect(route('fms.travel.order.show', $document->id))->with('alert-success', 'Travel order has been created.');
 
-
     }
 
     /**
@@ -160,9 +125,10 @@ class TravelOrderController extends Controller
      */
     public function show($id)
     {
-        $document = FMS_Document::findOrFail($id);
+        $document = FMS_Document::with('travel_order.employees')->findOrFail($id);
 
-        // dd($document->travel_order->employees68);
+        // checking if the match type
+        dm_abort($document->type, 301);
 
         // logging
         FMS_DocumentLog::log($document->id, 'Show the document.');
@@ -181,12 +147,22 @@ class TravelOrderController extends Controller
      */
     public function edit($id)
     {
+        $document = FMS_Document::with('travel_order.employees')->findOrFail($id);
+
+
+        // checking if the document match the type
+        dm_abort($document->type, 301);
+        
+
         $employees = HR_Employee::get();
         $divisions = SYS_Division::with('office')->get();
-        $document = FMS_Document::with('travel_order.employees.employee')->findOrFail($id);
 
          // logging
          FMS_DocumentLog::log($document->id, 'Edit the document.');
+
+        //  setting up the session
+        session(['fms.document.edit' => $id]);
+
 
         return view('filemanagement::form-travel.order.edit', [
             'document' => $document,
@@ -203,6 +179,11 @@ class TravelOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $eid = session()->pull('fms.document.edit');
+
+        // validating the id
+        dm_abort($id, $eid);
+
         $document = FMS_Document::findOrFail($id);
         $document->liaison_id = $request->liaison;
         $document->save();
@@ -215,23 +196,12 @@ class TravelOrderController extends Controller
         $to->charging_id = $request->charging;
         $to->departure = Carbon::parse($request->departure)->format('Y-m-d');
         $to->arrival = Carbon::parse($request->arrival)->format('Y-m-d');
+        $to->lists = $request->post('employees');
         $to->save();
-
-
-        FMS_TravelOrderData::where('travel_id', $to->id)->delete();
-        foreach($request->employees as $employee){
-            FMS_TravelOrderData::create([
-                'travel_id' => $to->id,
-                'employee_id' => $employee
-            ]);
-        }
-
-         // logging
-         FMS_DocumentLog::log($document->id, 'Update the document.');
-
+       
+        // logging
+        FMS_DocumentLog::log($document->id, 'Update the document.');
         return redirect(route('fms.travel.order.show', $document->id))->with('alert-success', 'Travel order has been updated.');
-
-
     }
 
     /**

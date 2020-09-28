@@ -27,7 +27,7 @@
                             <label for="">Employees</label>
                             <select class="form-control select2" name="employees[]" multiple="multiple" required>
                                 @foreach($employees as $employee)
-                                <option {{ in_array_helper($employee->id, $document->travel_order->employees->pluck('employee_id')->toArray()) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }} - {{ $employee->position->position }}</option>
+                                    <option {{ iah($employee->id, $document->travel_order->employees->pluck('id')->toArray()) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }} - {{ $employee->position->position }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -61,7 +61,7 @@
                             <select class="form-control select2" name="charging" required>
                                 <option value="" selected hidden></option>
                                 @foreach($divisions as $division)
-                                    <option {{ select_helper($division->id, $document->travel_order->charging_id) }} value="{{ $division->id }}">{{ office_helper($division) }}</option>
+                                    <option {{ sh($division->id, $document->travel_order->charging_id) }} value="{{ $division->id }}">{{ office_helper($division) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -92,7 +92,7 @@
                             <select class="form-control select2" name="approval" required>
                                 <option value="" selected hidden></option>
                                 @foreach($employees as $employee)
-                                    <option {{ select_helper($employee->id, $document->travel_order->approval_id) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
+                                    <option {{ sh($employee->id, $document->travel_order->approval_id) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
 
                                 @endforeach
                             </select>
@@ -111,7 +111,7 @@
                         <option value="" hidden disabled selected></option>
                         <?php $liaisons = $employees->where('liaison', 1); ?>
                         @foreach($liaisons as $liaison)
-                        <option {{ select_helper($liaison->id, $document->liaison_id) }} value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
+                        <option {{ sh($liaison->id, $document->liaison_id) }} value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
                         @endforeach
                     </select>
                 </div>

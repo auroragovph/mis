@@ -19,14 +19,14 @@ Travel Order
         <div class="card card-default">
             <div class="card-header">
                 <h3 class="card-title mt-1">Lists</h3>
-                @canany(['fms.create'])
+                @can(['fms.create'])
                     <div class="card-tools">
                         <a href="{{ route('fms.travel.order.create') }}" class="btn btn-sm bg-gradient-primary"><i class="fas fa-plus"></i> Create New Travel Order</a>
                     </div>
-                @endcanany
+                @endcan
             </div>
             <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="dataTables" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                       <th>Encoded Date</th>
@@ -39,22 +39,6 @@ Travel Order
                       <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody>
-                     @foreach($documents as $document)
-                     <tr>
-                        <td>{{ Carbon\Carbon::parse($document->created_at)->format('Y-m-d h:i A') }}</td>
-                        <td>{{ $document->qr }}</td>
-                        <td>{{ $document->travel_order->number }}</td>
-                        <td>{{ travel_order_helper($document->travel_order->employees) }}</td>
-                        <td>{{ $document->travel_order->destination }}</td>
-                        <td>{{ $document->travel_order->departure }}</td>
-                        <td>{!! show_status($document->status) !!}</td>
-                        <td>
-                            <a href="{{ route('fms.travel.order.show', $document->id) }}" class="btn btn-xs bg-gradient-primary"><i class="fas fa-eye"></i> View</a>
-                        </td>
-                     </tr>
-                     @endforeach
-                    </tbody>
                   </table>
             </div>
         </div>
@@ -89,7 +73,23 @@ Travel Order
 @section('js-custom')
 <script>
     $(function () {
-      $("#example1").DataTable({
+      $("#dataTables").DataTable({
+        processing: true,
+        ajax: "{{ route('fms.travel.order.index') }}",
+        columns: [
+          { data: 'encoded' },
+          { data: 'qr' },
+          { data: 'number' },
+          { data: 'employees' },
+          { data: 'destination' },
+          { data: 'departure' },
+          { data: 'status' },
+          { 
+            data: 'action',
+            searchable: false,
+            orderable: false
+          },
+        ],
         "responsive": true,
         "autoWidth": false,
       });

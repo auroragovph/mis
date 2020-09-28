@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileManagement\Entities\Travel\FMS_TravelOrder;
@@ -55,16 +56,26 @@ class FMS_Document extends Model
         return $this->hasMany(FMS_DocumentAttach::class, 'document_id', 'id');
     }
 
+    public function afl()
+    {
+        return $this->hasOne(FMS_AFL::class, 'document_id', 'id');
+    }
+
+    public function cafoa()
+    {
+        return $this->hasOne(FMS_Cafoa::class, 'document_id', 'id');
+    }
 
     public function purchase_request()
     {
         return $this->hasOne(FMS_PurchaseRequest::class, 'document_id', 'id');
     }
 
-    public function obligation_request()
-    {
-        return $this->hasOne(FMS_ObligationRequest::class, 'document_id', 'id');
-    }
+    // public function obligation_request()
+    // {
+    //     return $this->hasOne(FMS_ObligationRequest::class, 'document_id', 'id');
+    // }
+    
 
     public function travel_order()
     {

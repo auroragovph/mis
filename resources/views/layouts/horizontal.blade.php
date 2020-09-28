@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aurora MIS | System Tools</title>
+  <title>Aurora MIS | {{ $module_title ?? '' }}</title>
 
   <!-- Font Awesome Icons -->
   {{-- <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}"> --}}
@@ -78,7 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <img src="{{ asset('images/user-default.png') }}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">{{ name_helper(Auth::user()->employee, 'FL') }}</a>
+            <a href="#" class="d-block">{{ name_helper(Auth::user()->employee->name, 'FL') }}</a>
           </div>
         </div>
        @include($module_side_bar)

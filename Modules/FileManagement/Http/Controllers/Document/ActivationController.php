@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Document\FMS_DocumentLog;
 use Modules\FileManagement\Entities\FMS_Tracking;
+use Modules\HumanResource\Entities\HR_Employee;
 
 class ActivationController extends Controller
 {
@@ -35,7 +36,6 @@ class ActivationController extends Controller
 
         $document = FMS_Document::find($id);
 
-
         if($document == null || $request->document != $document->qr){
             $response['message'] = 'Document not found';
             return response()->json($response, 406);
@@ -51,12 +51,26 @@ class ActivationController extends Controller
             return response()->json($response, 406);
         }
 
+        // checking liaison
+
+        $liaison = HR_Employee::where('card', employee_id_helper($request->liaison))->first();
+        if($liaison == null){
+            $response['message'] = 'Liaison ID not found.';
+            return response()->json($response, 406);
+        }
+        if($liaison->liaison == false){
+            $response['message'] = 'Employee is not a liaison officer!';
+            return response()->json($response, 406);
+        }
+
         $document->status = '2';
         $document->save();
 
+        // dd($liaison->id);
+
 
         // save to tracking
-        FMS_Tracking::log($id, 0, 'Document Activation', 2, (int)$request->liaison);
+        FMS_Tracking::log($id, 0, 'Document Activation', 2, (int)$liaison->id);
 
 
         // logging

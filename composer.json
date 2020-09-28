@@ -18,7 +18,9 @@
         "nwidart/laravel-modules": "^7.1",
         "simplesoftwareio/simple-qrcode": "~3",
         "spatie/laravel-activitylog": "^3.14",
-        "spatie/laravel-permission": "^3.13"
+        "spatie/laravel-permission": "^3.13",
+        "staudenmeir/eloquent-json-relations": "^1.1",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

@@ -4,26 +4,32 @@ namespace Modules\FileManagement\Entities\Procurement;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\HumanResource\Entities\HR_Employee;
-use Modules\System\Entities\Office\SYS_Division;
 
 class FMS_PurchaseRequest extends Model
 {
+    use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+
     protected $guarded = [];
     protected $table = 'fms_form_purchase_request';
-    protected $casts = ['lists' => 'collection'];
-
-    public function lists()
-    {
-        return $this->hasMany(FMS_PurchaseRequestData::class, 'pr_id', 'id');
-    }
+    protected $casts = [
+        'signatories' => 'json',
+        'lists' => 'collection'
+    ];
 
     public function requesting()
     {
-        return $this->belongsTo(HR_Employee::class, 'requesting_id', 'id');
+        return $this->belongsTo(HR_Employee::class, 'signatories->requesting', 'id');
     }
 
-    public function charging()
+    public function treasury()
     {
-        return $this->belongsTo(SYS_Division::class, 'charging_id', 'id');
+        return $this->belongsTo(HR_Employee::class, 'signatories->treasury', 'id');
     }
+
+    public function approval()
+    {
+        return $this->belongsTo(HR_Employee::class, 'signatories->approval', 'id');
+    }
+
+
 }

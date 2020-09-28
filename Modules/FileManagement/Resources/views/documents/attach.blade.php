@@ -36,54 +36,63 @@
     </div>
 @else 
 <div class="row">
-    <div class="col-md-5">
-        <div class="card card-default">
-            <div class="card-body">
-                <form method="POST" action="{{ route('fms.documents.attach.attach', $document->id) }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="">Attach documents without image/pdf:</label>
-                        <select class="form-control select2" multiple name="tags[]">
-                        </select>
+
+    <x-fms-qr size="sm-4" :document="$document" />
+
+
+    <div class="col-sm-8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('fms.documents.attach.attach', $document->id) }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Attach documents without image/pdf:</label>
+                                <select class="form-control select2" multiple name="tags[]">
+                                </select>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="">Attach documents with image/pdf:</label>
+                                <input type="file" name="files[]" class="form-control" accept="image/*, .pdf" multiple>
+                            </div>
+            
+                            <hr>
+            
+                            <button class="btn btn-primary">Attach</button>
+            
+                        </form>
                     </div>
-    
-                    <div class="form-group">
-                        <label for="">Attach documents with image/pdf:</label>
-                        <input type="file" name="files[]" class="form-control" accept="image/*, .pdf" multiple>
-                    </div>
-    
-                    <hr>
-    
-                    <button class="btn btn-primary">Attach</button>
-    
-                </form>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card card-default">
+                   <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($document->attachments as $attachment)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $attachment->description }}</td>
+                                    <td>{{ $attachment->mime }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                   </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-7">
-        <div class="card card-default">
-           <div class="card-body">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Description</th>
-                        <th>Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($document->attachments as $attachment)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $attachment->description }}</td>
-                            <td>{{ $attachment->mime }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-           </div>
-        </div>
-    </div>
+    
 </div>
 @endif
 @endsection

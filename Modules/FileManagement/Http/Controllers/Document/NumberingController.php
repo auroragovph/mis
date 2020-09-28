@@ -5,6 +5,7 @@ namespace Modules\FileManagement\Http\Controllers\Document;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\FMS_Tracking;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Travel\FMS_TravelOrder;
@@ -40,7 +41,7 @@ class NumberingController extends Controller
         // logging
         FMS_DocumentLog::log($document->id, 'Check the document if numberable.');
 
-        $numberable = [101, 102, 200, 301];
+        $numberable = [101, 102, 200, 301, 400];
         // $numberable = [500];
 
         if(!in_array($document->type, $numberable)){
@@ -69,7 +70,7 @@ class NumberingController extends Controller
 
         switch($document->type){
 
-            case 101: 
+            case 101: //PURCHASE REQUEST
 
                 // check if already have a number
                 $pr = FMS_PurchaseRequest::where('document_id', $id)->get()->first();
@@ -130,13 +131,29 @@ class NumberingController extends Controller
                 }
             break;
 
+            case 400: // CAFOA
+                $cafoa = FMS_Cafoa::where('document_id', $id)->first();
+
+                if($cafoa->number == null){
+                    $data = FMS_TravelOrder::where('number', '!=', null)->orderBy('id', 'DESC')->first();
+                    $last = ($data !== null) ? $data->number : 'EMPTY' ;
+                    $response['data']['type'] = 'LAST CAFOA NUMBER';
+                    $response['data']['last'] = $last;
+
+                    $response['data']['meta']['type'] = $document->type;
+                    $response['data']['meta']['id'] = $cafoa->id;
+                }else{
+                    $response['status'] = 406;
+                    $response['message'] = 'This document has already numbered.';
+                }
+            break;
+
 
             default: 
                 $response['status'] = 406;
                 $response['message'] = 'You cannot attach number to this document';
             break;
         }
-
 
         if($response['status'] !== 200){
             return response()->json($response, $response['status']);
@@ -163,6 +180,10 @@ class NumberingController extends Controller
             case 301: //TRAVEL ORDER
                 $document = FMS_TravelOrder::find($id);
                 $check = FMS_TravelOrder::where('number', $request->number)->get()->count();
+            break;
+            case 400: //CAFOA
+                $document = FMS_Cafoa::find($id);
+                $check = FMS_Cafoa::where('number', $request->number)->get()->count();
             break;
             default: 
                 $document = null;

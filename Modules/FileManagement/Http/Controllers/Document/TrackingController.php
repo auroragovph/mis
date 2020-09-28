@@ -6,11 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\FMS_Tracking;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Travel\FMS_TravelOrder;
 use Modules\FileManagement\Entities\Document\FMS_DocumentLog;
-use Modules\FileManagement\Entities\Obr\FMS_ObligationRequest;
 use Modules\FileManagement\Entities\Procurement\FMS_PurchaseRequest;
 
 class TrackingController extends Controller
@@ -32,28 +32,20 @@ class TrackingController extends Controller
 
             case 101: // PURCHASE REQUEST
         
-                $pr = FMS_PurchaseRequest::with('requesting', 'charging', 'lists')->where('document_id', $id)->get()->first();
+                $pr = FMS_PurchaseRequest::with('requesting')
+                            ->where('document_id', $id)
+                            ->first();
         
                 $datas['PR Number'] = $pr->number;
                 $datas['Requesting Officer'] = name_helper($pr->requesting->name);
-                $datas['Charging Officer'] = office_helper($pr->charging);
                 $datas['Purpose'] = $pr->purpose;
-                $datas['Amount'] = number_format($pr->lists->sum(function($row){return $row->qty * $row->cost;}),2);
+                $datas['Amount'] = number_format($pr->lists->sum(function($row){return $row['qty'] * $row['cost'];}),2);
         
             break;
 
-            case 200: //OBLIGATION REQUEST
-                $obr = FMS_ObligationRequest::with('lists')->where('document_id', $id)->first();
-
-                $datas['OBR Number'] = $obr->number;
-                $datas['Payee'] = $obr->payee;
-                $datas['Address'] = $obr->address;
-                $datas['Amount'] = number_format($obr->lists->sum('amount'), 2);
-
-            break;
-
+            
             case 301: //TRAVEL ORDER
-                $to = FMS_TravelOrder::with('employees.employee')->where('document_id', $id)->first();
+                $to = FMS_TravelOrder::with('employees')->where('document_id', $id)->first();
 
                 $datas['TO Number'] = $to->number;
                 $datas['Destination'] = $to->destination;
@@ -64,12 +56,22 @@ class TrackingController extends Controller
                 $employees = '';
 
                 foreach($to->employees as $employee){
-                    $employees .= name_helper($employee->employee->name).", ";
+                    $employees .= name_helper($employee->name).", ";
                 }
 
                 $datas['Employees'] = substr($employees, 0, -2);
 
             break;
+
+            case 400: //CAFOA
+                $cafoa = FMS_Cafoa::where('document_id', $id)->first();
+
+                $datas['CAFOA Number'] = $cafoa->number;
+                $datas['Payee'] = $cafoa->payee;
+                $datas['Amount'] = number_format($cafoa->lists->sum('amount'), 2);
+
+            break;
+
         
             default: 
                 $datas[''] = null;

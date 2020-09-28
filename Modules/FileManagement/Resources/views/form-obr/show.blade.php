@@ -42,10 +42,6 @@
             </div>
             <!--begin::Body-->
             <div class="card-body">
-
-                
-            
-            
                 
                 <div class="table-responsive">
                     <table class="table table-hover mt-3">
@@ -138,8 +134,6 @@
                         </tbody>
                     </table>
                 </div>
-
-
 
             </div>
             <!--end::Body-->

@@ -20,10 +20,12 @@
                 <label for="">Select Document Type</label>
                 <select class="form-control select2" data-live-search="true" data-size="5" name="param" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
                     <option value="" selected hidden></option>
-                    <option value="{{ route('fms.obr.index') }}">Obligation Request</option>
-                    <option value="{{ route('fms.procurement.request.index') }}">Purchase Request</option>
-                    {{-- <option value="{{ route('fms.procurement.order.index') }}">Purchase Order</option> --}}
-                    <option value="{{ route('fms.travel.order.index') }}">Travel Order</option>
+                    <option value="{{ route('fms.afl.index') }}">Application For Leave (AFL)</option>
+                    <option value="{{ route('fms.cafoa.index') }}">Certification On Appropriations, Funds And Obligation Of Allotment (CAFOA)</option>
+                    {{-- <option value="{{ route('fms.obr.index') }}">Obligation Request (OBR)</option> --}}
+                    <option value="{{ route('fms.procurement.request.index') }}">Purchase Request (PR) </option>
+                    {{-- <option value="{{ route('fms.procurement.order.index') }}">Purchase Order (PO)</option> --}}
+                    <option value="{{ route('fms.travel.order.index') }}">Travel Order (TO)</option>
                 </select>
             </div>
         </div>

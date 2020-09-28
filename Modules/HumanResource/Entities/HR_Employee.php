@@ -18,7 +18,8 @@ class HR_Employee extends Model
     protected $casts = [
         'name' => 'array',
         'info' => 'json',
-        'employement' => 'json'
+        'employement' => 'json',
+        'liaison' => 'boolean'
     ];
 
     public function scopeLiaison($query)

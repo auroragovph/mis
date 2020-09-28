@@ -4,7 +4,7 @@
         <div class="card-body pt-15">
             <!--begin::User-->
             <div class="text-center mb-10">
-                {!! QrCode::size(150)->generate($document->id); !!}
+                <img width="60%" height="60%" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(500)->merge('/public/images/logo-sm.png', .3)->errorCorrection('H')->generate($document->qr)) !!} ">
                 <br>
                 <br>
                 {!! show_status($document->status) !!}

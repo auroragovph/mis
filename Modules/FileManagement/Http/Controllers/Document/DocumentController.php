@@ -25,38 +25,44 @@ class DocumentController extends Controller
          // logging
          FMS_DocumentLog::log($document->id, 'Redirect to the document.');
 
-        $url = 'file-management/';
 
         switch($document->type){
             case 101: 
-                $url .= 'procurement/request/'.$document->id.'/show';
+                $route = 'fms.procurement.request.show';
             break;
 
             case 102: 
-                $url .= 'procurement/order/'.$document->id.'/show';
+                $route = 'fms.procurement.order.show';
             break;
 
             case 200: 
-                $url .= 'obligation-request/'.$document->id.'/show';
+                $route = 'fms.obr.show';
             break;
 
             case 301: 
-                $url .= 'travel/orders/'.$document->id.'/show';
+                $route = 'fms.travel.order.show';
+            break;
+
+            case 400: 
+                $route = 'fms.cafoa.show';
             break;
 
             default: 
-                $url = null;
+                $route = null;
             break;
 
         }
 
-        if($url == null){
+        if($route == null){
             abort(404);
         }
 
-        return redirect($url);
+        if(session()->has('alert-success')){
+            return redirect(route($route, $document->id))->with('alert-success', session()->get('alert-success'));
+        }
 
 
+        return redirect(route($route, $document->id));
     }
 
     public function cancel($id)

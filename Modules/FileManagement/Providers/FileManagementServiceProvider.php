@@ -134,5 +134,8 @@ class FileManagementServiceProvider extends ServiceProvider
     public function registerBladeComponents()
     {
         Blade::component('fms-qr', \Modules\FileManagement\View\QR::class);
+        Blade::component('fms-attachment', \Modules\FileManagement\View\Attachment::class);
+        Blade::component('fms-tracking-latest', \Modules\FileManagement\View\TrackingLatest::class);
+        Blade::component('fms-tracking-table', \Modules\FileManagement\View\TrackingTable::class);
     }
 }

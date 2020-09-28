@@ -8,14 +8,11 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Modules\HumanResource\Entities\HR_Employee;
-use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Document\FMS_DocumentLog;
 
 use Modules\FileManagement\Entities\Procurement\FMS_PurchaseRequest;
-use Modules\FileManagement\Entities\Procurement\FMS_PurchaseRequestData;
 // use Auth;
 
 class PurchaseRequestController extends Controller
@@ -31,55 +28,35 @@ class PurchaseRequestController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $documents = FMS_Document::with(
-            'purchase_request.lists',
-            'purchase_request.requesting',
-            'purchase_request.charging',
-        )
-        ->where('type', 101)
-        ->where('division_id', Auth::user()->employee->division_id)
-        ->get();
+        if($request->ajax()){
+            $documents = FMS_Document::with(
+                'purchase_request.requesting',
+            )
+            ->where('type', 101)
+            ->where('division_id', Auth::user()->employee->division_id)
+            ->get();
 
-        return view('filemanagement::form-procurement.request.index', [
-            'documents' => $documents
-        ]);
-    }
+            $records['data'] = array();
+            
+            foreach($documents as $i => $document){
+                $records['data'][$i]['id'] = $document->id;
+                $records['data'][$i]['encoded'] = Carbon::parse($document->created_at)->format('F d, Y h:i A');
+                $records['data'][$i]['qr'] = $document->qr;
+                $records['data'][$i]['number'] = $document->purchase_request->number;
+                $records['data'][$i]['requesting'] = name_helper($document->purchase_request->requesting->name);
+                $records['data'][$i]['fund'] = $document->purchase_request->fund;
+                $records['data'][$i]['fpp'] = $document->purchase_request->fpp;
+                $records['data'][$i]['amount'] = number_format($document->purchase_request->lists->sum(function($arr){return $arr['qty'] * $arr['cost'];}), 2);
+                $records['data'][$i]['status'] = show_status($document->status);
+                $records['data'][$i]['action'] = hrefroute($document->id, 'fms.procurement.request.show');
+            }
 
-    public function lists()
-    {
-        $documents = FMS_Document::with(
-                        'purchase_request.lists',
-                        'purchase_request.requesting',
-                        'purchase_request.charging',
-                    )
-                    ->where('type', 101)
-                    ->where('division_id', Auth::user()->employee->division_id)
-                    ->get();
-
-
-        $response = array('data' => []);
-
-
-        foreach($documents as $document){
-
-         
-            $response['data'][] = array(
-                'id' => $document->id,
-                'did' => convert_to_series($document),
-                'number' => $document->purchase_request->number,
-                'requesting' => name_helper($document->purchase_request->requesting),
-                'charging' => office_helper($document->purchase_request->charging),
-                'amount' => (string)number_format($document->purchase_request->lists->sum(function($arr){return $arr->qty * $arr->cost;}), 2),
-                'status' => $document->status,
-                'encoded' => Carbon::parse($document->created_at)->format('F d, Y h:i A'),
-                'actions' => ''
-
-            );
+            return response()->json($records, 200);
         }
 
-        return response()->json($response, 200);
+        return view('filemanagement::form-procurement.request.index');
     }
 
     /**
@@ -88,17 +65,20 @@ class PurchaseRequestController extends Controller
      */
     public function create()
     {
-        $employees = HR_Employee::where('division_id', Auth::user()->employee->division_id)->get();
-        $divisions = SYS_Division::with('office')->get();
+        $employees = HR_Employee::get();
 
+        $signatories['divisions'] = $employees->where('division_id', Auth::user()->employee->division_id);
+        $signatories['treasury'] = $employees->where('division_id', 4);
 
+        $liaisons = $employees->where('division_id', Auth::user()->employee->division_id)
+                                ->where('liaison', true);
+                            
 
-        // $employee = HR_Employee::first();
-        // dd(array_key_exists('fname', $employee->name));
 
         return view('filemanagement::form-procurement.request.create', [
             'employees' => $employees,
-            'divisions' => $divisions
+            'signatories' => $signatories,
+            'liaisons' => $liaisons
         ]);
     }
 
@@ -112,24 +92,10 @@ class PurchaseRequestController extends Controller
         // validation
 
         // saving
-        $document = FMS_Document::create([
-            'division_id' => Auth::user()->employee->division_id,
-            'liaison_id' => (int)$request->liaison,
-            'encoder_id' => Auth::user()->id,
-            'type' => 101
-        ]);
-
-
-        $pr = FMS_PurchaseRequest::create([
-            'document_id' => $document->id,
-            'purpose' => $request->purpose,
-            'charging_id' => $request->charging,
-            'requesting_id' => $request->requesting
-        ]);
+        $document = FMS_Document::directStore((int)$request->post('liaison'), 101);
 
         foreach($request->cost as $key => $item){
             if($item == null || $item == ''){continue;}
-            $lists[$key]['pr_id'] = $pr->id;
             $lists[$key]['stock'] = $request['stock'][$key];
             $lists[$key]['unit'] = $request['unit'][$key];
             $lists[$key]['description'] = $request['desc'][$key];
@@ -137,9 +103,22 @@ class PurchaseRequestController extends Controller
             $lists[$key]['cost'] = $request['cost'][$key];
         }
 
-        FMS_PurchaseRequestData::insert($lists);
+        $signatories = [
+            'requesting' => $request->post('requesting'),
+            'treasury' => $request->post('treasury'),
+            'approval' => $request->post('approval')
+        ];
 
-        // logging
+        $pr = FMS_PurchaseRequest::create([
+            'document_id' => $document->id,
+            'fund' => $request->post('fund'),
+            'fpp' => $request->post('fpp'),
+            'purpose' => $request->post('purpose'),
+            'signatories' => $signatories,
+            'lists' => $lists
+        ]);
+
+        
          // logging
          FMS_DocumentLog::log($document->id, 'Create the document.');
 
@@ -160,11 +139,10 @@ class PurchaseRequestController extends Controller
 
         $document = FMS_Document::with(
             'attachments.employee',
-            'purchase_request.charging',
             'purchase_request.requesting',
-            'purchase_request.lists'
+            'purchase_request.treasury',
+            'purchase_request.approval',
             )->findOrFail($id);
-
 
         // logging
         FMS_DocumentLog::log($document->id, 'Show the document.');
@@ -181,22 +159,22 @@ class PurchaseRequestController extends Controller
      */
     public function edit($id)
     {
-        $employees = HR_Employee::where('division_id', Auth::user()->employee->division_id)->get();
-        $divisions = SYS_Division::with('office')->get();
+        $employees = HR_Employee::get();
 
-        $document = FMS_Document::with('purchase_request.lists')->findOrFail($id);
+        $signatories['divisions'] = $employees->where('division_id', Auth::user()->employee->division_id);
+        $signatories['treasury'] = $employees->where('division_id', 4);
+
+        $liaisons = $employees->where('division_id', Auth::user()->employee->division_id)
+                                ->where('liaison', true);
+
+
+        $document = FMS_Document::with('purchase_request')->findOrFail($id);
 
         // check if the document is PR
-        if($document->type !== 101){
-            abort(404);
-        }
-
-            
-
+        dm_abort($document->type, 101);
         
         // setting the session
-        session()->pull('FMS.document.edit', 'default');
-        session()->push('FMS.document.edit', $document->id);
+        session(['fms.document.edit' => $document->id]);
 
 
          // logging
@@ -205,7 +183,8 @@ class PurchaseRequestController extends Controller
         return view('filemanagement::form-procurement.request.edit', [
             'document' => $document,
             'employees' => $employees,
-            'divisions' => $divisions
+            'signatories' => $signatories,
+            'liaisons' => $liaisons
         ]);
     }
 
@@ -218,26 +197,17 @@ class PurchaseRequestController extends Controller
     public function update(Request $request, $id)
     {
         // validation
-        $eid = session('FMS.document.edit');
-        if($eid[0] != $id ){abort(404);}
+        $eid = session()->pull('fms.document.edit');
+        dm_abort($eid, $id);
 
         // updating
         $document = FMS_Document::findOrFail($id);
         $document->liaison_id = $request->liaison;
         $document->save();
 
-        $pr = FMS_PurchaseRequest::where('document_id', $id)->get()->first();
-        $pr->requesting_id = $request->requesting;
-        $pr->charging_id = $request->charging;
-        $pr->purpose = $request->purpose;
-        $pr->save();
-
-
-        FMS_PurchaseRequestData::where('pr_id', $pr->id)->delete();
 
         foreach($request->cost as $key => $item){
             if($item == null || $item == ''){continue;}
-            $lists[$key]['pr_id'] = $pr->id;
             $lists[$key]['stock'] = $request['stock'][$key];
             $lists[$key]['unit'] = $request['unit'][$key];
             $lists[$key]['description'] = $request['desc'][$key];
@@ -245,9 +215,21 @@ class PurchaseRequestController extends Controller
             $lists[$key]['cost'] = $request['cost'][$key];
         }
 
-        FMS_PurchaseRequestData::insert($lists);
+        $signatories = [
+            'requesting' => $request->post('requesting'),
+            'treasury' => $request->post('treasury'),
+            'approval' => $request->post('approval')
+        ];
 
-        // logging
+        $pr = FMS_PurchaseRequest::where('document_id', $id)->first();
+        $pr->fund = $request->post('fund');
+        $pr->fpp = $request->post('fpp');
+        $pr->purpose = $request->post('purpose');
+        $pr->signatories = $signatories;
+        $pr->lists = $lists;
+        $pr->save();
+
+
          // logging
          FMS_DocumentLog::log($document->id, 'Update the document.');
 
@@ -255,7 +237,8 @@ class PurchaseRequestController extends Controller
 
 
         // redirect with message
-        return redirect(route('fms.procurement.request.show', $document->id))->with('alert-success', 'Purchase request has been updated.');
+        return redirect(route('fms.procurement.request.show', $document->id))
+                    ->with('alert-success', 'Purchase request has been updated.');
 
     }
 
@@ -275,7 +258,6 @@ class PurchaseRequestController extends Controller
         $document = FMS_Document::with('liaison',
                                 'encoder',
                                 'division.office',
-                                'purchase_request.lists',
                                 'purchase_request.requesting'
                             )->where('id', $id)->where('type', 101)->get()->first();
 

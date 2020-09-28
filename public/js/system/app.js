@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -97,14 +97,14 @@
 
 /***/ }),
 
-/***/ 5:
+/***/ 7:
 /*!*********************************************************!*\
   !*** multi ./Modules/System/Resources/assets/js/app.js ***!
   \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\aurora-mis\Modules\System\Resources\assets\js\app.js */"./Modules/System/Resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/mis/Modules/System/Resources/assets/js/app.js */"./Modules/System/Resources/assets/js/app.js");
 
 
 /***/ })

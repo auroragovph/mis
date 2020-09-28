@@ -31,7 +31,7 @@ class RRController extends Controller
         $document = FMS_Document::with('encoder', 'liaison', 'division.office')->find($id);
 
         // checking if document exists
-        if($document == null){
+        if($document == null || $document->qr !== $request->document){
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'We cannot find this document. Please check the document id or the QR COde and try again.');
         }
 
@@ -55,6 +55,9 @@ class RRController extends Controller
         if($liaison == null){
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'The liaison officer not found.');
         }
+        if($liaison->liaison == false){
+            return redirect(route('fms.documents.rr.index'))->with('alert-error', 'Employee is not registered as liaison.');
+        }
 
 
         $track = FMS_Tracking::with('division.office')->where('document_id', $id)->orderBy('created_at', 'DESC')->first();
@@ -73,13 +76,14 @@ class RRController extends Controller
 
             case 101: // PURCHASE REQUEST
         
-                $pr = FMS_PurchaseRequest::with('requesting', 'charging', 'lists')->where('document_id', $id)->get()->first();
+                $pr = FMS_PurchaseRequest::with('requesting')->where('document_id', $id)->get()->first();
         
                 $datas['PR Number'] = $pr->number;
-                $datas['Requesting Officer'] = name_helper($pr->requesting);
-                $datas['Charging Officer'] = office_helper($pr->charging);
+                $datas['Requesting Officer'] = name_helper($pr->requesting->name);
                 $datas['Purpose'] = $pr->purpose;
-                $datas['Amount'] = number_format($pr->lists->sum(function($row){return $row->qty * $row->cost;}),2);
+                $datas['Fund'] = $pr->fund;
+                $datas['FPP'] = $pr->fpp;
+                $datas['Amount'] = number_format($pr->lists->sum(function($row){return $row['qty'] * $row['cost'];}),2);
         
             break;
 

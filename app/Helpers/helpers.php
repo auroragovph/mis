@@ -11,6 +11,52 @@
  *	@link			https://github.com/jmprns/fms
 */
 
+
+if (! function_exists('numwords')) {
+    /**
+     * Convert number to readable word
+     * @param float $number
+     * @param string $currency
+     * @return string
+     */
+    function numwords($number, $currency = 'pesos'){
+
+        $word = '';
+
+        $whole = new NumberFormatter('ph', NumberFormatter::SPELLOUT);
+        $filter = $whole->format($number);
+
+        if(strpos($filter, 'point')){
+            $ex = explode(' point ', $filter);
+            $word .= $ex[0];
+            $word .= ' '.$currency.' and ';
+            $word .= $ex[1];
+            $word .= ' centavos';
+        }else{
+            $word .= $filter;
+            $word .= ' '.$currency;
+        }
+        return $word;
+
+    }
+}
+
+if (! function_exists('doc_match')) {
+    /**
+     * Checking if the document match with the correct type
+     * @param string $doctype
+     * @param string $type
+     * @return void
+     */
+    function doc_match($doctype, $type){
+
+        if($doctype != $type){
+            return abort(404);
+        }
+
+    }
+}
+
 if (! function_exists('series')) {
     /**
      * Convert series to document ID
@@ -27,49 +73,230 @@ if (! function_exists('series')) {
     }
 }
 
-/**
- * Return color of the status in the show form
- * @param string
- * @return string  
- */
-function show_status($status)
-{
-    switch($status)
-    {
-        case '0':  
-            $status =  '<span class="badge bg-danger">CANCELLED</span>';
-        break;
+if (! function_exists('doc_type_only')) {
+    /**
+     * DOC TYPE HELPER
+    * @param int $int
+    * @return string
+    */
+    function doc_type_only($int){
+        switch($int){
 
-        case '1':  
-            $status =  '<span class="badge bg-secondary">DEACTIVATED</span>';
-        break;
+            case 101: 
+                $type = 'Purchase Request';
+            break;
 
-        case '2':  
-            $status =  '<span class="badge bg-primary">ON PROCESS</span>';
-        break;
+            case 102: 
+                $type = 'Purchase Order';
+            break;
 
-        case '3':  
-            $status =  '<span class="badge bg-lime">APPROVED</span>';
-        break;
+            case 200: 
+                $type = 'Obligation Request';
+            break;
 
-        case '4':  
-            $status =  '<span class="badge bg-purple">DISAPPROVED</span>';
-        break;
+            case 301: 
+                $type = 'Travel Order';
+            break;
 
-        case '5':  
-            $status =  '<span class="badge bg-olive">PENDING</span>';
-        break;
-
-        case '6':  
-            $status =  '<span class="badge bg-warning">RETURNED</span>';
-        break;
-
-        default:
-            $status =  '<span class="badge bg-black">UNDEFINED</span>';
-        break;
+            case 400: 
+                $type = 'CAFOA';
+            break;
+            
+            default:
+                // $type = 'undefined';
+                $type = $int;
+            break;
+        }
+        return $type;
     }
+}
 
-    return $status;
+if (! function_exists('show_status')) {
+    /**
+    * Return color of the status in the show form
+    * @param string
+    * @return string  
+    */
+    function show_status($status)
+    {
+        switch($status)
+        {
+            case '0':  
+                $status =  '<span class="badge bg-danger">CANCELLED</span>';
+            break;
+
+            case '1':  
+                $status =  "<span class=\"badge bg-secondary\">DEACTIVATED</span>";
+            break;
+
+            case '2':  
+                $status =  '<span class="badge bg-primary">ON PROCESS</span>';
+            break;
+
+            case '3':  
+                $status =  '<span class="badge bg-lime">APPROVED</span>';
+            break;
+
+            case '4':  
+                $status =  '<span class="badge bg-purple">DISAPPROVED</span>';
+            break;
+
+            case '5':  
+                $status =  '<span class="badge bg-olive">PENDING</span>';
+            break;
+
+            case '6':  
+                $status =  '<span class="badge bg-warning">RETURNED</span>';
+            break;
+
+            default:
+                $status =  '<span class="badge bg-black">UNDEFINED</span>';
+            break;
+        }
+
+        return $status;
+    }
+}
+
+if (! function_exists('sh')) {
+    /**
+    * Echo selected in select option
+    * @param string
+    * @return string
+    */
+    function sh($a, $b)
+    {
+        if($a == $b){
+            return 'selected';
+        }
+    }
+}
+
+if (! function_exists('dm_abort')) {
+    /**
+    * Check the parameters if match and return http response
+    * @param string $a
+    * @param string $b
+    * @param int $code
+    * @return void
+    */
+
+    function dm_abort($a, $b, $code = 404){
+        if($a != $b){
+            return abort($code);
+        }
+    }
+}
+
+
+if (! function_exists('iah')) {
+    /**
+    * Echo selected in select option
+    * @param string
+    * @param array
+    * @return string
+    */
+    function iah($a, $b)
+    {
+        if(in_array($a, $b)){
+            return 'selected';
+        }
+        
+    }
+}
+
+if (! function_exists('tonh')) {
+    /**
+    * Return all the name of the emloyees in travel order
+    * @param object
+    * @return string
+    */
+    function tonh($employees){
+
+        $string = '';
+    
+    
+        foreach($employees as $employee){
+            $string .= name_helper($employee->name).", ";
+        }
+    
+    
+        return substr($string, 0, -2);
+    
+    }
+}
+
+if (! function_exists('employee_id_helper'))
+{
+    /**
+    * Get the employee ID from the QR Code
+    * @param object
+    * @return string
+    */
+    function employee_id_helper($string)
+    {
+        if (strpos($string, '||') !== true) {
+            return $string;
+        }
+
+        $arr = explode('||', $string);
+        return @$arr[1];
+    }
+}
+
+if (! function_exists('office_helper')) {
+    /**
+    * DOC TYPE HELPER
+    * @param array
+    * @param string
+    * @return string
+    */
+    function office_helper($array, $return = 'all'){
+
+        if($array == null){
+            return null;
+        }
+
+        if($array['name'] == 'MAIN'){
+            if($array['office']['alias'] != ''){
+                $office = "{$array['office']['name']} ({$array['office']['alias']})";
+                $alias = "{$array['office']['alias']}";
+            }else{
+                $office = "{$array['office']['name']}";
+                $alias = "{$array['office']['name']}";
+            }
+
+        }else{
+            if($array['alias'] != ''){
+                $office = "{$array['name']} ({$array['alias']})";
+                $alias = "{$array['alias']}";
+            }else{
+                $office = "{$array['name']}";
+                $alias = "{$array['name']}";
+            }
+        }
+
+        if($return == 'all'){
+            return $office;
+        }else{
+            if($array['alias'] == ''){
+                return $office;
+            }
+            return $alias;
+        }  
+    }
+}
+
+if (! function_exists('hrefroute')) {
+    /**
+    * Hyperlink to route show helper
+    * @param int
+    * @param string
+    * @return string
+    */
+    function hrefroute($id, $route){
+        return "<a href=".route($route, $id)." class=\"btn btn-xs bg-gradient-primary\" target=\"_blank\"> <i class=\"fal fa-eye\"></i>  View</a>";
+    }
 }
 
 function tracking_table_status($status)
@@ -149,30 +376,9 @@ function unique_array($delimeter, $datas)
 
 
 
-/**
- * Echo selected in select option
- * @param string
- * @return string
- */
-function select_helper($a, $b)
-{
-    if($a == $b){
-        return 'selected';
-    }
-}
 
-/**
- * Echo selected in select option
- * @param string
- * @return string
- */
-function in_array_helper($a, $b)
-{
-    if(in_array($a, $b)){
-        return 'selected';
-    }
-    
-}
+
+
 
 /**
  * Improved in_array_multiple function
@@ -307,77 +513,9 @@ function name_helper($name, $arrangement = 'FMIL'){
 
 
 
-/**
- * DOC TYPE HELPER
- * @param int
- * @return string
- */
-function doc_type_only($int){
-    switch($int){
-
-        case 101: 
-            $type = 'Purchase Request';
-        break;
-
-        case 102: 
-            $type = 'Purchase Order';
-        break;
-
-        case 200: 
-            $type = 'Obligation Request';
-        break;
-
-        case 301: 
-            $type = 'Travel Order';
-        break;
 
 
 
-        
-        default:
-            // $type = 'undefined';
-            $type = $int;
-        break;
-    }
-    return $type;
-}
-
-/**
- * DOC TYPE HELPER
- * @param array
- * @return string
- */
-function office_helper($array, $return = 'all'){
-
-    if($array == null){
-        return null;
-    }
-
-    if($array['name'] == 'MAIN'){
-        if($array['office']['alias'] != ''){
-            $office = "{$array['office']['name']} ({$array['office']['alias']})";
-            $alias = "{$array['office']['alias']}";
-        }else{
-            $office = "{$array['office']['name']}";
-            $alias = "{$array['office']['name']}";
-        }
-
-    }else{
-        if($array['alias'] != ''){
-            $office = "{$array['name']} ({$array['alias']})";
-            $alias = "{$array['alias']}";
-        }else{
-            $office = "{$array['name']}";
-            $alias = "{$array['name']}";
-        }
-    }
-
-    if($return == 'all'){
-        return $office;
-    }else{
-        return $alias;
-    }  
-}
 
 /**
  * OFFICE ALIAS HELPER
@@ -560,31 +698,6 @@ function permission_helper($array = '', $strict = false){
 }
 
 
-function travel_order_helper($employees){
-
-    $string = '';
-
-
-    foreach($employees as $employee){
-        $string .= name_helper($employee->employee->name).", ";
-    }
-
-
-    return substr($string, 0, -2);
-
-}
-
-
-
-function employee_id_helper($string)
-{
-    if (strpos($string, '||') !== true) {
-        return $string;
-    }
-
-    $arr = explode('||', $string);
-    return @$arr[1];
-}
 
 
 

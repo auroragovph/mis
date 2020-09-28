@@ -5,6 +5,8 @@
     "/css/style.css": "/css/style.css",
     "/js/filemanagement/document-activate.js": "/js/filemanagement/document-activate.js",
     "/js/filemanagement/document-number.js": "/js/filemanagement/document-number.js",
+    "/js/filemanagement/form-afl-create.js": "/js/filemanagement/form-afl-create.js",
+    "/js/filemanagement/form-cafoa-create.js": "/js/filemanagement/form-cafoa-create.js",
     "/js/filemanagement/obr-create.js": "/js/filemanagement/obr-create.js",
     "/js/filemanagement/pr-create.js": "/js/filemanagement/pr-create.js",
     "/js/system/app.js": "/js/system/app.js",

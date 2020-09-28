@@ -17,9 +17,10 @@ class CreatePurchaseRequestTable extends Migration
             $table->bigIncrements('id');
             $table->integer('document_id');
             $table->string('number')->nullable();
+            $table->string('fpp')->nullable();
+            $table->string('fund')->nullable();
             $table->text('purpose');
-            $table->integer('charging_id')->nullable();
-            $table->integer('requesting_id');
+            $table->json('signatories');
             $table->json('lists');
             $table->timestamps();
         });

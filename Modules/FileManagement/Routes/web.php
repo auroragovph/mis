@@ -79,11 +79,8 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
         Route::post('/lists', 'ProcurementController@lists');
 
         Route::prefix('request')->group(function(){
-
             Route::get('/', 'PurchaseRequestController@index')->name('fms.procurement.request.index');
-            Route::post('/lists', 'PurchaseRequestController@lists')->name('fms.procurement.request.lists');
             Route::get('/{id}/show', 'PurchaseRequestController@show')->name('fms.procurement.request.show');
-            
             Route::get('/create', 'PurchaseRequestController@create')->name('fms.procurement.request.create');
             Route::post('/create', 'PurchaseRequestController@store')->name('fms.procurement.request.store');
             Route::get('/{id}/edit', 'PurchaseRequestController@edit')->name('fms.procurement.request.edit');
@@ -98,17 +95,28 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
 
     });
 
-    Route::prefix('obligation-request')->namespace('Forms\OBR')->group(function(){
-        Route::get('/', 'ObligationRequestController@index')->name('fms.obr.index');
-        Route::post('/lists', 'ObligationRequestController@lists')->name('fms.obr.lists');
-        Route::get('/create', 'ObligationRequestController@create')->name('fms.obr.create');
-        Route::post('/create', 'ObligationRequestController@store')->name('fms.obr.store');
-        Route::get('/{id}/show', 'ObligationRequestController@show')->name('fms.obr.show');
-        Route::get('/{id}/edit', 'ObligationRequestController@edit')->name('fms.obr.edit');
-        Route::post('/{id}/edit', 'ObligationRequestController@update')->name('fms.obr.update');
-        Route::get('/{id}/print', 'ObligationRequestController@print')->name('fms.obr.print');
+    // Route::prefix('obligation-request')->namespace('Forms\OBR')->group(function(){
+    //     Route::get('/', 'ObligationRequestController@index')->name('fms.obr.index');
+    //     Route::post('/lists', 'ObligationRequestController@lists')->name('fms.obr.lists');
+    //     Route::get('/create', 'ObligationRequestController@create')->name('fms.obr.create');
+    //     Route::post('/create', 'ObligationRequestController@store')->name('fms.obr.store');
+    //     Route::get('/{id}/show', 'ObligationRequestController@show')->name('fms.obr.show');
+    //     Route::get('/{id}/edit', 'ObligationRequestController@edit')->name('fms.obr.edit');
+    //     Route::post('/{id}/edit', 'ObligationRequestController@update')->name('fms.obr.update');
+    //     Route::get('/{id}/print', 'ObligationRequestController@print')->name('fms.obr.print');
 
+    // });
+
+    Route::prefix('cafoa')->namespace('Forms\Cafoa')->group(function(){
+        Route::get('/', 'CafoaController@index')->name('fms.cafoa.index');
+        Route::get('/create', 'CafoaController@create')->name('fms.cafoa.create');
+        Route::post('/create', 'CafoaController@store')->name('fms.cafoa.store');
+        Route::get('/{id}/show', 'CafoaController@show')->name('fms.cafoa.show');
+        Route::get('/{id}/edit', 'CafoaController@edit')->name('fms.cafoa.edit');
+        Route::post('/{id}/edit', 'CafoaController@update')->name('fms.cafoa.update');
     });
+
+    
 
     Route::prefix('travel')->namespace('Forms\Travel')->group(function(){
 
@@ -124,6 +132,13 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
 
         });
 
+    });
+
+
+    Route::prefix('application-for-leave')->namespace('Forms\AFL')->group(function(){
+        Route::get('/', 'AFLController@index')->name('fms.afl.index');
+        Route::post('/create', 'AFLController@create')->name('fms.afl.create');
+        Route::get('/{id}/show', 'AFLController@show')->name('fms.afl.show');
     });
 
 

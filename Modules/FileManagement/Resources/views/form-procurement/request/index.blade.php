@@ -19,41 +19,29 @@
         <div class="card card-default">
             <div class="card-header">
                 <h3 class="card-title mt-1">Lists</h3>
-                @canany(['fms.create', 'sys.sudo'])
+                @can('fms.create')
 
                 <div class="card-tools">
                    <a href="{{ route('fms.procurement.request.create') }}" class="btn btn-sm bg-gradient-primary"><i class="fal fa-plus"></i> Create New Purchase Request</a>
                   </div>
-                  @endcanany
+                  @endcan
             </div>
             <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="dataTables" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                       <th>Encoded Date</th>
                       <th>Document ID</th>
                       <th>Number</th>
                       <th>Requesting</th>
-                      <th>Charging</th>
+                      <th>Fund</th>
+                      <th>FPP</th>
                       <th>Amount</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
-                     @foreach($documents as $document)
-                      <td>{{ Carbon\Carbon::parse($document->created_at)->format('Y-m-d h:i A') }}</td>
-                      <td>{{ convert_to_series($document) }}</td>
-                      <td>{{ $document->purchase_request->number }}</td>
-                      <td>{{ name_helper($document->purchase_request->requesting) }}</td>
-                      <td>{{ @office_helper($document->purchase_request->charging) }}</td>
-                      <td>{{ (string)number_format($document->purchase_request->lists->sum(function($arr){return $arr->qty * $arr->cost;}), 2) }}</td>
-                      <td>{!! show_status($document->status) !!}</td>
-                      <td>
-                        <a href="{{ route('fms.procurement.request.show', $document->id) }}" class="btn btn-xs bg-gradient-primary"><i class="fal fa-eye"></i> View</a>
-                      </td>
-                     @endforeach
-                    </tbody>
+                   
                   </table>
             </div>
         </div>
@@ -88,7 +76,24 @@
 @section('js-custom')
 <script>
     $(function () {
-      $("#example1").DataTable({
+      $("#dataTables").DataTable({
+        processing: true,
+        ajax: "{{ route('fms.procurement.request.index') }}",
+        columns: [
+          { data: 'encoded' },
+          { data: 'qr' },
+          { data: 'number' },
+          { data: 'requesting' },
+          { data: 'fund' },
+          { data: 'fpp' },
+          { data: 'amount' },
+          { data: 'status' },
+          { 
+            data: 'action',
+            searchable: false,
+            orderable: false
+          },
+        ],
         "responsive": true,
         "autoWidth": false,
       });

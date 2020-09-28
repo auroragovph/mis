@@ -27,11 +27,11 @@ class AttachmentController extends Controller
 
     public function check(Request $request)
     {
-        $id = series_to_id($request->document);
+        $id = series($request->document);
 
         $document = FMS_Document::find($id);
 
-        if($document == null){
+        if($document == null || $document->qr !== $request->document){
             return redirect()->back()->with('alert-error', 'Document not found');
         }
 

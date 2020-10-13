@@ -14,6 +14,7 @@ use Modules\FileManagement\Entities\Travel\FMS_TravelOrder;
 // use Modules\FileManagement\Entities\Obr\FMS_ObligationRequest;
 use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
 use Modules\FileManagement\Entities\Procurement\FMS_PurchaseRequest;
+use Modules\FileManagement\Entities\Travel\FMS_Itinerary;
 
 class FMS_Document extends Model
 {
@@ -86,5 +87,10 @@ class FMS_Document extends Model
     public function travel_order()
     {
         return $this->hasOne(FMS_TravelOrder::class, 'document_id', 'id');
+    }
+
+    public function itinerary()
+    {
+        return $this->hasOne(FMS_Itinerary::class, 'document_id', 'id');
     }
 }

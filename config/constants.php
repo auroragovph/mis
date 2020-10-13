@@ -16,7 +16,7 @@ return [
             'fname' => 'Christian',
             'mname' => 'M',
             'lname' => 'Noveras',
-            'suffix' => 'Atty.'
+            'suffix' => 'Atty'
         ]
     ],
 

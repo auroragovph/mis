@@ -8,7 +8,7 @@
                 <br>
                 <br>
                 {!! show_status($document->status) !!}
-                <h4 class="font-weight-bold text-dark mt-2 mb-2">{{ strtoupper(doc_type_only($document->type)) }}</h4>
+                <h4 class="font-weight-bold text-dark mt-2 mb-2">{{ strtoupper(doc_type_only($document->type)) }} </h4>
                 <div class="text-grey mb-2">{{ $document->qr }}</div>
             </div>
             <!--end::User-->

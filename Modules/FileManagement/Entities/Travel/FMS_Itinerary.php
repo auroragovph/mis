@@ -1,21 +1,19 @@
 <?php
 
-namespace Modules\FileManagement\Entities\AFL;
+namespace Modules\FileManagement\Entities\Travel;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\HumanResource\Entities\HR_Employee;
 
-class FMS_AFL extends Model
+class FMS_Itinerary extends Model
 {
     use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
     protected $guarded = [];
-    protected $table = 'fms_form_afl';
-
+    protected $table = 'fms_form_travel_itinerary';
     protected $casts = [
         'properties' => 'array',
-        'credits' => 'array',
-        'inclusives' => 'array',
+        'lists' => 'array',
         'signatories' => 'json'
     ];
 
@@ -24,13 +22,13 @@ class FMS_AFL extends Model
         return $this->belongsTo(HR_Employee::class, 'employee_id', 'id');
     }
 
-    public function hr()
+    public function supervisor()
     {
-        return $this->belongsTo(HR_Employee::class, 'signatories->approval', 'id');
+        return $this->belongsTo(HR_Employee::class, 'signatories->supervisor', 'id');
     }
 
     public function approval()
     {
-        return $this->belongsTo(HR_Employee::class, 'signatories->hr', 'id');
+        return $this->belongsTo(HR_Employee::class, 'signatories->approval', 'id');
     }
 }

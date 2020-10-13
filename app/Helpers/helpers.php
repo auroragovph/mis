@@ -98,8 +98,16 @@ if (! function_exists('doc_type_only')) {
                 $type = 'Travel Order';
             break;
 
+            case 302: 
+                $type = 'Itinerary of Travel';
+            break;
+
             case 400: 
                 $type = 'CAFOA';
+            break;
+
+            case 500: 
+                $type = 'Application for Leave';
             break;
             
             default:

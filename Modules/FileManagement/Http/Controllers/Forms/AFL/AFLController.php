@@ -2,12 +2,13 @@
 
 namespace Modules\FileManagement\Http\Controllers\Forms\AFL;
 
-use Illuminate\Routing\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Modules\FileManagement\Entities\Document\FMS_Document;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Modules\FileManagement\Entities\AFL\FMS_AFL;
 use Modules\HumanResource\Entities\HR_Employee;
+use Modules\FileManagement\Entities\AFL\FMS_AFL;
+use Modules\FileManagement\Entities\Document\FMS_Document;
 
 class AFLController extends Controller
 {
@@ -119,11 +120,17 @@ class AFLController extends Controller
             'approval' => $request->post('approval')
         ];
 
+        $inclusives = collect([]);
+
+        foreach(explode(',', $request->post('inclusive')) as $date){
+            $inclusives->push(Carbon::parse($date)->format('Y-m-d'));
+        }
+
         $afl = FMS_AFL::create([
             'document_id' => $document->id,
             'employee_id' => $employee,
             'properties' => $properties,
-            'inclusives' => explode(',', str_replace('/', '-', $request->post('inclusive'))),
+            'inclusives' => $inclusives->sort()->values()->all(),
             'credits' => $credits,
             'signatories' => $signatories
         ]);
@@ -134,6 +141,109 @@ class AFLController extends Controller
 
     public function show($id)
     {
+        $document = FMS_Document::with(
+            'attachments',
+            'afl.employee',
+            'afl.hr',
+            'afl.approval'
+        )->findOrFail($id);
 
+        // dd($document);
+
+        return view('filemanagement::form-afl.show', compact('document'));
+    }
+
+    public function edit($id)
+    {
+        
+        // finding the document with afl
+        $document = FMS_Document::with('afl.employee')->findOrFail($id);
+
+        // checking if the document is AFL
+        // dm_abort($document->type, 500);
+
+        $employees = HR_Employee::whereIn('division_id', [Auth::user()->employee->division_id, config('constants.office.HRMO')])->get();
+
+        // setting up the sesssion
+        session(['fms.document.afl.edit' => ['id' => (int)$id,'type' => $document->afl->properties['type']]]);
+
+        return view('filemanagement::form-afl.edit', [
+            'document' => $document,
+            'type' => $document->afl->properties['type'],
+            'employee' => $document->afl->employee,
+            'employees' => $employees
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $session_keys = session()->pull('fms.document.afl.edit');
+
+        dm_abort($id, $session_keys['id']);
+
+        $document = FMS_Document::findOrFail($id);
+        $document->liaison_id = $request->post('liaison');
+        $document->save();
+
+
+        $properties = [
+            'type' => $session_keys['type'],
+            'commutation' => boolval($request->post('commutation')),
+            'approved' => [
+                'with' => $request->post('days-with-pay'),
+                'without' => $request->post('days-without-pay'),
+            ],
+        ];
+
+        switch($session_keys['type']){
+
+            case 'Vacation': 
+                $details = [
+                    'reason' => ($request->post('vacation1') == 'vac-tse') ? 'tse' : $request->post('vac-oth'),
+                    'place' => ($request->post('vacation2') == 'vac-ph') ? 'ph' : $request->post('vac-abr')
+                ];
+            break; 
+
+            case 'Sick': 
+                $details = ($request->has('sick-inh')) ? $request->post('sick-spec') : null;
+            break;
+
+            default: 
+                $details = ($request->has('leave-other')) ? $request->post('leave-other') : null;
+            break;
+
+        } 
+
+        $properties['details'] = $details;
+        $credits = [
+            'as-of' => $request->post('caf'),
+            'vacation' => [$request->post('v1'),$request->post('v2')],
+            'sick' => [$request->post('s1'),$request->post('s2')]
+        ];
+
+        $signatories = [
+            'hr' => $request->post('hr'),
+            'approval' => $request->post('approval')
+        ];
+
+        $inclusives = collect([]);
+
+        foreach(explode(',', $request->post('inclusive')) as $date){
+            $inclusives->push(Carbon::parse($date)->format('Y-m-d'));
+        }
+
+
+        $afl = FMS_AFL::where('document_id', $id)->first();
+        $afl->properties = $properties;
+        $afl->inclusives = $inclusives->sort()->values()->all();
+        $afl->credits = $credits;
+        $afl->signatories = $signatories;
+        $afl->save();
+
+        return redirect(route('fms.afl.show', $document->id))->with('alert-success', 'AFL has been updated.');
+
+
+
+        
     }
 }

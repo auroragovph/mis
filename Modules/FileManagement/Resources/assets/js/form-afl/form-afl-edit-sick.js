@@ -40,5 +40,19 @@ const createCafoa = new Vue({
         s2: function(){
             return this.s2  = parseFloat(this.s2);
         }
-    }
+    },
+    methods: {
+        sickC: function(){
+            if(document.querySelector('#sic-mut').value == 'true'){
+                return this.sick.inh = true;
+            }else{
+                return this.sick.inh = false;
+            }
+            // console.log(document.querySelector('#sic-mut').value);
+
+        }
+    },
+    mounted:function(){
+        this.sickC()
+  }
 });

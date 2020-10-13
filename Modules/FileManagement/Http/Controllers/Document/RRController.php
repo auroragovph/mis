@@ -32,7 +32,7 @@ class RRController extends Controller
 
         // checking if document exists
         if($document == null || $document->qr !== $request->document){
-            return redirect(route('fms.documents.rr.index'))->with('alert-error', 'We cannot find this document. Please check the document id or the QR COde and try again.');
+            return redirect(route('fms.documents.rr.index'))->with('alert-error', 'We cannot find this document. Please check the QR code and try again.');
         }
 
         // check if document is not cancelled

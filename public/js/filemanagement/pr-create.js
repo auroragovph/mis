@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -130,7 +130,7 @@ var createRequest = new Vue({
 
 /***/ }),
 
-/***/ 6:
+/***/ 8:
 /*!****************************************************************************************!*\
   !*** multi ./Modules/FileManagement/Resources/assets/js/form-procurement/pr-create.js ***!
   \****************************************************************************************/

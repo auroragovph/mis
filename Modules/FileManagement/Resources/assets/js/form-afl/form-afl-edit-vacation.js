@@ -19,8 +19,8 @@ const createCafoa = new Vue({
         s2: parseFloat(document.querySelector("input[name=s2]").value),
 
         vacation: {
-            type: '',
-            details: '',
+            type: document.querySelector("#vacation-mut").value,
+            details: document.querySelector("#vacation-mut2").value,
         },
 
         sick: {

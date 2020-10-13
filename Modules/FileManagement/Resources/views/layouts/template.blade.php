@@ -1,4 +1,4 @@
-@extends('filemanagement::layouts.app', ['module_side_bar' => 'filemanagement::layouts.sidebar'])
+@extends('filemanagement::layouts.app')
 
 @section('page-title')
     

@@ -106,10 +106,10 @@ $(function () {
 var createCafoa = new Vue({
   el: '#app-root',
   data: {
-    v1: 0,
-    v2: 0,
-    s1: 0,
-    s2: 0,
+    v1: parseFloat(document.querySelector("input[name=v1]").value),
+    v2: parseFloat(document.querySelector("input[name=v2]").value),
+    s1: parseFloat(document.querySelector("input[name=s1]").value),
+    s2: parseFloat(document.querySelector("input[name=s2]").value),
     vacation: {
       type: '',
       details: ''

@@ -132,6 +132,14 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
 
         });
 
+
+        Route::prefix('itinerary')->group(function(){
+            Route::get('/', 'ItineraryController@index')->name('fms.travel.itinerary.index');
+            Route::get('/create', 'ItineraryController@create')->name('fms.travel.itinerary.create');
+            Route::post('/create', 'ItineraryController@store')->name('fms.travel.itinerary.store');
+            Route::get('/{id}/show', 'ItineraryController@show')->name('fms.travel.itinerary.show');
+        });
+
     });
 
 
@@ -140,6 +148,8 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
         Route::post('/create', 'AFLController@create')->name('fms.afl.create');
         Route::put('/create', 'AFLController@store')->name('fms.afl.store');
         Route::get('/{id}/show', 'AFLController@show')->name('fms.afl.show');
+        Route::get('/{id}/edit', 'AFLController@edit')->name('fms.afl.edit');
+        Route::post('/{id}/edit', 'AFLController@update')->name('fms.afl.update');
     });
 
 

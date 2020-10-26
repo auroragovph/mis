@@ -138,6 +138,8 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
             Route::get('/create', 'ItineraryController@create')->name('fms.travel.itinerary.create');
             Route::post('/create', 'ItineraryController@store')->name('fms.travel.itinerary.store');
             Route::get('/{id}/show', 'ItineraryController@show')->name('fms.travel.itinerary.show');
+            Route::get('/{id}/edit', 'ItineraryController@edit')->name('fms.travel.itinerary.edit');
+            Route::post('/{id}/edit', 'ItineraryController@update')->name('fms.travel.itinerary.update');
         });
 
     });

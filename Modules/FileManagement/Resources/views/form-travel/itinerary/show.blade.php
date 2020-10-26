@@ -33,10 +33,12 @@
                                 <span class="sr-only">Toggle Dropdown</span> Action
                             </button>
                             <div class="dropdown-menu" role="menu">
-                                <a class="dropdown-item" href="{{ route('fms.travel.order.edit', $document->id) }}"><i class="fas fa-edit"></i> Edit</a>
+                                <a class="dropdown-item" href="{{ route('fms.travel.itinerary.edit', $document->id) }}"><i class="fas fa-edit"></i> Edit</a>
                                 <a class="dropdown-item" href="{{ route('fms.documents.cancel', $document->id) }}"><i class="fas fa-ban"></i> Cancel</a>
+                                
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" target="_blank" href="{{ route('fms.travel.order.print', $document->id) }}"><i class="fas fa-print"></i> Print</a>
+                                
+                                <a class="dropdown-item" target="_blank" href="#"><i class="fas fa-print"></i> Print</a>
                                 <a class="dropdown-item" href="{{ route('fms.documents.attach.form', $document->id) }}"><i class="fas fa-paperclip"></i> Attach</a>
                             </div>
                             

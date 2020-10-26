@@ -9,6 +9,7 @@
     "/js/filemanagement/form-afl-edit-sick.js": "/js/filemanagement/form-afl-edit-sick.js",
     "/js/filemanagement/form-afl-edit-vacation.js": "/js/filemanagement/form-afl-edit-vacation.js",
     "/js/filemanagement/form-cafoa-create.js": "/js/filemanagement/form-cafoa-create.js",
+    "/js/filemanagement/itinerary-create.js": "/js/filemanagement/itinerary-create.js",
     "/js/filemanagement/obr-create.js": "/js/filemanagement/obr-create.js",
     "/js/filemanagement/pr-create.js": "/js/filemanagement/pr-create.js",
     "/js/system/app.js": "/js/system/app.js",

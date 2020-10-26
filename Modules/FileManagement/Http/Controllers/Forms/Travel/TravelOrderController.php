@@ -218,8 +218,8 @@ class TravelOrderController extends Controller
     {
         $document = FMS_Document::with('travel_order')->findOrFail($id);
 
-         // logging
-         FMS_DocumentLog::log($document->id, 'Print the document.');
+        // logging
+        FMS_DocumentLog::log($document->id, 'Print the document.');
 
         return view("filemanagement::form-travel.order.print", [
             "document" => $document

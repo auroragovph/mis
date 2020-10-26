@@ -22,6 +22,18 @@ return [
 
     'office' => [
         'HRMO' => 13
+    ],
+
+    'document' => [
+
+        'type' => [
+            
+            'TRAVEL' => [
+                'ORDER' => 301,
+                'ITINERARY' => 302
+            ]
+        ]
+
     ]
 
 ];

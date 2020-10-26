@@ -17,7 +17,7 @@
 <div class="row" id="itinerary-div-create">
     <div class="col-12"><div class="card card-default">
         <div class="card-body px-5 py-3">
-            <form method="POST" action="{{ route('fms.travel.itinerary.store') }}">
+            <form method="POST" action="{{ route('fms.travel.itinerary.update', $document->id) }}">
                 @csrf
                 <h4>Itinerary of Travel Details</h4>
                 <hr>
@@ -29,7 +29,7 @@
                             <select name="employee" id="" class="form-control select2">
                                 <option value="" hidden disabled selected></option>
                                 @foreach($employees as $employee)
-                                    <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
+                                    <option {{ sh($employee->id, $itinerary->employee_id) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -37,19 +37,19 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Fund</label>
-                            <input type="text" name="fund" class="form-control">
+                            <input type="text" name="fund" value="{{ $itinerary->fund }}" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Date of Travel</label>
-                            <input type="date" name="date" class="form-control">
+                            <input type="date" name="date" value="{{ $itinerary->properties['date'] }}" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-12">
                        <div class="form-group">
                             <label for="">Purpose of Travel</label>
-                            <input type="text" name="purpose" class="form-control">
+                            <input type="text" name="purpose" value="{{ $itinerary->properties['purpose'] }}" class="form-control">
                        </div>
                     </div>
                 </div>
@@ -59,20 +59,21 @@
 
                 <div id="itinerary-create">
 
+                    @foreach($itinerary->lists as $list)
                     <div class="itinerary-list">
                         <div class="row">
 
                             <div class="col-md-6">
                             <div class="form-group">
                                     <label for="">Date</label>
-                                    <input type="date" name="list-date[]" class="form-control">
+                                    <input type="date" value="{{ $list['date'] }}" name="list-date[]" class="form-control">
                             </div>
                             </div>
     
                             <div class="col-md-6">
                             <div class="form-group">
                                     <label for="">Destination</label>
-                                    <input type="text" name="list-destination[]" class="form-control">
+                                    <input type="text" value="{{ $list['destination'] }}" name="list-destination[]" class="form-control">
                             </div>
                             </div>
     
@@ -82,13 +83,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Departure</label>
-                                    <input type="text" name="list-departure[]" class="form-control">
+                                    <input type="text" value="{{ $list['departure'] }}" name="list-departure[]" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Arrival</label>
-                                    <input type="text" name="list-arrival[]" class="form-control">
+                                    <input type="text" value="{{ $list['arrival'] }}" name="list-arrival[]" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -97,13 +98,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Means of Transportation</label>
-                                    <input type="text" name="list-means[]" class="form-control">
+                                    <input type="text" value="{{ $list['means'] }}" name="list-means[]" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Transportation</label>
-                                    <input type="text" name="list-trans[]" class="form-control">
+                                    <input type="text" value="{{ $list['trans'] }}" name="list-trans[]" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -112,23 +113,24 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Per diem</label>
-                                    <input type="text" name="list-diem[]" class="form-control">
+                                    <input type="text" value="{{ $list['diem'] }}" name="list-diem[]" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Others</label>
-                                    <input type="text" name="list-other[]" class="form-control">
+                                    <input type="text" value="{{ $list['other'] }}" name="list-other[]" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Total Amount</label>
-                                    <input type="text" name="list-amount[]" class="form-control">
+                                    <input type="text" value="{{ $list['amount'] }}" name="list-amount[]" class="form-control">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
 
                 </div>
 
@@ -144,7 +146,7 @@
                             <select name="supervisor" id="" class="form-control select2">
                                 <option value="" hidden disabled selected></option>
                                 @foreach($employees as $employee)
-                                    <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
+                                    <option {{ sh($employee->id, $itinerary->signatories['supervisor']) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -155,7 +157,7 @@
                             <select name="aprroval" id="" class="form-control select2">
                                 <option value="" hidden disabled selected></option>
                                 @foreach($employees as $employee)
-                                    <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
+                                    <option {{ sh($employee->id, $itinerary->signatories['approval']) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -171,7 +173,7 @@
                     <select name="liaison" id="" class="form-control select2" required>
                         <option value="" hidden disabled selected></option>
                         @foreach($liaisons as $liaison)
-                           <option value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
+                           <option {{ sh($liaison->id, $document->liaison_id) }} value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -179,8 +181,6 @@
                 <hr>
     
                 <button type="submit" class="btn bg-gradient-success">Submit</button>
-
-    
     
             </form>
         </div>

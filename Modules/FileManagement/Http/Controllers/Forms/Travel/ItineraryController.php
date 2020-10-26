@@ -102,12 +102,86 @@ class ItineraryController extends Controller
             'itinerary.employee',
             'itinerary.approval',
             'itinerary.supervisor',
-            'travel_order',
             'attachments'
             )->findOrFail($id);
             
         return view('filemanagement::form-travel.itinerary.show', [
             'document' => $document
         ]);
+    }
+
+    public function edit($id)
+    {
+        $document = FMS_Document::with(
+            'itinerary.employee',
+            'itinerary.approval',
+            'itinerary.supervisor',
+            'attachments'
+            )->findOrFail($id);
+
+        // checking file type
+        dm_abort($document->type, config('constants.document.type.TRAVEL.ITINERARY'));
+
+        // setting up the sessions
+        session(['fms.document.edit' => $id]);
+
+        $employees = HR_Employee::onlyDivision();
+
+        return view('filemanagement::form-travel.itinerary.edit', [
+            'document' => $document,
+            'itinerary' => $document->itinerary,
+            'employees' => $employees->get(),
+            'liaisons' => $employees->liaison()->get()
+        ]);
+
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        $eid = session()->pull('fms.document.edit');
+
+        // validating the id
+        dm_abort($id, $eid);
+
+
+        $document = FMS_Document::findOrFail($id);
+        $document->liaison_id = $request->post('liaison');
+        $document->save();
+
+        $itinerary = FMS_Itinerary::where('document_id', $id)->first();
+        
+        foreach($request->post('list-amount') as $i => $amount){
+            $lists[$i]['date'] = $request['list-date'][$i];
+            $lists[$i]['destination'] = $request['list-destination'][$i];
+            $lists[$i]['departure'] = $request['list-departure'][$i];
+            $lists[$i]['arrival'] = $request['list-arrival'][$i];
+            $lists[$i]['means'] = $request['list-means'][$i];
+            $lists[$i]['trans'] = $request['list-trans'][$i];
+            $lists[$i]['diem'] = $request['list-diem'][$i];
+            $lists[$i]['other'] = $request['list-other'][$i];
+            $lists[$i]['amount'] = $request['list-amount'][$i];
+        }
+
+        $signatories = [
+            'supervisor' => $request->post('supervisor'),
+            'approval' => $request->post('aprroval')
+        ];
+
+        $properties = [
+            'date' => $request->post('date'),
+            'purpose' => $request->post('purpose')
+        ];
+
+        $itinerary->employee_id = $request->post('employee');
+        $itinerary->fund = $request->post('fund');
+        $itinerary->properties = $properties;
+        $itinerary->signatories = $signatories;
+        $itinerary->lists = $lists;
+        $itinerary->save();
+
+        return redirect(route('fms.travel.itinerary.show', $document->id))->with('alert-success', 'Itinerary has been updated.');
+        // return redirect(route('fms.travel.itinerary.show'))
+        
     }
 }

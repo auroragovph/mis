@@ -115,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h5><i class="icon fal fa-check"></i> Success!</h5>
-            {{ session('alert-success') }}
+            {!! session('alert-success') !!}
           </div>
         @endif
 
@@ -123,7 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="alert alert-primary alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h5><i class="icon fal fa-exclamtion-mark"></i> Information!</h5>
-            {{ session('alert-info') }}
+            {!! session('alert-info') !!}
           </div>
         @endif
 
@@ -131,7 +131,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h5><i class="icon fal fa-exclamation-triangle"></i> Warning!</h5>
-            {{ session('alert-warning') }}
+            {!! session('alert-warning') !!}
           </div>
         @endif
 
@@ -139,7 +139,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h5><i class="icon fal fa-ban"></i> Error!</h5>
-            {{ session('alert-error') }}
+            {!! session('alert-error') !!}
           </div>
         @endif
 

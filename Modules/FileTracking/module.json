@@ -1,0 +1,13 @@
+{
+    "name": "FileTracking",
+    "alias": "filetracking",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\FileTracking\\Providers\\FileTrackingServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

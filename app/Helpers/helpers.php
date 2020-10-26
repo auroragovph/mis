@@ -73,6 +73,24 @@ if (! function_exists('series')) {
     }
 }
 
+if (! function_exists('fts_series')) {
+    /**
+     * Convert FTS series to integer
+     * @param string 
+     * @return string
+     */
+    function fts_series($string, $action = 'decode'){
+
+        if($action == 'encode'){
+            $string = strtoupper($string);
+            return (strpos($string, 'SR') == false) ? 'SR-'.str_pad($string, 11, '0', STR_PAD_LEFT) : $string;
+        }
+
+        return (int)preg_replace('/[^0-9]/', '', $string);
+
+    }
+}
+
 if (! function_exists('doc_type_only')) {
     /**
      * DOC TYPE HELPER

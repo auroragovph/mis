@@ -1,5 +1,6 @@
 {
     "FileManagement": true,
     "System": true,
-    "HumanResource": true
+    "HumanResource": true,
+    "FileTracking": true
 }

@@ -27,16 +27,16 @@
         <div class="row">
 
             <div class="col-md-6">
-                <a href="{{ route('fms.dashboard') }}">
+                <a href="{{ route('fts.dashboard') }}">
                     <div class="card bg-gradient-purple p-2 text-center">
                         <img class="mx-auto d-block" src="{{ asset('images/contract.png') }}" alt="" width="100px" height="100px">
-                        <h6 class="mt-3">File Management</h6>
+                        <h6 class="mt-3">File Tracking</h6>
                     </div>
                 </a>
             </div>
 
             <div class="col-md-6">
-                <a href="{{ route('fms.dashboard') }}">
+                <a href="#">
                     <div class="card bg-gradient-olive p-2 text-center">
                         <img class="mx-auto d-block" src="{{ asset('images/message.png') }}" alt="" width="100px" height="100px">
                         <h6 class="mt-3">Messenger</h6>
@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        @can('sys.sudo')
+        @can('godmode')
         <div class="row">
 
             <div class="col-md-12">
@@ -60,7 +60,7 @@
         </div>
         @endcan
 
-        @can('sys.sudo')
+        @can('godmode')
         <div class="row">
             <div class="col-md-12">
                 <a href="{{ route('sys.dashboard') }}">

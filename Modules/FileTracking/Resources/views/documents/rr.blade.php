@@ -16,7 +16,7 @@
 <div class="row">
 
         
-    <x-fts-qr size="sm-4" :document="$document" :datas="$datas" />
+    <x-fts-qr size="sm-4" :document="$document['info']" :datas="$document['datas']" />
 
     <div class="col-sm-8">
         <div class="row">
@@ -45,7 +45,7 @@
                             <hr>
         
                             <div class="mt-10">
-                                @if($track->action == 0)
+                                @if($document['tracks'][0]['action'] == 0)
                                     <button type="submit" class="btn bg-gradient-primary"> <i class="fal fa-file-download"></i> RECEIVE</button>
                                 @else 
                                     <button type="submit" class="btn bg-gradient-primary"> <i class="fal fa-file-upload"></i> RELEASE</button>
@@ -57,7 +57,7 @@
                 </div>
             </div>
     
-            <x-fts-tracking-latest size="md-12" :track="$track" />
+            <x-fts-tracking-latest size="md-12" :track="$document['tracks'][0]" />
             
         </div>
     </div>

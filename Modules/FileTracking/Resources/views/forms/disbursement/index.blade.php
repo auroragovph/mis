@@ -1,14 +1,14 @@
 @extends('filetracking::layouts.app')
 
 @section('page-title')
-   Purchase Request
+   Disbursement Voucher
 @endsection
 
 @section('breadcrumbs')
 <ol class="breadcrumb float-sm-right">
     <li class="breadcrumb-item"><a href="{{ route('fts.dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('fts.documents.index') }}">Documents</a></li>
-    <li class="breadcrumb-item active">Procurement</li>
+    <li class="breadcrumb-item active">Disbursement Voucher</li>
 </ol>
 @endsection
 
@@ -21,9 +21,8 @@
                 <h3 class="card-title mt-1">Lists</h3>
                 @can('fms.create')
                   <div class="card-tools">
-                    {{-- <a href="{{ route('fms.procurement.request.create') }}" class="btn btn-sm bg-gradient-primary"><i class="fal fa-plus"></i> Create New Purchase Request</a> --}}
                     <button type="button" class="btn btn-sm bg-gradient-primary" data-toggle="modal" data-target="#modal-create">
-                      Create New Purchase Request
+                      Create New DV
                     </button>
                   </div>
                 @endcan
@@ -35,13 +34,11 @@
                       <th>Encoded Date</th>
                       <th>Series #</th>
                       <th>Office</th>
-                      <th>Number</th>
-                      <th>Date</th>
-                      <th>Particulars</th>
-                      <th>Purpose</th>
-                      <th>Charging</th>
-                      <th>Accountable Person</th>
+                      <th>Payee</th>
                       <th>Amount</th>
+                      <th>Particulars</th>
+                      <th>Code</th>
+                      <th>Accountable Person</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -67,7 +64,7 @@
       </div>
       <div class="modal-body">
 
-        <form id="form-create" action="{{ route('fts.procurement.request.store') }}" method="POST">
+        <form id="form-create" action="{{ route('fts.dv.store') }}" method="POST">
           @csrf
           <div class="row">
 
@@ -91,7 +88,7 @@
                 <select name="division" class="form-control select2" required style="width: 100%">
                     <option value="" hidden disabled selected></option>
                     @foreach($divisions as $division)
-                      <option value="{{ $division->id }}">{{ office_helper($division) }}</option>
+                      <option {{ sh($division->id, config('constants.office.PTO') ) }} value="{{ $division->id }}">{{ office_helper($division) }}</option>
                     @endforeach
                 </select>
               </div>
@@ -99,67 +96,52 @@
             </div>
 
           </div>
+        
 
           <div class="row">
+
             <div class="col-md-6">
-
-              <div class="form-group">
-                <label for="">PR Number:</label>
-                <input name="number" type="text" class="form-control">
-              </div>
-              
+                <div class="form-group">
+                  <label for="">Payee:</label>
+                  <input type="text" name="payee" class="form-control" required>
+                </div>
             </div>
+
             <div class="col-md-6">
-              <div class="form-group">
-                <label for="">Date:</label>
-                <input name="date" type="date" class="form-control" required>
+                <div class="form-group">
+                  <label for="">Amount:</label>
+                  <input name="amount" type="number" step="0.01" class="form-control" required>
+                </div>
+  
               </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-
-              <div class="form-group">
-                <label for="">Particulars:</label>
-                <textarea name="particulars" cols="30" rows="2" class="form-control" required></textarea>
-              </div>
-
-              <div class="form-group">
-                <label for="">Purpose:</label>
-                <textarea name="purpose" cols="30" rows="2" class="form-control" required></textarea>
-              </div>
-              
-            </div>
             
           </div>
 
           <div class="row">
-            <div class="col-md-6">
-
-              <div class="form-group">
-                <label for="">Charging:</label>
-                <input name="charging" type="text" class="form-control">
-              </div>
-              
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="">Accountable Person:</label>
-                <input name="accountable" type="text" class="form-control" required>
-              </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="">Particulars</label>
+                    <textarea name="particulars" cols="30" rows="2" class="form-control" required></textarea>
+                </div>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-12">
 
-              <div class="form-group">
-                <label for="">Amount:</label>
-                <input name="amount" type="number" step="0.01" class="form-control" required>
-              </div>
-              
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Code:</label>
+                  <input type="text" name="code" class="form-control">
+                </div>
             </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Accountable Person:</label>
+                  <input name="accountable" type="text" class="form-control">
+                </div>
+  
+              </div>
             
           </div>
 
@@ -231,18 +213,16 @@
 
       var dt = $("#dataTables").DataTable({
         processing: true,
-        ajax: "{{ route('fts.procurement.request.index') }}",
+        ajax: "{{ route('fts.dv.index') }}",
         columns: [
           { data: 'encoded' },
           { data: 'series' },
           { data: 'office' },
-          { data: 'number' },
-          { data: 'date' },
-          { data: 'particular' },
-          { data: 'purpose' },
-          { data: 'charging' },
-          { data: 'accountable' },
+          { data: 'payee' },
           { data: 'amount' },
+          { data: 'particulars' },
+          { data: 'code' },
+          { data: 'accountable' },
           { data: 'status' },
           { 
             data: 'action',

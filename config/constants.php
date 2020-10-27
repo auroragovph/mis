@@ -21,7 +21,8 @@ return [
     ],
 
     'office' => [
-        'HRMO' => 13
+        'HRMO' => 13,
+        'PTO' => 4,
     ],
 
     'document' => [
@@ -31,7 +32,28 @@ return [
             'TRAVEL' => [
                 'ORDER' => 301,
                 'ITINERARY' => 302
-            ]
+            ],
+
+            'procurement' => [
+                'request' => 101,
+                'order' => 102
+            ],
+
+            'disbursement' => 600
+        ],
+
+        'action' => [
+            'receive' => 1, 
+            'release' => 0
+        ],
+
+        'status' => [
+            'cancelled' => [ 'id' => 0,'color' => 'danger', 'text' => 'cancelled'],
+            'activate' => [ 'id' => 1,'color' => 'warning', 'text' => 'waiting for activation'],
+            'process' => [ 'id' => 2,'color' => 'primary', 'text' => 'on process'],
+            'approved' => [ 'id' => 3,'color' => 'success', 'text' => 'approved'],
+            'disapproved' => [ 'id' => 4,'color' => 'danger', 'text' => 'disapproved'],
+            'pending' => [ 'id' => 5,'color' => 'info', 'text' => 'pending'],
         ]
 
     ]

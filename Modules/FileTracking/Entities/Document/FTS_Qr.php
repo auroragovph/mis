@@ -14,7 +14,7 @@ class FTS_Qr extends Model
 
     public function getSeriesAttribute()
     {
-        return fts_series($this->id);
+        return fts_series($this->id, 'encode');
     }
 
 }

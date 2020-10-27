@@ -15,9 +15,9 @@
 @isset($document)
 
 <div class="row">
-    <x-fts-qr size="sm-3" :document="$document" :datas="$datas" />
+    <x-fts-qr size="sm-3" :document="$document['info']" :datas="$document['datas']"/>
 
-    <x-fts-tracking-table size="sm-9" :tracks="$tracks"/>
+    <x-fts-tracking-table size="sm-9" :tracks="$document['tracks']"/>
 
 </div>
 

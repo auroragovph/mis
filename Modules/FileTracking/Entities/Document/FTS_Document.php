@@ -5,6 +5,7 @@ namespace Modules\FileTracking\Entities\Document;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Modules\FileTracking\Entities\FTS_DisbursementVoucher;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Procurement\FTS_PurchaseRequest;
@@ -17,6 +18,11 @@ class FTS_Document extends Model
     public function getSeriesFullAttribute()
     {
         return 'SR-'.str_pad($this->series, 11, '0', STR_PAD_LEFT);
+    }
+
+    public function getTypeFullAttribute()
+    {
+        return doc_type_only($this->type);
     }
 
     public function getEncodedAttribute()
@@ -42,6 +48,11 @@ class FTS_Document extends Model
     public function purchase_request()
     {
         return $this->hasOne(FTS_PurchaseRequest::class, 'document_id', 'id');
+    }
+
+    public function dv()
+    {
+        return $this->hasOne(FTS_DisbursementVoucher::class, 'document_id', 'id');
     }
 
     public function tracks()

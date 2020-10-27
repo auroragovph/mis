@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 
 /**
  *  Utility Helpers for File Management System of Provincial Government of Aurora
@@ -91,6 +93,33 @@ if (! function_exists('fts_series')) {
     }
 }
 
+if (! function_exists('fts_action_button')) {
+    /**
+     * Convert FTS series to integer
+     * @param string 
+     * @return string
+     */
+    function fts_action_button($series, $edit = ['route' => '', 'id' => 0]){
+
+        $action = '';
+
+        if($edit['route'] != ''){
+            if(Auth::user()->can('fts.document.edit')){
+                $action .= "<a href=\"".route($edit['route'], $edit['id'])."\" class=\"btn btn-xs bg-gradient-warning m-1\"> <i class=\" fal fa-edit\"> </i> Edit</a> <br> ";
+            }
+        }
+        
+
+        if(Auth::user()->can('fts.document.print')){
+            $action .= "<a target=\"_blank\" href=\"".route('fts.documents.receipt', ['series' => $series, 'print' => 'true'])."\" class=\"btn btn-xs bg-gradient-navy m-1\"> <i class=\" fal fa-print\"> </i> Print</a> <br>";
+        }
+
+        $action .= "<a target=\"_blank\" href=\"".route('fts.documents.track', ['series' => $series])."\" class=\"btn btn-xs bg-gradient-primary m-1\"> <i class=\" fal fa-search\"> </i> Track</a>";
+
+        return $action;
+    }
+}
+
 if (! function_exists('doc_type_only')) {
     /**
      * DOC TYPE HELPER
@@ -126,6 +155,10 @@ if (! function_exists('doc_type_only')) {
 
             case 500: 
                 $type = 'Application for Leave';
+            break;
+
+            case 600: 
+                $type = 'Disbursement Voucher';
             break;
             
             default:
@@ -259,8 +292,13 @@ if (! function_exists('employee_id_helper'))
     * @param object
     * @return string
     */
-    function employee_id_helper($string)
+    function employee_id_helper($string, $safemode = false)
     {
+
+        if($safemode == true){
+            return 1;
+        }
+
         if (strpos($string, '||') !== true) {
             return $string;
         }
@@ -301,6 +339,7 @@ if (! function_exists('office_helper')) {
                 $alias = "{$array['name']}";
             }
         }
+
 
         if($return == 'all'){
             return $office;

@@ -19,7 +19,7 @@ class QRController extends Controller
 
             foreach($qrs as $i => $qr){
                 $records['data'][$i]['id'] = $qr->id;
-                $records['data'][$i]['series'] = fts_series($qr->id);
+                $records['data'][$i]['series'] = fts_series($qr->id, 'encode');
             }
 
             return response()->json($records, 200);
@@ -56,5 +56,31 @@ class QRController extends Controller
         FTS_Qr::insert($lists);
 
         return redirect()->back()->with('alert-success', 'QR Codes has been generated');
+    }
+
+    public function print(Request $request)
+    {
+        $type = $request->post('type');
+
+
+        if($type == 'auto'){
+            if($request->post('driver') == 'last'){
+                $qrs = range((int)$request->post('counts'), (int)$request->post('counts') + 699);
+            }else{
+
+                $losts = FTS_Qr::where('status', false)->take($request->post('counts'));
+                $qrs = $losts->pluck('id');
+            }
+        }else{
+            $qrs = range((int)$request->post('start'), (int)$request->post('end'));
+        }
+
+        $pages = collect($qrs);
+
+
+        return view('filetracking::qr.print', [
+            'pages' => $pages->chunk(70)
+        ]);
+
     }
 }

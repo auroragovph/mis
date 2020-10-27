@@ -15,7 +15,7 @@
 <div class="row">
 
 
-    <div class="col-md-9">
+    <div class="col-md-8">
         <div class="card card-default">
             <div class="card-header">
                 <h3 class="card-title mt-1">Available QR Codes</h3>
@@ -34,8 +34,9 @@
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="row">
+
             <div class="col-md-12">
                 <div class="card card-default">
                     <div class="card-header">
@@ -51,6 +52,61 @@
                             </div>
 
                             <button class="btn bg-gradient-primary btn-block">Generate</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Print QR (Auto)</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('fts.qr.print') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="type" value="auto">
+
+                            <div class="form-group">
+                                <label for="">Type</label>
+                                <select name="driver" class="form-control">
+                                    <option value="last">Last QR Print</option>
+                                    <option value="lost">Lost QR</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Number</label>
+                                <input class="form-control" type="number" name="counts" required>
+                            </div>
+
+                            <button class="btn bg-gradient-primary btn-block">Print</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Print QR (Range)</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('fts.qr.print') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="type" value="range">
+
+                            <div class="form-group">
+                                <label for="">Start</label>
+                                <input class="form-control" type="number" name="start"  required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">End</label>
+                                <input class="form-control" type="number" name="end" required>
+                            </div>
+
+                            <button class="btn bg-gradient-primary btn-block">Print</button>
                         </form>
                     </div>
                 </div>

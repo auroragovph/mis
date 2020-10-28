@@ -5,23 +5,21 @@ namespace Modules\FileTracking\Http\Controllers\Forms;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Document\FTS_Qr;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
-use Modules\FileTracking\Entities\FTS_DisbursementVoucher;
+use Modules\FileTracking\Entities\FTS_Payroll;
 
-class DisbursementVoucherController extends Controller
+class PayrollController extends Controller
 {
     public function index(Request $request)
     {
-        $divisions = SYS_Division::with('office')->get();
-        $qrs = FTS_Qr::where('status', false)->get();
-
         if($request->ajax()){
 
-            $documents = FTS_Document::with('dv', 'division')
-                            ->where('type', config('constants.document.type.disbursement'))
+            $documents = FTS_Document::with('payroll', 'division.office')
+                            ->where('type', config('constants.document.type.payroll'))
                             ->get();
 
             $records['data'] = array();
@@ -35,14 +33,12 @@ class DisbursementVoucherController extends Controller
                 $records['data'][$i]['status'] = show_status($document->status);
 
 
-                $records['data'][$i]['payee'] = $document->dv->payee;
-                $records['data'][$i]['amount'] = $document->dv->amount;
-                $records['data'][$i]['particulars'] = $document->dv->particulars;
-                $records['data'][$i]['code'] = $document->dv->code;
-                $records['data'][$i]['accountable'] = $document->dv->accountable;
+                $records['data'][$i]['name'] = $document->payroll->name;
+                $records['data'][$i]['amount'] = $document->payroll->amount;
+                $records['data'][$i]['particulars'] = $document->payroll->particulars;
 
                 $action =  fts_action_button($document->series, [
-                    'route' => 'fts.dv.edit',
+                    'route' => 'fts.payroll.edit',
                     'id' => $document->id
                 ]);
 
@@ -55,7 +51,14 @@ class DisbursementVoucherController extends Controller
 
         }
 
-        return view('filetracking::forms.disbursement.index',[
+
+        $divisions = SYS_Division::with('office')->get();
+        $qrs = FTS_Qr::where('status', false)->get();
+        $liaisons = HR_Employee::liaison()->get();
+
+
+        return view('filetracking::forms.payroll.index',[
+            'liaisons' => $liaisons,
             'divisions' => $divisions,
             'qrs' => $qrs
         ]);
@@ -71,7 +74,7 @@ class DisbursementVoucherController extends Controller
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
-        $liaison = employee_id_helper($request->post('liaison'));
+        $liaison = $request->post('liaison');
 
 
         $document = FTS_Document::create([
@@ -79,16 +82,14 @@ class DisbursementVoucherController extends Controller
             'division_id' => $request->post('division'),
             'liaison_id' => $liaison,
             'encoder_id' => Auth::user()->id,
-            'type' => config('constants.document.type.disbursement')
+            'type' => config('constants.document.type.payroll')
         ]);
 
-        $dv = FTS_DisbursementVoucher::create([
+        $payroll = FTS_Payroll::create([
             'document_id' => $document->id,
-            'payee' => $request->post('payee'),
+            'name' => $request->post('name'),
             'amount' => $request->post('amount'),
-            'particulars' => $request->post('particulars'),
-            'code' => $request->post('code'),
-            'accountable' => $request->post('accountable')
+            'particulars' => $request->post('particulars')
         ]);
 
         // changing QR status
@@ -107,26 +108,27 @@ class DisbursementVoucherController extends Controller
             'status' => config('constants.document.status.process.id')
         ]);
 
-        return response()->json(['message' => 'Disbursement Voucher has been encoded.'], 200);
+        return response()->json(['message' => 'Payroll has been encoded.'], 200);
     }
 
     public function edit($id)
     {
-        $document = FTS_Document::with('dv')->findOrFail($id);
+        $document = FTS_Document::with('payroll')->findOrFail($id);
 
         // checking type
-        dm_abort($document->type, config('constants.document.type.disbursement'));
+        dm_abort($document->type, config('constants.document.type.payroll'));
 
         $divisions = SYS_Division::with('office')->get();
+        $liaisons = HR_Employee::liaison()->get();
 
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
 
-        return view('filetracking::forms.disbursement.edit', [
+        return view('filetracking::forms.payroll.edit', [
             'divisions' => $divisions,
+            'liaisons' => $liaisons,
             'document' => $document
         ]);
-
     }
 
     public function update(Request $request, $id)
@@ -136,18 +138,16 @@ class DisbursementVoucherController extends Controller
 
         $document = FTS_Document::findOrFail($id);
 
-        if($request->post('liaison') != ''){$document->liaison_id = employee_id_helper($request->post('liaison'));}
+        $document->liaison_id = $request->post('liaison');
         $document->division_id = $request->post('division');
         $document->save();
 
-        $dv = FTS_DisbursementVoucher::where('document_id', $id)->first();
-        $dv->payee = $request->post('payee');
-        $dv->amount = $request->post('amount');
-        $dv->particulars = $request->post('particulars');
-        $dv->code = $request->post('code');
-        $dv->accountable = $request->post('accountable');
-        $dv->save();
+        $payroll = FTS_Payroll::where('document_id', $id)->first();
+        $payroll->name = $request->post('name');
+        $payroll->amount = $request->post('amount');
+        $payroll->particulars = $request->post('particulars');
+        $payroll->save();
 
-        return redirect(route('fts.dv.index'))->with('alert-success', 'Disbursement Voucher has been updated.');
+        return redirect(route('fts.payroll.index'))->with('alert-success', 'Payroll has been updated.');
     }
 }

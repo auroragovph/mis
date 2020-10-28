@@ -19,8 +19,15 @@
                 <label for="">Select Document Type</label>
                 <select class="form-control select2" data-live-search="true" data-size="5" name="param" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
                     <option value="" selected hidden></option>
+                    <option value="{{ route('fts.cafoa.index') }}">Certifications on Appropriations, Funds and Obligation of Allotment (CAFOA / OBR)</option>
                     <option value="{{ route('fts.dv.index') }}">Disbursement Voucher (DV) </option>
+                    <option value="{{ route('fts.payroll.index') }}">Payroll </option>
                     <option value="{{ route('fts.procurement.request.index') }}">Purchase Request (PR) </option>
+
+                    <option value="{{ route('fts.travel.itinerary.index') }}">TEV - Itinerary of Travel </option>
+
+                    <option value="{{ route('fts.travel.order.index') }}">Travel Order </option>
+
                 </select>
             </div>
         </div>

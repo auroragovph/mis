@@ -17,6 +17,8 @@ class CreateDivisionTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 255)->default('MAIN');
             $table->string('alias', 255)->nullable();
+            $table->json('properties')->nullable();
+            $table->boolean('status')->default(true);
             $table->integer('office_id');
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();

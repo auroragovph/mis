@@ -73,7 +73,7 @@ class PurchaseRequestController extends Controller
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
-        $liaison = $request->post('liaison');
+        $liaison = employee_id_helper($request->post('liaison'));
 
 
         $document = FTS_Document::create([
@@ -143,7 +143,7 @@ class PurchaseRequestController extends Controller
 
         $document = FTS_Document::findOrFail($id);
 
-        if($request->post('liaison') != ''){$document->liaison_id = employee_id_helper($request->post('liaison', true));}
+        if($request->post('liaison') != ''){$document->liaison_id = employee_id_helper($request->post('liaison'));}
         $document->division_id = $request->post('division');
         $document->save();
 

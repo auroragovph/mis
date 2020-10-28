@@ -9,7 +9,7 @@ return [
             'fname' => 'Gerardo',
             'mname' => 'A',
             'lname' => 'Noveras',
-            'suffix' => ''
+            'suffix' => 'Hon'
         ],
 
         'vice-governor' => [
@@ -29,17 +29,22 @@ return [
 
         'type' => [
             
-            'TRAVEL' => [
-                'ORDER' => 301,
-                'ITINERARY' => 302
-            ],
+            'cafoa' => 400, 
+
+            'disbursement' => 600, 
+
+            'payroll' => 700,
 
             'procurement' => [
                 'request' => 101,
                 'order' => 102
             ],
 
-            'disbursement' => 600
+            'travel' => [
+                'order' => 301,
+                'itinerary' => 302
+            ],
+
         ],
 
         'action' => [

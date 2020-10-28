@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\FileTracking\Http\Controllers\Forms;
+namespace Modules\FileTracking\Http\Controllers\Forms\Travel;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -9,9 +9,9 @@ use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Document\FTS_Qr;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
-use Modules\FileTracking\Entities\FTS_DisbursementVoucher;
+use Modules\FileTracking\Entities\Travel\FTS_Itinerary;
 
-class DisbursementVoucherController extends Controller
+class ItineraryController extends Controller
 {
     public function index(Request $request)
     {
@@ -20,8 +20,8 @@ class DisbursementVoucherController extends Controller
 
         if($request->ajax()){
 
-            $documents = FTS_Document::with('dv', 'division')
-                            ->where('type', config('constants.document.type.disbursement'))
+            $documents = FTS_Document::with('itinerary', 'division')
+                            ->where('type', config('constants.document.type.travel.itinerary'))
                             ->get();
 
             $records['data'] = array();
@@ -35,14 +35,16 @@ class DisbursementVoucherController extends Controller
                 $records['data'][$i]['status'] = show_status($document->status);
 
 
-                $records['data'][$i]['payee'] = $document->dv->payee;
-                $records['data'][$i]['amount'] = $document->dv->amount;
-                $records['data'][$i]['particulars'] = $document->dv->particulars;
-                $records['data'][$i]['code'] = $document->dv->code;
-                $records['data'][$i]['accountable'] = $document->dv->accountable;
+                $records['data'][$i]['name'] = $document->itinerary->name;
+                $records['data'][$i]['position'] = $document->itinerary->position;
+                $records['data'][$i]['destination'] = $document->itinerary->destination;
+                $records['data'][$i]['amount'] = $document->itinerary->amount;
+                $records['data'][$i]['purpose'] = $document->itinerary->purpose;
+
+
 
                 $action =  fts_action_button($document->series, [
-                    'route' => 'fts.dv.edit',
+                    'route' => 'fts.travel.itinerary.edit',
                     'id' => $document->id
                 ]);
 
@@ -55,7 +57,7 @@ class DisbursementVoucherController extends Controller
 
         }
 
-        return view('filetracking::forms.disbursement.index',[
+        return view('filetracking::forms.travel.itinerary.index',[
             'divisions' => $divisions,
             'qrs' => $qrs
         ]);
@@ -73,22 +75,22 @@ class DisbursementVoucherController extends Controller
 
         $liaison = employee_id_helper($request->post('liaison'));
 
-
         $document = FTS_Document::create([
             'series' => $series,
             'division_id' => $request->post('division'),
             'liaison_id' => $liaison,
             'encoder_id' => Auth::user()->id,
-            'type' => config('constants.document.type.disbursement')
+            'type' => config('constants.document.type.travel.itinerary')
         ]);
 
-        $dv = FTS_DisbursementVoucher::create([
+
+        $itinerary = FTS_Itinerary::create([
             'document_id' => $document->id,
-            'payee' => $request->post('payee'),
+            'name' => $request->post('name'),
+            'position' => $request->post('position'),
+            'destination' => $request->post('destination'),
             'amount' => $request->post('amount'),
-            'particulars' => $request->post('particulars'),
-            'code' => $request->post('code'),
-            'accountable' => $request->post('accountable')
+            'purpose' => $request->post('purpose'),
         ]);
 
         // changing QR status
@@ -96,37 +98,38 @@ class DisbursementVoucherController extends Controller
         $qr->status = true;
         $qr->save();
 
+
         // INSERTING INTO TRACKING LOGS
         FTS_Tracking::create([
             'document_id' => $document->id,
             'division_id' => Auth::user()->employee->division_id,
             'user_id' => Auth::user()->employee_id,
             'liaison_id' => $liaison,
-            'action' => config('constants.document.action.release'),
+            'action' => 0,
             'purpose' => 'DOCUMENT ENCODED BY: '.strtoupper(name_helper(Auth::user()->employee->name)),
             'status' => config('constants.document.status.process.id')
         ]);
 
-        return response()->json(['message' => 'Disbursement Voucher has been encoded.'], 200);
+
+        return response()->json(['message' => 'Itinerary of Travel has been encoded.'], 200);
     }
 
     public function edit($id)
     {
-        $document = FTS_Document::with('dv')->findOrFail($id);
+        $document = FTS_Document::with('itinerary')->findOrFail($id);
 
-        // checking type
-        dm_abort($document->type, config('constants.document.type.disbursement'));
+        // checking if the document is PR
+        dm_abort($document->type, config('constants.document.type.travel.itinerary'));
 
         $divisions = SYS_Division::with('office')->get();
 
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
 
-        return view('filetracking::forms.disbursement.edit', [
+        return view('filetracking::forms.travel.itinerary.edit', [
             'divisions' => $divisions,
             'document' => $document
         ]);
-
     }
 
     public function update(Request $request, $id)
@@ -140,14 +143,15 @@ class DisbursementVoucherController extends Controller
         $document->division_id = $request->post('division');
         $document->save();
 
-        $dv = FTS_DisbursementVoucher::where('document_id', $id)->first();
-        $dv->payee = $request->post('payee');
-        $dv->amount = $request->post('amount');
-        $dv->particulars = $request->post('particulars');
-        $dv->code = $request->post('code');
-        $dv->accountable = $request->post('accountable');
-        $dv->save();
+        $itinerary = FTS_Itinerary::where('document_id', $id)->first();
+        $itinerary->name = $request->post('name');
+        $itinerary->position = $request->post('position');
+        $itinerary->destination = $request->post('destination');
+        $itinerary->amount = $request->post('amount');
+        $itinerary->purpose = $request->post('purpose');
+        $itinerary->save();
 
-        return redirect(route('fts.dv.index'))->with('alert-success', 'Disbursement Voucher has been updated.');
+        return redirect(route('fts.travel.itinerary.index'))->with('alert-success', 'Itinerary of Travel has been updated.');
+
     }
 }

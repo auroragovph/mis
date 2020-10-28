@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Modules\HumanResource\Entities\HR_Plantilla;
 use Modules\HumanResource\Entities\HR_SalaryGrade;
 
 class DevController extends Controller
 {
+    public function index()
+    {
+        
+    }
     public function csv()
     {
         $file_n = storage_path('/app/plantilla/sg.csv');

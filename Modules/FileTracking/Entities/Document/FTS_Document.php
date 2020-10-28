@@ -5,10 +5,14 @@ namespace Modules\FileTracking\Entities\Document;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Modules\FileTracking\Entities\FTS_Cafoa;
 use Modules\FileTracking\Entities\FTS_DisbursementVoucher;
+use Modules\FileTracking\Entities\FTS_Payroll;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Procurement\FTS_PurchaseRequest;
+use Modules\FileTracking\Entities\Travel\FTS_Itinerary;
+use Modules\FileTracking\Entities\Travel\FTS_TravelOrder;
 
 class FTS_Document extends Model
 {
@@ -45,9 +49,29 @@ class FTS_Document extends Model
         return $this->belongsTo(SYS_Division::class, 'division_id', 'id');
     }
 
+    public function cafoa()
+    {
+        return $this->hasOne(FTS_Cafoa::class, 'document_id', 'id');
+    }
+
+    public function itinerary()
+    {
+        return $this->hasOne(FTS_Itinerary::class, 'document_id', 'id');
+    }
+
+    public function payroll()
+    {
+        return $this->hasOne(FTS_Payroll::class, 'document_id', 'id');
+    }
+
     public function purchase_request()
     {
         return $this->hasOne(FTS_PurchaseRequest::class, 'document_id', 'id');
+    }
+
+    public function travel_order()
+    {
+        return $this->hasOne(FTS_TravelOrder::class, 'document_id', 'id');
     }
 
     public function dv()

@@ -160,6 +160,10 @@ if (! function_exists('doc_type_only')) {
             case 600: 
                 $type = 'Disbursement Voucher';
             break;
+
+            case 700: 
+                $type = 'Payroll';
+            break;
             
             default:
                 // $type = 'undefined';
@@ -292,7 +296,7 @@ if (! function_exists('employee_id_helper'))
     * @param object
     * @return string
     */
-    function employee_id_helper($string, $safemode = false)
+    function employee_id_helper($string, $safemode = true)
     {
 
         if($safemode == true){

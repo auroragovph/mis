@@ -26,5 +26,6 @@ Route::get('/home', function(){
 
 
 Route::prefix('dev')->group(function(){
+    Route::get('/', 'DevController@index');
     // Route::get('/csv', 'DevPController@csv');
 });

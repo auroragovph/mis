@@ -24,7 +24,7 @@ class HR_Employee extends Model
 
     public function scopeLiaison($query)
     {
-        return $query->where('liaison', 1);
+        return $query->where('liaison', true);
     }
 
     public function scopeWhereIdCard($query, $id)

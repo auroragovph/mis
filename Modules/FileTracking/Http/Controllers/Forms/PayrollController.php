@@ -19,6 +19,7 @@ class PayrollController extends Controller
         if($request->ajax()){
 
             $documents = FTS_Document::with('payroll', 'division.office')
+                            ->whereHas('payroll')
                             ->where('type', config('constants.document.type.payroll'))
                             ->get();
 

@@ -21,6 +21,7 @@ class DisbursementVoucherController extends Controller
         if($request->ajax()){
 
             $documents = FTS_Document::with('dv', 'division')
+                            ->whereHas('dv')
                             ->where('type', config('constants.document.type.disbursement'))
                             ->get();
 

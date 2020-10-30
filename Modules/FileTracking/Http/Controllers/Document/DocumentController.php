@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
+use Modules\FileTracking\Entities\FTS_AFL;
 use Modules\FileTracking\Entities\FTS_Cafoa;
 use Modules\FileTracking\Entities\FTS_DisbursementVoucher;
 use Modules\FileTracking\Entities\FTS_Payroll;
@@ -85,6 +86,8 @@ class DocumentController extends Controller
 
                 case config('constants.document.type.procurement.request'): //PURCHASE REQUEST
                     $pr = FTS_PurchaseRequest::where('document_id', $document->id)->first();
+                    if(!$pr){break;}
+
                     $datas['PR Number'] = $pr->number;
                     $datas['Date'] = $pr->date;
                     $datas['Particular'] = $pr->particular;
@@ -94,8 +97,10 @@ class DocumentController extends Controller
                     $datas['Amount'] = number_format($pr->amount);
                 break;
 
-                case config('constants.document.type.travel.order'): 
+                case config('constants.document.type.travel.order'):  //TRAVEL ORDER
                     $to = FTS_TravelOrder::where('document_id', $document->id)->first();
+                    if(!$to){break;}
+                
                     $datas['TO Number'] = $to->number;
                     $datas['Employees'] = implode(', ', $to->employees);
                     $datas['Destination'] = $to->destination;
@@ -104,8 +109,20 @@ class DocumentController extends Controller
                     $datas['Purpose'] = $to->purpose;
                 break;
 
+                case config('constants.document.type.afl'): //AFL
+                    $afl = FTS_AFL::where('document_id', $document->id)->first();
+                    if(!$afl){break;}
+
+                    $datas['Name'] = $afl->name;
+                    $datas['Position'] = $afl->position;
+                    $datas['Type'] = $afl->type;
+                    $datas['Credits'] = $afl->credits;
+                break;
+
                 case 302: // ITINERARY OF TRAVEL
                     $itinerary = FTS_Itinerary::where('document_id', $document->id)->first();
+                    if(!$itinerary){break;}
+
                     $datas['Name'] = $itinerary->name;
                     $datas['Position'] = $itinerary->position;
                     $datas['Destination'] = $itinerary->destination;
@@ -115,6 +132,8 @@ class DocumentController extends Controller
 
                 case 400: //CAFOA / OBR
                     $cafoa = FTS_Cafoa::where('document_id', $document->id)->first();
+                    if(!$cafoa){break;}
+
                     $datas['Number'] = $cafoa->number;
                     $datas['Payee'] = $cafoa->payee;
                     $datas['Amount'] = number_format($cafoa->amount);
@@ -123,6 +142,8 @@ class DocumentController extends Controller
 
                 case 600: //DISBURSEMENT VOUCHER
                     $dv = FTS_DisbursementVoucher::where('document_id', $document->id)->first();
+                    if(!$dv){break;}
+
                     $datas['Payee'] = $dv->payee;
                     $datas['Amount'] = number_format($dv->amount);
                     $datas['Particulars'] = $dv->particulars;
@@ -132,6 +153,8 @@ class DocumentController extends Controller
 
                 case 700: //PAYROLL
                     $payroll = FTS_Payroll::where('document_id', $document->id)->first();
+                    if(!$payroll){break;}
+                    
                     $datas['Name'] = $payroll->name;
                     $datas['Amount'] = number_format($payroll->amount, 2);
                     $datas['Particulars'] = $payroll->particulars;

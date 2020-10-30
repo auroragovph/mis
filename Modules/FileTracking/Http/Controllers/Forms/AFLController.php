@@ -1,25 +1,27 @@
 <?php
 
-namespace Modules\FileTracking\Http\Controllers\Forms\Travel;
+namespace Modules\FileTracking\Http\Controllers\Forms;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\FileTracking\Entities\FTS_AFL;
+use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Document\FTS_Qr;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
-use Modules\FileTracking\Entities\Travel\FTS_Itinerary;
 
-class ItineraryController extends Controller
+class AFLController extends Controller
 {
     public function index(Request $request)
     {
         if($request->ajax()){
 
-            $documents = FTS_Document::with('itinerary', 'division')
-                            ->whereHas('itinerary')
-                            ->where('type', config('constants.document.type.travel.itinerary'))
+            $documents = FTS_Document::with('afl', 'division.office')
+                            ->whereHas('afl')
+                            ->where('type', config('constants.document.type.afl'))
                             ->get();
 
             $records['data'] = array();
@@ -33,16 +35,13 @@ class ItineraryController extends Controller
                 $records['data'][$i]['status'] = show_status($document->status);
 
 
-                $records['data'][$i]['name'] = $document->itinerary->name;
-                $records['data'][$i]['position'] = $document->itinerary->position;
-                $records['data'][$i]['destination'] = $document->itinerary->destination;
-                $records['data'][$i]['amount'] = $document->itinerary->amount;
-                $records['data'][$i]['purpose'] = $document->itinerary->purpose;
-
-
+                $records['data'][$i]['name'] = $document->afl->name;
+                $records['data'][$i]['position'] = $document->afl->position;
+                $records['data'][$i]['type'] = $document->afl->type;
+                $records['data'][$i]['inclusives'] = implode(', ', $document->afl->inclusives);
 
                 $action =  fts_action_button($document->series, [
-                    'route' => 'fts.travel.itinerary.edit',
+                    'route' => 'fts.afl.edit',
                     'id' => $document->id
                 ]);
 
@@ -51,14 +50,16 @@ class ItineraryController extends Controller
             }
 
             return response()->json($records, 200);
-
-
         }
+
 
         $divisions = SYS_Division::with('office')->get();
         $qrs = FTS_Qr::where('status', false)->get();
+        $liaisons = HR_Employee::liaison()->get();
 
-        return view('filetracking::forms.travel.itinerary.index',[
+
+        return view('filetracking::forms.afl.index',[
+            'liaisons' => $liaisons,
             'divisions' => $divisions,
             'qrs' => $qrs
         ]);
@@ -68,30 +69,47 @@ class ItineraryController extends Controller
     {
         $series = $request->post('series');
 
+        if($request->post('inclusive') == null){
+            return response()->json(['message' => 'Please select inclusive dates!'], 406);
+        }
+
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
         if($check != 0){
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
-        $liaison = employee_id_helper($request->post('liaison'));
+        $liaison = $request->post('liaison');
+
 
         $document = FTS_Document::create([
             'series' => $series,
             'division_id' => $request->post('division'),
             'liaison_id' => $liaison,
             'encoder_id' => Auth::user()->id,
-            'type' => config('constants.document.type.travel.itinerary')
+            'type' => config('constants.document.type.afl')
         ]);
 
 
-        $itinerary = FTS_Itinerary::create([
+        $leave = [
+            'vacation' => [$request->post('v1'), $request->post('v2')],
+            'sick' => [$request->post('s1'), $request->post('s2')]
+        ];
+
+        $inclusives = collect([]);
+
+        foreach(explode(',', $request->post('inclusive')) as $date){
+            $inclusives->push(Carbon::parse($date)->format('Y-m-d'));
+        }
+
+        $afl = FTS_AFL::create([
             'document_id' => $document->id,
             'name' => $request->post('name'),
             'position' => $request->post('position'),
-            'destination' => $request->post('destination'),
-            'amount' => $request->post('amount'),
-            'purpose' => $request->post('purpose'),
+            'type' => $request->post('type'),
+            'credits' => $request->post('credits'),
+            'leave' => $leave,
+            'inclusives' => $inclusives->sort()->values()->all(),
         ]);
 
         // changing QR status
@@ -99,36 +117,36 @@ class ItineraryController extends Controller
         $qr->status = true;
         $qr->save();
 
-
         // INSERTING INTO TRACKING LOGS
         FTS_Tracking::create([
             'document_id' => $document->id,
             'division_id' => Auth::user()->employee->division_id,
             'user_id' => Auth::user()->employee_id,
             'liaison_id' => $liaison,
-            'action' => 0,
+            'action' => config('constants.document.action.release'),
             'purpose' => 'DOCUMENT ENCODED BY: '.strtoupper(name_helper(Auth::user()->employee->name)),
             'status' => config('constants.document.status.process.id')
         ]);
 
-
-        return response()->json(['message' => 'Itinerary of Travel has been encoded.'], 200);
+        return response()->json(['message' => 'Application for leave has been encoded.'], 200);
     }
 
     public function edit($id)
     {
-        $document = FTS_Document::with('itinerary')->findOrFail($id);
+        $document = FTS_Document::with('afl')->findOrFail($id);
 
-        // checking if the document is PR
-        dm_abort($document->type, config('constants.document.type.travel.itinerary'));
+        // checking type
+        dm_abort($document->type, config('constants.document.type.afl'));
 
         $divisions = SYS_Division::with('office')->get();
+        $liaisons = HR_Employee::liaison()->get();
 
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
 
-        return view('filetracking::forms.travel.itinerary.edit', [
+        return view('filetracking::forms.afl.edit', [
             'divisions' => $divisions,
+            'liaisons' => $liaisons,
             'document' => $document
         ]);
     }
@@ -140,19 +158,30 @@ class ItineraryController extends Controller
 
         $document = FTS_Document::findOrFail($id);
 
-        if($request->post('liaison') != ''){$document->liaison_id = employee_id_helper($request->post('liaison'));}
+        $document->liaison_id = $request->post('liaison');
         $document->division_id = $request->post('division');
         $document->save();
 
-        $itinerary = FTS_Itinerary::where('document_id', $id)->first();
-        $itinerary->name = $request->post('name');
-        $itinerary->position = $request->post('position');
-        $itinerary->destination = $request->post('destination');
-        $itinerary->amount = $request->post('amount');
-        $itinerary->purpose = $request->post('purpose');
-        $itinerary->save();
+        $leave = [
+            'vacation' => [$request->post('v1'), $request->post('v2')],
+            'sick' => [$request->post('s1'), $request->post('s2')]
+        ];
 
-        return redirect(route('fts.travel.itinerary.index'))->with('alert-success', 'Itinerary of Travel has been updated.');
+        $inclusives = collect([]);
 
+        foreach(explode(',', $request->post('inclusive')) as $date){
+            $inclusives->push(Carbon::parse($date)->format('Y-m-d'));
+        }
+
+        $afl = FTS_AFL::where('document_id', $id)->first();
+        $afl->name = $request->post('name');
+        $afl->position = $request->post('position');
+        $afl->type = $request->post('type');
+        $afl->credits = $request->post('credits');
+        $afl->leave = $leave;
+        $afl->inclusives = $inclusives;
+        $afl->save();
+
+        return redirect(route('fts.afl.index'))->with('alert-success', 'Application for leave has been updated.');
     }
 }

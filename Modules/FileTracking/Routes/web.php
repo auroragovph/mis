@@ -58,6 +58,13 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
 
     });
 
+    Route::prefix('application-for-leave')->namespace('Forms')->group(function(){
+        Route::get('/', 'AFLController@index')->name('fts.afl.index');
+        Route::post('/', 'AFLController@store')->name('fts.afl.store');
+        Route::get('/{id}/edit', 'AFLController@edit')->name('fts.afl.edit');
+        Route::post('/{id}/edit', 'AFLController@update')->name('fts.afl.update');
+    });
+
     Route::prefix('cafoa')->namespace('Forms')->group(function(){
         Route::get('/', 'CafoaController@index')->name('fts.cafoa.index');
         Route::post('/', 'CafoaController@store')->name('fts.cafoa.store');

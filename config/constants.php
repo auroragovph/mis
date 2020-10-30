@@ -28,6 +28,8 @@ return [
     'document' => [
 
         'type' => [
+
+            'afl' => 500,
             
             'cafoa' => 400, 
 

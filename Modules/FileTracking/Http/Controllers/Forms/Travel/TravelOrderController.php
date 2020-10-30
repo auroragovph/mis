@@ -19,6 +19,7 @@ class TravelOrderController extends Controller
         if($request->ajax()){
 
             $documents = FTS_Document::with('travel_order', 'division.office')
+                            ->whereHas('travel_order')
                             ->where('type', config('constants.document.type.travel.order'))
                             ->get();
 

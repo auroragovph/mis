@@ -101,20 +101,26 @@ if (! function_exists('fts_action_button')) {
      */
     function fts_action_button($series, $edit = ['route' => '', 'id' => 0]){
 
-        $action = '';
+        $action =   '<div class="dropdown dropleft">
+                        <button class="btn btn-default btn-xs" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fal fa-cog"></i>  Actions
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+
 
         if($edit['route'] != ''){
             if(Auth::user()->can('fts.document.edit')){
-                $action .= "<a href=\"".route($edit['route'], $edit['id'])."\" class=\"btn btn-xs bg-gradient-warning m-1\"> <i class=\" fal fa-edit\"> </i> Edit</a> <br> ";
+                $action .= '<a class="dropdown-item" href="'.route($edit['route'], $edit['id']).'"> <i class="fal fa-edit"> </i> Edit</a>';
             }
         }
         
-
         if(Auth::user()->can('fts.document.print')){
-            $action .= "<a target=\"_blank\" href=\"".route('fts.documents.receipt', ['series' => $series, 'print' => 'true'])."\" class=\"btn btn-xs bg-gradient-navy m-1\"> <i class=\" fal fa-print\"> </i> Print</a> <br>";
+            $action .= '<a class="dropdown-item" href="'.route('fts.documents.receipt', ['series' => $series, 'print' => 'true']).'"><i class="fal fa-print"></i> Print</a>';
         }
 
-        $action .= "<a target=\"_blank\" href=\"".route('fts.documents.track', ['series' => $series])."\" class=\"btn btn-xs bg-gradient-primary m-1\"> <i class=\" fal fa-search\"> </i> Track</a>";
+        $action .= '<a class="dropdown-item" href="'.route('fts.documents.track', ['series' => $series]).'"> <i class="fal fa-search"></i> Track</a>';
+                    
+        $action .= '</div></div>';
 
         return $action;
     }

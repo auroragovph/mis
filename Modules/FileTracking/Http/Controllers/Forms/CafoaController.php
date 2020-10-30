@@ -19,13 +19,14 @@ class CafoaController extends Controller
         if($request->ajax()){
 
             $documents = FTS_Document::with('cafoa', 'division.office')
+                            ->whereHas('cafoa')
                             ->where('type', config('constants.document.type.cafoa'))
                             ->get();
 
             $records['data'] = array();
 
             foreach($documents as $i => $document){
-
+                
                 $records['data'][$i]['id'] = $document->id;
                 $records['data'][$i]['encoded'] = $document->encoded;
                 $records['data'][$i]['series'] = $document->seriesFull;

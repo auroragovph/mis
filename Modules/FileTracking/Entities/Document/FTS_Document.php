@@ -5,6 +5,7 @@ namespace Modules\FileTracking\Entities\Document;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Modules\FileTracking\Entities\FTS_AFL;
 use Modules\FileTracking\Entities\FTS_Cafoa;
 use Modules\FileTracking\Entities\FTS_DisbursementVoucher;
 use Modules\FileTracking\Entities\FTS_Payroll;
@@ -47,6 +48,11 @@ class FTS_Document extends Model
     public function division()
     {
         return $this->belongsTo(SYS_Division::class, 'division_id', 'id');
+    }
+
+    public function afl()
+    {
+        return $this->hasOne(FTS_AFL::class, 'document_id', 'id');
     }
 
     public function cafoa()

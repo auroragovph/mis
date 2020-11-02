@@ -5,11 +5,13 @@ namespace Modules\FileTracking\Http\Controllers\Forms\Travel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
+use Modules\FileTracking\Entities\Document\FTS_DA;
 use Modules\FileTracking\Entities\Document\FTS_Qr;
+use Modules\FileTracking\Entities\Travel\FTS_Itinerary;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
-use Modules\FileTracking\Entities\Travel\FTS_Itinerary;
 
 class ItineraryController extends Controller
 {
@@ -54,19 +56,32 @@ class ItineraryController extends Controller
 
 
         }
+        
+        if(auth()->user()->can('fts.document.create')){
+            $divisions = SYS_Division::lists();
+            $qrs = FTS_Qr::available();
+            $liaisons = HR_Employee::liaison()->get();
+            $attachments = FTS_DA::lists();
 
-        $divisions = SYS_Division::with('office')->get();
-        $qrs = FTS_Qr::where('status', false)->get();
+        }
 
         return view('filetracking::forms.travel.itinerary.index',[
-            'divisions' => $divisions,
-            'qrs' => $qrs
+            'divisions' => $divisions ?? null,
+            'qrs' => $qrs ?? null,
+            'liaisons' => $liaisons ?? null,
+            'attachments' => $attachments ?? null,
+
         ]);
     }
 
     public function store(Request $request)
     {
-        $series = $request->post('series');
+        // checking permissions
+        if(!auth()->user()->can('fts.document.create')){
+            return response()->json(['message' => 'You dont have the permissions to access this function.'], 403);
+        }
+
+        $series = fts_series($request->post('series'));
 
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
@@ -74,7 +89,7 @@ class ItineraryController extends Controller
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
-        $liaison = employee_id_helper($request->post('liaison'));
+        $liaison = $request->post('liaison');
 
         $document = FTS_Document::create([
             'series' => $series,
@@ -84,7 +99,15 @@ class ItineraryController extends Controller
             'type' => config('constants.document.type.travel.itinerary')
         ]);
 
-
+        $attachments = array();
+        foreach($request->post('attachments') as $i => $attachment){
+            $attachments[$i]['document_id'] = $document->id;
+            $attachments[$i]['employee_id'] = auth()->user()->employee_id;
+            $attachments[$i]['description'] = $attachment;
+            $i++;
+        }
+        FTS_DA::insert($attachments);
+        
         $itinerary = FTS_Itinerary::create([
             'document_id' => $document->id,
             'name' => $request->post('name'),
@@ -95,9 +118,7 @@ class ItineraryController extends Controller
         ]);
 
         // changing QR status
-        $qr = FTS_Qr::find($series);
-        $qr->status = true;
-        $qr->save();
+        $qr = FTS_Qr::used($series);
 
 
         // INSERTING INTO TRACKING LOGS
@@ -117,19 +138,28 @@ class ItineraryController extends Controller
 
     public function edit($id)
     {
+        // checking permissions
+        if(!auth()->user()->can('fts.document.edit')){
+            return abort(403);
+        }
+
+
         $document = FTS_Document::with('itinerary')->findOrFail($id);
 
         // checking if the document is PR
         dm_abort($document->type, config('constants.document.type.travel.itinerary'));
 
-        $divisions = SYS_Division::with('office')->get();
+        $divisions = SYS_Division::lists();
+        $liaisons = HR_Employee::liaison()->get();
+
 
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
 
         return view('filetracking::forms.travel.itinerary.edit', [
             'divisions' => $divisions,
-            'document' => $document
+            'document' => $document,
+            'liaisons' => $liaisons
         ]);
     }
 
@@ -137,6 +167,11 @@ class ItineraryController extends Controller
     {
         // checking the ID if match
         dm_abort(session()->pull('fts.document.edit'), $id);
+
+        // checking permissions
+        if(!auth()->user()->can('fts.document.edit')){
+            return abort(403);
+        }
 
         $document = FTS_Document::findOrFail($id);
 

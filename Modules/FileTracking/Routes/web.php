@@ -58,69 +58,70 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
 
     });
 
-    Route::prefix('application-for-leave')->namespace('Forms')->group(function(){
-        Route::get('/', 'AFLController@index')->name('fts.afl.index');
-        Route::post('/', 'AFLController@store')->name('fts.afl.store');
-        Route::get('/{id}/edit', 'AFLController@edit')->name('fts.afl.edit');
-        Route::post('/{id}/edit', 'AFLController@update')->name('fts.afl.update');
-    });
+    Route::middleware(['permission:fts.document.view'])->group(function(){
 
-    Route::prefix('cafoa')->namespace('Forms')->group(function(){
-        Route::get('/', 'CafoaController@index')->name('fts.cafoa.index');
-        Route::post('/', 'CafoaController@store')->name('fts.cafoa.store');
-        Route::get('/{id}/edit', 'CafoaController@edit')->name('fts.cafoa.edit');
-        Route::post('/{id}/edit', 'CafoaController@update')->name('fts.cafoa.update');
-    });
-
-    Route::prefix('disbursement-voucher')->namespace('Forms')->group(function(){
-        Route::get('/', 'DisbursementVoucherController@index')->name('fts.dv.index');
-        Route::post('/', 'DisbursementVoucherController@store')->name('fts.dv.store');
-        Route::get('/{id}/edit', 'DisbursementVoucherController@edit')->name('fts.dv.edit');
-        Route::post('/{id}/edit', 'DisbursementVoucherController@update')->name('fts.dv.update');
-    });
-
-    Route::prefix('payroll')->namespace('Forms')->group(function(){
-        Route::get('/', 'PayrollController@index')->name('fts.payroll.index');
-        Route::post('/', 'PayrollController@store')->name('fts.payroll.store');
-        Route::get('/{id}/edit', 'PayrollController@edit')->name('fts.payroll.edit');
-        Route::post('/{id}/edit', 'PayrollController@update')->name('fts.payroll.update');
-    });
-
-    Route::prefix('procurement')->namespace('Forms\Procurement')->group(function(){
-
-        Route::prefix('request')->group(function(){
-
-            Route::get('/', 'PurchaseRequestController@index')->name('fts.procurement.request.index');
-            Route::post('/', 'PurchaseRequestController@store')->name('fts.procurement.request.store');
-
-            Route::get('/{id}/edit', 'PurchaseRequestController@edit')->name('fts.procurement.request.edit');
-            Route::post('/{id}/edit', 'PurchaseRequestController@update')->name('fts.procurement.request.update');
-         
+        Route::prefix('application-for-leave')->namespace('Forms')->group(function(){
+            Route::get('/', 'AFLController@index')->name('fts.afl.index');
+            Route::post('/', 'AFLController@store')->name('fts.afl.store');
+            Route::get('/{id}/edit', 'AFLController@edit')->name('fts.afl.edit');
+            Route::post('/{id}/edit', 'AFLController@update')->name('fts.afl.update');
         });
-    });
-
-    Route::prefix('travel')->namespace('Forms\Travel')->group(function(){
-
-        Route::prefix('itinerary')->group(function(){
-            Route::get('/', 'ItineraryController@index')->name('fts.travel.itinerary.index');
-            Route::post('/', 'ItineraryController@store')->name('fts.travel.itinerary.store');
-            Route::get('/{id}/edit', 'ItineraryController@edit')->name('fts.travel.itinerary.edit');
-            Route::post('/{id}/edit', 'ItineraryController@update')->name('fts.travel.itinerary.update');
-
-        });
-
-        Route::prefix('order')->group(function(){
-            Route::get('/', 'TravelOrderController@index')->name('fts.travel.order.index');
-            Route::post('/', 'TravelOrderController@store')->name('fts.travel.order.store');
-            Route::get('/{id}/edit', 'TravelOrderController@edit')->name('fts.travel.order.edit');
-            Route::post('/{id}/edit', 'TravelOrderController@update')->name('fts.travel.order.update');
-
-        });
-
-    });
-
     
+        Route::prefix('cafoa')->namespace('Forms')->group(function(){
+            Route::get('/', 'CafoaController@index')->name('fts.cafoa.index');
+            Route::post('/', 'CafoaController@store')->name('fts.cafoa.store');
+            Route::get('/{id}/edit', 'CafoaController@edit')->name('fts.cafoa.edit');
+            Route::post('/{id}/edit', 'CafoaController@update')->name('fts.cafoa.update');
+        });
+    
+        Route::prefix('disbursement-voucher')->namespace('Forms')->group(function(){
+            Route::get('/', 'DisbursementVoucherController@index')->name('fts.dv.index');
+            Route::post('/', 'DisbursementVoucherController@store')->name('fts.dv.store');
+            Route::get('/{id}/edit', 'DisbursementVoucherController@edit')->name('fts.dv.edit');
+            Route::post('/{id}/edit', 'DisbursementVoucherController@update')->name('fts.dv.update');
+        });
+    
+        Route::prefix('payroll')->namespace('Forms')->group(function(){
+            Route::get('/', 'PayrollController@index')->name('fts.payroll.index');
+            Route::post('/', 'PayrollController@store')->name('fts.payroll.store');
+            Route::get('/{id}/edit', 'PayrollController@edit')->name('fts.payroll.edit');
+            Route::post('/{id}/edit', 'PayrollController@update')->name('fts.payroll.update');
+        });
+    
+        Route::prefix('procurement')->namespace('Forms\Procurement')->group(function(){
+    
+            Route::prefix('request')->group(function(){
+    
+                Route::get('/', 'PurchaseRequestController@index')->name('fts.procurement.request.index');
+                Route::post('/', 'PurchaseRequestController@store')->name('fts.procurement.request.store');
+    
+                Route::get('/{id}/edit', 'PurchaseRequestController@edit')->name('fts.procurement.request.edit');
+                Route::post('/{id}/edit', 'PurchaseRequestController@update')->name('fts.procurement.request.update');
+             
+            });
+        });
+    
+        Route::prefix('travel')->namespace('Forms\Travel')->group(function(){
+    
+            Route::prefix('itinerary')->group(function(){
+                Route::get('/', 'ItineraryController@index')->name('fts.travel.itinerary.index');
+                Route::post('/', 'ItineraryController@store')->name('fts.travel.itinerary.store');
+                Route::get('/{id}/edit', 'ItineraryController@edit')->name('fts.travel.itinerary.edit');
+                Route::post('/{id}/edit', 'ItineraryController@update')->name('fts.travel.itinerary.update');
+    
+            });
+    
+            Route::prefix('order')->group(function(){
+                Route::get('/', 'TravelOrderController@index')->name('fts.travel.order.index');
+                Route::post('/', 'TravelOrderController@store')->name('fts.travel.order.store');
+                Route::get('/{id}/edit', 'TravelOrderController@edit')->name('fts.travel.order.edit');
+                Route::post('/{id}/edit', 'TravelOrderController@update')->name('fts.travel.order.update');
+    
+            });
+    
+        });
 
+    });
 
     Route::prefix('qr')->group(function(){
         Route::get('/', 'QRController@index')->name('fts.qr.index');

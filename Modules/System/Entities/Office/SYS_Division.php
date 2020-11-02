@@ -10,6 +10,10 @@ class SYS_Division extends Model
     protected $guarded = [];
     protected $table = 'sys_division';
 
+    public function scopeLists($query)
+    {
+        return $query->with('office')->get();
+    }
 
     public function office()
     {

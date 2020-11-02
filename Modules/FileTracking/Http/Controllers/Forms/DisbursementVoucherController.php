@@ -5,7 +5,9 @@ namespace Modules\FileTracking\Http\Controllers\Forms;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
+use Modules\FileTracking\Entities\Document\FTS_DA;
 use Modules\FileTracking\Entities\Document\FTS_Qr;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
@@ -15,9 +17,6 @@ class DisbursementVoucherController extends Controller
 {
     public function index(Request $request)
     {
-        $divisions = SYS_Division::with('office')->get();
-        $qrs = FTS_Qr::where('status', false)->get();
-
         if($request->ajax()){
 
             $documents = FTS_Document::with('dv', 'division')
@@ -56,15 +55,30 @@ class DisbursementVoucherController extends Controller
 
         }
 
+        if(auth()->user()->can('fts.document.create')){
+            $divisions = SYS_Division::lists();
+            $qrs = FTS_Qr::available();
+            $liaisons = HR_Employee::liaison()->get();
+            $attachments = FTS_DA::lists();
+        }
+
         return view('filetracking::forms.disbursement.index',[
-            'divisions' => $divisions,
-            'qrs' => $qrs
+            'divisions' => $divisions ?? null,
+            'qrs' => $qrs ?? null,
+            'liaisons' => $liaisons ?? null,
+            'attachments' => $attachments ?? null,
+
         ]);
     }
 
     public function store(Request $request)
     {
-        $series = $request->post('series');
+        // checking permissions
+        if(!auth()->user()->can('fts.document.edit')){
+            return abort(403);
+        }
+
+        $series = fts_series($request->post('series'));
 
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
@@ -72,7 +86,8 @@ class DisbursementVoucherController extends Controller
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
-        $liaison = employee_id_helper($request->post('liaison'));
+        // $liaison = employee_id_helper($request->post('liaison'));
+        $liaison = $request->post('liaison');
 
 
         $document = FTS_Document::create([
@@ -82,6 +97,15 @@ class DisbursementVoucherController extends Controller
             'encoder_id' => Auth::user()->id,
             'type' => config('constants.document.type.disbursement')
         ]);
+
+        $attachments = array();
+        foreach($request->post('attachments') as $i => $attachment){
+            $attachments[$i]['document_id'] = $document->id;
+            $attachments[$i]['employee_id'] = auth()->user()->employee_id;
+            $attachments[$i]['description'] = $attachment;
+            $i++;
+        }
+        FTS_DA::insert($attachments);
 
         $dv = FTS_DisbursementVoucher::create([
             'document_id' => $document->id,
@@ -93,9 +117,7 @@ class DisbursementVoucherController extends Controller
         ]);
 
         // changing QR status
-        $qr = FTS_Qr::find($series);
-        $qr->status = true;
-        $qr->save();
+        $qr = FTS_Qr::used($series);
 
         // INSERTING INTO TRACKING LOGS
         FTS_Tracking::create([
@@ -115,17 +137,24 @@ class DisbursementVoucherController extends Controller
     {
         $document = FTS_Document::with('dv')->findOrFail($id);
 
+        // checking permissions
+        if(!auth()->user()->can('fts.document.create')){
+            return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
+        }
+
         // checking type
         dm_abort($document->type, config('constants.document.type.disbursement'));
 
-        $divisions = SYS_Division::with('office')->get();
+        $divisions = SYS_Division::lists();
+        $liaisons = HR_Employee::liaison()->get();
 
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
 
         return view('filetracking::forms.disbursement.edit', [
             'divisions' => $divisions,
-            'document' => $document
+            'document' => $document,
+            'liaisons' => $liaisons
         ]);
 
     }
@@ -135,9 +164,14 @@ class DisbursementVoucherController extends Controller
         // checking the ID if match
         dm_abort(session()->pull('fts.document.edit'), $id);
 
+        // checking permissions
+        if(!auth()->user()->can('fts.document.create')){
+            return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
+        }
+
         $document = FTS_Document::findOrFail($id);
 
-        if($request->post('liaison') != ''){$document->liaison_id = employee_id_helper($request->post('liaison'));}
+        $document->liaison_id = $request->post('liaison');
         $document->division_id = $request->post('division');
         $document->save();
 

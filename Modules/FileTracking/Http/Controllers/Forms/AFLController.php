@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\FileTracking\Entities\FTS_AFL;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
+use Modules\FileTracking\Entities\Document\FTS_DA;
 use Modules\FileTracking\Entities\Document\FTS_Qr;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
@@ -53,21 +54,31 @@ class AFLController extends Controller
         }
 
 
-        $divisions = SYS_Division::with('office')->get();
-        $qrs = FTS_Qr::where('status', false)->get();
-        $liaisons = HR_Employee::liaison()->get();
+        if(auth()->user()->can('fts.document.create')){
+            $divisions = SYS_Division::lists();
+            $qrs = FTS_Qr::available();
+            $liaisons = HR_Employee::liaison()->get();
+            $attachments = FTS_DA::lists();
 
+        }
 
         return view('filetracking::forms.afl.index',[
-            'liaisons' => $liaisons,
-            'divisions' => $divisions,
-            'qrs' => $qrs
+            'divisions' => $divisions ?? null,
+            'qrs' => $qrs ?? null,
+            'liaisons' => $liaisons ?? null,
+            'attachments' => $attachments ?? null,
+
         ]);
     }
 
     public function store(Request $request)
     {
-        $series = $request->post('series');
+        // checking permissions
+        if(!auth()->user()->can('fts.document.create')){
+            return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
+        }
+
+        $series = fts_series($request->post('series'));
 
         if($request->post('inclusive') == null){
             return response()->json(['message' => 'Please select inclusive dates!'], 406);
@@ -81,7 +92,6 @@ class AFLController extends Controller
 
         $liaison = $request->post('liaison');
 
-
         $document = FTS_Document::create([
             'series' => $series,
             'division_id' => $request->post('division'),
@@ -89,6 +99,15 @@ class AFLController extends Controller
             'encoder_id' => Auth::user()->id,
             'type' => config('constants.document.type.afl')
         ]);
+
+        $attachments = array();
+        foreach($request->post('attachments') as $i => $attachment){
+            $attachments[$i]['document_id'] = $document->id;
+            $attachments[$i]['employee_id'] = auth()->user()->employee_id;
+            $attachments[$i]['description'] = $attachment;
+            $i++;
+        }
+        FTS_DA::insert($attachments);
 
 
         $leave = [
@@ -113,9 +132,7 @@ class AFLController extends Controller
         ]);
 
         // changing QR status
-        $qr = FTS_Qr::find($series);
-        $qr->status = true;
-        $qr->save();
+        $qr = FTS_Qr::used($series);
 
         // INSERTING INTO TRACKING LOGS
         FTS_Tracking::create([
@@ -133,12 +150,17 @@ class AFLController extends Controller
 
     public function edit($id)
     {
+         // checking permissions
+         if(!auth()->user()->can('fts.document.edit')){
+            return abort(403);
+        }
+
         $document = FTS_Document::with('afl')->findOrFail($id);
 
         // checking type
         dm_abort($document->type, config('constants.document.type.afl'));
 
-        $divisions = SYS_Division::with('office')->get();
+        $divisions = SYS_Division::lists();
         $liaisons = HR_Employee::liaison()->get();
 
         // setting up the sessions
@@ -156,6 +178,11 @@ class AFLController extends Controller
         // checking the ID if match
         dm_abort(session()->pull('fts.document.edit'), $id);
 
+         // checking permissions
+         if(!auth()->user()->can('fts.document.edit')){
+            return abort(403);
+        }
+        
         $document = FTS_Document::findOrFail($id);
 
         $document->liaison_id = $request->post('liaison');

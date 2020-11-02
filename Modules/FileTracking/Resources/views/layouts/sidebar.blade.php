@@ -57,6 +57,14 @@
             </a>
           </li>
           @endcan
+
+          {{-- @can('fts.sa.rr') --}}
+          <li class="nav-item">
+            <a href="{{ route('fts.qr.index') }}" class="nav-link">
+              <i class="nav-icon fal fa-qrcode"></i> <p> QR Codes</p>
+            </a>
+          </li>
+          {{-- @endcan --}}
           
           {{-- @can('fts.sa.number')
           <li class="nav-item">

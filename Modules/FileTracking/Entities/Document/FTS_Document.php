@@ -14,11 +14,20 @@ use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Procurement\FTS_PurchaseRequest;
 use Modules\FileTracking\Entities\Travel\FTS_Itinerary;
 use Modules\FileTracking\Entities\Travel\FTS_TravelOrder;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class FTS_Document extends Model
 {
+
+    use LogsActivity;
+
     protected $guarded = [];
     protected $table = 'fts_documents';
+
+    protected static $logUnguarded = true;
+    protected static $logName = 'fts';
+    protected static $logOnlyDirty = true;
+
 
     public function getSeriesFullAttribute()
     {

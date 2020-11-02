@@ -53,7 +53,10 @@ class QRController extends Controller
         }
 
 
-        FTS_Qr::insert($lists);
+        $qrs = FTS_Qr::insert($lists);
+
+        // logging to the activity logs
+        activity('fts')->on(new FTS_Qr)->log('Generated '.$counts.' QR code');
 
         return redirect()->back()->with('alert-success', 'QR Codes has been generated');
     }
@@ -61,7 +64,6 @@ class QRController extends Controller
     public function print(Request $request)
     {
         $type = $request->post('type');
-
 
         if($type == 'auto'){
             if($request->post('driver') == 'last'){

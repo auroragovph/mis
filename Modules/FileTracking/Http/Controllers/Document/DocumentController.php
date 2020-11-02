@@ -183,6 +183,8 @@ class DocumentController extends Controller
 
     public function receipt(Request $request)
     {
+        if(!auth()->user()->can('fts.document.print')){return abort(403);}
+
         $series = fts_series($request->get('series'), 'decode');
 
         $document = $this->full($series, ['datas']);

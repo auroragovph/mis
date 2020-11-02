@@ -5,6 +5,7 @@ namespace Modules\FileTracking\Http\Controllers\Forms;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\FileTracking\Entities\Document\FTS_DA;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Document\FTS_Qr;
@@ -53,21 +54,29 @@ class PayrollController extends Controller
         }
 
 
-        $divisions = SYS_Division::with('office')->get();
-        $qrs = FTS_Qr::where('status', false)->get();
-        $liaisons = HR_Employee::liaison()->get();
-
+        if(auth()->user()->can('fts.document.create')){
+            $divisions = SYS_Division::lists();
+            $qrs = FTS_Qr::available();
+            $liaisons = HR_Employee::liaison()->get();
+            $attachments = FTS_DA::lists();
+        }
 
         return view('filetracking::forms.payroll.index',[
-            'liaisons' => $liaisons,
-            'divisions' => $divisions,
-            'qrs' => $qrs
+            'divisions' => $divisions ?? null,
+            'qrs' => $qrs ?? null,
+            'liaisons' => $liaisons ?? null,
+            'attachments' => $attachments ?? null,
         ]);
     }
 
     public function store(Request $request)
     {
-        $series = $request->post('series');
+        // checking permissions
+        if(!auth()->user()->can('fts.document.edit')){
+            return abort(403);
+        }
+
+        $series = fts_series($request->post('series'));
 
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
@@ -86,6 +95,15 @@ class PayrollController extends Controller
             'type' => config('constants.document.type.payroll')
         ]);
 
+        $attachments = array();
+        foreach($request->post('attachments') as $i => $attachment){
+            $attachments[$i]['document_id'] = $document->id;
+            $attachments[$i]['employee_id'] = auth()->user()->employee_id;
+            $attachments[$i]['description'] = $attachment;
+            $i++;
+        }
+        FTS_DA::insert($attachments);
+
         $payroll = FTS_Payroll::create([
             'document_id' => $document->id,
             'name' => $request->post('name'),
@@ -94,9 +112,7 @@ class PayrollController extends Controller
         ]);
 
         // changing QR status
-        $qr = FTS_Qr::find($series);
-        $qr->status = true;
-        $qr->save();
+        $qr = FTS_Qr::used($series);
 
         // INSERTING INTO TRACKING LOGS
         FTS_Tracking::create([
@@ -114,13 +130,19 @@ class PayrollController extends Controller
 
     public function edit($id)
     {
+        // checking permissions
+        if(!auth()->user()->can('fts.document.create')){
+            return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
+        }
+
         $document = FTS_Document::with('payroll')->findOrFail($id);
 
         // checking type
         dm_abort($document->type, config('constants.document.type.payroll'));
 
-        $divisions = SYS_Division::with('office')->get();
+        $divisions = SYS_Division::lists();
         $liaisons = HR_Employee::liaison()->get();
+        
 
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
@@ -136,6 +158,11 @@ class PayrollController extends Controller
     {
         // checking the ID if match
         dm_abort(session()->pull('fts.document.edit'), $id);
+
+        // checking permissions
+        if(!auth()->user()->can('fts.document.create')){
+            return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
+        }
 
         $document = FTS_Document::findOrFail($id);
 

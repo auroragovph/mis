@@ -1,10 +1,6 @@
 <?php
-
-use Illuminate\Support\Facades\Auth;
-
-
 /**
- *  Utility Helpers for File Management System of Provincial Government of Aurora
+ *  Utility Helpers for Management Information System of Provincial Government of Aurora
  *
  *  @package		CodeIgniter
  *	@subpackage		Utility Helper
@@ -13,6 +9,23 @@ use Illuminate\Support\Facades\Auth;
  *	@link			https://github.com/jmprns/fms
 */
 
+if (! function_exists('employees')) {
+    /**
+     * Return the lists of all employees
+     * @param array
+     * @return collection
+     */
+    function employees($array){
+
+        $employees = Modules\HumanResource\Entities\HR_Employee::query();
+
+        if(in_array('liaison', $array)){
+            $employees->liaison();
+        }
+
+        return $employees->get();
+    }
+}
 
 if (! function_exists('numwords')) {
     /**
@@ -109,12 +122,12 @@ if (! function_exists('fts_action_button')) {
 
 
         if($edit['route'] != ''){
-            if(Auth::user()->can('fts.document.edit')){
+            if(auth()->user()->can('fts.document.edit')){
                 $action .= '<a class="dropdown-item" href="'.route($edit['route'], $edit['id']).'"> <i class="fal fa-edit"> </i> Edit</a>';
             }
         }
         
-        if(Auth::user()->can('fts.document.print')){
+        if(auth()->user()->can('fts.document.print')){
             $action .= '<a class="dropdown-item" href="'.route('fts.documents.receipt', ['series' => $series, 'print' => 'true']).'"><i class="fal fa-print"></i> Print</a>';
         }
 
@@ -123,6 +136,18 @@ if (! function_exists('fts_action_button')) {
         $action .= '</div></div>';
 
         return $action;
+    }
+}
+
+if(! function_exists('fts_series_lists')) {
+    /**
+     * Return all the available QR Codes
+     * @param string 
+     * @return string
+     */
+    function fts_series_lists($modifier = 'available'){
+        $qrs = new Modules\FileTracking\Entities\Document\FTS_Qr;
+        return ($modifier == 'available') ? $qrs->where('status', false)->get() : $qrs->get();
     }
 }
 
@@ -256,7 +281,6 @@ if (! function_exists('dm_abort')) {
         }
     }
 }
-
 
 if (! function_exists('iah')) {
     /**

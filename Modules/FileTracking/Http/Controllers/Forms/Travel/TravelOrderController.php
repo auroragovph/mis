@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
+use Modules\FileTracking\Entities\Document\FTS_DA;
 use Modules\FileTracking\Entities\Document\FTS_Qr;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
@@ -14,6 +15,7 @@ use Modules\FileTracking\Entities\Travel\FTS_TravelOrder;
 
 class TravelOrderController extends Controller
 {
+   
     public function index(Request $request)
     {
         if($request->ajax()){
@@ -58,21 +60,32 @@ class TravelOrderController extends Controller
         }
 
 
-        $divisions = SYS_Division::with('office')->get();
-        $qrs = FTS_Qr::where('status', false)->get();
-        $liaisons = HR_Employee::liaison()->get();
+        if(auth()->user()->can('fts.document.create')){
+            $divisions = SYS_Division::lists();
+            $qrs = FTS_Qr::available();
+            $liaisons = HR_Employee::liaison()->get();
+            $attachments = FTS_DA::lists();
 
+        }
 
         return view('filetracking::forms.travel.order.index',[
-            'liaisons' => $liaisons,
-            'divisions' => $divisions,
-            'qrs' => $qrs
+            'liaisons' => $liaisons ?? null,
+            'divisions' => $divisions ?? null,
+            'qrs' => $qrs ?? null,
+            'attachments' => $attachments ?? null,
         ]);
     }
 
     public function store(Request $request)
     {
-        $series = $request->post('series');
+        
+        // checking permissions
+        if(!auth()->user()->can('fts.document.create')){
+            return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
+        }
+
+
+        $series = fts_series($request->post('series'));
 
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
@@ -91,6 +104,16 @@ class TravelOrderController extends Controller
             'type' => config('constants.document.type.travel.order')
         ]);
 
+        $attachments = array();
+        foreach($request->post('attachments') as $i => $attachment){
+            $attachments[$i]['document_id'] = $document->id;
+            $attachments[$i]['employee_id'] = auth()->user()->employee_id;
+            $attachments[$i]['description'] = $attachment;
+            $i++;
+        }
+        FTS_DA::insert($attachments);
+
+
         $to = FTS_TravelOrder::create([
             'document_id' => $document->id,
             'number' => $request->post('number'),
@@ -103,9 +126,7 @@ class TravelOrderController extends Controller
         ]);
 
         // changing QR status
-        $qr = FTS_Qr::find($series);
-        $qr->status = true;
-        $qr->save();
+        $qr = FTS_Qr::used($series);
 
         // INSERTING INTO TRACKING LOGS
         FTS_Tracking::create([
@@ -118,11 +139,16 @@ class TravelOrderController extends Controller
             'status' => config('constants.document.status.process.id')
         ]);
 
-        return response()->json(['message' => 'CAFOA has been encoded.'], 200);
+        return response()->json(['message' => 'Travel Order has been encoded.'], 200);
     }
 
     public function edit($id)
     {
+        // checking permissions
+        if(!auth()->user()->can('fts.document.edit')){
+            return abort(403);
+        }
+
         $document = FTS_Document::with('travel_order')->findOrFail($id);
 
         // checking type
@@ -145,6 +171,11 @@ class TravelOrderController extends Controller
     {
         // checking the ID if match
         dm_abort(session()->pull('fts.document.edit'), $id);
+
+        // checking permissions
+        if(!auth()->user()->can('fts.document.edit')){
+            return abort(403);
+        }
 
         $document = FTS_Document::findOrFail($id);
 

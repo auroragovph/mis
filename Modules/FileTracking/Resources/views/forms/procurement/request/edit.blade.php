@@ -115,8 +115,13 @@
                     <div class="row">
                         <div class="col-md-12">
                         <div class="form-group">
-                            <label for="">Liaison QR:</label>
-                            <input name="liaison" type="password" class="form-control" autocomplete="off">
+                            <label for="">Liaison Officer:</label> <br>
+                            <select name="liaison" class="form-control select2" required style="width: 100%;">
+                                <option value=""></option>
+                                @foreach($liaisons as $liaison)
+                                <option {{ sh($liaison->id, $document->liaison_id) }} value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         </div>
                     </div>

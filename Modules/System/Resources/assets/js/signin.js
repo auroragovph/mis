@@ -8,9 +8,6 @@ $( "#login-form" ).submit(function(e) {
     var checker = $('#login-form').serializeArray();
 
 
-
-  
-
     // sending AJAX
     var send = $.ajax({
         type: "POST",
@@ -25,7 +22,7 @@ $( "#login-form" ).submit(function(e) {
         }
     }).done((data) => {
 
-        window.location = '/home';
+        window.location = data.route;
 
     }).fail((data) => {
 

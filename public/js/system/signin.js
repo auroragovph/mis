@@ -108,7 +108,7 @@ $("#login-form").submit(function (e) {
       $("#login-whirl").addClass("whirl traditional");
     }
   }).done(function (data) {
-    window.location = '/home';
+    window.location = data.route;
   }).fail(function (data) {
     if (data.status == 500) {
       Swal.fire({

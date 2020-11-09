@@ -20,26 +20,30 @@ class AFLController extends Controller
     {
         if($request->ajax()){
 
+            $timer = $timer = microtime(true);
+
             $documents = FTS_Document::with('afl', 'division.office')
-                            ->whereHas('afl')
                             ->where('type', config('constants.document.type.afl'))
                             ->get();
 
             $records['data'] = array();
 
+            $count = 0;
             foreach($documents as $i => $document){
 
-                $records['data'][$i]['id'] = $document->id;
-                $records['data'][$i]['encoded'] = $document->encoded;
-                $records['data'][$i]['series'] = $document->seriesFull;
-                $records['data'][$i]['office'] = office_helper($document->division);
-                $records['data'][$i]['status'] = show_status($document->status);
+                if($document->afl == null){continue;}
+
+                $records['data'][$count]['id'] = $document->id;
+                $records['data'][$count]['encoded'] = $document->encoded;
+                $records['data'][$count]['series'] = $document->seriesFull;
+                $records['data'][$count]['office'] = office_helper($document->division);
+                $records['data'][$count]['status'] = show_status($document->status);
 
 
-                $records['data'][$i]['name'] = $document->afl->name;
-                $records['data'][$i]['position'] = $document->afl->position;
-                $records['data'][$i]['type'] = $document->afl->type;
-                $records['data'][$i]['inclusives'] = implode(', ', $document->afl->inclusives);
+                $records['data'][$count]['name'] = $document->afl->name;
+                $records['data'][$count]['position'] = $document->afl->position;
+                $records['data'][$count]['type'] = $document->afl->type;
+                $records['data'][$count]['inclusives'] = implode(', ', $document->afl->inclusives);
 
                 $action =  fts_action_button($document->series, [
                     'route' => 'fts.afl.edit',
@@ -47,8 +51,12 @@ class AFLController extends Controller
                 ]);
 
 
-                $records['data'][$i]['action'] = $action;
+                $records['data'][$count]['action'] = $action;
+
+                $count++;
             }
+
+            $records['time'] = microtime(true) - $timer;
 
             return response()->json($records, 200);
         }
@@ -145,7 +153,13 @@ class AFLController extends Controller
             'status' => config('constants.document.status.process.id')
         ]);
 
-        return response()->json(['message' => 'Application for leave has been encoded.'], 200);
+        return response()->json([
+            'message' => 'Application for leave has been encoded.',
+            'receipt' => route('fts.documents.receipt', [
+                'series' => $series,
+                'print' => true
+            ])
+        ], 200);
     }
 
     public function edit($id)

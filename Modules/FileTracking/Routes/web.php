@@ -28,7 +28,7 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
             Route::get('/', 'AttachmentController@index')->name('fts.documents.attach.index');
             Route::post('/', 'AttachmentController@check')->name('fts.documents.attach.check');
             Route::get('/{id}/attachments', 'AttachmentController@form')->name('fts.documents.attach.form');
-            Route::post('/{id}/attachments', 'AttachmentController@attach')->name('fts.documents.attach.attach');
+            Route::post('/{id}/attachments', 'AttachmentController@store')->name('fts.documents.attach.attach');
         });
 
         Route::group(['prefix' => 'receive-release', 'middleware' => ['permission:fts.sa.rr']], function(){
@@ -132,3 +132,6 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
     
     
 });
+
+
+Route::get('file-tracking/kiosk', 'Document\KioskController@kiosk')->name('fts.documents.kiosk');

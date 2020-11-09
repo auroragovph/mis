@@ -47,6 +47,13 @@ return [
                 'itinerary' => 302
             ],
 
+            'others' => [
+                'liquidation' => 901,
+                'ob-slip' => 902,
+                'pow' => 903,
+                'mission-order' => 904,
+            ]
+
         ],
 
         'action' => [

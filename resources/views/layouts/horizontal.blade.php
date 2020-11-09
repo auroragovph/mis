@@ -7,6 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Aurora MIS | {{ $module_title ?? '' }}</title>
 
   <!-- Font Awesome Icons -->
@@ -37,24 +38,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <span class="brand-text font-weight-light">AURORA MIS</span>
       </a>
 
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      @isset($module_side_bar)
+        <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      @endisset
+      
 
-      {{-- sdkjghakdsfgfdg --}}
-      @include($module_horizontal)
+      @isset($module_horizontal)
+        @include($module_horizontal)
+      @endisset
 
 
 
       <!-- Right navbar links -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
         
-      
-        <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fal fa-user"></i> Profile
-          </a>
-        </li>
+        @auth
+          <li class="nav-item">
+            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+              <i class="fal fa-user"></i> Profile
+            </a>
+          </li>
+        @endauth
+        
       </ul>
 
     </div>
@@ -69,6 +76,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <span class="brand-text font-weight-light ml-2">AURORA MIS</span>
       </a>
 
+    @isset($module_side_bar)
     <!-- Sidebar -->
     <div class="sidebar">
 
@@ -83,8 +91,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
        @include($module_side_bar)
   
-      </div>
-      <!-- /.sidebar -->
+    </div>
+    <!-- /.sidebar -->
+    @endisset
 
 
 
@@ -153,7 +162,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
   <!-- /.content-wrapper -->
 
-  @include('layouts.includes.aside')
+  @auth
+    @include('layouts.includes.aside')
+  @endauth
 
   @include('layouts.includes.footer')
   

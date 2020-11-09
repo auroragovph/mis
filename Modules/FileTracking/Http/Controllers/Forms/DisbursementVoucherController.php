@@ -36,7 +36,7 @@ class DisbursementVoucherController extends Controller
 
 
                 $records['data'][$i]['payee'] = $document->dv->payee;
-                $records['data'][$i]['amount'] = $document->dv->amount;
+                $records['data'][$i]['amount'] = number_format(intval($document->dv->amount), 2);
                 $records['data'][$i]['particulars'] = $document->dv->particulars;
                 $records['data'][$i]['code'] = $document->dv->code;
                 $records['data'][$i]['accountable'] = $document->dv->accountable;

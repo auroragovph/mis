@@ -43,9 +43,13 @@ class RRController extends DocumentController
         if($liaison == null){
             return redirect()->back()->with('alert-error', 'The liaison officer not found.');
         }
-        if($liaison->liaison == false){
-            return redirect()->back()->with('alert-error', 'Employee is not registered as liaison.');
+
+        if(config('filetracking.allowAllEmployeesToLiaison') == false){
+            if($liaison->liaison == false){
+                return redirect()->back()->with('alert-error', 'Employee is not registered as liaison.');
+            }
         }
+        
 
         $track = $document['tracks'][0];
 

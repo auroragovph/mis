@@ -58,13 +58,13 @@
           </li>
           @endcan
 
-          {{-- @can('fts.sa.rr') --}}
+          @can('fts.sa.qr')
           <li class="nav-item">
             <a href="{{ route('fts.qr.index') }}" class="nav-link">
               <i class="nav-icon fal fa-qrcode"></i> <p> QR Codes</p>
             </a>
           </li>
-          {{-- @endcan --}}
+          @endcan
           
           {{-- @can('fts.sa.number')
           <li class="nav-item">

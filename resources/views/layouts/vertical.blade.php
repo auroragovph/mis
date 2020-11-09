@@ -7,6 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Aurora MIS | {{ $module_title ?? '' }}</title>
 
   <!-- Font Awesome Icons -->
@@ -99,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h5><i class="icon fal fa-check"></i> Success!</h5>
-            {{ session('alert-success') }}
+            {!! session('alert-success') !!}
           </div>
         @endif
 
@@ -107,7 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="alert alert-primary alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h5><i class="icon fal fa-exclamtion-mark"></i> Information!</h5>
-            {{ session('alert-info') }}
+            {!! session('alert-info') !!}
           </div>
         @endif
 
@@ -115,7 +116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="alert alert-warning alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h5><i class="icon fal fa-exclamation-triangle"></i> Warning!</h5>
-            {{ session('alert-warning') }}
+            {!! session('alert-warning') !!}
           </div>
         @endif
 
@@ -123,11 +124,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <h5><i class="icon fal fa-ban"></i> Error!</h5>
-            {{ session('alert-error') }}
+            {!! session('alert-error') !!}
           </div>
         @endif
-
-        
 
         @yield('content')
       
@@ -140,9 +139,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
  
   @include('layouts.includes.footer')
 
-  
-  @include('layouts.includes.aside')
 
+  @can('godmode')
+  @include('layouts.includes.aside')
+  @endcan
   
 </div>
 <!-- ./wrapper -->

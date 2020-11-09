@@ -17,15 +17,19 @@ class UserTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
-        $user = SYS_User::create([
-            'employee_id' => 1,
-            'username' => 'sUp3r@DMiN',
-            'password' => bcrypt('@l03e1t3'),
-            'status' => true
-        ]);
+        $file = storage_path('app/jsons/seeds/users.json');
+        $users = json_decode(file_get_contents($file), true);
 
 
-        $user->givePermissionTo('godmode');
+        foreach($users as $user){
+            $account = SYS_User::create([
+
+                'employee_id' => $user['employee_id'],
+                'username' => $user['username'],
+                'password' => password_hash($user['password'], PASSWORD_BCRYPT),
+                'properties' => $user['properties']
+            ]);
+            $account->givePermissionTo($user['permission']);
+        }
     }
 }

@@ -64,3 +64,17 @@ Route::group(['prefix' => 'system', 'middleware' => ['auth:web', 'permission:sys
     });
 
 });
+
+
+Route::group([
+    'prefix' => 'special-pages',
+    'middleware' => 'auth:web',
+    'namespace' => 'SpecialPages'
+], function(){
+
+    Route::prefix('login')->group(function(){
+        Route::get('/first-login', 'SP_LoginController@first')->name('sp.login.first');
+        Route::post('/first-login', 'SP_LoginController@first')->name('sp.login.first.post');
+    });
+
+});

@@ -39,7 +39,9 @@ DOCUMENT STATUS
 3 - APPROVED                        -   SUCCESS
 4 - DISAPPROVED                     -   DANGER
 5 - PENDING                         -   INFO
-
+6 - RETURN
+7 - FOR WITHDRAWAL
+8 - PAID
 
 
 

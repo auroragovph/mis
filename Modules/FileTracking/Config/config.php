@@ -1,5 +1,11 @@
 <?php
 
 return [
-    'name' => 'FileTracking'
+
+
+    'name' => 'FileTracking',
+
+
+    'allowAllEmployeesToLiaison' => true
+
 ];

@@ -41,7 +41,7 @@ class PurchaseRequestController extends Controller
                 $records['data'][$i]['purpose'] = $document->purchase_request->purpose;
                 $records['data'][$i]['charging'] = $document->purchase_request->charging;
                 $records['data'][$i]['accountable'] = $document->purchase_request->accountable;
-                $records['data'][$i]['amount'] = $document->purchase_request->amount;
+                $records['data'][$i]['amount'] = number_format(intval($document->purchase_request->amount), 2);
                 $records['data'][$i]['status'] = show_status($document->status);
 
                 $action =  fts_action_button($document->series, [

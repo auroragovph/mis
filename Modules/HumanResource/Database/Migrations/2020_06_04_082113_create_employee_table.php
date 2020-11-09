@@ -19,12 +19,16 @@ class CreateEmployeeTable extends Migration
             $table->integer('division_id')->unsigned();
             $table->integer('position_id')->unsigned();
 
-            $table->json('name');
-            $table->json('info');
-            $table->json('employement');
+            $table->json('name')->nullable();
+            $table->json('info')->nullable();
+            $table->json('employment')->nullable();
 
             $table->string('card', 255);
             $table->boolean('liaison');
+
+
+            $table->json('properties')->nullable();
+
 
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();

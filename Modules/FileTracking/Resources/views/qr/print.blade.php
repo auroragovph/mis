@@ -51,8 +51,8 @@
                         mode: 2,
                         label: '{{ fts_series($qr, "encode") }}',
                         fontcolor: '#e41b17',
-                        minVersion: 10,
-                        maxVersion: 40,
+                        minVersion: 1,
+                        maxVersion: 10,
                         ecLevel: 'H',
                       });
             </script>

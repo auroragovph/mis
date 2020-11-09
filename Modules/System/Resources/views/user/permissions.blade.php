@@ -16,7 +16,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Permissions for {{ name_helper($user->employee, 'FMIL') }}</h3>
+                <h3 class="card-title">Permissions for {{ name_helper($user->employee->name) }}</h3>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -29,12 +29,20 @@
                     </thead>
                     <tbody>
                         @foreach($user->getAllPermissions() as $permission)
+                        
+                            @if($permission->name == 'godmode') @continue @endif
+
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $permission->name }}</td>
                                 <td></td>
                             </tr>
                         @endforeach
+                        {{-- <tr>
+                            <td colspan="3">
+                                {{ $user->getAllPermissions() }}
+                            </td>
+                        </tr> --}}
                     </tbody>
                 </table>
             </div>
@@ -43,17 +51,20 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Add Permission</h3>
+                <h3 class="card-title">Add/Remove Permission</h3>
             </div>
             <div class="card-body">
                 <form action="{{ route('sys.user.acl.store', $user->id) }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="">Permission</label>
+
                         <select name="permissions[]" class="form-control select2" multiple required>
                             <option value="" hidden></option>
+                    
+                            <?php $userPermissions = $user->getPermissionNames()->toArray(); ?>
                             @foreach($permissions as $permission)
-                                <option>{{ $permission->name }}</option>
+                                <option @if(in_array($permission->name,$userPermissions)) selected @endif>{{ $permission->name }}</option>
                             @endforeach
                         </select>
                     </div>

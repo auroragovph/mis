@@ -24,8 +24,8 @@ Route::get('/home', function(){
 
 
 
-
 Route::prefix('dev')->group(function(){
     Route::get('/', 'DevController@index');
+    Route::get('/liaison', 'DevController@liaison');
     // Route::get('/csv', 'DevPController@csv');
 });

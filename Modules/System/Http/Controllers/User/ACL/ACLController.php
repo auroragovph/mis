@@ -37,7 +37,16 @@ class ACLController extends Controller
     {
         $user = SYS_User::find($id);
 
+        // removing all except if has godmode permissions
+        if($user->hasPermissionTo('godmode')){
+            $user->syncPermissions(['godmode']);
+        }else{
+            $user->syncPermissions();
+        }
+        
+
         foreach($request->permissions as $permission){
+            
             $user->givePermissionTo($permission);
         }
 

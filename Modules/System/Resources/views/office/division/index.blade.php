@@ -36,7 +36,8 @@ Division
                     <tbody>
                         @foreach($divisions as $division)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                {{-- <td>{{ $loop->iteration }}</td> --}}
+                                <td>{{ $division->id }}</td>
                                 <td>{{ $division->name }}</td>
                                 <td>{{ $division->alias }}</td>
                                 <td>{{ office_helper($division->office) }}</td>

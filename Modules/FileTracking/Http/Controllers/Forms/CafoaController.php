@@ -37,7 +37,7 @@ class CafoaController extends Controller
 
                 $records['data'][$i]['number'] = $document->cafoa->number;
                 $records['data'][$i]['payee'] = $document->cafoa->payee;
-                $records['data'][$i]['amount'] = $document->cafoa->amount;
+                $records['data'][$i]['amount'] = number_format(intval($document->cafoa->amount), 2);
                 $records['data'][$i]['particulars'] = $document->cafoa->particulars;
 
                 $action =  fts_action_button($document->series, [

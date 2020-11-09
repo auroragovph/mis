@@ -89,9 +89,11 @@
     </li> --}}
 
 
-    <li class="nav-item">
-      <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-        <i class="fal fa-user-circle"></i>
-      </a>
-    </li>
+        <li class="nav-item">
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            <i class="fal fa-user-circle"></i>
+          </a>
+        </li>
+    
+
 </ul>

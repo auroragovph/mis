@@ -19,12 +19,11 @@ class CreateUserTable extends Migration
             $table->integer('employee_id')->unsigned();
             $table->string('username', 255);
             $table->text('password');
-            $table->boolean('status');
-            $table->timestamp('last_login')->nullable();
+            $table->boolean('status')->default(true);
+            $table->json('properties')->nullable();
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
-      
     }
 
     /**

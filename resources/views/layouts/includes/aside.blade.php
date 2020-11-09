@@ -9,9 +9,9 @@
       <img src="{{ asset('images/user-default.png') }}" class="img-responsive elevation-2 d-inline-block" alt="" srcset="" width="120px" height="120px">
 
 
-      <h4 class="d-block mt-3">{{ name_helper(Auth::user()->employee->name) }}</h4>
-        <p class="text-muted h6 d-inline">{{ Auth::user()->employee->position->position }}</p>
-        <p class="text-muted h6">{{ '@'.Auth::user()->username }}</p>
+      <h4 class="d-block mt-3">{{ name_helper(auth()->user()->employee->name) ?? '' }}</h4>
+        <p class="text-muted h6 d-inline">{{ auth()->user()->employee->position->position ?? '' }}</p>
+        <p class="text-muted h6">{{ '@'.Auth::user()->username ?? ''}}</p>
       
 
       <a href="javascript:void(0);" onclick="$('#logout-form').submit();" class="btn bg-gradient-lightblue mt-3">Sign Out</a>

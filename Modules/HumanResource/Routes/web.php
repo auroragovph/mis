@@ -10,6 +10,7 @@ Route::group(['prefix' => 'human-resource', 'middleware' => 'auth:web'], functio
     Route::prefix('employee')->namespace('Employee')->group(function(){
         Route::get('/', "EmployeeController@index")->name('hrm.employee.index');
         Route::get('/create', "EmployeeController@create")->name('hrm.employee.create');
+        Route::post('/create', "EmployeeController@store")->name('hrm.employee.store');
     });
 
     Route::prefix('plantilla')->namespace('Plantilla')->group(function(){

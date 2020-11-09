@@ -12,7 +12,8 @@ class DivisionController extends Controller
 {
     public function index()
     {
-        $divisions = SYS_Division::with('employees', 'office')->where('name', '!=', 'MAIN')->get();
+        // $divisions = SYS_Division::with('employees', 'office')->where('name', '!=', 'MAIN')->get();
+        $divisions = SYS_Division::with('employees', 'office')->get();
         $offices = SYS_Office::get();
 
         return view('system::office.division.index',[

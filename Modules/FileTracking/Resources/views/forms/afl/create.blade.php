@@ -88,6 +88,8 @@
                       <select name="type" class="form-control select2-type" style="width: 100%;">
                         <option>Vacation Leave</option>
                         <option>Sick Leave</option>
+                        <option>Force Leave</option>
+                        <option>Mandatory Leave</option>
                       </select>
                     </div>
                   </div>

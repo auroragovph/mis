@@ -16,28 +16,29 @@
 @isset($document)
 <div class="row">
 
-    <x-fts-qr size="sm-4" :document="$document" />
+    <x-fts-qr size="sm-3" :document="$document['info']" :datas="$document['datas']" />
 
-
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-default">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('fms.documents.attach.attach', $document->id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('fts.documents.attach.attach', $document['info']['id']) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="">Attach documents without image/pdf:</label>
+                                <label for="">Attachments</label>
                                 <select class="form-control select2" multiple name="tags[]">
+
+
+                                    <?php 
+                                        $al = collect($document['attachments'])->pluck('description')->toArray();
+                                    ?>
+
+                                    @foreach($attachments->pluck('description') as $attachment)
+                                        <option @if(in_array($attachment, $al)) selected @endif>{{ $attachment }}</option>
+                                    @endforeach
                                 </select>
                             </div>
-            
-                            <div class="form-group">
-                                <label for="">Attach documents with image/pdf:</label>
-                                <input type="file" name="files[]" class="form-control" accept="image/*, .pdf" multiple>
-                            </div>
-            
-                            <hr>
             
                             <button class="btn btn-primary">Attach</button>
             
@@ -47,23 +48,21 @@
             </div>
             <div class="col-md-12">
                 <div class="card card-default">
-                   <div class="card-body">
+                   <div class="card-body p-0">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Description</th>
-                                <th>Type</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach($document->attachments as $attachment)
+                            @foreach($document['attachments'] as $attachment)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $attachment->description }}</td>
-                                    <td>{{ $attachment->mime }}</td>
+                                    <td>{{ $attachment['description'] }}</td>
                                 </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                    </div>
@@ -71,6 +70,7 @@
             </div>
         </div>
     </div>
+   
     
 </div>
 @else

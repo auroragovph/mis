@@ -8,7 +8,6 @@
  *	@author			JMPRNS@github
  *	@link			https://github.com/jmprns/fms
 */
-
 if (! function_exists('employees')) {
     /**
      * Return the lists of all employees
@@ -24,6 +23,96 @@ if (! function_exists('employees')) {
         }
 
         return $employees->get();
+    }
+}
+
+if (! function_exists('ucnames')) {
+    /**
+     * Convert names to strtolower then ucfirst
+     * @param string $name
+     * @return string $name
+     */
+    function ucnames($string)
+    {
+        $arrays = explode(' ', $string);
+
+        $new = array_map(function($value){
+            return ucfirst(strtolower($value));
+        }, $arrays);
+
+        return implode(' ', $new);
+    }
+}
+
+if (! function_exists('name_mutate')) {
+    /**
+     * Explode the string and remove unnessary blank key
+     * @param string $name
+     * @return string $name
+     */
+    function name_mutate($string, $delimeter = ' ', $glue = ' ')
+    {
+        $a = array_filter(explode($delimeter, $string));
+
+        return ucnames(implode($glue, $a));
+    }
+}
+
+if (! function_exists('name_decode')) {
+    /**
+     * Decode the given name into array
+     * @param string $name
+     * @return array $final
+     */
+    function name_decode($name)
+    {
+        $final = array();
+        
+
+
+        // check first if DOT exists
+        if(strpos($name, '.') !== false){
+            $explode = explode('.', $name);
+            $final['lname'] = name_mutate($explode[1]);
+            $final['mname'] = name_mutate(substr($explode[0], -1));
+            $final['fname'] = name_mutate(substr_replace($explode[0], '', -1));
+            
+        }else{
+
+            $explode = explode(' ', $name);
+
+            switch(count($explode)){
+
+                case 2: 
+                    $final['fname'] = name_mutate($explode[0]);
+                    $final['mname'] = '';
+                    $final['lname'] = name_mutate($explode[1]);
+                break;
+
+                case 3:
+                    $final['fname'] = name_mutate($explode[0]);
+                    $final['mname'] = name_mutate($explode[1]);
+                    $final['lname'] = name_mutate($explode[2]); 
+                break;
+
+                case 4: 
+                    $final['fname'] = name_mutate($explode[0]." ".$explode[1]);
+                    $final['mname'] = '';
+                    $final['lname'] = name_mutate($explode[2]." ".$explode[3]);
+                break;
+
+                default: 
+                    $final['fname'] = name_mutate($name);
+                    $final['mname'] = '';
+                    $final['lname'] = '';
+                break;
+
+            }
+
+
+        }
+
+        return $final;
     }
 }
 
@@ -139,6 +228,26 @@ if (! function_exists('fts_action_button')) {
     }
 }
 
+if (! function_exists('is_date')) {
+    /**
+     * Check if the string is date
+     * @param string 
+     * @return bool
+     */
+    function is_date($string){
+
+        if(!$string){return false;}
+
+        try{
+            return Carbon\Carbon::parse($string)->format('Y-m-d');
+            // return true;
+        }catch(\Exception $e){
+            return false;
+        }
+
+    }
+}
+
 if(! function_exists('fts_series_lists')) {
     /**
      * Return all the available QR Codes
@@ -220,7 +329,7 @@ if (! function_exists('show_status')) {
             break;
 
             case '1':  
-                $status =  "<span class=\"badge bg-secondary\">DEACTIVATED</span>";
+                $status =  '<span class=\"badge bg-secondary\">DEACTIVATED</span>';
             break;
 
             case '2':  
@@ -242,6 +351,18 @@ if (! function_exists('show_status')) {
             case '6':  
                 $status =  '<span class="badge bg-warning">RETURNED</span>';
             break;
+
+            case '7':  
+                $status =  '<span class="badge bg-olive">FOR WITHDRAWAL</span>';
+            break;
+
+            case '8':  
+                $status =  '<span class="badge bg-lime">PAID</span>';
+            break;
+
+           
+
+
 
             default:
                 $status =  '<span class="badge bg-black">UNDEFINED</span>';
@@ -440,6 +561,18 @@ function tracking_table_status($status)
 
         case '5':  
             $status =  '<span class="btn-info ">PENDING</span>';
+        break;
+
+        case '6':  
+            $status =  '<span class="btn-warning ">RETURNED</span>';
+        break;
+
+        case '7':  
+            $status =  '<span class="bg-olive">FOR WITHDRAWAL</span>';
+        break;
+
+        case '8':  
+            $status =  '<span class="bg-lime">PAID</span>';
         break;
 
         default:

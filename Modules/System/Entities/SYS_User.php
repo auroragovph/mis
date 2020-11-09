@@ -14,6 +14,9 @@ class SYS_User extends Authenticatable
     
     protected $guarded = [];
     protected $table = 'sys_users';
+    protected $casts = [
+        'properties' => 'array'
+    ];
 
 
     public function employee()

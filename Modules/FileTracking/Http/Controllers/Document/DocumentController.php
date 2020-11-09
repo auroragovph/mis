@@ -5,6 +5,7 @@ namespace Modules\FileTracking\Http\Controllers\Document;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\FileTracking\Entities\Document\FTS_DA;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
 use Modules\FileTracking\Entities\FTS_AFL;
@@ -54,8 +55,8 @@ class DocumentController extends Controller
                     ],
 
                     'office' => [
-                        'full' => office_helper($document->division),
-                        'alias' => office_helper($document->division, 'alias'),
+                        'full' => office_helper($document->division) ?? '',
+                        'alias' => office_helper($document->division, 'alias') ?? '',
                     ],
 
                     'encoded' => [
@@ -64,21 +65,25 @@ class DocumentController extends Controller
                     ],
 
                     'encoder' => [
-                        'id' => $document->encoder->id,
-                        'name' => $document->encoder->name,
-                        'full' => name_helper($document->encoder->name),
+                        'id' => $document->encoder->id ?? '',
+                        'name' => $document->encoder->name ?? '',
+                        'full' => name_helper($document->encoder->name ?? ''),
                     ],
                     
                     'liaison' => [
-                        'id' => $document->liaison->id,
-                        'name' => $document->liaison->name,
-                        'full' => name_helper($document->liaison->name),
+                        'id' => $document->liaison->id ?? '',
+                        'name' => $document->liaison->name ?? '',
+                        'full' => name_helper($document->liaison->name ?? ''),
                     ]
 
                 ]
             ]
         ];
 
+        if(in_array('attachments', $includes)){
+            $attachments = FTS_DA::where('document_id', $document->id)->get()->toArray();
+            $record['document']['attachments'] = $attachments;
+        }
 
         if(in_array('datas', $includes)){
             $datas = array();

@@ -173,6 +173,7 @@
             clearBtn: true,
           });
 
+          window.open(data.receipt, '_blank');
 
 
           Swal.fire({

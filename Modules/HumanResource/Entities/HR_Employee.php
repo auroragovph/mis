@@ -16,10 +16,11 @@ class HR_Employee extends Model
     protected $table = 'hrm_employee';
 
     protected $casts = [
-        'name' => 'array',
+        'name' => 'json',
         'info' => 'json',
-        'employement' => 'json',
-        'liaison' => 'boolean'
+        'employment' => 'json',
+        'liaison' => 'boolean',
+        'properties' => 'json'
     ];
 
     public function scopeLiaison($query)

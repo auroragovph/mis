@@ -19,7 +19,7 @@
             <div class="card-header">
                 <h3 class="card-title mt-1">Lists</h3>
                 <div class="card-tools">
-                   <a href="#" class="btn btn-sm bg-gradient-primary"><i class="fal fa-plus"></i> Register New Employee</a>
+                   <a href="{{ route('hrm.employee.create') }}" class="btn btn-sm bg-gradient-primary"><i class="fal fa-plus"></i> Register New Employee</a>
                   </div>
             </div>
             <div class="card-body">
@@ -39,9 +39,9 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td></td>
-                            <td>{{ name_helper($employee->name) }}</td>
-                            <td>{{ @office_helper($employee->division) }}</td>
-                            <td>{{ $employee->position->position }}</td>
+                            <td>{{ name_helper($employee->name) ?? '' }}</td>
+                            <td>{{ @office_helper($employee->division) ?? '' }}</td>
+                            <td>{{ $employee->position->position ?? '' }}</td>
                             <td>
                                 <a href="#" class="btn btn-xs bg-gradient-primary"><i class="fal fa-eye"></i> View</a>
                                 <a href="#" class="btn btn-xs bg-gradient-warning"><i class="fal fa-edit"></i> Edit</a>

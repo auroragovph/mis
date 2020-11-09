@@ -21,7 +21,7 @@ $factory->define(Modules\HumanResource\Entities\HR_Employee::class, function (Fa
             'civilStatus' => $faker->randomElement($array = array (1, 2, 3, 4)),
             'phoneNumber' => $faker->phoneNumber
         ),
-        'employement' => array(
+        'employment' => array(
             'type' => $faker->numberBetween(1, 3),
             'status' => $faker->numberBetween(1, 2),
             'leave' => [

@@ -48,8 +48,15 @@ class QRController extends Controller
             return redirect()->back()->with('alert-error', 'Invalid QR Code counts');
         }
 
+        $lists = array();
+
+        $timestamp = now();
+
         for($count = 1; $count <= $counts; $count++){
-            $lists[]['status'] = false;
+            array_push($lists, [
+                'status' => false,
+                'created_at' => $timestamp
+            ]);
         }
 
 

@@ -7,7 +7,7 @@
 @section('breadcrumbs')
 <ol class="breadcrumb float-sm-right">
     <li class="breadcrumb-item"><a href="{{ route('fts.dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Starter Page</li>
+    <li class="breadcrumb-item active">RR Page</li>
 </ol>
 @endsection
 
@@ -75,9 +75,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Liaison QR</label>
-                            <input type="password" name="liaison" id="liaison" class="form-control" required autocomplete="off" onkeypress="geeks(event)">
-                            {{-- <textarea class="form-control" name="liaison" id="" cols="30" rows="10"></textarea> --}}
-                            {{-- <input type="password" name="liaison" id="liaison" class="form-control" required autocomplete="off"> --}}
+                            <input type="password" name="liaison" id="liaison" class="form-control" required autocomplete="off">
                         </div>
                         <hr>
                         <button type="submit" class="btn bg-gradient-primary"><i class="fal fa-search"></i> Search</button>
@@ -116,17 +114,4 @@ $(function () {
     });
 });
 </script>
-<script> 
-    function geeks(event) {
-        let textar = document.querySelector('#liaison');
-        let textb = textar.value;
-        if(event.keyCode == 32)
-        {
-            // console.log(textb);
-            textar.value = textb+"||";
-        }
-        // console.log(event.key);
-        console.log(event.keyCode + "  " + event.key);
-    } 
-</script> 
 @endsection

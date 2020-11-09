@@ -16,6 +16,9 @@ class FileTrackingDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call([
+            DocumentAttachmentsTableSeeder::class,
+            DocumentsTableSeeder::class,
+        ]);
     }
 }

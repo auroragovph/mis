@@ -36,18 +36,12 @@ Users
                     <tbody>
                         @foreach($users as $user)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ @name_helper($user->employee) }}</td>
+                                {{-- <td>{{ $loop->iteration }}</td> --}}
+                                <td>{{ $user->id }}</td>
+                                <td>{{ name_helper($user->employee->name) ?? '' }}</td>
                                 <td>{{ $user->username }}</td>
-                                <td>{{ @office_helper($user->employee->division) }}</td>
-                                <td>
-                                  @php($perms = $user->getAllPermissions()->pluck('name')->toArray())
-                                  
-
-                                  {{ implode(", ", $perms) }}
-
-                                
-                                </td>
+                                <td>{{ office_helper($user->employee->division) ?? '' }}</td>
+                                <td>{{ $user->getPermissionNames()->implode(', ') }}</td>
                                 <td>
                                   <a href="{{ route('sys.user.acl.show', $user->id) }}" class="btn btn-xs bg-gradient-navy"> <i class="fal fa-shield-check"></i> Permissions</a>
                                 </td>

@@ -29,13 +29,35 @@ class EmployeeController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if($request->ajax()){
+
+            $datas = array();
+
+
+            if($request->has('term') OR $request->post('term') != ''){
+                $rows = HR_Plantilla::where('position', 'like', '%'.$request->post('term').'%')->get();
+                foreach($rows as $row){
+                    array_push($datas, [
+                        'id' => $row->id,
+                        'text' => $row->position
+                    ]);
+                }
+            }
+
+            return response()->json($datas, 200);
+
+
+            
+        }
+
         $divisions = SYS_Division::with('office')->get();
-        $positions = HR_Plantilla::get();
+
+
+
         return view('humanresource::employee.create', [
-            'divisions' => $divisions,
-            'positions' => $positions
+            'divisions' => $divisions
         ]);
     }
 
@@ -46,7 +68,42 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $name = [
+            'fname' => $request->post('fname'),
+            'lname' => $request->post('lname'),
+            'mname' => $request->post('mname'),
+            'sname' => $request->post('sname'),
+            'title' => $request->post('title')
+        ];
+
+        $info = [
+            'gender' => $request->post('gender'),
+            'birthday' => $request->post('birthday'),
+            'address' => $request->post('address'),
+            'civil' => $request->post('civil'),
+            'phone' => $request->post('phone')
+        ];
+
+        $employment = [
+            'type' => $request->post('employment-type'),
+            'status' => $request->post('employment-status'),
+            'leave' => [
+                'vacation' => 0,
+                'sick' => 0
+            ]
+        ];
+
+        $employee = HR_Employee::create([
+            'division_id' => $request->post('division'),
+            'position_id' => $request->post('position'),
+            'name' => $name,
+            'info' => $info,
+            'employement' => $employment,
+            'card' => $request->post('card'),
+            'liaison' => ($request->has('liaison')) ? true : false
+        ]);
+
+        return response()->json(['message' => 'Employee has been registered.'], 200);
     }
 
     /**

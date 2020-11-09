@@ -81,8 +81,12 @@
                           <div id="datepicker">
                                 @php
                                     $raw_dates = collect($document->afl->inclusives);
+
                                     $dates = $raw_dates->map(function($item){
-                                        return Carbon\Carbon::parse($item)->format('m/d/Y');
+                                        if(is_date($item) == false){
+                                          return '01-01-2020';
+                                        }
+                                        return @Carbon\Carbon::parse($item)->format('m/d/Y');
                                     })->implode(',');
                                 @endphp
                               <input type="hidden" name="inclusive" required value="{{ $dates }}">

@@ -5,20 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Modules\System\Entities\SYS_User;
-use Illuminate\Support\Facades\Storage;
-use Modules\FileTracking\Entities\FTS_AFL;
-use Modules\FileTracking\Entities\FTS_Cafoa;
-use Modules\FileTracking\Entities\FTS_Payroll;
 use Modules\HumanResource\Entities\HR_Employee;
-use Modules\FileTracking\Entities\Document\FTS_DA;
-use Modules\FileTracking\Entities\Document\FTS_Qr;
-use Modules\HumanResource\Entities\HR_SalaryGrade;
-use Modules\FileTracking\Entities\Travel\FTS_Itinerary;
-use Modules\FileTracking\Entities\Document\FTS_Document;
-use Modules\FileTracking\Entities\Document\FTS_Tracking;
-use Modules\FileTracking\Entities\Travel\FTS_TravelOrder;
-use Modules\FileTracking\Entities\FTS_DisbursementVoucher;
-use Modules\FileTracking\Entities\Procurement\FTS_PurchaseRequest;
 
 class DevController extends Controller
 {
@@ -34,15 +21,13 @@ class DevController extends Controller
 
     public function index()
     {
-        // $timer = microtime(true);
+    //     $timer = microtime(true);
 
+    //     echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
 
-        // dd(config('filetracking.allowAllEmployeesToLiaison'));
+        // dd(employee_id_helper('JIMWELL P. PARIASPGA-C-405Job OrderOFFICE OF THE PROVINCIAL GOVERNOR ', false));
 
-       
-        // dd($this->join());    
-
-        // echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
+        return view('dev');
 
     }
 

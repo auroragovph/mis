@@ -37,7 +37,7 @@ class RRController extends DocumentController
         $lid = employee_id_helper($request->liaison, true);
         $liaison = HR_Employee::whereIdCard($lid)->first();
 
-        // dd($lid);
+        // dd($liaison);
 
         // checking if the liaison exists
         if($liaison == null){

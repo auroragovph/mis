@@ -42,19 +42,11 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
         // Route::get('/{id}/cancel', 'DocumentController@cancel')->name('fts.documents.cancel');
         // Route::post('/{id}/cancel', 'DocumentController@cancel2')->name('fts.documents.cancel2');
 
-
-        // Route::group(['prefix' => 'attachments'], function(){
-        //     Route::get('/', 'AttachmentController@index')->name('fts.documents.attach.index');
-        //     Route::post('/', 'AttachmentController@check')->name('fts.documents.attach.check');
-        //     Route::get('/{id}/attachments', 'AttachmentController@form')->name('fts.documents.attach.form');
-        //     Route::post('/{id}/attachments', 'AttachmentController@attach')->name('fts.documents.attach.attach');
-        // });
-
-        // Route::group(['prefix' => 'numbering'], function(){
-        //     Route::get('/', 'NumberingController@index')->name('fts.documents.number.index');
-        //     Route::put('/', 'NumberingController@search')->name('fts.documents.number.search');
-        //     Route::post('/', 'NumberingController@number')->name('fts.documents.number.number');
-        // });
+        Route::group(['prefix' => 'numbering'], function(){
+            Route::get('/', 'NumberingController@index')->name('fts.documents.number.index');
+            Route::put('/', 'NumberingController@search')->name('fts.documents.number.search');
+            Route::post('/', 'NumberingController@number')->name('fts.documents.number.number');
+        });
 
     });
 

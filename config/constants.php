@@ -3,6 +3,10 @@
 
 return [
 
+    'title' => 'Aurora Management Information System',
+    'abbrv' => 'AURORA MIS',
+    'lgu' => 'Provincial Government of Aurora',
+
     'employee' => [
 
         'governor' => [

@@ -66,13 +66,13 @@
           </li>
           @endcan
           
-          {{-- @can('fts.sa.number')
+          @can('fts.sa.number')
           <li class="nav-item">
             <a href="{{ route('fts.documents.number.index') }}" class="nav-link">
               <i class="nav-icon fal fa-sort-numeric-down"></i> <p>Numbering</p>
             </a>
           </li>
-          @endcan --}}
+          @endcan
 
 
           <li class="nav-item">

@@ -145,6 +145,18 @@ if (! function_exists('numwords')) {
     }
 }
 
+if (! function_exists('numonly')) {
+    /**
+     * Convert number to readable word
+     * @param float $number
+     * @param string $currency
+     * @return string
+     */
+    function numonly($string){
+        return preg_replace('/[^0-9]/', '', $string);
+    }
+}
+
 if (! function_exists('doc_match')) {
     /**
      * Checking if the document match with the correct type
@@ -217,7 +229,7 @@ if (! function_exists('fts_action_button')) {
         }
         
         if(auth()->user()->can('fts.document.print')){
-            $action .= '<a class="dropdown-item" href="'.route('fts.documents.receipt', ['series' => $series, 'print' => 'true']).'"><i class="fal fa-print"></i> Print</a>';
+            $action .= '<a class="dropdown-item" target="_blank" href="'.route('fts.documents.receipt', ['series' => $series, 'print' => 'true']).'"><i class="fal fa-print"></i> Print</a>';
         }
 
         $action .= '<a class="dropdown-item" href="'.route('fts.documents.track', ['series' => $series]).'"> <i class="fal fa-search"></i> Track</a>';
@@ -449,17 +461,30 @@ if (! function_exists('employee_id_helper'))
     */
     function employee_id_helper($string, $safemode = true)
     {
+        $string = strtoupper($string);
 
         if($safemode == true){
-            return 1;
+            return intval($string) ?? 1;
         }
 
-        if (strpos($string, '||') !== true) {
-            return $string;
+        if(strpos($string, 'PGA-JO-')){
+            $explode = explode('PGA-JO-', $string);
+            return 'PGA-JO-'.numonly($explode[1]);
         }
 
-        $arr = explode('||', $string);
-        return @$arr[1];
+        if(strpos($string, 'PGA-C-')){
+            $explode = explode('PGA-C-', $string);
+            return 'PGA-C-'.numonly($explode[1]);
+        }
+
+        if(strpos($string, 'PGA-P-')){
+            $explode = explode('PGA-P-', $string);
+            return 'PGA-C-'.numonly($explode[1]);
+        }
+
+
+        return numonly($string);
+
     }
 }
 

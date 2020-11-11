@@ -43,7 +43,7 @@ class AFLController extends Controller
                 $records['data'][$count]['name'] = $document->afl->name;
                 $records['data'][$count]['position'] = $document->afl->position;
                 $records['data'][$count]['type'] = $document->afl->type;
-                $records['data'][$count]['inclusives'] = implode(', ', $document->afl->inclusives);
+                $records['data'][$count]['inclusives'] = (array_key_exists('old', $document->afl->inclusives)) ? $document->afl->inclusives['old'] : implode(', ', $document->afl->inclusives['dates']);
 
                 $action =  fts_action_button($document->series, [
                     'route' => 'fts.afl.edit',
@@ -136,7 +136,9 @@ class AFLController extends Controller
             'type' => $request->post('type'),
             'credits' => $request->post('credits'),
             'leave' => $leave,
-            'inclusives' => $inclusives->sort()->values()->all(),
+            'inclusives' => [
+                'dates' => $inclusives->sort()->values()->all()
+            ],
         ]);
 
         // changing QR status

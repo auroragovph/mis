@@ -87,6 +87,7 @@ class DocumentController extends Controller
 
         if(in_array('datas', $includes)){
             $datas = array();
+
             switch($document->type){
 
                 case config('constants.document.type.procurement.request'): //PURCHASE REQUEST
@@ -122,6 +123,9 @@ class DocumentController extends Controller
                     $datas['Position'] = $afl->position;
                     $datas['Type'] = $afl->type;
                     $datas['Credits'] = $afl->credits;
+
+                    $record['document']['..hidden'] = $afl->leave;
+
                 break;
 
                 case 302: // ITINERARY OF TRAVEL
@@ -192,11 +196,13 @@ class DocumentController extends Controller
 
         $series = fts_series($request->get('series'), 'decode');
 
-        $document = $this->full($series, ['datas']);
+        $document = $this->full($series, ['datas', 'attachments']);
 
         if(!$document){
             return abort(404);
         }
+
+        // dd($document);
 
       
         

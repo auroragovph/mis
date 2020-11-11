@@ -80,14 +80,20 @@
                         <label for="" class="mb-3">Select inclusive dates: </label>
                           <div id="datepicker">
                                 @php
-                                    $raw_dates = collect($document->afl->inclusives);
+                                    if(array_key_exists('dates', $document->afl->inclusives)){
 
-                                    $dates = $raw_dates->map(function($item){
-                                        if(is_date($item) == false){
-                                          return '01-01-2020';
-                                        }
-                                        return @Carbon\Carbon::parse($item)->format('m/d/Y');
-                                    })->implode(',');
+                                      $raw_dates = collect($document->afl->inclusives['dates']);
+
+                                      $dates = $raw_dates->map(function($item){
+                                          if(is_date($item) == false){
+                                            return '01-01-2020';
+                                          }
+                                          return @Carbon\Carbon::parse($item)->format('m/d/Y');
+                                      })->implode(',');
+
+                                    }else{
+                                      $dates = $document->afl->inclusives['old'];
+                                    }
                                 @endphp
                               <input type="hidden" name="inclusive" required value="{{ $dates }}">
                           </div>

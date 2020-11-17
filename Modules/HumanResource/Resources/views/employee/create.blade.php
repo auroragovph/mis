@@ -205,7 +205,7 @@ $(function () {
 
     $(".select2-ajax-position").select2({
         ajax: {
-            url: '{{ route("hrm.employee.create") }}',
+            url: '{{ route("hrm.plantilla.position.lists") }}',
             dataType: 'json',
             delay: 500,
             processResults: function(data, page) {

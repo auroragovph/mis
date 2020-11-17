@@ -475,8 +475,8 @@ if (! function_exists('employee_id_helper')){
             $explode = explode('PGA-P-', $string);
             return 'PGA-C-'.numonly($explode[1]);
         }
-        return numonly($string);
-
+        
+        return $string;
     }
 }
 

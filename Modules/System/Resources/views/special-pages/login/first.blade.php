@@ -23,19 +23,19 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="">First Name</label>
-                                <input name="fname" type="text" class="form-control" placeholder="Juan" required value="{{ auth()->user()->employee->name['fname'] ?? '' }}">
+                                <input name="fname" type="text" class="form-control" placeholder="e.g. Juan" required value="{{ auth()->user()->employee->name['fname'] ?? '' }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="">Last Name</label>
-                                <input name="lname" type="text" class="form-control" placeholder="Dela Cruz" required value="{{ auth()->user()->employee->name['lname'] ?? '' }}">
+                                <input name="lname" type="text" class="form-control" placeholder="e.g. Dela Cruz" required value="{{ auth()->user()->employee->name['lname'] ?? '' }}">
                             </div>
                             <div class="col-md-3">
                                 <label for="">Middle Name</label>
-                                <input name="mname" type="text" class="form-control" placeholder="Santos" value="{{ auth()->user()->employee->name['mname'] ?? '' }}">
+                                <input name="mname" type="text" class="form-control" placeholder="e.g. Santos" value="{{ auth()->user()->employee->name['mname'] ?? '' }}">
                             </div>
                             <div class="col-md-1">
                                 <label for="">Suffix</label>
-                                <input name="sname" type="text" class="form-control" placeholder="Jr" value="{{ auth()->user()->employee->name['sname'] ?? '' }}">
+                                <input name="sname" type="text" class="form-control" placeholder="e.g. Jr" value="{{ auth()->user()->employee->name['sname'] ?? '' }}">
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="">Title</label>
-                                <input type="text" class="form-control" name="title" placeholder="eg. Atty">
+                                <input type="text" class="form-control" name="title" placeholder="e.g. Atty">
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="">Employment Type</label>
+                                <label for="">Status of Appointment</label>
                                 <select name="employment-type" class="form-control select2" style="width:100%" required>
                                     <option hidden></option>
                                     <option selected value="1">Job Order</option>
@@ -174,7 +174,7 @@ $(function () {
 
     $(".select2-ajax-position").select2({
         ajax: {
-            url: '{{ route("hrm.employee.create") }}',
+            url: '{{ route("hrm.plantilla.position.lists") }}',
             dataType: 'json',
             delay: 500,
             processResults: function(data, page) {

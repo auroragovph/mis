@@ -22,7 +22,9 @@ class DevController extends Controller
     public function index()
     {
         $timer = microtime(true);
-        dd($this->sg());
+
+        dd(employee_id_helper('PGA-JO-123'));
+
         echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
     }
 

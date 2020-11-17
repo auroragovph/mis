@@ -32,6 +32,7 @@ class EmployeeController extends Controller
     public function create(Request $request)
     {
         $divisions = SYS_Division::with('office')->get();
+
         return view('humanresource::employee.create', [
             'divisions' => $divisions
         ]);

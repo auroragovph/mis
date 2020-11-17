@@ -17,13 +17,11 @@ class UserTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $file = storage_path('app/jsons/seeds/users.json');
+        $file = storage_path('/app/seeds/sys/users.json');
         $users = json_decode(file_get_contents($file), true);
-
 
         foreach($users as $user){
             $account = SYS_User::create([
-
                 'employee_id' => $user['employee_id'],
                 'username' => $user['username'],
                 'password' => password_hash($user['password'], PASSWORD_BCRYPT),

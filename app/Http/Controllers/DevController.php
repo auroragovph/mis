@@ -21,14 +21,79 @@ class DevController extends Controller
 
     public function index()
     {
-    //     $timer = microtime(true);
+        $timer = microtime(true);
+        dd($this->sg());
+        echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
+    }
 
-    //     echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
+    public function sg()
+    {
+        $file_n = storage_path('/app/seeders_documents/sg.csv');
+        $file = fopen($file_n, "r");
 
-        // dd(employee_id_helper('JIMWELL P. PARIASPGA-C-405Job OrderOFFICE OF THE PROVINCIAL GOVERNOR ', false));
+        $sg = array();
 
-        return view('dev');
+        $x = 0;
 
+        while ( ($data = fgetcsv($file, 200, ",")) !==FALSE) {
+            if($x == 0){$x++;continue;}
+
+            $sg[] = [
+                'step1' => $data[0],
+                'step2' => $data[1],
+                'step3' => $data[2],
+                'step4' => $data[3],
+                'step5' => $data[4],
+                'step6' => $data[5],
+                'step7' => $data[6],
+                'step8' => $data[7]
+            ];
+        }
+
+        file_put_contents(storage_path('/app/seeds/hrm/salary_grade.json'), json_encode($sg, JSON_PRETTY_PRINT));
+
+        return $sg;
+    }
+
+    public function plantilla()
+    {
+        $file_n = storage_path('/app/seeders_documents/positions.csv');
+        $file = fopen($file_n, "r");
+
+        $plantilla = array();
+
+        $x = 0;
+        while ( ($data = fgetcsv($file, 200, ",")) !==FALSE) {
+            if($x == 0){$x++;continue;}
+            $position = $data[0];
+            $sg = $data[1];
+            $plantilla[] = ['position' => $position, 'salary_grade_id' => (int)$sg];
+        }
+
+        file_put_contents(storage_path('/app/seeds/hrm/plantilla.json'), json_encode($plantilla, JSON_PRETTY_PRINT));
+
+        return $plantilla;
+    }
+
+    public function attachment_seeds()
+    {
+        $file = json_decode(file_get_contents(storage_path('/app/seeders_documents/attachment.json')), true);
+        
+
+        $lists = array();
+
+        foreach($file as $row){
+            $lists[] = [
+                'document_id' => 0,
+                'employee_id' => 0,
+                'description' => $row['name']
+            ];
+        }
+
+
+
+
+        file_put_contents(storage_path('/app/seeds/fts/attachments.json'), json_encode($lists, JSON_PRETTY_PRINT));
     }
 
     public function join()

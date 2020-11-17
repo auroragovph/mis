@@ -33,77 +33,77 @@ class DocumentsTableSeeder extends Seeder
         ini_set('memory_limit', '2048M');
 
         // documents
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/documents.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/documents.json'));
         $batch = collect(json_decode($file, true))->chunk(1000);
         foreach($batch as $documents){
             FTS_Document::insert($documents->toArray());
         }
 
         // tracks
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/tracking.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/tracking.json'));
         $batch = collect(json_decode($file, true))->chunk(5000);
         foreach($batch as $documents){
             FTS_Tracking::insert($documents->toArray());
         }
 
          // attachments
-         $file = file_get_contents(storage_path('app/jsons/fts/clean/attachments.json'));
+         $file = file_get_contents(storage_path('app/seeds/fts/documents/attachments.json'));
          $batch = collect(json_decode($file, true))->chunk(5000);
          foreach($batch as $attachments){
              FTS_DA::insert($attachments->toArray());
          }
 
          // QR CODE
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/qr.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/qr.json'));
         $batch = collect(json_decode($file, true))->chunk(5000);
         foreach($batch as $documents){
             FTS_Qr::insert($documents->toArray());
         }
 
          // FORM AFL
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/form-afl.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/form-afl.json'));
         $batch = collect(json_decode($file, true))->chunk(1000);
         foreach($batch as $docs){
             FTS_AFL::insert($docs->toArray());
         }
 
         // FORM DV
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/form-dv.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/form-dv.json'));
         $batch = collect(json_decode($file, true))->chunk(1000);
         foreach($batch as $docs){
             FTS_DisbursementVoucher::insert($docs->toArray());
         }
 
         // FORM CAFOA/OBR
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/form-cafoa.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/form-cafoa.json'));
         $batch = collect(json_decode($file, true))->chunk(1000);
         foreach($batch as $docs){
             FTS_Cafoa::insert($docs->toArray());
         }
         
         // FORM IOT
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/form-iot.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/form-iot.json'));
         $batch = collect(json_decode($file, true))->chunk(1000);
         foreach($batch as $docs){
             FTS_Itinerary::insert($docs->toArray());
         }
 
         // FORM PAYROLL
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/form-payroll.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/form-payroll.json'));
         $batch = collect(json_decode($file, true))->chunk(1000);
         foreach($batch as $docs){
             FTS_Payroll::insert($docs->toArray());
         }
 
         // FORM PR
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/form-pr.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/form-pr.json'));
         $batch = collect(json_decode($file, true))->chunk(1000);
         foreach($batch as $docs){
             FTS_PurchaseRequest::insert($docs->toArray());
         }
 
         // FORM TRAVEL
-        $file = file_get_contents(storage_path('app/jsons/fts/clean/form-to.json'));
+        $file = file_get_contents(storage_path('app/seeds/fts/documents/form-to.json'));
         $batch = collect(json_decode($file, true))->chunk(1000);
         foreach($batch as $docs){
             FTS_TravelOrder::insert($docs->toArray());

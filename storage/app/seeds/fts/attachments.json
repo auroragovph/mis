@@ -1,0 +1,4447 @@
+[
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Abstract of Bids"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Admission Slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Application for Leave"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Agency Procurement Request (APR) "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Authority To Travel Abroad"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Clearance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CSC Form 212 PDS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CSC SALN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Disbursement Voucher"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Drivers Trip Ticket"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DTR Job Order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DTR Permanent and Casual"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Fuel Charge Slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Inspection and Acceptance Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Invoice Receipt of Property"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Job Order Slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Liquidation Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Obligation Request"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Official Business Slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Property Acknowledgement Receipt"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Property Issue Slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Property Return Slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Purchase Order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Purchase Request"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Request for Pre-repair Inspection"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Request for Property"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Request for Quotation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Request for Vehicle"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Requisition and Issue Slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Resolution On-mode of Procurement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TEV - Certificate of Travel Complete"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TEV - Itinerary of Travel"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TEV - Post Travel Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Travel Order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Waste Material Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Payroll"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Journal Entry Voucher (JEV)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Check"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Accomplishment Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Appearance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "OB Slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Leave"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Scholar Application Form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate Of Indigence"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate Of Rating"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Enrollment Form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certifications"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CSC Records"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Plantilla"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Appointment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ID"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Appearance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "OFFICIAL RECEIPT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Fuel Charge slip\/Drivers Trip ticket"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Project Proposal"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Contract of Service"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Individual Program of Work"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "purchase order  2019-10-2152 DATED 10-11-19"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "REQUEST LETTER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "REQUEST FOR QUOTATON"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PHILGEPS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CANVASS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ABSTRACT OF QUOTATION AS CALCULATED"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Mission Order No."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TESDA Circular"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Attendance Sheet"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "I.D."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PDS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "driver's trip ticket"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SERVICE RECORDS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "EXECUTIVE ORDER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "STATEMENT OF ACCOUNT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "routing slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "INTAKE SHEET (issued by PSWD)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "APPROVED PPMP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SUMMARY OF PAYROLL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "INVITATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "COMMUNICATON"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SALES INVOICE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PATIENT DIET LIST"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RMP\/APPROVED APP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "APPROVED APP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATE OF PHILGEPS REGISTRATION FOR WINNING BIDDER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PHILGEPS BID NOTICE ABSTRACT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PHLGEPS AWARD NOTICE ABSTRACT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "STATEMENT OF CONSUMPTION REPORT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MEETING INVITATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NOTICE OF MEETING"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ATTENDANCE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PPMP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATE OF ELIGIBIILITY"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "cash assistance payroll"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LOAN EVALUATION FOLDER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "letter"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AUTHORITY TO TRAVEL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "philgeps award notice abstract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "mayor's permiit"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DELIVERY RECEITP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Birth Certificate"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Confirmation of Attendance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PROGRAM PROPOSAL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GENERATOR CONSUMPTION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "capital outlay"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "resolution"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of winners"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "daily marketing summary"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LOAN DEDUCTION SUMMARY"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIST OF BONDED PUBLIC OFFICERS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "APPROVED SUPPLEMENTAL PPMP 2019"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "billing statements"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "memorandum circular"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LOGBOOK"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MEDICAL CERTIFICATE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "KAPASYAHAN BLG."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "INVITATION FOR BUDGET HEARING"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BILLING INVOICE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Death Certificate"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "daily wage payroll"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BM-Roxas"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Statement Summary"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "toll fee"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "pagtatalaga"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Panunumpa sa Katungkulan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Acknowledgement Receipt"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Report of Disbursement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Memorandum"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Implenting Plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "request for final billing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CONFIRMATION SLIP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATE OF CLEARANCE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CLEARANCE SLIP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CLEARANCE FORM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATE FROM GSIS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Administrative order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ORDINANCE NO."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NET SALARY SCHEDULE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of inmates"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Commitment order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Release Order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Indigency"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FEO NO. "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "remittance list"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Monthly Certificate of Payment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Project Engineers Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "partial inspection Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of partial project Completion Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATE FROM DBP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATION FROM LANDBANK"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of low Income"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Contract of Agreement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "bill of materials and detailed estimates"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Notice of Award"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Minutes of Meetiing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "treasurer's affidavit"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Amended Articles of Cooperation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Coop. training Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Coop. Development Authoriity"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Strategic Development Plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Coop. Livelihood Assistance Program"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "listing of employees"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "service quotation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of Work Accomplishment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Deductive Order No."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "letter from Manny Pabalate to Governor"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Transmittal Sheet"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "letter from the bac"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "government procurement policy board"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certification the availability of funds"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "approved budget for  the contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "location\/map of the project"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of all on-going government & private contracts including contracts awarded but not yet started"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of single largest completed contract similar to the contract to be bid"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "net financial contracting capacity"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "bids securing declaration"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "construction schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "manpower schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "condtruction methodology narrative description"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Equipment schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "checklist of requrements"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "section VIII-Bill of Quantities"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "goole map"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "mapping"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of Acceptance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "picture"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "pictures"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "approval number"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "copy of certificate of Completion"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certification of Registration"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "table of contents"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "resume"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certification of REgistratiion"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Notice of Eligibility"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Notice to Proceed"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "organizational Chart"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Individual project program of works"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Invitation to bid"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "indemnity Agreement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "performance bond"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Surety bond"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Affidaviit"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "bid form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Cash flow"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of in-plant testing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Acknowledgement "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Registration"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Business Name Registration"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "contractor's license"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "construction and safety health program"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "google map"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "construction methodology narrative description"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "final inspection report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GSIS BILLING"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BUS TICKET"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "APPROVED BUDGET FOR THE CONTRACT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "APPROVED BUDGET FOR THE CONTRACT Procurement of  GOODS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "office order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "profile"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Recognition"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Invitation Letter"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "STATEMENT OF DAILY  MARKET PURCHASES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ACTIVITY DESIGN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "result"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Solo Parent ID"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Final Project Completion"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIQUIDATED DAMAGES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "INSURANCE CORPORATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DOCUMENTARY STAMP TAX DECLARATION\/RETURN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDS AND AWARDS COMMITTEE(BAC)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RECEIVING COPY"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Travel"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "EVALUATION REPORT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TEST REPORT ON CONCRETE BEAM SAMPLE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "WORKSHEET FOR FIELD DENSITY TEST"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATION FOR POURING OF CONCRETE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SANGUNIANG BARANGAY KAPASYAHAN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CONTRACTOR'S AFFIDAVIT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LETTER OF ACCEPTANCE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BID EVALUATION REPORT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "joint committee hearing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "summary of subsistence"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "court order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "names of inmates"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of Bank Deposit"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Authorization"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Water Bill Receipt"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of eligibility documents"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Monthly Statement Account"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GLOBE Billing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Doctor's  Rx"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate Of Death"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "X-RAY Result"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Medical Abstract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SMART Statement Of Account"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RPM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "income & expenditure estimate"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "activity proposal"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "fiscal clearance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of no loan balance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "declaration of pendency\/non pendency of case"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "sworn statement of assets, liabilities & net worth"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SMART Billing Statement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "plan summary"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Barangay Clearance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Training"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Attendance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "request for inspection"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SUMMARY OF CHARGES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Withdrawal\/LBP\/DBP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Personal locator slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Personal locator slip (issued by COA)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "EXECUTIVE ORDER I"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Opening bids (procurement of Goods)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "opening of bids-orocurement of various IIT equpment\/supplies"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Appreciation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Doctor's Prescription"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "floor plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "technical specification"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "special condition of contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Employment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Statement of Monthly nternal Revenue Taxes witheld"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certification"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "supplemental project procurement management plan 2019"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Completion"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Emission Compliance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GSIS Certificate of  Cover"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Motor Vehicle Inspection Report Stencils"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Withdrawal\/DBP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Withdrawal\/LBP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "coa circular"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "learning Activity Design"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "notice of assumption to office"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CSC-CSI Billing Statement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Delivery Reciept"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Payroll for Honorarium"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "matrix 2019 SPED OLYMPICS CUM FESTIVAL OF TALENTS "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "List og Eligibility Documents"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certfificate of Confinement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "budgetary requirement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "clustering"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "work load schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "20% development fund"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Government Procurement Policy Board-Technical Support Office"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Annual Procurement Plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of schools & number of copies proposed to be distribute"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TAX CLEARANCE CERTIFICATE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "List of Bonded Officials\/Employees"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Request for Bonding and\/or cancellation of Bond of accountable officials and employees of the Republic of the Philippines"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Program of Activities"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NOTICED OF AWARD"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "card"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Application Form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "listing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Allotment Release Order for Maintenance and other Operating Expenses"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "schedule of activities"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "schedule of prices"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "authority of representative & signatory (SPA) authorization"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "omnibus sworn statement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "after Sales Service Warranty"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "manpower requirements"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "delivery schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "schedule of requirements"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "technical specifications"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "bid securing declaraton"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "computation of NFCC"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Audited financial statement w\/ recent income tax return"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "abstract of Bid as Read"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "notice of Post-Qualification"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "checklist of iligibility requirements for the BAC"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "procurement of sports supplies and materials  for APAA 2019 (2) (G-2019-10-0017-SEF)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "checklist of documents (procurements of goods)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "STRUCTURE FRAMEWORK"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RADIO BROADCAST CONTRACT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Brgy.Clearance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Authority to accept payment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SOLICITATION LETTER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "annual income tax return"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "provincial school board Resolution"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Philgeps Registration "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Directory"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "post activity report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "summary of hospital income"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "permanent record"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "form 138"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "booking details"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Project Tarpauline"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of time elapsed of work accomplished"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "picture before concreting"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "picture during concreting"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "picture after concreting"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Test on cement sample"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "test report of aggregate sample"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "tax declaration Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Health and Safety policy"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Financial Bid Form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Bill of Quantites"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Detailed estimates"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Cash flow by quarter and payments schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "pcab license"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "mayor's permit"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of philgeps platinum registration"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of the bidder's single largest completed contract ( CLCC)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIR certification Registration"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Audited financial statement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "bid security"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of contract personnel to be assigned to the contracts to be bid"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "project engineer\/project manager"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "materials  engineer"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "construction schedule and s-curve"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PERT-CPM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Construction method in narrative form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of equipments units intended for the project which are owned or leased"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "affidavit of site inspection"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Equipment utilization schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "construction safety and health program"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DTI PERMIT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of all completed government and private construction contracts which are similar in nature"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Appropriation Ordinance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "instruction to bidders"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Secretary's certificate"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "board resolution"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "goods offered w\/in the philiippines"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "sales & after   sales service & parts"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of inspection and acceptance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "completed contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "by-laws"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "business permiit"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SEC registratiion"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Bac Resoluton"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ORDER OF PAYMENT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "notice of recept of bid documents"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "notice of receipt of bid documents"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of stock Reported"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "vehicles sales invoice"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ASSESSMENT OF FEES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "index"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "loan evaluation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BOD Resolution Authorizing the Chairperson to enter into Moa or Loan Agreement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Business Plan & Supporting Documents"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BOD Resolution Adopting the Business Plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Capital Build-up Program"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Paid up Share Capital Certified by Treasurer"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Policies, System & Procedures"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Cooperative Annual Progress Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "List of Training Attended"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LANDBANK CASH DEPOSIT SLIP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CONFIRMATION LETTER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "collection receipt"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "tct"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "notice of assessment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Appraisal Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "tax clearance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "deed of sales"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "payment form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "special Education Fund"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "letters from coa"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of compliance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "permit to transport"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "HAZARDOUS WASTE MANIFEST SYSTEM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Letter of Commitment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "amortization schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of enrollment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "on going project"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "completed project"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "key personnel for the contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DTI"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AUDITED FINANCIAL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SLCC"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NFCC"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "schedules of delivery"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "manpower"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "warranty"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "schedule of delivery"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "technical evaluation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "notification of bidding results"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SUMMARY OF OFFICE & JANITORIAL SUPPLIES FOR DBM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "schedule for each procurement Activity"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "schedule of Truss and Truts"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of inspection"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "construction methodology"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "letter of appointment for project foreman"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "letter of appointment for owner\/manager"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of cash flow"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Report of Collections and Deposits"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of comprehensive income"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of financial position"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Provincial Form No. 36(A)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "practitioners compilation report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "engagement letter"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Detailed Unit Price Analysis (DUPA)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "post qualification evaluation report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "test report on reinforcing steel bars"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "test report on structural steel"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "INTENT LETTER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CASH INVOICE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "WHOLESALE INVOICE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DEED OF ABSOLUTE SALE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DRIVERS LICENSE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of equipment owned pledged to the proposed contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "narrative description of construction methods"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of appointment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "key personnel's certificate of employment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FIRE SAFETY INSPECTION CERTIFICATE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FORM OF CONTRACT AGREEMENT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ABSTRACT OF BID AS CALCULATED"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "work sheet for field density test"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "worksheet for compaction test"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certiication for pouring of concrete"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "test report on atterberg limit test "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "test report on sieve analysis"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "quantity control program"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "affidavit of payment of lobor and materials"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Subpoena"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CHARGE SALES INVOICE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GLORY TO GOD MULTIPURPOSE COOPERATIVE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFIED LIST OF MEMBERS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "STRATEGIC PLAN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CREDIT OPERATIONS MANUAL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIST OF OFFICERS AND TRAININGS UNDERTAKEN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTICATE OF COMPLIANCE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AMENDED BY LAWS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFIED PUBLIC ACCOUNTANT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NAME OF BOARD OF DIRECTORS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIST OF TARGET BENEFICIARIES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "funeral Contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "additional sales invoice"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "add'l. pr"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "add'l. po"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Provincial Ordinance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIGHT VEHICLE INSPECTION REPORT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "add'l.  travel Order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DOH-CAR PERSONNEL ORDER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NAME TAG"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of membership"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "doh-hfsrb=qop form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "affidavit of continuous compliance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "philhealth accredited health care provider"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "fuel consumption"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Motor vehicle inspection report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "vehicle details"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of cover"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Affidavit of loss"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Testing Result"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "APPROVED RMP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Marriage Certificate"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "request for travel"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Land Bank deposit slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ENDORSEMENT LETTER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Price schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "on-going contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "joint venture Agreement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Special Power of Attorney"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "bid supplements"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "emission compliance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Statement of financial Condition"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Cooperative annual Progress Report (CAPR) Form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Bagong Sibol Cooperative Profile Of Beneficiaries"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Loan Application Form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PAYROLL SUMMARY\/CLOTHING ALLOWANCE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "bio-data"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "net clothing allowance"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Report of taxes paid by GF chargeable to 20% Development Fund"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MONETIZATION LEAVE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "pow"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SUMMARY OF DAILY PRECIPITATION OBSERVATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "confirmation receipt"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Technical Bid Evaluation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of acceptance\/turn over"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Supplemental\/Bid Bulletin (SBB)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PPMP 2020"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PPMP 2019"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TRANSFER CERTIFICATE OF TITLE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CLAIM SLIP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIR PAYMENT SLIP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate Authorizing Registration "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Onett Computation Sheet"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Capital Gains Tax Return "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Documentary Stamp"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "xerox copy voucher"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "xerox copy jev"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "xerox copy obr"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "burial contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SUMMARY OF BILL OF QUANTITIES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "repair and replacement of roofing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "add'l.  OR"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MOA"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "field validation report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BOD Resolution"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Business Plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "projected statement of financiial condition"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "policy on Lending Services"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "policy on Palay Lending Services"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "instruction to cooperatives"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Cooperative training Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of officers and traiinings undertaken\/completed"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": ""
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Article of Cooperative"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Statement of Representation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Statement of operation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Advance payment bond"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TERM AND CONDITION OF LICENSE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIR FORM 2307"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "OPAG-CORN PRODUCTION PROGRAM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "proposed computation of Cash Advance re: Cash Advance of Bahay Pag asa"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PAYROLL SUMMARY\/MONETIZATION OF LEAVE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "UNREMITTED DUE TO LGUs (RPT 3rd quarter)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "OB PASS SLIP\/EMERCENCY PASS SLIP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "advisory"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "notice of hearing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "registration form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "listing of patient"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "records of EE\/ER SHARE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Name of client"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "resita"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MEDICAL RECEIPT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Exclusivity"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "nomination form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Employees Premium Remittance List"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Statement of Premium Account (SPA)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "REQUEST FORM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of treatment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of confinement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "COMMUNITY TAX CERTIFICATE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Letter Request for inspection"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Letter request of material test"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BDS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATE OF PROJECT COMPLETION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PERSONAL DATA SHEET"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MEETING OF PRE-BID CONFEENCE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "clinical abstract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Discharge Instruction Form"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "request mobilization"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of key personnel"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "equipment utilization"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GLOBE Statement of Account"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TEST REPORT ON QUALITY TEST OF COARSE AGGREGATES MATERIALS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "WARRANTY BOND"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Authority"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Overall Company Safety Rules  And Regulations"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Checklist of Documents"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Contract for the Construction of Farm To Market Road"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Milestone Guaranty and Assurance Corp."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of equipment s,owned,leased, and or under purchased agreement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of availability of key personnel and equipment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certification of good standing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "quarterly income tax  return"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "filing reference no."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "quarterly value-added tax return"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GENERAL CONDITIONS OF CONTRACT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SPECIAL CONDITIONS OF CONTRACT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BILLS OF QUANTITIES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "REAL PROPERTY TAX COLLECTION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIST OF PATIENT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIST OF PATIENTS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PROPOSAL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "valid pcab license"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ORGANIZATION PROGRAM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of transfer of cadaver\/bones\/ashes"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GEOTAG SCREEN SHOT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DOLE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CONTRACT AGREEMENT OF CIVIL WORKS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LETTER FOR MATERIAL TEST"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RESULT OF TEST ANALYSIS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PHILGEPS AWARD"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BAC RESOLUTION DECLARING SCRB AND RECOMMENDING APPROVAL RESOLUTION N."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NOTICE OF POST QUALIFICATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "REQUEST FOR EXTENSION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ABSTRACT OF BIDS AS READ"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MINUTES OF MEETING OPENING OF BIDS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CHECKLIST OF ELIGIBILITY REQUIREMENTS FOR THE BAC"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS  TITLE PAGE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS: SECTION I.INVITATION  TO BID"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS: SECTION II. INSTRUCTION TO BIDDERS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS: SECTION III. BID DATA SHEET"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS: SECTION III. GENERAL CONDITION OF CONTRACTS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS: SECTION IV. GENERAL CONDITION OF CONTRACTS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS: SECTION V. SPECIAL CONDITION OF CONTRACTS\/SECTION VI. SPECIFICATIONS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS: SECTION VII. DRAWINGS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS: SECTION VIII.BILL OF QUANTITIES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS: SECTION IX. BIDDING FORMS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MINUTES OF MEETING PRE-BID CONFERENCE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "INVITATION BID"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FIRST BIDDER: RADIANCE TRADERS AND BUILDERS (FINANCIAL DOCUMENTS)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SECOND BIDDER: SO CONTRUCTION (BID FORM)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "THIRD BIDDER: A.P. COSTA CONSTRUCTION AND TRADING(FINANCIAL DOCUMENTS)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AVAILABILITY  OF FUNDS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "APPROVED PLANS AND DRAWING"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "APP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TIN\/VAT Certificate of Registration"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "edprobon construction services incorporated"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "request for final payment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FOURTH BIDDER SO CONST."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RETIREMENT BENEFIT VOUCHER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RETIREMENT PROCEEDS DATA SHEET"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "STUDENTS SCHOLASTIC REPORT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "annual investment program"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PATIENT ACCOUNT LEDGER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "REFERAL FORM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "design plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIDDING DOCUMENTS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ADD'L TEV-ITENERARY OF TRA VEL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "collective negotiation agreement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "hospital bill"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "medical assistance program"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "financial documents for eligibility check"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "price list"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "STATEMENT OF PREMIUM ACCOUNT (SPA)-FORMAL SECTOR"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "notice of salary adjustment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PAYROLL SUMMARY\/ SALARY DIFFERENTIAL FOR THE MONTH OF JAN.-APRIL 2020"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PAYROLL SUMMARY\/MID YEAR BONUS 2020"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "form of performance security (bank Guarantee)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "weekly progress report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "monthly physical Accomplishment Report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Minutes of the Pre-Bid Conference"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Sub-project program of works"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Affidavit of Publication"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PDC EXECUTIVE COMMITTEE RESOLUTION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PAYROLL SUMMARY"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "convergence program 2020"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BARANGAY CERTIFICATE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "electric bill"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "hauling sheet"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NTP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "third bidders "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "third bidders (financial docs)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "original financial component"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "vicinity map"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "bar chart"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TWG BID EVALUATION REPORT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "COVER SHEET"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Contract for the Construction of Spring Development"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Notification of Bid Evaluation Result"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Checklist of Financial requirements for the BAC"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CONSRUCTION OF FLOOD CONTROL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "listing of payees"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "checklist of financial envelop requirements for the BAC"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "procurement of catering services"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MASTERLIST OF HEMODIALYSIS PATIENT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "STRAIGHT LINE DIAGRAM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of all on-going government and private contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of similar largest completed contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of equipment owned,leased, and or under purchased agreement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MOTOR  VEHICLE INSURANCE BILL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATE OF WARRANTED NO LOSS\/CLAIM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MOTOR VEHICLE INSURANCE APPLICATION FORM"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "XEROX  COPY LTO OR\/CR"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RENEWAL ADVICE\/Certification Of Availability Of Funds"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "COLLECTIVE NEGOTIATION AGREEMENT (CNA)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "notice of lowest\/single calculated bid"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Annual Income tax Return 2018"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certificate of net financial contracting capacity"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BIR Tax Payment Deposit Slip"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SUPPLEMENTAL PROCUREMENT PLAN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "UNIT PRICE ANALYSIS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PERSPECTIVE VIEW"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PROPOSED PAVEMENT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RIGHT SIDE EVALUATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RIGHT SIDE ELEVATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FRONT ELEVATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ROOFING FRAMING PLAN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PLDT Statement of Account"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "COOPERATIVE LIVELIHOOD ASSISTANCE PROGRAM (CLAP)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PROJECTED STATEMENT OF OPERATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PROJECTED CASH FLOW"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PROJECTED CASH FLOW (YR1)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PROJECTED CASH FLOW (YR2)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BUSINESS PROPOSAL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SAMPLE COMPUTATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AMENDED MANUAL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CARP SUMMARY"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GENERAL INFORMATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AMENDED ARTICLES OF COOP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TAX RETURN RECEIPT CONFIRMATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "PROMISSORY NOTE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ASSET"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "summary"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "REPORT OF CHECK ISSUED"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CHECK DEPOSIT SLIP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Important Notice"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "statement of remittance of withholding tax on compensation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "breakdown of appropriations for MOOE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "breakdown of appropriations for capital outlay "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "procurement of Infrastructure projects"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "key personnel's affidavit of commitment to work on the contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "contract of Lease"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "HAZARD PAYROLL SUMMARY"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MEMORANDUM OF AGREEMENT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CONTRUCTOR'S LICENSE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AICS LINGAP PARA SA MAHIRAP"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SPECIAL PERMIT TO TRANSPORT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Budget Authorization Form No, 01"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Retirement\/separation\/life claim"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Delcaration of pendency\/non-pendency of case"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Application for retirement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ist. indorsement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ULTRASOUND RESULT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "REPUBLIC ACT NO.ACT DECLARING THE EXISTENCE OF NATIONAL EMERGENCY ARISING COVID 19 DISEASE 2019."
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "INVITATION TO A COMMITTEE HEARING"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "KATIBAYAN NG PAGLAYA SA BILANGGUAN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "UNREMITTED DUE TO LGU'S "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "organization profile"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "POLICE CLEARANCE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Resume Order 1"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "change Order no. 1"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "suspension no. 1"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "qualification of key personnel proposed to be assigned to the project"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TEST REPORT ON CEMENT SAMPLES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TEST REPORT ON AGGREGATES SAMPLE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "RECRUITMENT,PROMOTION,PLACEMENT AND CAREER\/PERSONNEL DEVELOPMENT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SPECIAL RISK ALLOWANCE PAYROLL SUMMARY"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "VEHICLE DELIVERY RECEIPT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "KEY PERSONNEL COMMITMENT TO WORK"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DTR"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FINANCIAL DOCUMENTS: bid form\/bill of quantities\/detailed estimates\/ cash flow"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ELIGIBILITY AND TECNICAL DOCUMENTS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "structural plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DTI BUSINESS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "typical section & details"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "plans & profile sheet"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "site development plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "ONGOING GOVERNMENT PROJECT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "COMPLETED GOVERNMENT PROJECT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SINGLE LARGEST COMPLETED CONTRACT(SLCC)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AUDITED FINANCIAL STATEMENTS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NET FINANCIAL CONTRACTING CAPACITY(NFCC)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BID SECURING DECLARATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIST OF KEY PERSONNEL W\/ BIODATA"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "letter of agreement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CONTRACT FOR BROADCAST"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SUMMARY LIST"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "oath of office"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "certification of assumption to duty"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CERTIFICATE OF RESIDENCY"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "JOINT AFFIDAVIT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Project time duration chart"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Inspection Request"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "monthly weather report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "summary of unworkable days "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "worksheet for sieve analysis"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "worksheet for liquid limit and plastic limit tests"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Test Report on "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Test Report on Portland cement"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TEST REPORT ON CONCRETE CYLINDER SAMPLE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Buod ng Kasunduan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "voter's certification"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Contract for the Construction of Multi-purpose Building"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Unremitted Due to LGUs (RTC Ist. Qtr. CY 2020"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "UNREMITTED DUE TO LGU'S \/RPTC 1ST. QTR. CY 2020"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "UNREMITTED DUE TO LGU'S \/RPTC  2nd. QTR. CY 2020"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "billing of materials"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "provincial local Board Resolution "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "sample SLM video"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of SLMs for reproduction (3rd. PHASE)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "social case study report"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SPECIAL ORDER"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NOTICE OF STEP INCREMENT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MINUTES OF MEETING Opening of Bids for the Procurement of Goods and Civil Works"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Department Order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "REQUEST FOR POURING"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Quality Control Program"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AS BUILT PLAN"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "INSURANCE COMMISSION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TEST REPORT ON CONCRETE SAMPLES"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CONTRACT FOR THE CONCRETING OF FARM TO MARKET ROAD"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "supplemental project procurement management plan 2020"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "NOTICE OF POST DISQUALIFICATION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BAC Resolution Declaring LCRB and Recommending Award of Contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "CASH flow and Payment Schedule"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Statement of All ON-Going and Completed Projects"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SINGLE LARGEST PROJECT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIST OF EQUIPMENT INTENDED FOR THE PROJECT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "LIST OF EQUIPMENT FOR LEASE"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GLOBE Statement Summary"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Letter of Appointment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "National Certificate "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "National Certificate II"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "account summary "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GUIDELINES (coa)"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "TRAINING CALENDAR"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "motion for reconsideration"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "cashflow quarter"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of ongoing project"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SMART Statement Summary"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "transaction receipt"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Request for seminar invitation"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "project plan"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "on-going pictures"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "after pictures"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Contract for the Concreting of Road"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "request for material testing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Pouring permit"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DTI Registration"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "xerox official receipt"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Statement of All On-Going Contracts"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Statement of Single Largest Contract"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FDT pictures"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Contractor Equipment"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "BOND ENDORSEMENT"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "design"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Revenue official Receipt"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of good standing"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of equipment units, intended for the project which are owned"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Leased equipment intended for the project"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "'PAYROLL"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "quarantine ECCD "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "members information sheet"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "DEED OF UNDERTAKING"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FINANCIAL STATEMENTS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "FUND UTILIZATION REQUEST AND STATUS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certificate of Assumption"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of menu"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Tulong Gulong project proposal"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "variation\/change order itemized revised cost and quantities"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "List of Menu for the week"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "List of Approved Job Order"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Credit policy"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Certification of Registration of Amendments"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "list of officers 2020"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "MENU "
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "Sand and Gravel Collections"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "SAND AND GRAVEL CPLLECTIONS FOR THE MONTH"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "AFFIDAVIT OF LABOR AND MATERIALS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "test report on concrete hollow blocks"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "GATE PASS"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "INTERIM  STATEMENT OF FINANCIAL CONDITION"
+    },
+    {
+        "document_id": 0,
+        "employee_id": 0,
+        "description": "project duration extension 1"
+    }
+]

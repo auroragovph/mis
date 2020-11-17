@@ -16,21 +16,8 @@ class PositionTableSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
-        $file_n = storage_path('/app/seeders_documents/positions.csv');
-        $file = fopen($file_n, "r");
-
-        $plantilla = array();
-
-        $x = 0;
-        while ( ($data = fgetcsv($file, 200, ",")) !==FALSE) {
-            if($x == 0){$x++;continue;}
-            $position = $data[0];
-            $sg = $data[1];
-            $plantilla[] = ['position' => $position, 'salary_grade_id' => (int)$sg];
-        }
-
-
+        $file = storage_path('app/seeds/hrm/plantilla.json');
+        $plantilla = json_decode(file_get_contents($file), true);
         HR_Plantilla::insert($plantilla);
     }
 }

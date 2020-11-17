@@ -18,11 +18,8 @@ class EmployeeTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
-        // factory(\Modules\HumanResource\Entities\HR_Employee::class, 100)->create();
-        $employees = collect(json_decode(file_get_contents(storage_path('app/jsons/seeds/employees.json')), true));
+        $employees = collect(json_decode(file_get_contents(storage_path('app/seeds/hrm/employees.json')), true));
 
-        
         $lists = array();
         foreach($employees as $i => $employee){
             $lists[] = [

@@ -24,12 +24,32 @@ class RRController extends DocumentController
         $document = $this->full($series, ['datas', 'tracks']);
 
         if(!$document){
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $series,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to received/released the document but failed. Reason: Document not Found');
+
             return redirect()->back()->with('alert-error', 'Series not found.');
         }
 
         $document = $document['document'];
 
         if($document['info']['status']['id'] == 0){
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $series,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to received/released the document but failed. Reason: Document has been cancelled.');
+
             return redirect()->back()->with('alert-error', 'Document has been cancelled!');
         }
 
@@ -37,15 +57,34 @@ class RRController extends DocumentController
         $lid = employee_id_helper($request->liaison, true);
         $liaison = HR_Employee::whereIdCard($lid)->first();
 
-        // dd($liaison);
 
         // checking if the liaison exists
         if($liaison == null){
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $series,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to received/released the document but failed. Reason: The liaison officer not found.');
+
             return redirect()->back()->with('alert-error', 'The liaison officer not found.');
         }
 
         if(config('filetracking.allowAllEmployeesToLiaison') == false){
             if($liaison->liaison == false){
+
+                // saving the activity logs
+                activity('fts')
+                ->on(new FTS_Document())
+                ->withProperties([
+                    'series' => $series,
+                    'agent' => user_agent()
+                ])
+                ->log('Tried to received/released the document but failed. Reason: Employee is not registered as liaison.');
+
                 return redirect()->back()->with('alert-error', 'Employee is not registered as liaison.');
             }
         }
@@ -59,6 +98,16 @@ class RRController extends DocumentController
             // check if the document is receive in your division/office
             if($track['division_id'] != Auth::user()->employee->division_id){
                 $office = office_helper($track['division']);
+
+                // saving the activity logs
+                activity('fts')
+                ->on(new FTS_Document())
+                ->withProperties([
+                    'series' => $series,
+                    'agent' => user_agent()
+                ])
+                ->log('Tried to received/released the document but failed. Reason: Document was not released.');
+
                 return redirect()->back()->with('alert-error', "This document current receive at <b> {$office} </b>. Please release the document first and try again!");
             }
         }
@@ -67,6 +116,16 @@ class RRController extends DocumentController
         session(['fts.document.edit' => $document['info']['id']]);
         session(['fts.document.liaison' => $liaison->id]);
         ($track['action'] == 0) ? session(['fts.document.track' => 1]) : session(['fts.document.track' => 0]);
+
+
+        // saving the activity logs
+        activity('fts')
+        ->on(new FTS_Document())
+        ->withProperties([
+            'series' => $series,
+            'agent' => user_agent()
+        ])
+        ->log('Tried to received/released the document.');
 
         return view('filetracking::documents.rr', [
             'document' => $document
@@ -88,9 +147,16 @@ class RRController extends DocumentController
 
         ($action == 0) ? $acm = 'Document has been release.' : $acm = 'Document has been receive.' ;
 
-        return redirect(route('fts.documents.rr.index'))->with('alert-success', $acm);
+        // saving the activity logs
+        activity('fts')
+        ->on(new FTS_Document())
+        ->withProperties([
+            'series' => $document->series,
+            'agent' => user_agent()
+        ])
+        ->log($acm);
 
-        
+        return redirect(route('fts.documents.rr.index'))->with('alert-success', $acm);
 
     }
 }

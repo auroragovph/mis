@@ -18,6 +18,7 @@ class TravelOrderController extends Controller
    
     public function index(Request $request)
     {
+
         if($request->ajax()){
 
             $documents = FTS_Document::with('travel_order', 'division.office')
@@ -61,10 +62,13 @@ class TravelOrderController extends Controller
 
 
         if(auth()->user()->can('fts.document.create')){
+
+
             $divisions = SYS_Division::lists();
             $qrs = FTS_Qr::available();
             $liaisons = HR_Employee::liaison()->get();
             $attachments = FTS_DA::lists();
+            $employees = FTS_TravelOrder::lists();
 
         }
 
@@ -73,6 +77,7 @@ class TravelOrderController extends Controller
             'divisions' => $divisions ?? null,
             'qrs' => $qrs ?? null,
             'attachments' => $attachments ?? null,
+            'employees' => $employees ?? null,
         ]);
     }
 
@@ -81,6 +86,14 @@ class TravelOrderController extends Controller
         
         // checking permissions
         if(!auth()->user()->can('fts.document.create')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store travel order document but failed. Reason: You dont have the permissions to execute this command.');
+
             return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
         }
 
@@ -90,6 +103,14 @@ class TravelOrderController extends Controller
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
         if($check != 0){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store travel order document but failed. Reason: Series Number already exists.');
+
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
@@ -139,13 +160,33 @@ class TravelOrderController extends Controller
             'status' => config('constants.document.status.process.id')
         ]);
 
-        return response()->json(['message' => 'Travel Order has been encoded.'], 200);
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'series' => $series,
+            'agent' => user_agent()
+        ])
+        ->log('Encode travel order document');
+
+        return response()->json([
+            'message' => 'Travel Order has been encoded.',
+            'receipt' => route('fts.documents.receipt', [
+                'series' => $series,
+                'print' => true
+            ])
+        ], 200);
     }
 
     public function edit($id)
     {
         // checking permissions
         if(!auth()->user()->can('fts.document.edit')){
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit travel order but failed. Reason: Not enough permission to edit the document.');
             return abort(403);
         }
 
@@ -159,6 +200,14 @@ class TravelOrderController extends Controller
 
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
+
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'series' => $document->series,
+            'agent' => user_agent()
+        ])
+        ->log('Tried to edit travel order document.');
 
         return view('filetracking::forms.travel.order.edit', [
             'divisions' => $divisions,
@@ -174,6 +223,14 @@ class TravelOrderController extends Controller
 
         // checking permissions
         if(!auth()->user()->can('fts.document.edit')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit travel order document but failed. Reason: Not enough permission to edit the document.');
+
             return abort(403);
         }
 
@@ -192,6 +249,15 @@ class TravelOrderController extends Controller
         $to->arrival = $request->post('arrival');
         $to->purpose = $request->post('purpose');
         $to->save();
+
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'series' => $document->series,
+            'agent' => user_agent()
+        ])
+        ->log('Update the travel order document');
+
 
         return redirect(route('fts.travel.order.index'))->with('alert-success', 'Travel Order has been updated.');
     }

@@ -36,7 +36,7 @@
             </div>
 
             <div class="col-md-6">
-                <a href="#">
+                <a href="{{ route('messenger.home') }}">
                     <div class="card bg-gradient-olive p-2 text-center">
                         <img class="mx-auto d-block" src="{{ asset('images/message.png') }}" alt="" width="100px" height="100px">
                         <h6 class="mt-3">Messenger</h6>

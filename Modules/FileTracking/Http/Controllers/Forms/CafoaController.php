@@ -76,6 +76,14 @@ class CafoaController extends Controller
     {
         // checking permissions
         if(!auth()->user()->can('fts.document.edit')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store CAFOA document but failed. Reason: You dont have the permissions to execute this command.');
+
             return abort(403);
         }
 
@@ -84,6 +92,14 @@ class CafoaController extends Controller
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
         if($check != 0){
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store CAFOA document but failed. Reason: Series Number already exists');
+
+
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
@@ -129,13 +145,36 @@ class CafoaController extends Controller
             'status' => config('constants.document.status.process.id')
         ]);
 
-        return response()->json(['message' => 'CAFOA has been encoded.'], 200);
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'document_id' => $document->id,
+            'agent' => user_agent()
+        ])
+        ->log('Tried to store CAFOA document.');
+
+        return response()->json([
+            'message' => 'CAFOA has been encoded.',
+            'receipt' => route('fts.documents.receipt', [
+                'series' => $series,
+                'print' => true
+            ])
+        ], 200);
     }
 
     public function edit($id)
     {
         // checking permissions
-        if(!auth()->user()->can('fts.document.create')){
+        if(!auth()->user()->can('fts.document.edit')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'document_id' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit CAFOA document but failed. Reason: You dont have the permissions to execute this command.');
+
             return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
         }
 
@@ -150,6 +189,14 @@ class CafoaController extends Controller
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
 
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'agent' => user_agent()
+        ])
+        ->log('Edit CAFOA document.');
+
+
         return view('filetracking::forms.cafoa.edit', [
             'divisions' => $divisions,
             'liaisons' => $liaisons,
@@ -163,7 +210,16 @@ class CafoaController extends Controller
         dm_abort(session()->pull('fts.document.edit'), $id);
 
         // checking permissions
-        if(!auth()->user()->can('fts.document.create')){
+        if(!auth()->user()->can('fts.document.edit')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'document_id' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to update CAFOA document but failed. Reason: You dont have the permissions to execute this command.');
+
             return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
         }
 
@@ -179,6 +235,15 @@ class CafoaController extends Controller
         $cafoa->amount = $request->post('amount');
         $cafoa->particulars = $request->post('particulars');
         $cafoa->save();
+
+
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'document_id' => $id,
+            'agent' => user_agent()
+        ])
+        ->log('Update CAFOA document.');
 
         return redirect(route('fts.cafoa.index'))->with('alert-success', 'CAFOA has been updated.');
     }

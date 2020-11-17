@@ -31,31 +31,7 @@ class EmployeeController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->ajax()){
-
-            $datas = array();
-
-
-            if($request->has('term') OR $request->post('term') != ''){
-                $rows = HR_Plantilla::where('position', 'like', '%'.$request->post('term').'%')->get();
-                foreach($rows as $row){
-                    array_push($datas, [
-                        'id' => $row->id,
-                        'text' => $row->position
-                    ]);
-                }
-            }
-
-            return response()->json($datas, 200);
-
-
-            
-        }
-
         $divisions = SYS_Division::with('office')->get();
-
-
-
         return view('humanresource::employee.create', [
             'divisions' => $divisions
         ]);
@@ -80,8 +56,8 @@ class EmployeeController extends Controller
             'gender' => $request->post('gender'),
             'birthday' => $request->post('birthday'),
             'address' => $request->post('address'),
-            'civil' => $request->post('civil'),
-            'phone' => $request->post('phone')
+            'civilStatus' => $request->post('civil'),
+            'phoneNumber' => $request->post('phone')
         ];
 
         $employment = [
@@ -123,7 +99,20 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        return view('humanresource::edit');
+
+        $employee = HR_Employee::findOrFail($id);
+
+        session(['hrm.employee.edit' => $employee->id]);
+
+        $divisions = SYS_Division::with('office')->get();
+        $positions = HR_Plantilla::get();
+
+
+        return view('humanresource::employee.edit', [
+            'employee' => $employee,
+            'positions' => $positions,
+            'divisions' => $divisions
+        ]);
     }
 
     /**
@@ -134,7 +123,53 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employee = HR_Employee::where('id', $id)->first();
+
+        switch($request->post('_type')){
+
+            case 'profile': 
+
+                $employee->update([
+                    'name->fname' => $request->post('fname'),
+                    'name->lname' => $request->post('lname'),
+                    'name->mname' => $request->post('mname'),
+                    'name->fname' => $request->post('fname'),
+                    'name->sname' => $request->post('sname'),
+                    'name->title' => $request->post('title'),
+
+                    'info->gender' => $request->post('gender'),
+                    'info->birthday' => $request->post('birthday'),
+                    'info->address' => $request->post('address'),
+                    'info->civilStatus' => $request->post('civil'),
+                    'info->phoneNumber' => $request->post('phone')
+                ]);
+
+
+                $response['message'] = 'Employee\'s information details has been updated.';
+
+            break;
+
+            case 'employment':
+
+                $employee->update([
+                    'employment->type' => $request->post('employment-type'),
+                    'employment->status' => $request->post('employment-status'),
+                    'division_id' => $request->post('division'),
+                    'position_id' => $request->post('position'),
+                    'liaison' => ($request->has('liaison')) ? true : false,
+                    'card' => employee_id_helper($request->post('card'))
+                ]);
+
+                $response['message'] = 'Employee\'s employment details has been updated.';
+            break;
+
+            default: 
+                $response['message'] = 'Something went wrong.';
+            break;
+
+        }
+
+        return response()->json($response, 200);
     }
 
     /**

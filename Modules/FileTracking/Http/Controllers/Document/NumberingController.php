@@ -29,7 +29,18 @@ class NumberingController extends Controller
 
         $document = FTS_Document::where('series', $id)->first();
 
+
         if($document == null){
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to attach number to the document but failed. Reason: Document not found.');
+
             return response()->json(['message' => 'Document not found!'], 404);
         }
 
@@ -41,6 +52,16 @@ class NumberingController extends Controller
         // $numberable = [500];
 
         if(!in_array($document->type, $numberable)){
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to attach number to the document but failed. Reason: Cannot attach number to the specific document.');
+
             return response()->json(['message' => 'You cannot attach number to this document'], 406);
         }
 
@@ -48,11 +69,32 @@ class NumberingController extends Controller
         // you must receive first the document
         // fetch the latest track of the document
         $logs = FTS_Tracking::where('document_id', $document->id)->orderBy('id', 'DESC')->first();
+
         if($logs->action !== 1){
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to attach number to the document but failed. Reason: Document currently received in another office.');
+
             return response()->json(['message' => 'Please receive this document first before you attach the number!'], 406);
         }else{
             // check if the document is receive in your division/office
             if($logs->division_id != auth()->user()->employee->division_id){
+
+                // saving the activity logs
+                activity('fts')
+                ->on(new FTS_Document())
+                ->withProperties([
+                    'series' => $id,
+                    'agent' => user_agent()
+                ])
+                ->log('Tried to attach number to the document but failed. Reason: Document currently received in another office.');
+
                 return response()->json(['message' => 'Please receive this document first before you attach the number!'], 406);
             }
         }
@@ -147,8 +189,28 @@ class NumberingController extends Controller
         }
 
         if($response['status'] !== 200){
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to attach number to the document but failed. Reason: '.$response['message'] ?? '');
+            
             return response()->json($response, $response['status']);
         }
+
+
+        // saving the activity logs
+        activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tries to attach number to the document.');
 
         return response()->json($response, 200);
     }
@@ -208,6 +270,31 @@ class NumberingController extends Controller
 
         }
 
+        if($response['status'] == 406){
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $id,
+                'number' => $request->number,
+                'agent' => user_agent()
+            ])
+            ->log('Attached number to the document but failed. Reason: '.$response['message']);
+
+        }else{
+
+             // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $id,
+                'number' => $request->number,
+                'agent' => user_agent()
+            ])
+            ->log('Attached number to the document');
+
+        }
 
         return response()->json($response, $response['status']);
 

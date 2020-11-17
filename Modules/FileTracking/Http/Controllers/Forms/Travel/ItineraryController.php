@@ -78,6 +78,14 @@ class ItineraryController extends Controller
     {
         // checking permissions
         if(!auth()->user()->can('fts.document.create')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store itinerary of travel document but failed. Reason: You dont have the permissions to execute this command.');
+
             return response()->json(['message' => 'You dont have the permissions to access this function.'], 403);
         }
 
@@ -86,6 +94,14 @@ class ItineraryController extends Controller
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
         if($check != 0){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store itinerary of travel document but failed. Reason: Series Number already exists.');
+
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
@@ -121,6 +137,14 @@ class ItineraryController extends Controller
         $qr = FTS_Qr::used($series);
 
 
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'agent' => user_agent()
+        ])
+        ->log('Encode itinerary of travel document');
+
+
         // INSERTING INTO TRACKING LOGS
         FTS_Tracking::create([
             'document_id' => $document->id,
@@ -133,13 +157,27 @@ class ItineraryController extends Controller
         ]);
 
 
-        return response()->json(['message' => 'Itinerary of Travel has been encoded.'], 200);
+        return response()->json([
+            'message' => 'Itinerary of Travel has been encoded.',
+            'receipt' => route('fts.documents.receipt', [
+                'series' => $series,
+                'print' => true
+            ])
+        ], 200);
     }
 
     public function edit($id)
     {
         // checking permissions
         if(!auth()->user()->can('fts.document.edit')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit itinerary but failed. Reason: Not enough permission to edit the document.');
+
             return abort(403);
         }
 
@@ -156,6 +194,16 @@ class ItineraryController extends Controller
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
 
+
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'series' => $document->series,
+            'agent' => user_agent()
+        ])
+        ->log('Tried to edit itinerary document.');
+
+
         return view('filetracking::forms.travel.itinerary.edit', [
             'divisions' => $divisions,
             'document' => $document,
@@ -170,6 +218,13 @@ class ItineraryController extends Controller
 
         // checking permissions
         if(!auth()->user()->can('fts.document.edit')){
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit itinerary of travel document but failed. Reason: Not enough permission to edit the document.');
+
             return abort(403);
         }
 
@@ -186,6 +241,15 @@ class ItineraryController extends Controller
         $itinerary->amount = $request->post('amount');
         $itinerary->purpose = $request->post('purpose');
         $itinerary->save();
+
+
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'series' => $document->series,
+            'agent' => user_agent()
+        ])
+        ->log('Update the itinerary of travel document');
 
         return redirect(route('fts.travel.itinerary.index'))->with('alert-success', 'Itinerary of Travel has been updated.');
 

@@ -41,7 +41,8 @@ class FTS_Document extends Model
 
     public function getEncodedAttribute()
     {
-        return Carbon::parse($this->created_at)->format('F d, Y h:i A');
+        // return Carbon::parse($this->created_at)->format('F d, Y h:i A');
+        return Carbon::parse($this->created_at)->format('Y-m-d H:i A');
     }
 
     public function encoder()

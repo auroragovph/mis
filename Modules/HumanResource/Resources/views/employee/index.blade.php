@@ -44,7 +44,7 @@
                             <td>{{ $employee->position->position ?? '' }}</td>
                             <td>
                                 <a href="#" class="btn btn-xs bg-gradient-primary"><i class="fal fa-eye"></i> View</a>
-                                <a href="#" class="btn btn-xs bg-gradient-warning"><i class="fal fa-edit"></i> Edit</a>
+                                <a href="{{ route('hrm.employee.edit', $employee->id) }}" class="btn btn-xs bg-gradient-warning"><i class="fal fa-edit"></i> Edit</a>
                             </td>
                         </tr>
                      @endforeach

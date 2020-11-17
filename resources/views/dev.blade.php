@@ -5,62 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="{{ asset('plugins/paper/paper.css') }}">
 
     <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        table, th, tr, td {
+            border: solid 1px black;
+            border-collapse: collapse;
+            min-width: 60%;
+            margin: 0 auto;
+        }
 
-    img{
-        width: 2.6cm;
-        height: 2.6cm;
-        margin: 3px;
-    }
-
-    .container{
-        margin: auto;
-    }
-
-    @page { size: A4 landscape ; }
+        td{
+            text-align: center;
+        }
     </style>
-
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('plugins/jquery-qrcode/jquery-qrcode.min.js') }}"></script>
-
-    
-
-
-
 </head>
+<body>
+    <table>
+        <thead>
+            
+            <tr>
+                <th colspan="3">MORNING</th>
+               
+            </tr>
+            <tr>
+                <th colspan="1">Name</th>
+                <th colspan="1">TIME IN</th>
+                <th colspan="1">TIME OUT</th>
+            </tr>
 
-<body class="A4 landscape">
+        </thead>
+        <tbody>
 
-<section class="sheet padding-5mm">
+            <tr>
+                <td>RICARDO DALISAY</td>
+                <td>08:00 AM</td>
+                <td>08:00 AM</td>
+            </tr>
 
-    <div class="container">
-    
-        <span id="canvas-parent-1"></span>
-      
-    
-    </div>
-    
-    </section>
-
-
-<script>
-    
-    $("#canvas-parent-1").qrcode({
-            'render' : 'image',
-            size: 130,
-            fill: '#333',
-            text: 'GSO-P-REMI',
-            mode: 2,
-            label: 'GSO-P-REMI',
-            fontcolor: '#e41b17',
-            minVersion: 10,
-            maxVersion: 40,
-            ecLevel: 'H',
-        });
-</script>
-
-
+        </tbody>
+    </table>
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace Modules\FileTracking\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
@@ -32,7 +33,6 @@ class FileTrackingServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
         $this->registerBladeComponents();
-
     }
 
     /**

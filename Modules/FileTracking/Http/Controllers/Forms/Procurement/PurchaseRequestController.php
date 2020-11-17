@@ -80,6 +80,14 @@ class PurchaseRequestController extends Controller
     {
         // checking permissions
         if(!auth()->user()->can('fts.document.create')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store purchase request document but failed. Reason: You dont have the permissions to execute this command.');
+
             return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
         }
 
@@ -89,6 +97,14 @@ class PurchaseRequestController extends Controller
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
         if($check != 0){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store purchase request document but failed. Reason: Series Number already exists.');
+
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
@@ -139,13 +155,36 @@ class PurchaseRequestController extends Controller
             'status' => config('constants.document.status.process.id')
         ]);
 
-        return response()->json(['message' => 'Purchase Request has been encoded.'], 200);
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'agent' => user_agent()
+        ])
+        ->log('Encode purchase request document');
+
+        return response()->json([
+            'message' => 'Purchase Request has been encoded.',
+            'receipt' => route('fts.documents.receipt', [
+                'series' => $series,
+                'print' => true
+            ])
+        ], 200);
     }
 
     public function edit($id)
     {
         // checking permissions
-        if(!auth()->user()->can('fts.document.edit')){return abort(403);}
+        if(!auth()->user()->can('fts.document.edit')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit purchase request document but failed. Reason: Not enough permission to edit the document.');
+
+            return abort(403);
+        }
 
         $document = FTS_Document::with('purchase_request')->findOrFail($id);
 
@@ -158,6 +197,16 @@ class PurchaseRequestController extends Controller
 
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
+
+
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'series' => $document->series,
+            'agent' => user_agent()
+        ])
+        ->log('Tried to edit purchase request document.');
+
 
         return view('filetracking::forms.procurement.request.edit', [
             'divisions' => $divisions,
@@ -173,6 +222,12 @@ class PurchaseRequestController extends Controller
 
         // checking permissions
         if(!auth()->user()->can('fts.document.edit')){
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit purchase request document but failed. Reason: Not enough permission to edit the document.');
             return abort(403);
         }
 
@@ -191,6 +246,17 @@ class PurchaseRequestController extends Controller
         $pr->accountable = $request->post('accountable');
         $pr->amount = $request->post('amount');
         $pr->save();
+
+
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'series' => $document->series,
+            'agent' => user_agent()
+        ])
+        ->log('Update the purchase request document');
+
+
 
         return redirect(route('fts.procurement.request.index'))->with('alert-success', 'Purchase Request has been updated');
 

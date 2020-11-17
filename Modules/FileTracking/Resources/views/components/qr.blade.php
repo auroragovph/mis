@@ -4,7 +4,7 @@
         <div class="card-body pt-15">
             <!--begin::User-->
             <div class="text-center mb-10">
-                <img width="60%" height="60%" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(500)->merge('/public/images/logo-sm.png', .3)->errorCorrection('H')->generate($document['series']['id'])) !!} ">                
+                <img style="max-width: 40%" width="60%" height="60%" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(500)->merge('/public/images/logo-sm.png', .3)->errorCorrection('H')->generate($document['series']['id'])) !!} ">                
                 <span class="d-block mt-2"></span>
                 {!! $document['status']['dom'] !!}
                 <h4 class="font-weight-bold text-dark mt-2 mb-2">{{ strtoupper($document['type']['full']) }} </h4>

@@ -147,10 +147,9 @@ if (! function_exists('numwords')) {
 
 if (! function_exists('numonly')) {
     /**
-     * Convert number to readable word
-     * @param float $number
+     * Remove all the string in a string except for numbers
      * @param string $currency
-     * @return string
+     * @return int 
      */
     function numonly($string){
         return preg_replace('/[^0-9]/', '', $string);
@@ -452,20 +451,15 @@ if (! function_exists('tonh')) {
     }
 }
 
-if (! function_exists('employee_id_helper'))
-{
+if (! function_exists('employee_id_helper')){
     /**
     * Get the employee ID from the QR Code
     * @param object
     * @return string
     */
-    function employee_id_helper($string, $safemode = true)
+    function employee_id_helper($string)
     {
         $string = strtoupper($string);
-
-        if($safemode == true){
-            return intval($string) ?? 1;
-        }
 
         if(strpos($string, 'PGA-JO-')){
             $explode = explode('PGA-JO-', $string);
@@ -481,8 +475,6 @@ if (! function_exists('employee_id_helper'))
             $explode = explode('PGA-P-', $string);
             return 'PGA-C-'.numonly($explode[1]);
         }
-
-
         return numonly($string);
 
     }
@@ -559,6 +551,28 @@ if (! function_exists('hrefroute')) {
     
     }
 }
+
+if (! function_exists('user_agent')) {
+    /**
+    * Return the user agent
+    * @return array
+    */
+    function user_agent(){
+
+        // $agent = new Agent();
+
+        return [
+            'ip' => '',
+            'browser' => '',
+            'device' => '',
+            'os' => ''
+        ];
+    }
+}
+
+
+
+
 
 function tracking_table_status($status)
 {

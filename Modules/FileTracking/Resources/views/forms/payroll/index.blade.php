@@ -151,6 +151,7 @@
           $(".select2-tags").select2({tags: true});
 
 
+          window.open(data.receipt, '_blank');
 
 
           Swal.fire({

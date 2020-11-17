@@ -182,6 +182,16 @@ class DocumentController extends Controller
             $record['document']['tracks'] = $tracks->toArray();
         }
 
+        // saving the activity logs
+        activity('fts')
+                ->on(new FTS_Document())
+                ->withProperties([
+                    'series' => $series,
+                    'includes' => $includes,
+                    'agent' => user_agent()
+                ])
+                ->log('Fetch document information function.');
+
         return $record;
     }
 
@@ -199,12 +209,26 @@ class DocumentController extends Controller
         $document = $this->full($series, ['datas', 'attachments']);
 
         if(!$document){
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties(['agent' => user_agent()])
+            ->log('Print receipt of the document but failed. Reason: Document not found.');
+
             return abort(404);
         }
 
         // dd($document);
 
-      
+
+        // saving the activity logs
+        activity('fts')
+                ->on(new FTS_Document())
+                ->withProperties([
+                    'series' => $series,
+                    'agent' => user_agent()
+                ])
+                ->log('Print receipt of the document.');
         
         return view('filetracking::documents.receipt', [
             'document' => $document['document'],
@@ -219,8 +243,24 @@ class DocumentController extends Controller
 
         if($document->count() == 0){
             Session::flash('alert-error', 'Series not found!');
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties(['agent' => user_agent()])
+            ->log('Try to track the document but failed. Reason: Document not found.');
+            
             return view('filetracking::documents.track');
         }
+
+        // saving the activity logs
+        activity('fts')
+                ->on(new FTS_Document())
+                ->withProperties([
+                    'series' => $series,
+                    'agent' => user_agent()
+                ])
+                ->log('Print receipt of the document.');
 
         return view('filetracking::documents.track', [
             'document' => $document['document'],

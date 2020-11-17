@@ -68,7 +68,13 @@
               <div class="col-md-6">
                   <div class="form-group">
                     <label for="">Employees:</label>
-                    <select required name="employees[]" class="form-control people-select2" multiple name="tags[]" style="width: 100%"></select>
+                    <select required name="employees[]" class="form-control people-select2" multiple name="tags[]" style="width: 100%">
+
+                      @foreach($employees as $employee)
+                        <option>{{ $employee }}</option>
+                      @endforeach
+                      
+                    </select>
                   </div>
               </div>
   

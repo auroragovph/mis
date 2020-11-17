@@ -83,6 +83,15 @@ class AFLController extends Controller
     {
         // checking permissions
         if(!auth()->user()->can('fts.document.create')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store application for leave document but failed. Reason: You dont have the permissions to execute this command.');
+
+
             return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
         }
 
@@ -155,6 +164,14 @@ class AFLController extends Controller
             'status' => config('constants.document.status.process.id')
         ]);
 
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'series' => $series,
+            'agent' => user_agent()
+        ])
+        ->log('Encode application for leave document');
+
         return response()->json([
             'message' => 'Application for leave has been encoded.',
             'receipt' => route('fts.documents.receipt', [
@@ -168,6 +185,15 @@ class AFLController extends Controller
     {
          // checking permissions
          if(!auth()->user()->can('fts.document.edit')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'document_id' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit application for leave but failed. Reason: Not enough permission to edit the document.');
+            
             return abort(403);
         }
 
@@ -196,6 +222,14 @@ class AFLController extends Controller
 
          // checking permissions
          if(!auth()->user()->can('fts.document.edit')){
+             // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'document_id' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to update application for leave but failed. Reason: Not enough permission to edit the document.');
+            
             return abort(403);
         }
         
@@ -224,6 +258,14 @@ class AFLController extends Controller
         $afl->leave = $leave;
         $afl->inclusives = $inclusives;
         $afl->save();
+
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'document_id' => $id,
+            'agent' => user_agent()
+        ])
+        ->log('Update the appliaction for leave document');
 
         return redirect(route('fts.afl.index'))->with('alert-success', 'Application for leave has been updated.');
     }

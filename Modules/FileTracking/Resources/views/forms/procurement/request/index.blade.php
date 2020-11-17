@@ -98,6 +98,8 @@
         placeholder: "Select from list"
       });
 
+      $(".select2-tags").select2({tags: true});
+
       var dt = $("#dataTables").DataTable({
         processing: true,
         ajax: "{{ route('fts.procurement.request.index') }}",
@@ -151,6 +153,7 @@
 
 
 
+          window.open(data.receipt, '_blank');
 
           Swal.fire({
             icon: 'success',

@@ -1,7 +1,17 @@
 @extends('filetracking::layouts.app')
 
 @section('page-title')
-    Receive / Release
+
+@isset($document)
+        @if($document['tracks'][0]['action'] == 0)
+            Receiving Page
+        @else 
+            Releasing Page
+        @endif
+    @else 
+        Receive / Release
+@endisset
+
 @endsection
 
 @section('breadcrumbs')
@@ -34,11 +44,9 @@
                                 <label for="">Status</label>
                                 <select name="status" id="" class="form-control select2" required>
                                     <option value="" selected hidden></option>
-                                    <option value="0">Cancel</option>
-                                    <option value="2">On Process</option>
-                                    <option value="3">Approved</option>
-                                    <option value="4">Disapproved</option>
-                                    <option value="5">Pending</option>
+                                    @foreach(config('static-lists.documentStatusFTS') as $key => $status)
+                                        <option {{ sh($key, $document['tracks'][0]['status'] ?? 0) }} value="{{ $key }}">{{ $status }}</option>
+                                    @endforeach
                                 </select>
                             </div>
     
@@ -48,7 +56,7 @@
                                 @if($document['tracks'][0]['action'] == 0)
                                     <button type="submit" class="btn bg-gradient-primary"> <i class="fal fa-file-download"></i> RECEIVE</button>
                                 @else 
-                                    <button type="submit" class="btn bg-gradient-primary"> <i class="fal fa-file-upload"></i> RELEASE</button>
+                                    <button type="submit" class="btn bg-gradient-orange"> <i class="fal fa-file-upload"></i> RELEASE</button>
                                 @endif
                             </div>
                             

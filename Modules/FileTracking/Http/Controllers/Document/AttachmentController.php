@@ -20,8 +20,21 @@ class AttachmentController extends DocumentController
         $document = FTS_Document::where('series', $series)->first();
 
         if(!$document){
+
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties(['agent' => user_agent()])
+            ->log('Check the document if can attach number but failed. Reason: Series not found.');
+
             return redirect()->back()->with('alert-error', 'Series not found.');
         }
+
+         // saving the activity logs
+         activity('fts')
+         ->on(new FTS_Document())
+         ->withProperties(['agent' => user_agent()])
+         ->log('Check the document if can attach number');
 
         return redirect(route('fts.documents.attach.form', [
             'id' => $document->id
@@ -36,6 +49,13 @@ class AttachmentController extends DocumentController
 
         $document = $this->full($series, ['datas', 'attachments']);
         $attachments = FTS_DA::lists();
+
+
+        // saving the activity logs
+        activity('fts')
+                ->on(new FTS_DA())
+                ->withProperties(['agent' => user_agent()])
+                ->log('Tries to attach number to the document');
 
         return view('filetracking::documents.attachment', [
             'document' => $document['document'],
@@ -57,9 +77,18 @@ class AttachmentController extends DocumentController
             $i++;
         }
 
-        FTS_DA::insert($attachments);
+        $attach = FTS_DA::insert($attachments);
 
         session()->flash('alert-success', 'Attachments success.');
+
+        // saving the activity logs
+        activity('fts')
+                ->on(new FTS_DA())
+                ->withProperties([
+                    'document_id' => $id,
+                    'agent' => user_agent()
+                ])
+                ->log('Successfully attach documents');
 
         return redirect(route('fts.documents.attach.form', [
             'id' => $id

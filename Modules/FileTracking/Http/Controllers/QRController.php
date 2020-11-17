@@ -36,6 +36,14 @@ class QRController extends Controller
         $check = FTS_Qr::where('status', false)->count();
 
         if($check > 1500){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to generate QR codes but failed. Reason: Already generated too much QR Codes.');
+
             return redirect()->back()->with('alert-error', 'You already generated too much QR Codes');
         }
 

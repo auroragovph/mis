@@ -72,7 +72,13 @@ class PayrollController extends Controller
     public function store(Request $request)
     {
         // checking permissions
-        if(!auth()->user()->can('fts.document.edit')){
+        if(!auth()->user()->can('fts.document.create')){
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store payroll document but failed. Reason: You dont have the permissions to execute this command.');
             return abort(403);
         }
 
@@ -81,6 +87,13 @@ class PayrollController extends Controller
         // checking if the series already exists
         $check = FTS_Document::where('series', $series)->count();
         if($check != 0){
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'agent' => user_agent()
+            ])
+            ->log('Tried to store payroll document but failed. Reason: Series Number already exists!');
+
             return response()->json(['message' => 'Series Number already exists!'], 406);
         }
 
@@ -125,13 +138,38 @@ class PayrollController extends Controller
             'status' => config('constants.document.status.process.id')
         ]);
 
-        return response()->json(['message' => 'Payroll has been encoded.'], 200);
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'document_id' => $document->id,
+            'agent' => user_agent()
+        ])
+        ->log('Stored payroll document.');
+        
+
+        return response()->json([
+            'message' => 'Payroll has been encoded.',
+            'receipt' => route('fts.documents.receipt', [
+                'series' => $series,
+                'print' => true
+            ])
+        ], 200);
     }
 
     public function edit($id)
     {
         // checking permissions
-        if(!auth()->user()->can('fts.document.create')){
+        if(!auth()->user()->can('fts.document.edit')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'document_id' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit payroll document but failed. Reason: You dont have the permissions to execute this command.');
+
+
             return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
         }
 
@@ -147,6 +185,14 @@ class PayrollController extends Controller
         // setting up the sessions
         session(['fts.document.edit' => $document->id]);
 
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'document_id' => $id,
+            'agent' => user_agent()
+        ])
+        ->log('Tried to edit payroll document.');
+
         return view('filetracking::forms.payroll.edit', [
             'divisions' => $divisions,
             'liaisons' => $liaisons,
@@ -161,6 +207,14 @@ class PayrollController extends Controller
 
         // checking permissions
         if(!auth()->user()->can('fts.document.create')){
+
+            // saving the activity logs
+            activity('fts')
+            ->withProperties([
+                'document_id' => $id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to edit payroll document but failed. Reason: You dont have the permissions to execute this command.');
             return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
         }
 
@@ -175,6 +229,14 @@ class PayrollController extends Controller
         $payroll->amount = $request->post('amount');
         $payroll->particulars = $request->post('particulars');
         $payroll->save();
+
+        // saving the activity logs
+        activity('fts')
+        ->withProperties([
+            'document_id' => $id,
+            'agent' => user_agent()
+        ])
+        ->log('Update payroll document.');
 
         return redirect(route('fts.payroll.index'))->with('alert-success', 'Payroll has been updated.');
     }

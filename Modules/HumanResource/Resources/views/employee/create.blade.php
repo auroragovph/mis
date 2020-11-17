@@ -118,7 +118,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="">Employment Type</label>
+                                <label for="">Status of Appointment</label>
                                 <select name="employment-type" class="form-control select2" style="width:100%" required>
                                     <option hidden></option>
                                     <option value="1">Job Order</option>

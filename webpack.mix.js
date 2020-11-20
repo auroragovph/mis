@@ -20,6 +20,9 @@ const mixGlob = new MixGlob({mix});
 mixGlob.js('Modules/FileManagement/Resources/assets/js/**/*.js', 'public/js/filemanagement');
 mixGlob.sass('Modules/FileManagement/Resources/assets/sass/**/*.scss', 'public/css/filemanagement');
 
+mixGlob.js('Modules/FileTracking/Resources/assets/js/**/*.js', 'public/js/filetracking');
+mixGlob.sass('Modules/FileTracking/Resources/assets/sass/**/*.scss', 'public/css/filetracking');
+
 mixGlob.js('Modules/System/Resources/assets/js/**/*.js', 'public/js/system');
 
 mix.js('resources/js/app.js', 'public/js/app.js')

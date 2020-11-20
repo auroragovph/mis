@@ -81,69 +81,98 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./Modules/FileManagement/Resources/assets/js/form-afl/form-afl-edit-vacation.js":
-/*!***************************************************************************************!*\
-  !*** ./Modules/FileManagement/Resources/assets/js/form-afl/form-afl-edit-vacation.js ***!
-  \***************************************************************************************/
+/***/ "./Modules/FileTracking/Resources/assets/js/form-cafoa-create.js":
+/*!***********************************************************************!*\
+  !*** ./Modules/FileTracking/Resources/assets/js/form-cafoa-create.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 $(function () {
-  //Initialize Select2 Elements
   $(".select2").select2({
     placeholder: "Select from list"
   });
-  $('#datepicker').datepicker({
-    multidate: true,
-    clearBtn: true
+  $(".select2-tags").select2({
+    tags: true
   });
-});
-var createCafoa = new Vue({
-  el: '#app-root',
-  data: {
-    v1: parseFloat(document.querySelector("input[name=v1]").value),
-    v2: parseFloat(document.querySelector("input[name=v2]").value),
-    s1: parseFloat(document.querySelector("input[name=s1]").value),
-    s2: parseFloat(document.querySelector("input[name=s2]").value),
-    vacation: {
-      type: document.querySelector("#vacation-mut").value,
-      details: document.querySelector("#vacation-mut2").value
-    },
-    sick: {
-      inh: false
-    }
-  },
-  watch: {
-    v1: function v1() {
-      return this.v1 = parseFloat(this.v1);
-    },
-    v2: function v2() {
-      return this.v2 = parseFloat(this.v2);
-    },
-    s1: function s1() {
-      return this.s1 = parseFloat(this.s1);
-    },
-    s2: function s2() {
-      return this.s2 = parseFloat(this.s2);
-    }
-  }
+  var dt = $("#dataTables").DataTable({
+    processing: true,
+    ajax: window.location.href,
+    columns: [{
+      data: 'encoded'
+    }, {
+      data: 'series'
+    }, {
+      data: 'office'
+    }, {
+      data: 'number'
+    }, {
+      data: 'payee'
+    }, {
+      data: 'amount'
+    }, {
+      data: 'particulars'
+    }, {
+      data: 'status'
+    }, {
+      data: 'action',
+      searchable: false,
+      orderable: false
+    }],
+    "responsive": true,
+    "autoWidth": false
+  });
+  $("#form-create").submit(function (e) {
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    var url = form.attr('action'); // add whirl traditional
+
+    $(".modal-content").addClass("whirl traditional");
+    $.post(url, form.serialize(), function (data) {
+      dt.ajax.reload();
+      $('#modal-create').modal('hide');
+      form.trigger('reset');
+      $(".select2").select2({
+        placeholder: "Select from list"
+      });
+      $(".select2-tags").select2({
+        tags: true
+      });
+      window.open(data.receipt, '_blank');
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: data.message
+      });
+    }).fail(function (data) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: data.responseJSON.message
+      });
+    }).always(function () {
+      $(".modal-content").removeClass("whirl");
+      $(".modal-content").removeClass("traditional");
+    });
+  });
 });
 
 /***/ }),
 
-/***/ 5:
-/*!*********************************************************************************************!*\
-  !*** multi ./Modules/FileManagement/Resources/assets/js/form-afl/form-afl-edit-vacation.js ***!
-  \*********************************************************************************************/
+/***/ 12:
+/*!*****************************************************************************!*\
+  !*** multi ./Modules/FileTracking/Resources/assets/js/form-cafoa-create.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/mis_dev/Modules/FileManagement/Resources/assets/js/form-afl/form-afl-edit-vacation.js */"./Modules/FileManagement/Resources/assets/js/form-afl/form-afl-edit-vacation.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/mis_dev/Modules/FileTracking/Resources/assets/js/form-cafoa-create.js */"./Modules/FileTracking/Resources/assets/js/form-cafoa-create.js");
 
 
 /***/ })

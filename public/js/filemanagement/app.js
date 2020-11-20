@@ -108,6 +108,17 @@
 
 /***/ }),
 
+/***/ "./Modules/FileTracking/Resources/assets/sass/app.scss":
+/*!*************************************************************!*\
+  !*** ./Modules/FileTracking/Resources/assets/sass/app.scss ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -120,15 +131,16 @@
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************************************************************************************!*\
-  !*** multi ./Modules/FileManagement/Resources/assets/js/app.js ./Modules/FileManagement/Resources/assets/sass/app.scss ./resources/sass/app.scss ***!
-  \***************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** multi ./Modules/FileManagement/Resources/assets/js/app.js ./Modules/FileManagement/Resources/assets/sass/app.scss ./Modules/FileTracking/Resources/assets/sass/app.scss ./resources/sass/app.scss ***!
+  \*********************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/xijeixhan/Desktop/mis/Modules/FileManagement/Resources/assets/js/app.js */"./Modules/FileManagement/Resources/assets/js/app.js");
-__webpack_require__(/*! /home/xijeixhan/Desktop/mis/Modules/FileManagement/Resources/assets/sass/app.scss */"./Modules/FileManagement/Resources/assets/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/mis/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/xijeixhan/Desktop/mis_dev/Modules/FileManagement/Resources/assets/js/app.js */"./Modules/FileManagement/Resources/assets/js/app.js");
+__webpack_require__(/*! /home/xijeixhan/Desktop/mis_dev/Modules/FileManagement/Resources/assets/sass/app.scss */"./Modules/FileManagement/Resources/assets/sass/app.scss");
+__webpack_require__(/*! /home/xijeixhan/Desktop/mis_dev/Modules/FileTracking/Resources/assets/sass/app.scss */"./Modules/FileTracking/Resources/assets/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/mis_dev/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

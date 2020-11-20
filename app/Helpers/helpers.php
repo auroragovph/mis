@@ -559,13 +559,13 @@ if (! function_exists('user_agent')) {
     */
     function user_agent(){
 
-        // $agent = new Agent();
+        $agent = new Jenssegers\Agent\Agent();
 
         return [
-            'ip' => '',
-            'browser' => '',
-            'device' => '',
-            'os' => ''
+            'ip' => request()->getClientIp(),
+            'browser' => $agent->browser(),
+            'device' => $agent->device(),
+            'platform' => $agent->platform()
         ];
     }
 }

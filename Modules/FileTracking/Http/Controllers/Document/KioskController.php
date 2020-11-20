@@ -17,10 +17,12 @@ class KioskController extends DocumentController
 
             if($document->count() == 0){
                 Session::flash('alert-error', 'Series not found!');
-
                 // saving the activity logs
                 activity('fts')
-                ->withProperties(['agent' => user_agent()])
+                ->withProperties([
+                    'series' => $series,
+                    'agent' => user_agent()
+                ])
                 ->log('Try to track the document via kiosk but failed. Reason: Document not found.');
 
                 return view('filetracking::documents.kiosk');
@@ -31,7 +33,7 @@ class KioskController extends DocumentController
         // saving the activity logs
         activity('fts')
                 ->withProperties([
-                    'series' => $series,
+                    'series' => $request->has('series'),
                     'agent' => user_agent()
                 ])
                 ->log('Track the document via Kiosk');

@@ -137,7 +137,7 @@ class RRController extends DocumentController
         $id = session()->pull('fts.document.edit');
         $liaison = session()->pull('fts.document.liaison');
         $action = session()->pull('fts.document.track');
-        
+
         $track = FTS_Tracking::log($id, $action, $request->purpose, $request->status, $liaison);
 
         // changing document status

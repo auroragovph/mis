@@ -49,7 +49,6 @@ class NumberingController extends Controller
             config('constants.document.type.travel.order'),
             config('constants.document.type.procurement.request')
         ];
-        // $numberable = [500];
 
         if(!in_array($document->type, $numberable)){
 
@@ -138,7 +137,6 @@ class NumberingController extends Controller
 
                     $response['data']['meta']['type'] = $document->type;
                     $response['data']['meta']['id'] = $obr->id;
-
 
                 }else{
                     $response['status'] = 406;

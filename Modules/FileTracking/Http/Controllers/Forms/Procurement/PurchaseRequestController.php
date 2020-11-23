@@ -41,14 +41,13 @@ class PurchaseRequestController extends Controller
                 $records['data'][$i]['purpose'] = $document->purchase_request->purpose;
                 $records['data'][$i]['charging'] = $document->purchase_request->charging;
                 $records['data'][$i]['accountable'] = $document->purchase_request->accountable;
-                $records['data'][$i]['amount'] = number_format(intval($document->purchase_request->amount), 2);
+                $records['data'][$i]['amount'] = number_format($document->purchase_request->amount, 2);
                 $records['data'][$i]['status'] = show_status($document->status);
 
                 $action =  fts_action_button($document->series, [
                     'route' => 'fts.procurement.request.edit',
                     'id' => $document->id
                 ]);
-
 
                 $records['data'][$i]['action'] = $action;
             }
@@ -64,7 +63,6 @@ class PurchaseRequestController extends Controller
             $qrs = FTS_Qr::available();
             $liaisons = HR_Employee::liaison()->get();
             $attachments = FTS_DA::lists();
-
         }
 
         return view('filetracking::forms.procurement.request.index',[
@@ -80,14 +78,8 @@ class PurchaseRequestController extends Controller
     {
         // checking permissions
         if(!auth()->user()->can('fts.document.create')){
-
             // saving the activity logs
-            activity('fts')
-            ->withProperties([
-                'agent' => user_agent()
-            ])
-            ->log('Tried to store purchase request document but failed. Reason: You dont have the permissions to execute this command.');
-
+            actlog('fts', "Tried to store purchase request document but failed. Reason: You dont have the permissions to execute this command.");
             return response()->json(['message' => 'You dont have the permissions to execute this command.'], 403);
         }
 

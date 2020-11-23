@@ -38,7 +38,7 @@ class ItineraryController extends Controller
                 $records['data'][$i]['name'] = $document->itinerary->name;
                 $records['data'][$i]['position'] = $document->itinerary->position;
                 $records['data'][$i]['destination'] = $document->itinerary->destination;
-                $records['data'][$i]['amount'] = $document->itinerary->amount;
+                $records['data'][$i]['amount'] = number_format($document->itinerary->amount, 2);
                 $records['data'][$i]['purpose'] = $document->itinerary->purpose;
 
 

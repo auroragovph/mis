@@ -44,6 +44,25 @@ if (! function_exists('ucnames')) {
     }
 }
 
+if (! function_exists('actlog')) {
+    /**
+     * Store activity logs
+     * @param string $logName
+     * @return array $log
+     */
+    function actlog($logName = 'sys', $logMessage = '', $properties = [])
+    {
+        $log = activity($logName)
+                ->withProperties([
+                    'agent' => user_agent(),
+                    $properties
+                ])
+                ->log($logMessage);
+
+        return $log;
+    }
+}
+
 if (! function_exists('name_mutate')) {
     /**
      * Explode the string and remove unnessary blank key

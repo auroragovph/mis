@@ -36,7 +36,7 @@ class PayrollController extends Controller
 
 
                 $records['data'][$i]['name'] = $document->payroll->name;
-                $records['data'][$i]['amount'] = number_format(intval($document->payroll->amount), 2);
+                $records['data'][$i]['amount'] = number_format($document->payroll->amount, 2);
                 $records['data'][$i]['particulars'] = $document->payroll->particulars;
 
                 $action =  fts_action_button($document->series, [

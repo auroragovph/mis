@@ -1,11 +1,15 @@
-@extends('messenger::layouts.master')
+@extends('layouts.vertical')
 
 
 @section('content')
 <div class="row">
     @include('messenger::contacts')
 
-    @isset($convo)
+
+    {{-- @include('messenger::chat')
+    @include('messenger::profile') --}}
+
+    @isset($convos)
         @include('messenger::chat')
         @include('messenger::profile')
     @else 

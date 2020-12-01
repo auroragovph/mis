@@ -48,6 +48,21 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
             Route::post('/', 'NumberingController@number')->name('fts.documents.number.number');
         });
 
+        Route::group(['prefix' => 'transmittal', 'middleware' => ['permission::fts.sa.transmittal']], function(){
+
+            Route::group(['prefix' => 'release'], function(){
+                Route::get('/', 'TransmittalController@releaseIndex')->name('fts.documents.transmittal.release.index');
+
+            });
+
+            Route::group(['prefix' => 'receive'], function(){
+                Route::get('/', 'TransmittalController@receive')->name('fts.documents.transmittal.receive.index');
+            });
+
+
+
+        });
+
     });
 
     Route::middleware(['permission:fts.document.view'])->group(function(){

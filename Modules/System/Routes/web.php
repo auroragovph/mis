@@ -45,20 +45,19 @@ Route::group(['prefix' => 'system', 'middleware' => ['auth:web', 'permission:sys
 
 
     Route::prefix('user')->namespace('User')->group(function(){
-
         Route::get('/', 'UserController@index')->name('sys.user.index');
         Route::post('/', 'UserController@store')->name('sys.user.store');
+    });
 
+    Route::prefix('acl')->namespace('ACL')->group(function(){
 
-        Route::prefix('acl')->namespace('ACL')->group(function(){
+        Route::prefix('permission')->group(function(){
+            Route::get('/', 'PermissionController@index')->name('sys.acl.permission.index');
+        });
 
-            Route::get('/', 'ACLController@index')->name('sys.user.acl.index');
-            Route::post('/store', 'PermissionController@store')->name('sys.user.acl.perm.store');
-
-
-            Route::get('/{id}/user', 'ACLController@show')->name('sys.user.acl.show');
-            Route::post('/{id}/user', 'ACLController@store')->name('sys.user.acl.store');
-
+        Route::prefix('role')->group(function(){
+            Route::get('/', 'RoleController@index')->name('sys.acl.role.index');
+            Route::post('/', 'RoleController@store')->name('sys.acl.role.store');
         });
 
     });

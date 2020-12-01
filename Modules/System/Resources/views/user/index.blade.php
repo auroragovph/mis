@@ -29,7 +29,7 @@ Users
                       <th>Name</th>
                       <th>Username</th>
                       <th>Office</th>
-                      <th>Permissions</th>
+                      <th>Role</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -41,9 +41,8 @@ Users
                                 <td>{{ name_helper($user->employee->name) ?? '' }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ office_helper($user->employee->division) ?? '' }}</td>
-                                <td>{{ $user->getPermissionNames()->implode(', ') }}</td>
+                                <td>{{ $user->roles->pluck('name')->implode(', ') }}</td>
                                 <td>
-                                  <a href="{{ route('sys.user.acl.show', $user->id) }}" class="btn btn-xs bg-gradient-navy"> <i class="fal fa-shield-check"></i> Permissions</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -73,7 +72,7 @@ Users
                     <select class="form-control select2" name="employee" required style="width: 100%">
                         <option value="" selected hidden></option>
                       @foreach ($employees as $employee)
-                          <option value="{{ $employee->id }}">{{ name_helper($employee) }}</option>
+                          <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                       @endforeach
                     </select>
                 </div>
@@ -95,6 +94,17 @@ Users
                     </div>
                   </div>
               </div>
+
+
+              <div class="form-group">
+                <label for="">Role</label>
+                <select class="form-control select2" name="role" required style="width: 100%">
+                  <option value="" selected hidden></option>
+                @foreach ($roles as $role)
+                    <option>{{ $role->name }}</option>
+                @endforeach
+              </select>
+            </div>
 
 
 

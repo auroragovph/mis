@@ -2,10 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'human-resource', 'middleware' => 'auth:web'], function(){
+Route::group(['prefix' => 'human-resource', 'middleware' => ['auth:web', 'permission:godmode']], function(){
     
     Route::get('/dashboard', 'DashboardController@index')->name('hrm.dashboard');
-
 
     Route::prefix('employee')->namespace('Employee')->group(function(){
         Route::get('/', "EmployeeController@index")->name('hrm.employee.index');
@@ -18,17 +17,14 @@ Route::group(['prefix' => 'human-resource', 'middleware' => 'auth:web'], functio
 
     Route::prefix('plantilla')->namespace('Plantilla')->group(function(){
 
-
         Route::prefix('position')->group(function(){
             Route::get('/', 'PositionController@index')->name('hrm.plantilla.position.index');
             Route::get('/lists', 'PositionController@lists')->name('hrm.plantilla.position.lists');
         });
-
         Route::prefix('salary-grade')->group(function(){
             Route::get('/', 'SalaryGradeController@index')->name('hrm.plantilla.sg.index');
         });
 
-        
     });
 
 });

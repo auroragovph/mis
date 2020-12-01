@@ -19,38 +19,103 @@ class CafoaController extends Controller
     {
         if($request->ajax()){
 
-            $documents = FTS_Document::with('cafoa', 'division.office')
-                            ->whereHas('cafoa')
-                            ->where('type', config('constants.document.type.cafoa'))
-                            ->get();
+            $columns = ['encoded', 'series', 'office', 'number', 'payee', 'amount', 'particulars', 'status'];
 
-            $records['data'] = array();
+            $totalData = FTS_Cafoa::count();
+            $totalFiltered = $totalData;
 
-            foreach($documents as $i => $document){
-                
-                $records['data'][$i]['id'] = $document->id;
-                $records['data'][$i]['encoded'] = $document->encoded;
-                $records['data'][$i]['series'] = $document->seriesFull;
-                $records['data'][$i]['office'] = office_helper($document->division);
-                $records['data'][$i]['status'] = show_status($document->status);
+            $limit = $request->input('length');
+            $start = $request->input('start');
+            $order = $columns[$request->input('order.0.column')];
+            $dir = $request->input('order.0.dir');
+
+            if($request->input('search.value') !== 'MODAL_SEARCH'){
+                $documents = FTS_Cafoa::with('document.division.office')
+                                        ->whereHas('document')
+                                        ->offset($start)
+                                        ->limit($limit)
+                                        ->get();
+            }else{
+
+                $columns = $request->input('columns');
+                $keys = [];
+                foreach($columns as $column){
+                    if($column['search']['value'] !== null){
+                        $keys[$column['data']] = $column['search']['value'];
+                        
+                    }
+                }
 
 
-                $records['data'][$i]['number'] = $document->cafoa->number;
-                $records['data'][$i]['payee'] = $document->cafoa->payee;
-                $records['data'][$i]['amount'] = number_format($document->cafoa->amount, 2);
-                $records['data'][$i]['particulars'] = $document->cafoa->particulars;
+                // SEARCHING
+                $documents = FTS_Cafoa::with('document.division.office')
+                                            ->whereHas('document', function($q) use($keys){
+                                                if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
+                                                if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
+                                                if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
+                                                if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
+                                            })->offset($start)->limit($limit);
 
-                $action =  fts_action_button($document->series, [
-                    'route' => 'fts.cafoa.edit',
-                    'id' => $document->id
-                ]);
+                if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
+                if(array_key_exists('payee', $keys)){$documents->where('number', 'like', "%{$keys['payee']}%");}
+                if(array_key_exists('amount', $keys)){$documents->where('number', 'like', "%{$keys['amount']}%");}
+                if(array_key_exists('particulars', $keys)){$documents->where('number', 'like', "%{$keys['particulars']}%");}
+                                           
+                $documents = $documents->get();
 
 
-                $records['data'][$i]['action'] = $action;
+                // TOTAL FILTERS
+                $filters = FTS_Cafoa::with('document.division.office')
+                ->whereHas('document', function($q) use($keys){
+                    if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
+                    if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
+                    if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
+                    if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
+                });
+
+                if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
+                if(array_key_exists('payee', $keys)){$documents->where('number', 'like', "%{$keys['payee']}%");}
+                if(array_key_exists('amount', $keys)){$documents->where('number', 'like', "%{$keys['amount']}%");}
+                if(array_key_exists('particulars', $keys)){$documents->where('number', 'like', "%{$keys['particulars']}%");}
+
+                $totalFiltered = $filters->count();
             }
 
-            return response()->json($records, 200);
+            $records = array();
 
+            foreach($documents as $i => $cafoa){
+                array_push($records, [
+                    'id' => $cafoa->document->id,
+                    'encoded' => $cafoa->document->encoded,
+                    'series' => $cafoa->document->seriesFull ,
+                    'office' => office_helper($cafoa->document->division),
+                    'status' => show_status($cafoa->document->status),
+
+                    'number' => $cafoa->number,
+                    'payee' => $cafoa->payee,
+                    'amount' => number_format(floatval($cafoa->amount), 2),
+                    'particulars' => $cafoa->particulars,
+
+                    'action' => fts_action_button($cafoa->document->series, [
+                        'route' => 'fts.cafoa.edit',
+                        'id' => $cafoa->document->id
+                    ])
+                ]);
+            }
+
+
+            $records = collect($records);
+
+            // sorting
+            $records = ($dir == 'asc') ? $records->sortBy($order) : $records->sortByDesc($order);
+
+
+            return response()->json([
+                "draw"            => intval($request->input('draw')),  
+                "recordsTotal"    => intval($totalData),  
+                "recordsFiltered" => intval($totalFiltered), 
+                "data"            => $records->values()->toArray() ?? [] 
+            ], 200);
 
         }
 
@@ -114,14 +179,16 @@ class CafoaController extends Controller
             'type' => config('constants.document.type.cafoa')
         ]);
 
-        $attachments = array();
-        foreach($request->post('attachments') as $i => $attachment){
-            $attachments[$i]['document_id'] = $document->id;
-            $attachments[$i]['employee_id'] = auth()->user()->employee_id;
-            $attachments[$i]['description'] = $attachment;
-            $i++;
+        if($request->has('attachments')){
+            $attachments = array();
+            foreach($request->post('attachments') as $i => $attachment){
+                $attachments[$i]['document_id'] = $document->id;
+                $attachments[$i]['employee_id'] = auth()->user()->employee_id;
+                $attachments[$i]['description'] = $attachment;
+                $i++;
+            }
+            FTS_DA::insert($attachments);
         }
-        FTS_DA::insert($attachments);
 
         $cafoa = FTS_Cafoa::create([
             'document_id' => $document->id,

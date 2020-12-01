@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./Modules/FileTracking/Resources/assets/js/form-cafoa-create.js":
-/*!***********************************************************************!*\
-  !*** ./Modules/FileTracking/Resources/assets/js/form-cafoa-create.js ***!
-  \***********************************************************************/
+/***/ "./Modules/FileTracking/Resources/assets/js/form-pr-create.js":
+/*!********************************************************************!*\
+  !*** ./Modules/FileTracking/Resources/assets/js/form-pr-create.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -115,11 +115,17 @@ $(function () {
     }, {
       data: 'number'
     }, {
-      data: 'payee'
+      data: 'date'
+    }, {
+      data: 'particular'
+    }, {
+      data: 'purpose'
+    }, {
+      data: 'charging'
+    }, {
+      data: 'accountable'
     }, {
       data: 'amount'
-    }, {
-      data: 'particulars'
     }, {
       data: 'status'
     }, {
@@ -170,11 +176,14 @@ $(function () {
     dt.columns(0).search($('input[name="search-encoded"]').val());
     dt.columns(1).search($('input[name="search-series"]').val());
     dt.columns(2).search($('select[name="search-division"]').val());
-    dt.columns(7).search($('select[name="search-status"]').val());
+    dt.columns(10).search($('select[name="search-status"]').val());
     dt.columns(3).search($('input[name="search-number"]').val());
-    dt.columns(4).search($('input[name="search-payee"]').val());
-    dt.columns(5).search($('input[name="search-amount"]').val());
-    dt.columns(6).search($('input[name="search-particulars"]').val());
+    dt.columns(4).search($('input[name="search-date"]').val());
+    dt.columns(5).search($('input[name="search-particular"]').val());
+    dt.columns(6).search($('input[name="search-purpose"]').val());
+    dt.columns(7).search($('input[name="search-charging"]').val());
+    dt.columns(8).search($('input[name="search-accountable"]').val());
+    dt.columns(9).search($('input[name="search-amount"]').val());
     dt.draw();
     $('#modal-search').modal('hide');
   });
@@ -191,14 +200,14 @@ $(function () {
 
 /***/ }),
 
-/***/ 12:
-/*!*****************************************************************************!*\
-  !*** multi ./Modules/FileTracking/Resources/assets/js/form-cafoa-create.js ***!
-  \*****************************************************************************/
+/***/ 15:
+/*!**************************************************************************!*\
+  !*** multi ./Modules/FileTracking/Resources/assets/js/form-pr-create.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/mis_dev/Modules/FileTracking/Resources/assets/js/form-cafoa-create.js */"./Modules/FileTracking/Resources/assets/js/form-cafoa-create.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/mis_dev/Modules/FileTracking/Resources/assets/js/form-pr-create.js */"./Modules/FileTracking/Resources/assets/js/form-pr-create.js");
 
 
 /***/ })

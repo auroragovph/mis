@@ -18,9 +18,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/home', function(){
-    return view('home');
-})->name('root.home')->middleware('auth:web');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('root.home')->middleware('auth:web');
 
 
 

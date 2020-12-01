@@ -36,12 +36,12 @@ class PermissionTableSeeder extends Seeder
             ['name' => 'fts.sa.number'],
             ['name' => 'fts.sa.rr'],
             ['name' => 'fts.sa.qr'],
+            ['name' => 'fts.sa.transmittal'],
             ['name' => 'fts.document.*'],
             ['name' => 'fts.document.view'],
             ['name' => 'fts.document.create'],
             ['name' => 'fts.document.edit'],
             ['name' => 'fts.document.print'],
-
 
         ];
 

@@ -1,7 +1,7 @@
 @extends('system::layouts.app')
 
 @section('page-title')
-    Access Control Lists
+    Permissions
 @endsection
 
 @section('breadcrumbs')
@@ -47,13 +47,14 @@
                 <h3 class="card-title">Create New Permission</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('sys.user.acl.perm.store') }}" method="POST">
+                <form action="#" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="">Module</label>
                         <select name="module" class="form-control">
                             <option value="sys">System</option>
                             <option value="fms">File Management</option>
+                            <option value="fts">File Tracking</option>
                             <option value="hrm">Human Resource</option>
                         </select>
                     </div>

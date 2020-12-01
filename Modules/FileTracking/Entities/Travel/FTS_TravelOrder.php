@@ -4,6 +4,7 @@ namespace Modules\FileTracking\Entities\Travel;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Modules\FileTracking\Entities\Document\FTS_Document;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class FTS_TravelOrder extends Model
@@ -21,15 +22,29 @@ class FTS_TravelOrder extends Model
     protected static $logName = 'fts';
     protected static $logOnlyDirty = true;
 
+    public function document()
+    {
+        return $this->belongsTo(FTS_Document::class, 'document_id', 'id');
+    }
 
     public function scopeLists($query)
     {
-        // return $query->distinct('description')->get();
+        
         $raws =  $query->select([DB::raw('DISTINCT(employees)')])
                     ->get()->pluck('employees');
+
         $lists = array();
-        foreach($raws as $row){foreach($row as $emp){if(!in_array($emp, $lists)){array_push($lists, $emp);}}}
+
+        foreach($raws as $row){
+            foreach($row as $emp){
+                if(!in_array($emp, $lists)){
+                    array_push($lists, $emp);
+                }
+            }
+        }
 
         return $lists;
     }
+
+    
 }

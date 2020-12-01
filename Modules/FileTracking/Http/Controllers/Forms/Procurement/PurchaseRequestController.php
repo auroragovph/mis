@@ -22,37 +22,124 @@ class PurchaseRequestController extends Controller
 
         if($request->ajax()){
 
-            $documents = FTS_Document::with('purchase_request', 'division')
-                            ->whereHas('purchase_request')
-                            ->where('type', config('constants.document.type.procurement.request'))
-                            ->get();
+            $columns = ['encoded', 'series', 'office', 
+                            'number', 'date', 'particular', 'purpose', 'charging', 'accountable', 'amount',
+                        'status'];
 
-            $records['data'] = array();
+            $totalData = FTS_PurchaseRequest::count();
+            $totalFiltered = $totalData;
 
-            foreach($documents as $i => $document){
+            $limit = $request->input('length');
+            $start = $request->input('start');
+            $order = $columns[$request->input('order.0.column')]; 
+            $dir = $request->input('order.0.dir');
 
-                $records['data'][$i]['id'] = $document->id;
-                $records['data'][$i]['encoded'] = $document->encoded;
-                $records['data'][$i]['series'] = $document->seriesFull;
-                $records['data'][$i]['office'] = office_helper($document->division);
-                $records['data'][$i]['number'] = $document->purchase_request->number;
-                $records['data'][$i]['date'] = $document->purchase_request->date;
-                $records['data'][$i]['particular'] = $document->purchase_request->particular;
-                $records['data'][$i]['purpose'] = $document->purchase_request->purpose;
-                $records['data'][$i]['charging'] = $document->purchase_request->charging;
-                $records['data'][$i]['accountable'] = $document->purchase_request->accountable;
-                $records['data'][$i]['amount'] = number_format($document->purchase_request->amount, 2);
-                $records['data'][$i]['status'] = show_status($document->status);
+            
+            if($request->input('search.value') !== 'MODAL_SEARCH'){
+                $documents = FTS_PurchaseRequest::with('document.division.office')
+                                        ->whereHas('document')
+                                        ->offset($start)
+                                        ->limit($limit)
+                                        ->get();
+            }else{
 
-                $action =  fts_action_button($document->series, [
-                    'route' => 'fts.procurement.request.edit',
-                    'id' => $document->id
-                ]);
+                $columns = $request->input('columns');
+                $keys = [];
+                foreach($columns as $column){
+                    if($column['search']['value'] !== null){
+                        $keys[$column['data']] = $column['search']['value'];
+                        
+                    }
+                }
 
-                $records['data'][$i]['action'] = $action;
+
+                // SEARCHING
+                $documents = FTS_PurchaseRequest::with('document.division.office')
+                                            ->whereHas('document', function($q) use($keys){
+                                                if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
+                                                if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
+                                                if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
+                                                if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
+
+                                            })->offset($start)->limit($limit);
+
+                if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
+                if(array_key_exists('date', $keys)){$documents->where('date', 'like', "%{$keys['date']}%");}
+                if(array_key_exists('particular', $keys)){$documents->where('particular', 'like', "%{$keys['particular']}%");}
+                if(array_key_exists('purpose', $keys)){$documents->where('purpose', 'like', "%{$keys['purpose']}%");}
+                if(array_key_exists('charging', $keys)){$documents->where('charging', 'like', "%{$keys['charging']}%");}
+                if(array_key_exists('accountable', $keys)){$documents->where('accountable', 'like', "%{$keys['accountable']}%");}
+                if(array_key_exists('amount', $keys)){$documents->where('amount', 'like', "%{$keys['amount']}%");}
+                                           
+                $documents = $documents->get();
+
+
+                // TOTAL FILTERS
+                $filters = FTS_PurchaseRequest::with('document.division.office')
+                ->whereHas('document', function($q) use($keys){
+                    if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
+                    if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
+                    if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
+                    if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
+
+                });
+                
+                if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
+                if(array_key_exists('date', $keys)){$documents->where('date', 'like', "%{$keys['date']}%");}
+                if(array_key_exists('particular', $keys)){$documents->where('particular', 'like', "%{$keys['particular']}%");}
+                if(array_key_exists('purpose', $keys)){$documents->where('purpose', 'like', "%{$keys['purpose']}%");}
+                if(array_key_exists('charging', $keys)){$documents->where('charging', 'like', "%{$keys['charging']}%");}
+                if(array_key_exists('accountable', $keys)){$documents->where('accountable', 'like', "%{$keys['accountable']}%");}
+                if(array_key_exists('amount', $keys)){$documents->where('amount', 'like', "%{$keys['amount']}%");}
+
+                $totalFiltered = $filters->count();
+
+                
+
             }
 
-            return response()->json($records, 200);
+            $records = array();
+
+            foreach($documents as $i => $pr){
+
+                array_push($records, [
+                    
+                    'id' => $pr->document->id,
+
+                    'encoded' => $pr->document->encoded,
+                    'series' => $pr->document->seriesFull ,
+                    'office' => office_helper($pr->document->division),
+                    'status' => show_status($pr->document->status),
+
+                    'number' => $pr->number,
+                    'date' => $pr->date,
+                    'particular' => $pr->particular,
+                    'purpose' => $pr->purpose,
+                    'charging' => $pr->charging,
+                    'accountable' => $pr->accountable,
+                    'amount' => number_format(floatval($pr->amount), 2),
+
+                    'action' => fts_action_button($pr->document->series, [
+                        'route' => 'fts.payroll.edit',
+                        'id' => $pr->id
+                    ])
+                ]);
+            }
+
+            $records = collect($records);
+
+            // sorting
+            $records = ($dir == 'asc') ? $records->sortBy($order) : $records->sortByDesc($order);
+
+            // $totalFiltered= $records->count();
+
+            return response()->json([
+                "draw"            => intval($request->input('draw')),  
+                "recordsTotal"    => intval($totalData),  
+                "recordsFiltered" => intval($totalFiltered), 
+                "data"            => $records->values()->toArray() ?? [] 
+            ]);
+
 
 
         }
@@ -112,14 +199,20 @@ class PurchaseRequestController extends Controller
             'type' => config('constants.document.type.procurement.request')
         ]);
 
-        $attachments = array();
-        foreach($request->post('attachments') as $i => $attachment){
-            $attachments[$i]['document_id'] = $document->id;
-            $attachments[$i]['employee_id'] = auth()->user()->employee_id;
-            $attachments[$i]['description'] = $attachment;
-            $i++;
+        if($request->has('attachments')){
+
+            $attachments = array();
+            foreach($request->post('attachments') as $i => $attachment){
+                $attachments[$i]['document_id'] = $document->id;
+                $attachments[$i]['employee_id'] = auth()->user()->employee_id;
+                $attachments[$i]['description'] = $attachment;
+                $i++;
+            }
+            FTS_DA::insert($attachments);
+            
         }
-        FTS_DA::insert($attachments);
+
+       
 
         $pr = FTS_PurchaseRequest::create([
             'document_id' => $document->id, 

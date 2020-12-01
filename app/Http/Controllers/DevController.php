@@ -23,9 +23,8 @@ class DevController extends Controller
     {
         $timer = microtime(true);
 
-        // dd(employee_id_helper('PGA-JO-123'));
 
-        dd(number_format("10.76", 2));
+        dd(number_format(floatval(''), 2));
 
         echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
     }

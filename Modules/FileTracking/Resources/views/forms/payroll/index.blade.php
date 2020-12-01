@@ -21,11 +21,18 @@
                 <h3 class="card-title mt-1">Lists</h3>
                 @can('fms.create')
                   <div class="card-tools">
+
+                    <button type="button" class="btn btn-sm bg-gradient-navy" data-toggle="modal" data-target="#modal-search">
+                      <i class="fal fa-search"></i> Search Generator
+                     </button>
+
                     <button type="button" class="btn btn-sm bg-gradient-primary" data-toggle="modal" data-target="#modal-create">
                      <i class="fal fa-plus"></i> Create New Payroll
                     </button>
+
                   </div>
                 @endcan
+
             </div>
             <div class="card-body">
                 <table id="dataTables" class="table table-bordered table-striped">
@@ -53,6 +60,11 @@
 
 
 @includeWhen(auth()->user()->can('fts.document.create'), 'filetracking::forms.payroll.create')
+
+@include('filetracking::forms.search', [
+  'forms' => 'filetracking::forms.payroll.search'
+])
+
 
 
 @endsection

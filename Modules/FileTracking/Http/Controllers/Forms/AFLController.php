@@ -117,15 +117,16 @@ class AFLController extends Controller
             'type' => config('constants.document.type.afl')
         ]);
 
-        $attachments = array();
-        foreach($request->post('attachments') as $i => $attachment){
-            $attachments[$i]['document_id'] = $document->id;
-            $attachments[$i]['employee_id'] = auth()->user()->employee_id;
-            $attachments[$i]['description'] = $attachment;
-            $i++;
+        if($request->has('attachments')){
+            $attachments = array();
+            foreach($request->post('attachments') as $i => $attachment){
+                $attachments[$i]['document_id'] = $document->id;
+                $attachments[$i]['employee_id'] = auth()->user()->employee_id;
+                $attachments[$i]['description'] = $attachment;
+                $i++;
+            }
+            FTS_DA::insert($attachments);
         }
-        FTS_DA::insert($attachments);
-
 
         $leave = [
             'vacation' => [$request->post('v1'), $request->post('v2')],

@@ -3,6 +3,7 @@
 namespace Modules\FileTracking\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\FileTracking\Entities\Document\FTS_Document;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class FTS_Cafoa extends Model
@@ -16,4 +17,9 @@ class FTS_Cafoa extends Model
     protected static $logUnguarded = true;
     protected static $logName = 'fts';
     protected static $logOnlyDirty = true;
+
+    public function document()
+    {
+        return $this->belongsTo(FTS_Document::class, 'document_id', 'id');
+    }
 }

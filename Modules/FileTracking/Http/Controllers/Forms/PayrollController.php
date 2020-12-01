@@ -4,51 +4,138 @@ namespace Modules\FileTracking\Http\Controllers\Forms;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Modules\FileTracking\Entities\Document\FTS_DA;
+use Modules\FileTracking\Entities\FTS_Payroll;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
+use Modules\FileTracking\Entities\Document\FTS_DA;
 use Modules\FileTracking\Entities\Document\FTS_Qr;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
-use Modules\FileTracking\Entities\FTS_Payroll;
 
 class PayrollController extends Controller
 {
     public function index(Request $request)
     {
+
+
+
+        // $rows = DB::table('fts_form_payroll')
+        //             ->join('fts_documents', 'fts_form_payroll.document_id', '=', 'fts_documents.id')
+        //             ->take(20)
+        //             ->get();
+
+        // $rows = FTS_Payroll::with('document')->whereHas('document', function($q){
+        //     $q->where('series', 1616);
+        // })->take(10)->get();
+
+        //             dd($rows);
+
+
+
+
         if($request->ajax()){
 
-            $documents = FTS_Document::with('payroll', 'division.office')
-                            ->whereHas('payroll')
-                            ->where('type', config('constants.document.type.payroll'))
-                            ->get();
+            $columns = ['encoded', 'series', 'office', 'name', 'amount', 'particulars', 'status'];
 
-            $records['data'] = array();
+            $totalData = FTS_Payroll::count();
+            $totalFiltered = $totalData;
 
-            foreach($documents as $i => $document){
+            $limit = $request->input('length');
+            $start = $request->input('start');
+            $order = $columns[$request->input('order.0.column')];
+            $dir = $request->input('order.0.dir');
 
-                $records['data'][$i]['id'] = $document->id;
-                $records['data'][$i]['encoded'] = $document->encoded;
-                $records['data'][$i]['series'] = $document->seriesFull;
-                $records['data'][$i]['office'] = office_helper($document->division);
-                $records['data'][$i]['status'] = show_status($document->status);
+            
+            if($request->input('search.value') !== 'MODAL_SEARCH'){
+                $documents = FTS_Payroll::with('document.division.office')
+                                        ->whereHas('document')
+                                        ->offset($start)
+                                        ->limit($limit)
+                                        ->get();
+            }else{
+
+                $columns = $request->input('columns');
+                $keys = [];
+                foreach($columns as $column){
+                    if($column['search']['value'] !== null){
+                        $keys[$column['data']] = $column['search']['value'];
+                        
+                    }
+                }
+
+                // SEARCHING
+                $documents = FTS_Payroll::with('document.division.office')
+                                            ->whereHas('document', function($q) use($keys){
+                                                if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
+                                                if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
+                                                if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
+                                                if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
+
+                                            })->offset($start)->limit($limit);
+
+                if(array_key_exists('name', $keys)){$documents->where('name', 'like', "%{$keys['name']}%");}
+                if(array_key_exists('amount', $keys)){$documents->where('amount', 'like', "%{$keys['amount']}%");}
+                if(array_key_exists('particulars', $keys)){$documents->where('particulars', 'like', "%{$keys['particulars']}%");}
+                                           
+                $documents = $documents->get();
 
 
-                $records['data'][$i]['name'] = $document->payroll->name;
-                $records['data'][$i]['amount'] = number_format($document->payroll->amount, 2);
-                $records['data'][$i]['particulars'] = $document->payroll->particulars;
+                // TOTAL FILTERS
+                $filters = FTS_Payroll::with('document.division.office')
+                ->whereHas('document', function($q) use($keys){
+                    if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
+                    if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
+                    if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
+                    if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
 
-                $action =  fts_action_button($document->series, [
-                    'route' => 'fts.payroll.edit',
-                    'id' => $document->id
-                ]);
+                });
+                if(array_key_exists('name', $keys)){$filters->where('name', 'like', "%{$keys['name']}%");}
+                if(array_key_exists('amount', $keys)){$filters->where('amount', 'like', "%{$keys['amount']}%");}
+                if(array_key_exists('particulars', $keys)){$filters->where('particulars', 'like', "%{$keys['particulars']}%");}
 
+                $totalFiltered = $filters->count();
 
-                $records['data'][$i]['action'] = $action;
             }
 
-            return response()->json($records, 200);
+            $records = array();
+
+            foreach($documents as $i => $payroll){
+
+                array_push($records, [
+                    
+                    'id' => $payroll->document->id,
+                    'encoded' => $payroll->document->encoded,
+                    'series' => $payroll->document->seriesFull ,
+                    'office' => office_helper($payroll->document->division),
+                    'status' => show_status($payroll->document->status),
+
+                    'name' => $payroll->name,
+                    'amount' => number_format(floatval($payroll->amount), 2),
+                    'particulars' => $payroll->particulars,
+
+                    'action' => fts_action_button($payroll->document->series, [
+                        'route' => 'fts.payroll.edit',
+                        'id' => $payroll->id
+                    ])
+                ]);
+            }
+
+            $records = collect($records);
+
+            // sorting
+            $records = ($dir == 'asc') ? $records->sortBy($order) : $records->sortByDesc($order);
+
+            // $totalFiltered= $records->count();
+
+            return response()->json([
+                "draw"            => intval($request->input('draw')),  
+                "recordsTotal"    => intval($totalData),  
+                "recordsFiltered" => intval($totalFiltered), 
+                "data"            => $records->values()->toArray() ?? [] 
+            ]);
+
 
 
         }
@@ -108,14 +195,16 @@ class PayrollController extends Controller
             'type' => config('constants.document.type.payroll')
         ]);
 
-        $attachments = array();
-        foreach($request->post('attachments') as $i => $attachment){
-            $attachments[$i]['document_id'] = $document->id;
-            $attachments[$i]['employee_id'] = auth()->user()->employee_id;
-            $attachments[$i]['description'] = $attachment;
-            $i++;
+        if($request->has('attachments')){
+            $attachments = array();
+            foreach($request->post('attachments') as $i => $attachment){
+                $attachments[$i]['document_id'] = $document->id;
+                $attachments[$i]['employee_id'] = auth()->user()->employee_id;
+                $attachments[$i]['description'] = $attachment;
+                $i++;
+            }
+            FTS_DA::insert($attachments);
         }
-        FTS_DA::insert($attachments);
 
         $payroll = FTS_Payroll::create([
             'document_id' => $document->id,

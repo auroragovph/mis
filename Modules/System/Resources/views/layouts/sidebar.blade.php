@@ -1,68 +1,78 @@
- <!-- Sidebar Menu -->
- <nav class="mt-2">
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-      <!-- Add icons to the links using the .nav-icon class
-           with font-awesome or any other icon font library -->
-     
+<li class="nav-header">System Management</li>
 
-      <li class="nav-item">
-        <a href="{{ route('sys.dashboard') }}" class="nav-link">
-          <i class="nav-icon fal fa-tachometer-alt"></i> <p>Dashboard</p>
-        </a>
-      </li>
+<li class="nav-item has-treeview">
 
+  <a href="#" class="nav-link">
+    <i class="nav-icon fal fa-building"></i>
+    <p>Office Management<i class="right fal fa-angle-left"></i></p>
+  </a>
+    
+  <ul class="nav nav-treeview">
 
-      <li class="nav-header">Office Management</li>
+    <li class="nav-item">
+      <a href="{{ route('sys.office.index') }}" class="nav-link">
+        <i class="nav-icon fal fa-circle"></i> <p>Office</p>
+      </a>
+    </li>
 
-      <li class="nav-item">
-        <a href="{{ route('sys.office.index') }}" class="nav-link">
-          <i class="nav-icon fal fa-building"></i> <p>Office</p>
-        </a>
-      </li>
+    <li class="nav-item">
+      <a href="{{ route('sys.office.division.index') }}" class="nav-link">
+        <i class="nav-icon fal fa-circle"></i> <p>Division</p>
+      </a>
+    </li>
 
-      <li class="nav-item">
-        <a href="{{ route('sys.office.division.index') }}" class="nav-link">
-          <i class="nav-icon fal fa-building"></i> <p>Division</p>
-        </a>
-      </li>
+  </ul>
+    
+</li>
 
+<li class="nav-item">
 
-      <li class="nav-header">User Management</li>
+  <a href="#" class="nav-link">
+    <i class="nav-icon fal fa-users"></i>
+    <p>
+      User Management
+    <i class="right fal fa-angle-left"></i>
+    </p>
+  </a>
 
-      <li class="nav-item">
-        <a href="{{ route('sys.user.index') }}" class="nav-link">
-          <i class="nav-icon fal fa-user-alt"></i> <p>Users</p>
-        </a>
-      </li>
+  <ul class="nav nav-treeview">
 
-      <li class="nav-item">
-        <a href="{{ route('sys.user.acl.index') }}" class="nav-link">
-          <i class="nav-icon fal fa-shield-alt"></i> <p>Access Control List</p>
-        </a>
-      </li>
+    <li class="nav-item">
+      <a href="{{ route('sys.user.index') }}" class="nav-link">
+        <i class="fal fa-user nav-icon"></i>
+        <p>Users</p>
+      </a>
+    </li>
 
-   
+    <li class="nav-item">
 
-      <li class="nav-header">Tools</li>
+      <a href="#" class="nav-link">
+        <i class="fal fa-shield-alt nav-icon"></i>
+        <p>
+          Access Control Level
+          <i class="right fal fa-angle-left"></i>
+        </p>
+      </a>
 
-      <li class="nav-item">
-        <a href="javascript:void(0)" class="nav-link">
-          <i class="nav-icon fal fa-database"></i> <p>Database</p>
-        </a>
-      </li>
+      <ul class="nav nav-treeview">
 
-      <li class="nav-item">
-        <a href="javascript:void(0)" class="nav-link">
-          <i class="nav-icon fal fa-calendar-day"></i> <p>Scheduler</p>
-        </a>
-      </li>
+        <li class="nav-item">
+          <a href="{{ route('sys.acl.permission.index') }}" class="nav-link">
+            <i class="fal fa-shield-check nav-icon"></i>
+            <p>Permissions</p>
+          </a>
+        </li>
 
-      
+        <li class="nav-item">
+          <a href="{{ route('sys.acl.role.index') }}" class="nav-link">
+            <i class="fal fa-user-tag nav-icon"></i>
+            <p>Roles</p>
+          </a>
+        </li>
 
-      <form method="POST" action="/auth/signout" id="logout-form" style="display: none" >
-        @csrf
-      </form>
+      </ul>
 
-    </ul>
-</nav>
-<!-- /.sidebar-menu -->
+    </li>
+    
+  </ul>
+</li>

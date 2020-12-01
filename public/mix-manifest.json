@@ -18,6 +18,8 @@
     "/js/filetracking/form-cafoa-create.js": "/js/filetracking/form-cafoa-create.js",
     "/js/filetracking/form-dv-create.js": "/js/filetracking/form-dv-create.js",
     "/js/filetracking/form-payroll-create.js": "/js/filetracking/form-payroll-create.js",
+    "/js/filetracking/form-pr-create.js": "/js/filetracking/form-pr-create.js",
+    "/js/filetracking/form-to-create.js": "/js/filetracking/form-to-create.js",
     "/js/filetracking/fts_document.js": "/js/filetracking/fts_document.js",
     "/js/system/app.js": "/js/system/app.js",
     "/js/system/signin.js": "/js/system/signin.js",

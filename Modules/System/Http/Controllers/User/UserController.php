@@ -4,6 +4,7 @@ namespace Modules\System\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Spatie\Permission\Models\Role;
 use Modules\System\Entities\SYS_User;
 use Illuminate\Support\Facades\Session;
 use Modules\HumanResource\Entities\HR_Employee;
@@ -13,12 +14,13 @@ class UserController extends Controller
     public function index()
     {
         $users = SYS_User::with('employee.division.office')->get();
-        $employees = HR_Employee::with('user')->get();
-        $employees = $employees->where('user', null);
-
+        $employees = HR_Employee::doesntHave('user')->get();
+        $roles = Role::get();
+        
         return view('system::user.index',[
             "users" => $users,
-            "employees" => $employees
+            "employees" => $employees,
+            "roles" => $roles
         ]);
     }
 

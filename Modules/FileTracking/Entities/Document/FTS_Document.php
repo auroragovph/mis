@@ -100,5 +100,10 @@ class FTS_Document extends Model
         return $this->hasMany(FTS_Tracking::class, 'document_id', 'id');
     }
 
+    public function latestTrack()
+    {
+        return $this->hasOne(FTS_Tracking::class, 'document_id', 'id')->orderBy('created_at', 'desc');
+    }
+
     
 }

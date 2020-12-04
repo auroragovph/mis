@@ -8,6 +8,8 @@
  *	@author			JMPRNS@github
  *	@link			https://github.com/jmprns/fms
 */
+
+
 if (! function_exists('employees')) {
     /**
      * Return the lists of all employees
@@ -258,6 +260,19 @@ if (! function_exists('fts_action_button')) {
     }
 }
 
+if (! function_exists('divisions')) {
+    /**
+     * Get the lists of divisions with it's office
+     * @param string 
+     * @return object|array
+     */
+    function divisions($type = 'object'){
+        $divisions = Modules\System\Entities\Office\SYS_Division::with('office')->get();
+        return ($type == 'array') ? $divisions->toArray() : $divisions;
+    }
+}
+
+
 if (! function_exists('is_date')) {
     /**
      * Check if the string is date
@@ -393,6 +408,38 @@ if (! function_exists('show_status')) {
            
 
 
+
+            default:
+                $status =  '<span class="badge bg-black">UNDEFINED</span>';
+            break;
+        }
+
+        return $status;
+    }
+}
+
+if (! function_exists('transmittal_status')) {
+    /**
+    * Return color of the status in the show form
+    * @param string
+    * @return string  
+    */
+    function transmittal_status($status)
+    {
+        switch($status)
+        {
+           
+            case '1':  
+                $status =  '<span class="badge bg-primary">PENDING</span>';
+            break;
+
+            case '2':  
+                $status =  '<span class="badge bg-success">RECEIVED</span>';
+            break;
+
+            case '3':  
+                $status =  '<span class="badge bg-danger">EXPIRED</span>';
+            break;
 
             default:
                 $status =  '<span class="badge bg-black">UNDEFINED</span>';

@@ -2,16 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function() {
 
@@ -52,7 +42,10 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
 
             Route::group(['prefix' => 'release'], function(){
                 Route::get('/', 'TransmittalController@releaseIndex')->name('fts.documents.transmittal.release.index');
+                Route::post('/', 'TransmittalController@releaseForm')->name('fts.documents.transmittal.release.form');
+                Route::put('/', 'TransmittalController@releaseSubmit')->name('fts.documents.transmittal.release.submit');
 
+                Route::get('/{uuid}/print', 'TransmittalController@releasePrint')->name('fts.documents.transmittal.release.print');
             });
 
             Route::group(['prefix' => 'receive'], function(){

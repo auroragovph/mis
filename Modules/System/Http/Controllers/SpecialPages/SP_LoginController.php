@@ -49,10 +49,11 @@ class SP_LoginController extends Controller
             $user->save();
 
             session()->flash('alert-success', 'Profile has been updated.');
-            return response()->json(['message' => 'Profile has been updated.', 'route' => route('fts.dashboard')], 200);
+            return response()->json(['message' => 'Profile has been updated.', 'route' => route('root.home')], 200);
         }
 
-        $divisions = SYS_Division::lists();        
+        $divisions = SYS_Division::lists();    
+
         return view('system::special-pages.login.first',[
             'divisions' => $divisions
         ]);

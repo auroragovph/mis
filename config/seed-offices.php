@@ -148,7 +148,44 @@ return [
     [
         'name' => 'Sanguniang Panlalawigan',
         'alias' => 'SP',
-        'divisions' => []
+        'divisions' => [
+            [
+                'name' => 'Secretariat',
+                'alias' => '',
+            ],
+            [
+                'name' => 'Mariano Calderon Tangson',
+                'alias' => '',
+            ],
+            [
+                'name' => 'Isidro Pimentel Galban',
+                'alias' => '',
+            ],
+            [
+                'name' => 'Jesus Valencia Palmero',
+                'alias' => '',
+            ],
+            [
+                'name' => 'Phillip Butch Molina Bautista',
+                'alias' => '',
+            ],
+            [
+                'name' => 'Jennifer Aliangan Arana',
+                'alias' => '',
+            ],
+            [
+                'name' => 'Eugene Bernas Calugtong',
+                'alias' => '',
+            ],
+            [
+                'name' => 'Lordan Brigansia Roxas',
+                'alias' => '',
+            ],
+            [
+                'name' => 'Nicasio Marcelo Salamera',
+                'alias' => '',
+            ],
+        ]
     ],
 
     [

@@ -18,7 +18,9 @@
                 </div>
                 <hr>
                 <div class="form-group">
-                    <button class="btn bg-gradient-primary"><i class="fal fa-search"></i> Search</button>
+                    <button class="btn bg-gradient-primary">
+                        <i class="fal fa-search"></i> Search
+                    </button>
                 </div>
             </form>
             
@@ -48,6 +50,13 @@
 @endsection
 
 @section('js-custom')
+
+@if(session('fts.transmittal.uuid'))
+<script>
+    window.open('{{ session("fts.transmittal.uuid") }}', '_blank');
+</script>
+@endif
+
 <script>
 $(function () {
     $(".select2-tags").select2({tags: true});

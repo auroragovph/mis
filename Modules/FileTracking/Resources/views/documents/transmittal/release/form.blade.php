@@ -55,7 +55,7 @@
                         <label for="">Receiving Office</label>
                         <select name="division" class="form-control select2">
                             @foreach(divisions() as $division)
-                                <option value="{{ $division->id }}}">{{ office_helper($division) }}</option>
+                                <option value="{{ $division->id }}">{{ office_helper($division) }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -2,6 +2,7 @@
 
 namespace Modules\FileTracking\Entities\Document;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Modules\HumanResource\Entities\HR_Employee;
@@ -16,7 +17,9 @@ class FTS_Transmittal extends Model
     public $incrementing = false;
 
     protected $casts = [
-        'documents' => 'json'
+        'documents' => 'json',
+        'office' => 'json',
+        'employee' => 'json'
     ];
     
     protected static function boot()
@@ -24,9 +27,15 @@ class FTS_Transmittal extends Model
         parent::boot();
         static::creating(function ($post) {
             $post->{$post->getKeyName()} = (string) Str::uuid();
-            $post->office['releasing'] = auth()->user()->employee->division_id;
-            $post->employee['releasing'] = auth()->user()->employee_id;
         });
+    }
+
+    public function getIsExpiredAttribute()
+    {
+        $now = Carbon::now();
+        $start = Carbon::parse($this->created_at);
+        $end = Carbon::parse($this->created_at)->addHour();
+        return ($now->between($start, $end) == false) ? true : false;
     }
 
     public function releasingOffice()

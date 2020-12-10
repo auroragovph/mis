@@ -8,8 +8,6 @@ body {
 
 table {
   width: 100%;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
   border-collapse: collapse;
 }
 
@@ -39,6 +37,10 @@ th {
   vertical-align: middle;
 }
 
+.border {
+  border: 1px solid black;
+}
+
 .btm {
   border-top: 2px solid black;
 }
@@ -50,6 +52,8 @@ th {
 .blm {
   border-left: 2px solid black;
 }
+
+
 
 .brm {
   border-right: 2px solid black;

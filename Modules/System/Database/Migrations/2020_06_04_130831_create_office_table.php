@@ -17,6 +17,7 @@ class CreateOfficeTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 255);
             $table->string('alias', 255)->nullable();
+            $table->json('properties')->nullable();
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });

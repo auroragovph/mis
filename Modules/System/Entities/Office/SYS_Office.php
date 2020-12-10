@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SYS_Office extends Model
 {
+    use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+    
     protected $guarded = [];
     protected $table = 'sys_office';
 

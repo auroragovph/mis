@@ -17,6 +17,7 @@ class CreateHRPlantillasTable extends Migration
             $table->bigIncrements('id');
             $table->string('position', 255);
             $table->integer('salary_grade_id');
+            $table->json('properties')->nullable();
             $table->timestamps();
         });
     }

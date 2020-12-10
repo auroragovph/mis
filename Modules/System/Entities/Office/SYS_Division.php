@@ -7,6 +7,8 @@ use Modules\HumanResource\Entities\HR_Employee;
 
 class SYS_Division extends Model
 {
+    use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+    
     protected $guarded = [];
     protected $table = 'sys_division';
 

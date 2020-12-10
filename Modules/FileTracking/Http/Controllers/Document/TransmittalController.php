@@ -12,7 +12,7 @@ class TransmittalController extends Controller
 {
     public function releaseIndex()
     {
-        $transmittals = FTS_Transmittal::get();
+        $transmittals = FTS_Transmittal::with('receivingOffice.office')->orderBy('created_at', 'desc')->get();
 
         return view('filetracking::documents.transmittal.release.index', [
             'transmittals' => $transmittals
@@ -101,25 +101,29 @@ class TransmittalController extends Controller
 
     public function releaseSubmit(Request $request)
     {
-
         $documents = session()->pull('fts.documents.transmittal');
 
         $transmittal = FTS_Transmittal::create([
-            'documents' => $documents,
-            'office->receiving' => $request->input('division')
+            'documents' => $documents[0],
+            'office->releasing' => auth()->user()->employee->division_id,
+            'office->receiving' => $request->input('division'),
+            'employee->releasing' => $request->input('division'),
+            'employee->receiving' => 0,
         ]);
-
-
-        dd($transmittal);
 
         return redirect(route('fts.documents.transmittal.release.index'))
                     ->with('alert-success', 'Transmittal has been registered.')
-                    ->with('fts.transmittal.uuid', $transmittal->id);
+                    ->with('fts.transmittal.uuid', route('fts.documents.transmittal.release.print', $transmittal->id));
     }
 
-    public function releasePrint()
+    public function releasePrint(Request $request, $uuid)
     {
-        return view('filetracking::documents.transmittal.release.print');
+        $transmittal = FTS_Transmittal::with('releasingOffice', 'receivingOffice', 'documentsInfo')->find($uuid);
+
+
+        return view('filetracking::documents.transmittal.release.print', [
+            'transmittal' => $transmittal
+        ]);
     }
 
     public function receive()

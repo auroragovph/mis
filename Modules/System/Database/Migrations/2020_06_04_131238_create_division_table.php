@@ -20,7 +20,6 @@ class CreateDivisionTable extends Migration
             $table->json('properties')->nullable();
             $table->boolean('status')->default(true);
             $table->integer('office_id');
-            $table->json('properties')->nullable();
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });

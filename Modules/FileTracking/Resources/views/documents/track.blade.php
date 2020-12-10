@@ -12,7 +12,30 @@
 @endsection
 
 @section('content')
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-custom" data-card="true" id="activate-card">
+            <div class="card-body p-10">
+                <form action="{{ route('fts.documents.track') }}" method="GET">
+                    <div class="form-group">
+                        <label for="">Series Number</label>
+                        <input type="text" name="series" class="form-control" autofocus required autocomplete="off" value="{{ request()->get('series') }}">
+                    </div>
+                   
+                    <hr>
+                    <button type="submit" class="btn bg-gradient-primary"><i class="fal fa-search"></i> Track</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @isset($document)
+
+
 
 <div class="row">
     <x-fts-qr size="sm-3" :document="$document['info']" :datas="$document['datas']"/>

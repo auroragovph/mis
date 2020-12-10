@@ -139,10 +139,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
  
   @include('layouts.includes.footer')
 
-
-  @can('godmode')
   @include('layouts.includes.aside')
-  @endcan
   
 </div>
 <!-- ./wrapper -->

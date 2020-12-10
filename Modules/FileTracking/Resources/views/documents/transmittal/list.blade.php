@@ -24,7 +24,19 @@
                                 <td>{{ $transmittal->created_at }}</td>
                                 <td>{{ $transmittal->id }}</td>
                                 <td>{{ office_helper($transmittal->receivingOffice) }}</td>
-                                <td>{{ collect($transmittal->documents)->implode(', ') }}</td>
+                                <td>
+                                    @foreach(collect($transmittal->documents) as $document)
+                                        <a target="_blank" href="{{ route('fts.documents.track', ['series' => $document]) }}">
+                                            {{ fts_series($document, 'encode') }}
+                                        </a>
+                                        @if(!$loop->last), @endif
+                                    @endforeach
+
+                                    {{-- {{ collect($transmittal->documents) }} --}}
+
+
+
+                                </td>
                                 <td>
                                     @if($transmittal->isExpired == true)
                                         <span class="badge bg-danger">EXPIRED</span>

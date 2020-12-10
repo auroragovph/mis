@@ -15,13 +15,13 @@
         table, th, tr, td {
             border: solid 1px black;
             border-collapse: collapse;
-            min-width: 60%;
+            min-width: 100%;
             margin: 0 auto;
         }
 
-        td{
+        /* td{
             text-align: center;
-        }
+        } */
     </style>
 </head>
 <body>
@@ -29,23 +29,25 @@
         <thead>
             
             <tr>
-                <th colspan="3">MORNING</th>
+                <th colspan="2">EMPLOYEE LISTS</th>
                
             </tr>
             <tr>
                 <th colspan="1">Name</th>
-                <th colspan="1">TIME IN</th>
-                <th colspan="1">TIME OUT</th>
+                <th colspan="1">Office</th>
             </tr>
 
         </thead>
         <tbody>
 
-            <tr>
-                <td>RICARDO DALISAY</td>
-                <td>08:00 AM</td>
-                <td>08:00 AM</td>
-            </tr>
+            @foreach($employees as $employee)
+
+                <tr>
+                    <td>{{ name_helper($employee->name) }}</td>
+                    <td>{{ office_helper($employee->division) }}</td>
+                </tr>
+
+            @endforeach
 
         </tbody>
     </table>

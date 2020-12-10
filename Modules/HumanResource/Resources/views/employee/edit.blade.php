@@ -178,7 +178,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="">ID No:</label>
-                                    <input name="card" type="password" value="{{ $employee->card }}" class="form-control">
+                                    <input name="card" type="text" value="{{ $employee->card }}" class="form-control">
                                 </div>
                             </div>
                         </div>

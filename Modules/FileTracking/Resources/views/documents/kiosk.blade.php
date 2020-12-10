@@ -8,7 +8,7 @@
 <form action="{{ route('fts.documents.kiosk') }}">
     <div class="form-group">
         <label for="">Series Number:</label>
-        <input type="text" class="form-control" name="series" value="{{ request()->get('series') }}" required>
+        <input type="text" class="form-control" name="series" required autofocus>
     </div>
     <button type="submit" class="btn bg-gradient-primary"> <i class="fal fa-search"></i> Track</button>
 </form>

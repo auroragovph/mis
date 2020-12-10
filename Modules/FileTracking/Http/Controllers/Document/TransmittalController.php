@@ -12,6 +12,7 @@ class TransmittalController extends Controller
 {
     public function releaseIndex()
     {
+
         $transmittals = FTS_Transmittal::with('receivingOffice.office')->orderBy('created_at', 'desc')->get();
 
         return view('filetracking::documents.transmittal.release.index', [

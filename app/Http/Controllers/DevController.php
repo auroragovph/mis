@@ -21,12 +21,23 @@ class DevController extends Controller
 
     public function index()
     {
-        $timer = microtime(true);
+        // $timer = microtime(true);
+
+        $employees = HR_Employee::liaison()->get();
+
+        return view('dev', [
+            'employees' => $employees
+        ]);
 
 
-        dd(number_format(floatval(''), 2));
+       
 
-        echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
+        // echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
+    }
+
+    public function employee_lists()
+    {
+
     }
 
     public function sg()

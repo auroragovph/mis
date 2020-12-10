@@ -20,13 +20,18 @@
         </a>
       </li>
 
-      @can('godmode')
 
-      @include('filemanagement::layouts.sidebar')
       @include('filetracking::layouts.sidebar')
-      @include('humanresource::layouts.sidebar')
-      @include('system::layouts.sidebar')
 
+
+
+
+
+      @can('godmode')
+        @include('filemanagement::layouts.sidebar')
+        @include('humanresource::layouts.sidebar')
+
+        @include('system::layouts.sidebar')
       @endcan
      
 

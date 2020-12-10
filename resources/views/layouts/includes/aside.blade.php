@@ -18,6 +18,8 @@
 
 
 
+      @can('godmode')
+
       <hr class="divider mt-4">
 
       <h4 class="font-weight-bold mb-3">Notifications</h4>
@@ -37,6 +39,9 @@
       <div class="card bg-gradient-navy p-2">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora tempore doloremque laboriosam aliquam tenetur explicabo officia error recusandae neque. Alias enim dolore quod magni ad deleniti harum labore ex suscipit.
       </div>
+
+      @endcan
+
 
 
     </div>

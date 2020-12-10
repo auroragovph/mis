@@ -22,7 +22,7 @@ Route::prefix('auth')->group(function(){
 });
 
 
-Route::group(['prefix' => 'system', 'middleware' => ['auth:web', 'permission:sys.sudo']], function(){
+Route::group(['prefix' => 'system', 'middleware' => ['auth:web', 'permission:godmode']], function(){
 
     Route::get('/', function(){
         return redirect(route('sys.dashboard'));

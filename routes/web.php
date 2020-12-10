@@ -22,8 +22,8 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 
 
 
-Route::prefix('dev')->group(function(){
+Route::group(['prefix' => 'dev', 'middleware' => ['auth:web', 'permission:godmode']], function(){
     Route::get('/', 'DevController@index');
     Route::get('/liaison', 'DevController@liaison');
-    // Route::get('/csv', 'DevPController@csv');
 });
+

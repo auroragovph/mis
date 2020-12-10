@@ -1,12 +1,18 @@
 <li class="nav-header">File Tracking</li>
 
 @canany(['fts.create', 'fts.edit'])
-  <li class="nav-item">
+<li class="nav-item">
     <a href="{{ route('fts.documents.index') }}" class="nav-link">
       <i class="nav-icon fal fa-file-alt"></i> <p>Documents</p>
     </a>
 </li>
 @endcanany
+
+<li class="nav-item">
+  <a href="{{ route('fts.documents.track') }}" class="nav-link">
+    <i class="nav-icon fal fa-search"></i> <p>Track</p>
+  </a>
+</li>
 
 <li class="nav-item has-treeview">
 
@@ -33,7 +39,7 @@
       </li>
     @endcan
 
-    @can('fts.sa.qr')
+    @can(['fts.sa.qr', 'godmode'])
       <li class="nav-item">
         <a href="{{ route('fts.qr.index') }}" class="nav-link">
           <i class="nav-icon fal fa-qrcode"></i> <p> QR Codes</p>

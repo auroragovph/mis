@@ -237,6 +237,13 @@ class DocumentController extends Controller
 
     public function track(Request $request)
     {
+
+        if($request->has('series') == false){
+            return view('filetracking::documents.track');
+        }
+
+
+
         $series = fts_series($request->get('series'), 'decode');
 
         $document = collect($this->full($series, ['tracks', 'datas']));

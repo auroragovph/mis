@@ -21,18 +21,49 @@ class DevController extends Controller
 
     public function index()
     {
-        // $timer = microtime(true);
+        $timer = microtime(true);
 
-        $employees = HR_Employee::liaison()->get();
+        $name = [
+            'fname' => "RICARDO",
+            'lname' => "DALISAY",
+            'mname' => "DE LEON",
+            'sname' => null,
+            'title' => null
+        ];
 
-        return view('dev', [
-            'employees' => $employees
+        $info = [
+            'gender' => 1,
+            'birthday' => "2020-01-01",
+            'address' => "12345",
+            'civilStatus' => "Single",
+            'phoneNumber' => null
+        ];
+
+        $employment = [
+            'type' => 1,
+            'status' => 1,
+            'leave' => [
+                'vacation' => 0,
+                'sick' => 0
+            ]
+        ];
+
+        $employee = HR_Employee::insert([
+            'division_id' => 1,
+            'position_id' => 1,
+            'name' => $name,
+            'info' => $info,
+            'employment' => $employment,
+            'card' => '1',
+            'liaison' => false
         ]);
 
+        // $employee = HR_Employee::find(181);
 
-       
+        dd($employee);
 
-        // echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
+
+        echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
     }
 
     public function employee_lists()

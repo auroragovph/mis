@@ -49,7 +49,9 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
             });
 
             Route::group(['prefix' => 'receive'], function(){
-                Route::get('/', 'TransmittalController@receive')->name('fts.documents.transmittal.receive.index');
+                Route::get('/', 'TransmittalController@receiveIndex')->name('fts.documents.transmittal.receive.index');
+                Route::post('/', 'TransmittalController@receiveForm')->name('fts.documents.transmittal.receive.form');
+                Route::put('/', 'TransmittalController@receiveSubmit')->name('fts.documents.transmittal.receive.submit');
             });
 
 

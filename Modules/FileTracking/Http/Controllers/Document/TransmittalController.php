@@ -127,8 +127,48 @@ class TransmittalController extends Controller
         ]);
     }
 
-    public function receive()
+    public function receiveIndex()
     {
         return view('filetracking::documents.transmittal.receive.index');
+    }
+
+    public function receiveForm(Request $request)
+    {
+        $transmittal = FTS_Transmittal::with('documentsInfo')->find($request->post('transmittal'));
+
+
+        // checking if the transmittal is already receive
+        if(!$transmittal){
+            return redirect()->back()->with('alert-error', 'Transmittal not found.');
+        }
+
+        // checking if the transmittal is already receive
+        if($transmittal->status == 2){
+            return redirect()->back()->with('alert-error', 'Transmittal already received.');
+        }
+
+        // checking if the transmittal is expired
+        if($transmittal->status == 3 || $transmittal->isExpired == true){
+            
+            if($transmittal->status == 1){
+                $transmittal->status = 3;
+                $transmittal->save();
+            }
+
+            return redirect()->back()->with('alert-error', 'Transmittal was expired.');
+        }
+
+        // dd(auth()->user()->employee->division_id);
+
+        // checking if you can receive the transmittal report
+        if($transmittal['office->receiving'] != auth()->user()->employee->division_id){
+            return redirect()->back()->with('alert-error', 'You cannot receive this transmittal.');
+        }
+
+
+
+        return view('filetracking::documents.transmittal.receive.form',[
+            'transmittal' => $transmittal
+        ]);
     }
 }

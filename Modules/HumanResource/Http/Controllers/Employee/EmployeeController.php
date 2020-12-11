@@ -36,7 +36,7 @@ class EmployeeController extends Controller
         return view('humanresource::employee.create', [
             'divisions' => $divisions
         ]);
-    }
+    } 
 
     /**
      * Store a newly created resource in storage.
@@ -45,37 +45,27 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $name = [
-            'fname' => $request->post('fname'),
-            'lname' => $request->post('lname'),
-            'mname' => $request->post('mname'),
-            'sname' => $request->post('sname'),
-            'title' => $request->post('title')
-        ];
-
-        $info = [
-            'gender' => $request->post('gender'),
-            'birthday' => $request->post('birthday'),
-            'address' => $request->post('address'),
-            'civilStatus' => $request->post('civil'),
-            'phoneNumber' => $request->post('phone')
-        ];
-
-        $employment = [
-            'type' => $request->post('employment-type'),
-            'status' => $request->post('employment-status'),
-            'leave' => [
-                'vacation' => 0,
-                'sick' => 0
-            ]
-        ];
-
         $employee = HR_Employee::create([
             'division_id' => $request->post('division'),
             'position_id' => $request->post('position'),
-            'name' => $name,
-            'info' => $info,
-            'employement' => $employment,
+
+            'name->fname' => $request->post('fname'),
+            'name->lname' => $request->post('lname'),
+            'name->mname' => $request->post('mname'),
+            'name->sname' => $request->post('sname'),
+            'name->title' => $request->post('title'),
+
+            'info->gender' => $request->post('gender'),
+            'info->birthday' => $request->post('birthday'),
+            'info->address' => $request->post('address'),
+            'info->civilStatus' => $request->post('civil'),
+            'info->phoneNumber' => $request->post('phone'),
+
+            'employment->phoneNumber' => $request->post('employment-type'),
+            'employment->status' => $request->post('employment-status'),
+            'employment->leave->vacation' => 0,
+            'employment->leave->sick' => 0,
+
             'card' => $request->post('card'),
             'liaison' => ($request->has('liaison')) ? true : false
         ]);

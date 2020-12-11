@@ -13,8 +13,28 @@
 
 @section('content')
 
-@endsection
+<div class="row">
+    <div class="col-12">
+        <div class="card p-3">
+            <form id="form-number" method="POST" action="{{ route('fts.documents.transmittal.receive.form') }}" autocomplete="off">
+                @csrf
+                <div class="form-group">
+                    <label for="">Transmittal QR</label>
+                    <input type="text" class="form-control" name="transmittal" autofocus>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <button class="btn bg-gradient-primary">
+                        <i class="fal fa-search"></i> Search
+                    </button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
 
+@endsection
 
 
 

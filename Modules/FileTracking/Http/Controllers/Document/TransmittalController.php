@@ -2,10 +2,13 @@
 
 namespace Modules\FileTracking\Http\Controllers\Document;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\HumanResource\Entities\HR_Employee;
 use Modules\FileTracking\Entities\Document\FTS_Document;
+use Modules\FileTracking\Entities\Document\FTS_Tracking;
 use Modules\FileTracking\Entities\Document\FTS_Transmittal;
 
 class TransmittalController extends Controller
@@ -134,10 +137,10 @@ class TransmittalController extends Controller
 
     public function receiveForm(Request $request)
     {
+        
         $transmittal = FTS_Transmittal::with('documentsInfo')->find($request->post('transmittal'));
 
-
-        // checking if the transmittal is already receive
+        // checking if the transmittal exists
         if(!$transmittal){
             return redirect()->back()->with('alert-error', 'Transmittal not found.');
         }
@@ -149,7 +152,7 @@ class TransmittalController extends Controller
 
         // checking if the transmittal is expired
         if($transmittal->status == 3 || $transmittal->isExpired == true){
-            
+
             if($transmittal->status == 1){
                 $transmittal->status = 3;
                 $transmittal->save();
@@ -158,17 +161,93 @@ class TransmittalController extends Controller
             return redirect()->back()->with('alert-error', 'Transmittal was expired.');
         }
 
-        // dd(auth()->user()->employee->division_id);
-
         // checking if you can receive the transmittal report
         if($transmittal['office->receiving'] != auth()->user()->employee->division_id){
             return redirect()->back()->with('alert-error', 'You cannot receive this transmittal.');
         }
 
+        // converting LIAISON QR TO ID
+        $lid = employee_id_helper($request->post('liaison'));
+        $liaison = HR_Employee::whereIdCard($lid)->first();
+
+        // checking if the liaison exists
+        if($liaison == null){
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Transmittal())
+            ->withProperties([
+                'transmittal' => $transmittal->id,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to receive transmittal but failed. Reason: The liaison officer not found.');
+            return redirect()->back()->with('alert-error', 'The liaison officer not found.');
+        }
+
+        // saving into sessions
+        session()->push('fts.documents.transmittal', $transmittal->id);
+        session()->push('fts.documents.liaison', $liaison->id);
 
 
         return view('filetracking::documents.transmittal.receive.form',[
             'transmittal' => $transmittal
         ]);
+    }
+
+    public function receiveSubmit(Request $request)
+    {
+        $transmittal_id = session()->pull('fts.documents.transmittal')[0] ?? 0;
+        $transmittal = FTS_Transmittal::find($transmittal_id);
+
+        $liaison = session()->pull('fts.documents.liaison')[0] ?? 0;
+
+        // checking if the transmittal exists
+        if(!$transmittal){
+            return redirect(route('fts.documents.transmittal.receive.index'))->with('alert-error', 'Transmittal not found.');
+        }
+
+        // checking if the transmittal is already receive
+        if($transmittal->status == 2){
+            return redirect(route('fts.documents.transmittal.receive.index'))->with('alert-error', 'Transmittal already received.');
+        }
+
+        // checking if the transmittal is expired
+        if($transmittal->status == 3 || $transmittal->isExpired == true){
+            if($transmittal->status == 1){
+                $transmittal->status = 3;
+                $transmittal->save();
+            }
+            return redirect(route('fts.documents.transmittal.receive.index'))->with('alert-error', 'Transmittal was expired.');
+        }
+
+
+        $tracks = array();
+        $now = Carbon::now();
+
+        foreach($transmittal->documents as $key => $document){
+            $tracks[$key] = [
+
+                'document_id' => $document,
+                'action' => 1,
+                'purpose' => $request->post('purpose'),
+                'status' => $request->post('status'),
+                'division_id' => auth()->user()->employee->division_id,
+                'liaison_id' => $liaison,
+                'user_id' => auth()->user()->employee_id,
+                'created_at' => $now,
+                'updated_at' => $now
+
+            ];
+        }
+
+        // inserting into tracks
+        FTS_Tracking::insert($tracks);
+
+        // updating transmittal
+        $transmittal->update([
+            'status' => 2,
+            'employee->receiving' => auth()->user()->employee_id
+        ]);
+
+        return redirect(route('fts.documents.transmittal.receive.index'))->with('alert-success', 'Transmittal has been received.');
     }
 }

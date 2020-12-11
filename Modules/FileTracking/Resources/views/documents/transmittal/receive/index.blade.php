@@ -22,6 +22,10 @@
                     <label for="">Transmittal QR</label>
                     <input type="text" class="form-control" name="transmittal" autofocus>
                 </div>
+                <div class="form-group">
+                    <label for="">Liaison ID</label>
+                    <input type="password" class="form-control" name="liaison" autocomplete="new-password">
+                </div>
                 <hr>
                 <div class="form-group">
                     <button class="btn bg-gradient-primary">

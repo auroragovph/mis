@@ -31,8 +31,12 @@
                     @foreach($transmittal->documentsInfo as $document)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $document->seriesFull }}</td>
-                            <td>{{ $document->type }}</td>
+                            
+                            <td>
+                                <a href="{{ route('fts.documents.track', ['series' => $document->series]) }}">{{ $document->seriesFull }}</a>
+                            </td>
+
+                            <td>{{ doc_type_only($document->type) }}</td>
                            
                         </tr>
                     @endforeach

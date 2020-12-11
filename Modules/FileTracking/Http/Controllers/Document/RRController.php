@@ -2,6 +2,7 @@
 
 namespace Modules\FileTracking\Http\Controllers\Document;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
+use Modules\FileTracking\Entities\Document\FTS_Transmittal;
 use Modules\FileTracking\Entities\Procurement\FTS_PurchaseRequest;
 
 class RRController extends DocumentController
@@ -21,6 +23,33 @@ class RRController extends DocumentController
     public function form(Request $request)
     {
         $series = fts_series($request->post('series'));
+
+
+        // checking if this document is included in transmittal
+        $start = Carbon::now()->toDateTimeString();
+        $end = Carbon::now()->addHour()->toDateTimeString();
+        $transmittals = FTS_Transmittal::whereJsonContains('documents', $series)->where('status', 1)->get();
+        foreach($transmittals as $transmittal){
+
+            if($transmittal->isExpired == true){
+                $transmittal->status = 3;
+                $transmittal->save();
+                continue;
+            }
+            // saving the activity logs
+            activity('fts')
+            ->on(new FTS_Document())
+            ->withProperties([
+                'series' => $series,
+                'agent' => user_agent()
+            ])
+            ->log('Tried to received/released the document but failed. Reason: Document currently in transmittal.');
+            return redirect()->back()->with('alert-error', 'Document currently in transmittal.');
+        }
+
+        
+
+
         $document = $this->full($series, ['datas', 'tracks']);
 
         if(!$document){
@@ -57,7 +86,7 @@ class RRController extends DocumentController
         $lid = employee_id_helper($request->liaison, true);
         $liaison = HR_Employee::whereIdCard($lid)->first();
 
-
+ 
         // checking if the liaison exists
         if($liaison == null){
 

@@ -21,6 +21,9 @@
                 <h3 class="card-title mt-1">Lists</h3>
                 @can('fms.create')
                   <div class="card-tools">
+                    <button type="button" class="btn btn-sm bg-gradient-navy" data-toggle="modal" data-target="#modal-search">
+                      <i class="fal fa-search"></i> Search Generator
+                     </button>
                     <button type="button" class="btn btn-sm bg-gradient-primary" data-toggle="modal" data-target="#modal-create">
                      <i class="fal fa-plus"></i> Create New DV
                     </button>
@@ -52,6 +55,10 @@
 
 @includeWhen(auth()->user()->can('fts.document.create'), 'filetracking::forms.disbursement.create')
 
+
+@include('filetracking::forms.search', [
+  'forms' => 'filetracking::forms.disbursement.search'
+])
 
 @endsection
 

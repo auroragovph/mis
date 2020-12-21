@@ -38,11 +38,9 @@
 
                                 </td>
                                 <td>
-                                    @if($transmittal->isExpired == true)
-                                        <span class="badge bg-danger">EXPIRED</span>
-                                    @else
-                                        {!! transmittal_status($transmittal->status) !!}
-                                    @endif
+
+                                    {!! transmittal_status($transmittal) !!}
+
                                 </td>
                                 <td><a href="{{ route('fts.documents.transmittal.release.print', $transmittal->id) }}" class="btn bg-gradient-navy btn-xs"><i class="fal fa-print"></i> Print</a></td>
                             </tr>

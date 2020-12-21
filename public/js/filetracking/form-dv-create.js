@@ -101,7 +101,9 @@ $(function () {
     tags: true
   });
   var dt = $("#dataTables").DataTable({
-    processing: true,
+    "processing": true,
+    "serverSide": true,
+    sDom: 'lrtip',
     ajax: window.location.href,
     columns: [{
       data: 'encoded'
@@ -162,6 +164,31 @@ $(function () {
       $(".modal-content").removeClass("whirl");
       $(".modal-content").removeClass("traditional");
     });
+  });
+  $("#form-search").submit(function (e) {
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    dt.search('MODAL_SEARCH');
+    dt.columns(0).search($('input[name="search-encoded"]').val());
+    dt.columns(1).search($('input[name="search-series"]').val());
+    dt.columns(2).search($('select[name="search-division"]').val());
+    dt.columns(8).search($('select[name="search-status"]').val());
+    dt.columns(3).search($('input[name="search-payee"]').val());
+    dt.columns(4).search($('input[name="search-amount"]').val());
+    dt.columns(5).search($('input[name="search-particulars"]').val());
+    dt.columns(6).search($('input[name="search-code"]').val());
+    dt.columns(7).search($('input[name="search-accountable"]').val());
+    dt.draw();
+    $('#modal-search').modal('hide');
+  });
+  $("#form-reset").on("click", function (e) {
+    $("#form-search").trigger('reset');
+    $(".select2").select2({
+      placeholder: "Select from list",
+      allowClear: true
+    });
+    dt.search('');
+    dt.draw();
   });
 });
 

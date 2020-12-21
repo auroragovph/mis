@@ -113,6 +113,7 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
         Route::post('/create', 'CafoaController@store')->name('fms.cafoa.store');
         Route::get('/{id}/show', 'CafoaController@show')->name('fms.cafoa.show');
         Route::get('/{id}/edit', 'CafoaController@edit')->name('fms.cafoa.edit');
+        Route::get('/{id}/print', 'CafoaController@print')->name('fms.cafoa.print');
         Route::post('/{id}/edit', 'CafoaController@update')->name('fms.cafoa.update');
     });
 
@@ -151,6 +152,7 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
         Route::put('/create', 'AFLController@store')->name('fms.afl.store');
         Route::get('/{id}/show', 'AFLController@show')->name('fms.afl.show');
         Route::get('/{id}/edit', 'AFLController@edit')->name('fms.afl.edit');
+        Route::get('/{id}/print', 'AFLController@print')->name('fms.afl.print');
         Route::post('/{id}/edit', 'AFLController@update')->name('fms.afl.update');
     });
 

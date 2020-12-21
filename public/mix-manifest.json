@@ -17,6 +17,7 @@
     "/js/filetracking/form-afl-create.js": "/js/filetracking/form-afl-create.js",
     "/js/filetracking/form-cafoa-create.js": "/js/filetracking/form-cafoa-create.js",
     "/js/filetracking/form-dv-create.js": "/js/filetracking/form-dv-create.js",
+    "/js/filetracking/form-iot-create.js": "/js/filetracking/form-iot-create.js",
     "/js/filetracking/form-payroll-create.js": "/js/filetracking/form-payroll-create.js",
     "/js/filetracking/form-pr-create.js": "/js/filetracking/form-pr-create.js",
     "/js/filetracking/form-to-create.js": "/js/filetracking/form-to-create.js",

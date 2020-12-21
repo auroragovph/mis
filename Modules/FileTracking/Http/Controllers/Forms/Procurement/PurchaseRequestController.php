@@ -61,7 +61,7 @@ class PurchaseRequestController extends Controller
                                                 if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
                                                 if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
 
-                                            })->offset($start)->limit($limit);
+                                            });
 
                 if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
                 if(array_key_exists('date', $keys)){$documents->where('date', 'like', "%{$keys['date']}%");}
@@ -71,29 +71,10 @@ class PurchaseRequestController extends Controller
                 if(array_key_exists('accountable', $keys)){$documents->where('accountable', 'like', "%{$keys['accountable']}%");}
                 if(array_key_exists('amount', $keys)){$documents->where('amount', 'like', "%{$keys['amount']}%");}
                                            
-                $documents = $documents->get();
-
-
-                // TOTAL FILTERS
-                $filters = FTS_PurchaseRequest::with('document.division.office')
-                ->whereHas('document', function($q) use($keys){
-                    if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
-                    if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
-                    if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
-                    if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
-
-                });
-                
-                if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
-                if(array_key_exists('date', $keys)){$documents->where('date', 'like', "%{$keys['date']}%");}
-                if(array_key_exists('particular', $keys)){$documents->where('particular', 'like', "%{$keys['particular']}%");}
-                if(array_key_exists('purpose', $keys)){$documents->where('purpose', 'like', "%{$keys['purpose']}%");}
-                if(array_key_exists('charging', $keys)){$documents->where('charging', 'like', "%{$keys['charging']}%");}
-                if(array_key_exists('accountable', $keys)){$documents->where('accountable', 'like', "%{$keys['accountable']}%");}
-                if(array_key_exists('amount', $keys)){$documents->where('amount', 'like', "%{$keys['amount']}%");}
-
+                $filters = $documents;
                 $totalFiltered = $filters->count();
 
+                $documents = $documents->offset($start)->limit($limit)->get();
                 
 
             }

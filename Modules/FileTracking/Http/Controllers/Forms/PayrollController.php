@@ -20,21 +20,6 @@ class PayrollController extends Controller
     {
 
 
-
-        // $rows = DB::table('fts_form_payroll')
-        //             ->join('fts_documents', 'fts_form_payroll.document_id', '=', 'fts_documents.id')
-        //             ->take(20)
-        //             ->get();
-
-        // $rows = FTS_Payroll::with('document')->whereHas('document', function($q){
-        //     $q->where('series', 1616);
-        // })->take(10)->get();
-
-        //             dd($rows);
-
-
-
-
         if($request->ajax()){
 
             $columns = ['encoded', 'series', 'office', 'name', 'amount', 'particulars', 'status'];
@@ -72,30 +57,16 @@ class PayrollController extends Controller
                                                 if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
                                                 if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
                                                 if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
-
-                                            })->offset($start)->limit($limit);
+                                            });
 
                 if(array_key_exists('name', $keys)){$documents->where('name', 'like', "%{$keys['name']}%");}
                 if(array_key_exists('amount', $keys)){$documents->where('amount', 'like', "%{$keys['amount']}%");}
                 if(array_key_exists('particulars', $keys)){$documents->where('particulars', 'like', "%{$keys['particulars']}%");}
                                            
-                $documents = $documents->get();
-
-
-                // TOTAL FILTERS
-                $filters = FTS_Payroll::with('document.division.office')
-                ->whereHas('document', function($q) use($keys){
-                    if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
-                    if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
-                    if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
-                    if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
-
-                });
-                if(array_key_exists('name', $keys)){$filters->where('name', 'like', "%{$keys['name']}%");}
-                if(array_key_exists('amount', $keys)){$filters->where('amount', 'like', "%{$keys['amount']}%");}
-                if(array_key_exists('particulars', $keys)){$filters->where('particulars', 'like', "%{$keys['particulars']}%");}
-
+                $filters = $documents;
                 $totalFiltered = $filters->count();
+
+                $documents = $documents->offset($start)->limit($limit)->get();
 
             }
 

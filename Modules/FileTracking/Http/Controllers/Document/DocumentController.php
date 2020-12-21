@@ -145,7 +145,7 @@ class DocumentController extends Controller
 
                     $datas['Number'] = $cafoa->number;
                     $datas['Payee'] = $cafoa->payee;
-                    $datas['Amount'] = number_format($cafoa->amount);
+                    $datas['Amount'] = number_format(floatval($cafoa->amount));
                     $datas['Particulars'] = $cafoa->particulars;
                 break;
 
@@ -154,7 +154,7 @@ class DocumentController extends Controller
                     if(!$dv){break;}
 
                     $datas['Payee'] = $dv->payee;
-                    $datas['Amount'] = number_format($dv->amount);
+                    $datas['Amount'] = number_format(floatval($dv->amount), 2);
                     $datas['Particulars'] = $dv->particulars;
                     $datas['Code'] = $dv->code;
                     $datas['Accountable Person'] = $dv->accountable;
@@ -165,7 +165,7 @@ class DocumentController extends Controller
                     if(!$payroll){break;}
                     
                     $datas['Name'] = $payroll->name;
-                    $datas['Amount'] = number_format($payroll->amount, 2);
+                    $datas['Amount'] = number_format(floatval($payroll->amount), 2);
                     $datas['Particulars'] = $payroll->particulars;
                 break;
 

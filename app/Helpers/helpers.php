@@ -424,10 +424,18 @@ if (! function_exists('transmittal_status')) {
     * @param string
     * @return string  
     */
-    function transmittal_status($status)
+    function transmittal_status($transmittal)
     {
+
+        if($transmittal->status == 1){
+
+            if($transmittal->isExpired == true){
+                return '<span class="badge bg-danger">EXPIRED</span>';
+            }
+            
+        }
         
-        switch($status)
+        switch($transmittal->status)
         {
            
             case '1':  
@@ -474,7 +482,12 @@ if (! function_exists('dm_abort')) {
     * @return void
     */
 
-    function dm_abort($a, $b, $code = 404){
+    function dm_abort($a, $b, $code = 404, $strict = true){
+
+        if($strict == false && auth()->user()->can('godmode')){
+            return true;
+        }
+
         if($a != $b){
             return abort($code);
         }

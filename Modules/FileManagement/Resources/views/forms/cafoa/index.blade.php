@@ -14,17 +14,18 @@ Certification On Appropriations, Funds And Obligation Of Allotment
 
 @section('content')
 <div class="row">
+  <div class="col-12 mb-3">
+    @can('fms.create')
+    <a href="{{ route('fms.cafoa.create') }}" class="btn bg-gradient-primary"><i class="fal fa-plus"></i> Create New CAFOA</a>
+    @endcan
+  </div>
+</div>
+
+<div class="row">
     <div class="col-12">
         <div class="card card-default">
             <div class="card-header">
                 <h3 class="card-title mt-1">Lists</h3>
-
-                @can('fms.create')
-                <div class="card-tools">
-                   <a href="{{ route('fms.cafoa.create') }}" class="btn btn-sm bg-gradient-primary"><i class="fal fa-plus"></i> Create New CAFOA</a>
-                </div>
-                @endcan
-
             </div>
             <div class="card-body">
                 <table id="dataTables" class="table table-bordered table-striped">

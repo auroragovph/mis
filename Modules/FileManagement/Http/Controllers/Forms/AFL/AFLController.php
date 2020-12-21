@@ -39,9 +39,14 @@ class AFLController extends Controller
             return response()->json($records, 200);
         }
 
-        $employees = HR_Employee::where('division_id', Auth::user()->employee->division_id)->get();
+        if(auth()->user()->can('godmode')){
+            $employees = HR_Employee::get();
 
-        return view('filemanagement::form-afl.index', compact('employees'));
+        }else{
+            $employees = HR_Employee::where('division_id', auth()->user()->employee->division_id)->get();
+        }
+
+        return view('filemanagement::forms.afl.index', compact('employees'));
     }
 
     public function create(Request $request)
@@ -50,7 +55,7 @@ class AFLController extends Controller
         $employees = HR_Employee::whereIn('division_id', [Auth::user()->employee->division_id, 13])->get();
 
         // checking the employee division
-        dm_abort($employee->division_id, Auth::user()->employee->division_id, 403);
+        dm_abort($employee->division_id, Auth::user()->employee->division_id, 403, false);
 
 
         // setting up the sesssion
@@ -60,7 +65,7 @@ class AFLController extends Controller
 
         // dd($employees->where('division_id', config('constants.office.HRMO')));
 
-        return view('filemanagement::form-afl.create', [
+        return view('filemanagement::forms.afl.create', [
             'employee' => $employee,
             'employees' => $employees,
             'type' => $request->post('type')
@@ -135,7 +140,7 @@ class AFLController extends Controller
             'signatories' => $signatories
         ]);
 
-        return redirect(route('fms.afl.show', $document->id))->with('alert-success', 'AFL has been encoded');
+        return redirect(route('fms.afl.show', $document->id))->with('alert-success', 'Application for leave has been encoded');
 
     }
 
@@ -150,7 +155,7 @@ class AFLController extends Controller
 
         // dd($document);
 
-        return view('filemanagement::form-afl.show', compact('document'));
+        return view('filemanagement::forms.afl.show', compact('document'));
     }
 
     public function edit($id)
@@ -167,7 +172,7 @@ class AFLController extends Controller
         // setting up the sesssion
         session(['fms.document.afl.edit' => ['id' => (int)$id,'type' => $document->afl->properties['type']]]);
 
-        return view('filemanagement::form-afl.edit', [
+        return view('filemanagement::forms.afl.edit', [
             'document' => $document,
             'type' => $document->afl->properties['type'],
             'employee' => $document->afl->employee,
@@ -245,5 +250,19 @@ class AFLController extends Controller
 
 
         
+    }
+
+    public function print($id)
+    {
+        $document = FMS_Document::with(
+            'attachments',
+            'afl.employee',
+            'afl.hr',
+            'afl.approval'
+        )->findOrFail($id);
+
+        // dd($document);
+
+        return view('filemanagement::forms.afl.print', compact('document'));
     }
 }

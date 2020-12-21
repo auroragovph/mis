@@ -41,7 +41,7 @@ class CafoaController extends Controller
 
            
         }
-        return view('filemanagement::form-cafoa.index');
+        return view('filemanagement::forms.cafoa.index');
     }
 
     public function create()
@@ -52,7 +52,7 @@ class CafoaController extends Controller
         // dd($employees);
         // die;
 
-        return view('filemanagement::form-cafoa.create', [
+        return view('filemanagement::forms.cafoa.create', [
             'employees' => $employees,
             'divisions' => $divisions
         ]);
@@ -113,7 +113,7 @@ class CafoaController extends Controller
 
         // dd($document);
 
-        return view('filemanagement::form-cafoa.show', compact('document'));
+        return view('filemanagement::forms.cafoa.show', compact('document'));
     }
 
     public function edit($id)
@@ -137,7 +137,7 @@ class CafoaController extends Controller
 
         // dd($document);
 
-        return view('filemanagement::form-cafoa.edit', [
+        return view('filemanagement::forms.cafoa.edit', [
             'document' => $document,
             'employees' => $employees
         ]);
@@ -192,5 +192,10 @@ class CafoaController extends Controller
         $cafoa->save();
 
         return redirect(route('fms.cafoa.show', $id))->with('alert-success', 'CAFOA has been updated.');
+    }
+
+    public function print($id)
+    {
+        return view('filemanagement::forms.cafoa.print');
     }
 }

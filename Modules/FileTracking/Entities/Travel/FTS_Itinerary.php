@@ -4,6 +4,7 @@ namespace Modules\FileTracking\Entities\Travel;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Modules\FileTracking\Entities\Document\FTS_Document;
 
 class FTS_Itinerary extends Model
 {
@@ -16,4 +17,9 @@ class FTS_Itinerary extends Model
     protected static $logUnguarded = true;
     protected static $logName = 'fts';
     protected static $logOnlyDirty = true;
+
+    public function document()
+    {
+        return $this->belongsTo(FTS_Document::class, 'document_id', 'id');
+    }
 }

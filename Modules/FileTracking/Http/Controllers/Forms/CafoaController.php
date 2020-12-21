@@ -54,31 +54,19 @@ class CafoaController extends Controller
                                                 if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
                                                 if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
                                                 if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
-                                            })->offset($start)->limit($limit);
-
-                if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
-                if(array_key_exists('payee', $keys)){$documents->where('number', 'like', "%{$keys['payee']}%");}
-                if(array_key_exists('amount', $keys)){$documents->where('number', 'like', "%{$keys['amount']}%");}
-                if(array_key_exists('particulars', $keys)){$documents->where('number', 'like', "%{$keys['particulars']}%");}
-                                           
-                $documents = $documents->get();
-
-
-                // TOTAL FILTERS
-                $filters = FTS_Cafoa::with('document.division.office')
-                ->whereHas('document', function($q) use($keys){
-                    if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
-                    if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
-                    if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
-                    if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
-                });
+                                            });
 
                 if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
                 if(array_key_exists('payee', $keys)){$documents->where('number', 'like', "%{$keys['payee']}%");}
                 if(array_key_exists('amount', $keys)){$documents->where('number', 'like', "%{$keys['amount']}%");}
                 if(array_key_exists('particulars', $keys)){$documents->where('number', 'like', "%{$keys['particulars']}%");}
 
+                $filters = $documents;
                 $totalFiltered = $filters->count();
+
+                $documents = $documents->offset($start)->limit($limit)->get();
+                                           
+              
             }
 
             $records = array();

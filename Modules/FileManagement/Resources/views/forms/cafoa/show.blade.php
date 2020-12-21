@@ -14,11 +14,26 @@
 @endsection
 
 @section('content')
-
 <div class="row">
-    <x-fms-qr size="sm-4" :document="$document" />
+    <div class="col-12 mb-3">
+        <button type="button" class="btn bg-navy dropdown-toggle dropdown-icon" data-toggle="dropdown">
+            <span class="sr-only">Toggle Dropdown</span> Action
+        </button>
+        <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item" href="{{ route('fms.cafoa.edit', $document->id) }}"><i class="fal fa-edit"></i> Edit</a>
+            @if($document->status != 0)
+            <a class="dropdown-item" href="{{ route('fms.documents.cancel', $document->id) }}"><i class="fal fa-ban"></i> Cancel</a>
+            @endif
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" target="_blank" href="{{ route('fms.cafoa.print', $document->id) }}"><i class="fal fa-print"></i> Print</a>
+            <a class="dropdown-item" href="{{ route('fms.documents.attach.form', $document->id) }}"><i class="fal fa-paperclip"></i> Attach</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <x-fms-qr size="sm-3" :document="$document" />
 
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <div class="row">
 
             <div class="col-md-12">
@@ -28,22 +43,6 @@
                     <div class="card-header">
                         <h3 class="font-weight-bold mt-2 card-title">CAFOA Details</h3>
         
-                        <div class="card-tools">
-                        
-                            <button type="button" class="btn bg-navy dropdown-toggle dropdown-icon btn-sm" data-toggle="dropdown">
-                                <span class="sr-only">Toggle Dropdown</span> Action
-                            </button>
-                            <div class="dropdown-menu" role="menu">
-                                <a class="dropdown-item" href="{{ route('fms.cafoa.edit', $document->id) }}"><i class="fal fa-edit"></i> Edit</a>
-                                @if($document->status != 0)
-                                <a class="dropdown-item" href="{{ route('fms.documents.cancel', $document->id) }}"><i class="fal fa-ban"></i> Cancel</a>
-                                @endif
-                                <div class="dropdown-divider"></div>
-                                {{-- <a class="dropdown-item" target="_blank" href="{{ route('fms.obr.print', $document->id) }}"><i class="fal fa-print"></i> Print</a> --}}
-                                <a class="dropdown-item" href="{{ route('fms.documents.attach.form', $document->id) }}"><i class="fal fa-paperclip"></i> Attach</a>
-                            </div>
-                            
-                        </div>
                     </div>
                     <!--begin::Body-->
                     <div class="card-body">

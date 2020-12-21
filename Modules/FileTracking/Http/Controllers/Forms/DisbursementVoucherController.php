@@ -19,38 +19,97 @@ class DisbursementVoucherController extends Controller
     {
         if($request->ajax()){
 
-            $documents = FTS_Document::with('dv', 'division')
-                            ->whereHas('dv')
-                            ->where('type', config('constants.document.type.disbursement'))
-                            ->get();
+            $columns = ['encoded', 'series', 'office', 
+                            'payee', 'amount', 'particulars', 'code', 'accountable',
+                        'status'];
 
-            $records['data'] = array();
+            $totalData = FTS_DisbursementVoucher::count();
+            $totalFiltered = $totalData;
 
-            foreach($documents as $i => $document){
+            $limit = $request->input('length');
+            $start = $request->input('start');
+            $order = $columns[$request->input('order.0.column')];
+            $dir = $request->input('order.0.dir');
 
-                $records['data'][$i]['id'] = $document->id;
-                $records['data'][$i]['encoded'] = $document->encoded;
-                $records['data'][$i]['series'] = $document->seriesFull;
-                $records['data'][$i]['office'] = office_helper($document->division);
-                $records['data'][$i]['status'] = show_status($document->status);
+            
+            if($request->input('search.value') !== 'MODAL_SEARCH'){
+                $documents = FTS_DisbursementVoucher::with('document.division.office')
+                                        ->whereHas('document')
+                                        ->offset($start)
+                                        ->limit($limit)
+                                        ->get();
+            }else{
 
+                $columns = $request->input('columns');
+                $keys = [];
+                foreach($columns as $column){
+                    if($column['search']['value'] !== null){
+                        $keys[$column['data']] = $column['search']['value'];
+                        
+                    }
+                }
 
-                $records['data'][$i]['payee'] = $document->dv->payee;
-                $records['data'][$i]['amount'] = number_format($document->dv->amount, 2);
-                $records['data'][$i]['particulars'] = $document->dv->particulars;
-                $records['data'][$i]['code'] = $document->dv->code;
-                $records['data'][$i]['accountable'] = $document->dv->accountable;
+                // SEARCHING
+                $documents = FTS_DisbursementVoucher::with('document.division.office')
+                                            ->whereHas('document', function($q) use($keys){
+                                                if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
+                                                if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
+                                                if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
+                                                if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
+                                            });
 
-                $action =  fts_action_button($document->series, [
-                    'route' => 'fts.dv.edit',
-                    'id' => $document->id
-                ]);
+                if(array_key_exists('payee', $keys)){$documents->where('payee', 'like', "%{$keys['payee']}%");}
+                if(array_key_exists('amount', $keys)){$documents->where('amount', 'like', "%{$keys['amount']}%");}
+                if(array_key_exists('particulars', $keys)){$documents->where('particulars', 'like', "%{$keys['particulars']}%");}
+                if(array_key_exists('code', $keys)){$documents->where('code', 'like', "%{$keys['code']}%");}
+                if(array_key_exists('accountable', $keys)){$documents->where('accountable', 'like', "%{$keys['accountable']}%");}
+                                         
+                $filters = $documents;
+                $totalFiltered = $filters->count();
 
+                $documents = $documents->offset($start)->limit($limit)->get();
 
-                $records['data'][$i]['action'] = $action;
             }
 
-            return response()->json($records, 200);
+            $records = array();
+
+            foreach($documents as $i => $dv){
+
+                array_push($records, [
+                    
+                    'id' => $dv->document->id,
+                    'encoded' => $dv->document->encoded,
+                    'series' => $dv->document->seriesFull ,
+                    'office' => office_helper($dv->document->division),
+                    'status' => show_status($dv->document->status),
+
+                    'payee' => $dv->payee,
+                    'amount' => number_format(floatval($dv->amount), 2),
+                    'particulars' => $dv->particulars,
+                    'code' => $dv->code,
+                    'accountable' => $dv->accountable,
+
+
+                    'action' => fts_action_button($dv->document->series, [
+                        'route' => 'fts.dv.edit',
+                        'id' => $dv->id
+                    ])
+                ]);
+            }
+
+            $records = collect($records);
+
+            // sorting
+            $records = ($dir == 'asc') ? $records->sortBy($order) : $records->sortByDesc($order);
+
+            // $totalFiltered= $records->count();
+
+            return response()->json([
+                "draw"            => intval($request->input('draw')),  
+                "recordsTotal"    => intval($totalData),  
+                "recordsFiltered" => intval($totalFiltered), 
+                "data"            => $records->values()->toArray() ?? [] 
+            ]);
 
 
         }
@@ -79,7 +138,7 @@ class DisbursementVoucherController extends Controller
             // saving the activity logs
             activity('fts')
             ->withProperties([
-                'agent' => user_agent()
+                'agent' => user_agent()   
             ])
             ->log('Tried to store disbursement voucher document but failed. Reason: You dont have the permissions to execute this command.');
 

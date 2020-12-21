@@ -19,40 +19,95 @@ class ItineraryController extends Controller
     {
         if($request->ajax()){
 
-            $documents = FTS_Document::with('itinerary', 'division')
-                            ->whereHas('itinerary')
-                            ->where('type', config('constants.document.type.travel.itinerary'))
-                            ->get();
+            $columns = ['encoded', 'series', 'office', 
+                            'name', 'position', 'destination', 'amount', 'purpose',
+                        'status'];
 
-            $records['data'] = array();
+            $totalData = FTS_Itinerary::count();
+            $totalFiltered = $totalData;
 
-            foreach($documents as $i => $document){
+            $limit = $request->input('length');
+            $start = $request->input('start');
+            $order = $columns[$request->input('order.0.column')];
+            $dir = $request->input('order.0.dir');
 
-                $records['data'][$i]['id'] = $document->id;
-                $records['data'][$i]['encoded'] = $document->encoded;
-                $records['data'][$i]['series'] = $document->seriesFull;
-                $records['data'][$i]['office'] = office_helper($document->division);
-                $records['data'][$i]['status'] = show_status($document->status);
+            if($request->input('search.value') !== 'MODAL_SEARCH'){
+                $documents = FTS_Itinerary::with('document.division.office')
+                                        ->whereHas('document')
+                                        ->offset($start)
+                                        ->limit($limit)
+                                        ->get();
+            }else{
 
+                $columns = $request->input('columns');
+                $keys = [];
+                foreach($columns as $column){
+                    if($column['search']['value'] !== null){
+                        $keys[$column['data']] = $column['search']['value'];
+                        
+                    }
+                }
 
-                $records['data'][$i]['name'] = $document->itinerary->name;
-                $records['data'][$i]['position'] = $document->itinerary->position;
-                $records['data'][$i]['destination'] = $document->itinerary->destination;
-                $records['data'][$i]['amount'] = number_format($document->itinerary->amount, 2);
-                $records['data'][$i]['purpose'] = $document->itinerary->purpose;
+                // SEARCHING
+                $documents = FTS_Itinerary::with('document.division.office')
+                                            ->whereHas('document', function($q) use($keys){
+                                                if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
+                                                if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
+                                                if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
+                                                if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
+                                            });
 
+                if(array_key_exists('name', $keys)){$documents->where('name', 'like', "%{$keys['name']}%");}
+                if(array_key_exists('position', $keys)){$documents->where('position', 'like', "%{$keys['position']}%");}
+                if(array_key_exists('destination', $keys)){$documents->where('destination', 'like', "%{$keys['destination']}%");}
+                if(array_key_exists('amount', $keys)){$documents->where('amount', 'like', "%{$keys['amount']}%");}
+                if(array_key_exists('purpose', $keys)){$documents->where('purpose', 'like', "%{$keys['purpose']}%");}
 
+                $filters = $documents;
+                $totalFiltered = $filters->count();
 
-                $action =  fts_action_button($document->series, [
-                    'route' => 'fts.travel.itinerary.edit',
-                    'id' => $document->id
-                ]);
+                $documents = $documents->offset($start)->limit($limit)->get();
 
-
-                $records['data'][$i]['action'] = $action;
             }
 
-            return response()->json($records, 200);
+            $records = array();
+
+            foreach($documents as $i => $iot){
+
+                array_push($records, [
+                    
+                    'id' => $iot->document->id,
+                    'encoded' => $iot->document->encoded,
+                    'series' => $iot->document->seriesFull ,
+                    'office' => office_helper($iot->document->division),
+                    'status' => show_status($iot->document->status),
+
+                    'name' => $iot->name,
+                    'position' => $iot->position,
+                    'destination' => $iot->destination,
+                    'amount' => $iot->amount,
+                    'purpose' => $iot->purpose,
+
+                    'action' => fts_action_button($iot->document->series, [
+                        'route' => 'fts.travel.itinerary.edit',
+                        'id' => $iot->document->id
+                    ])
+                ]);
+            }
+
+            $records = collect($records);
+
+            // sorting
+            $records = ($dir == 'asc') ? $records->sortBy($order) : $records->sortByDesc($order);
+
+            // $totalFiltered= $records->count();
+
+            return response()->json([
+                "draw"            => intval($request->input('draw')),  
+                "recordsTotal"    => intval($totalData),  
+                "recordsFiltered" => intval($totalFiltered), 
+                "data"            => $records->values()->toArray() ?? [] 
+            ]);
 
 
         }
@@ -65,12 +120,14 @@ class ItineraryController extends Controller
 
         }
 
+        $attachment = 'ABCD';
+
         return view('filetracking::forms.travel.itinerary.index',[
             'divisions' => $divisions ?? null,
             'qrs' => $qrs ?? null,
             'liaisons' => $liaisons ?? null,
+            'attachment' => $attachment,
             'attachments' => $attachments ?? null,
-
         ]);
     }
 

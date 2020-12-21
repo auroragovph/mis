@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Modules\FileTracking\Entities\Document\FTS_Document;
+use Modules\FileTracking\Entities\FTS_Payroll;
 use Modules\System\Entities\SYS_User;
 use Modules\HumanResource\Entities\HR_Employee;
 
@@ -23,46 +25,10 @@ class DevController extends Controller
     {
         $timer = microtime(true);
 
-        $name = [
-            'fname' => "RICARDO",
-            'lname' => "DALISAY",
-            'mname' => "DE LEON",
-            'sname' => null,
-            'title' => null
-        ];
-
-        $info = [
-            'gender' => 1,
-            'birthday' => "2020-01-01",
-            'address' => "12345",
-            'civilStatus' => "Single",
-            'phoneNumber' => null
-        ];
-
-        $employment = [
-            'type' => 1,
-            'status' => 1,
-            'leave' => [
-                'vacation' => 0,
-                'sick' => 0
-            ]
-        ];
-
-        $employee = HR_Employee::insert([
-            'division_id' => 1,
-            'position_id' => 1,
-            'name' => $name,
-            'info' => $info,
-            'employment' => $employment,
-            'card' => '1',
-            'liaison' => false
-        ]);
-
-        // $employee = HR_Employee::find(181);
-
-        dd($employee);
+        $doc = FTS_Document::whereHas('payroll')->update(['type' => 700]);
 
 
+       
         echo 'TOTAL TIME EXECUTION: '.(microtime(true) - $timer);
     }
 

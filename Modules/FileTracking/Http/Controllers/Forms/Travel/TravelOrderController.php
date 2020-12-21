@@ -4,7 +4,9 @@ namespace Modules\FileTracking\Http\Controllers\Forms\Travel;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Modules\FileTracking\Entities\FTS_AFL;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Document\FTS_DA;
@@ -58,7 +60,7 @@ class TravelOrderController extends Controller
                                                 if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
                                                 if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
 
-                                            })->offset($start)->limit($limit);
+                                            });
 
                 if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
                 if(array_key_exists('employees', $keys)){$documents->where('employees', 'like', "%{$keys['employees']}%");}
@@ -67,27 +69,10 @@ class TravelOrderController extends Controller
                 if(array_key_exists('arrival', $keys)){$documents->where('arrival', 'like', "%{$keys['arrival']}%");}
                 if(array_key_exists('purpose', $keys)){$documents->where('purpose', 'like', "%{$keys['purpose']}%");}
                                            
-                $documents = $documents->get();
-
-
-                // TOTAL FILTERS
-                $filters = FTS_TravelOrder::with('document.division.office')
-                ->whereHas('document', function($q) use($keys){
-                    if(array_key_exists('encoded', $keys)){$q->where('created_at', $keys['created_at']);}
-                    if(array_key_exists('series', $keys)){$q->where('series', fts_series($keys['series']));}
-                    if(array_key_exists('office', $keys)){$q->where('division_id', $keys['office']);}
-                    if(array_key_exists('status', $keys)){$q->where('status', $keys['status']);}
-
-                });
-                if(array_key_exists('number', $keys)){$documents->where('number', 'like', "%{$keys['number']}%");}
-                if(array_key_exists('employees', $keys)){$documents->where('employees', 'like', "%{$keys['employees']}%");}
-                if(array_key_exists('destination', $keys)){$documents->where('destination', 'like', "%{$keys['destination']}%");}
-                if(array_key_exists('departure', $keys)){$documents->where('departure', 'like', "%{$keys['departure']}%");}
-                if(array_key_exists('arrival', $keys)){$documents->where('arrival', 'like', "%{$keys['arrival']}%");}
-                if(array_key_exists('purpose', $keys)){$documents->where('purpose', 'like', "%{$keys['purpose']}%");}
-
+                $filters = $documents;
                 $totalFiltered = $filters->count();
 
+                $documents = $documents->offset($start)->limit($limit)->get();
             }
 
             $records = array();

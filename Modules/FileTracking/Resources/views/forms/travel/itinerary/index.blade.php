@@ -22,7 +22,11 @@
                 <h3 class="card-title mt-1">Lists</h3>
                 @can('fms.create')
                   <div class="card-tools">
-                    {{-- <a href="{{ route('fms.procurement.request.create') }}" class="btn btn-sm bg-gradient-primary"><i class="fal fa-plus"></i> Create New Purchase Request</a> --}}
+
+                    <button type="button" class="btn btn-sm bg-gradient-navy" data-toggle="modal" data-target="#modal-search">
+                      <i class="fal fa-search"></i> Search Generator
+                     </button>
+
                     <button type="button" class="btn btn-sm bg-gradient-primary" data-toggle="modal" data-target="#modal-create">
                       <i class="fal fa-plus"></i> Create New Itinerary
                     </button>
@@ -42,7 +46,6 @@
                       <th>Destination</th>
                       <th>Amount</th>
                       <th>Purpose</th>
-
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -57,6 +60,10 @@
 
 @includeWhen(auth()->user()->can('fts.document.create'), 'filetracking::forms.travel.itinerary.create')
 
+
+@include('filetracking::forms.search', [
+  'forms' => 'filetracking::forms.travel.itinerary.search'
+])
 
 @endsection
 
@@ -95,95 +102,5 @@
 @endsection
 
 @section('js-custom')
-<script>
-    $(function () {
-      $(".select2").select2({
-        placeholder: "Select from list"
-      });
-
-      $(".select2-tags").select2({tags: true});
-
-
-      var dt = $("#dataTables").DataTable({
-        processing: true,
-        ajax: "{{ route('fts.travel.itinerary.index') }}",
-        columns: [
-          { data: 'encoded' },
-          { data: 'series' },
-          { data: 'office' },
-
-          { data: 'name' },
-          { data: 'position' },
-          { data: 'destination' },
-          { data: 'amount' },
-          { data: 'purpose' },
-          
-          { data: 'status' },
-          { 
-            data: 'action',
-            searchable: false,
-            orderable: false
-          },
-        ],
-        "responsive": true,
-        "autoWidth": false,
-      });
-
-
-
-      $("#form-create").submit(function(e) {
-
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-
-        var form = $(this);
-        var url = form.attr('action');
-
-
-        // add whirl traditional
-        $(".modal-content").addClass("whirl traditional");
-
-        $.post(url, form.serialize(), function(data){
-
-          dt.ajax.reload();
-
-          $('#modal-create').modal('hide');
-          form.trigger('reset');
-
-          $(".select2").select2({
-            placeholder: "Select from list"
-          });
-
-          $(".select2-tags").select2({tags: true});
-  
-
-          window.open(data.receipt, '_blank');
-
-
-          Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: data.message
-          });
-
-
-
-        }).fail(function(data){
-
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: data.responseJSON.message
-          });
-          
-        }).always(function(){
-
-          $(".modal-content").removeClass("whirl");
-          $(".modal-content").removeClass("traditional");
-
-        });
-
-
-      });
-    });
-</script>
+<script src="{{ asset('js/filetracking/form-iot-create.js') }}"></script>
 @endsection

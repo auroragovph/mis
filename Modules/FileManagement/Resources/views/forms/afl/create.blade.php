@@ -49,13 +49,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Position</label>
-                            <input type="text" class="form-control" value="{{ $employee->position->position }}" readonly>
+                            <input type="text" class="form-control" value="{{ $employee->position->position ?? '' }}" readonly>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Salary</label>
-                            <input type="text" class="form-control" value="{{ number_format($employee->position->salary_grade->step1, 2) }}" readonly>
+                            <input type="text" class="form-control" value="{{ number_format($employee->position->salary_grade->step1 ?? 0, 2) }}" readonly>
                         </div>
                     </div>
                 </div>
@@ -231,7 +231,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="">Approval</label>
-                        <select name="approval" class="form-control select2">
+                        <select name="approval" class="form-control select2" required>
                             <option value=""></option>
                             <?php $approvals = $employees->where('division_id', Auth::user()->employee->division_id); ?>
                             @foreach($approvals as $approval)
@@ -241,7 +241,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="">HR Officer</label>
-                        <select name="hr" class="form-control select2">
+                        <select name="hr" class="form-control select2" required>
                             <?php $hrs = $employees->where('division_id', config('constants.office.HRMO')) ?>
                             <option value=""></option>
                             @foreach($hrs as $hr)
@@ -255,7 +255,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
-                       <select name="liaison" id="" class="form-control select2">
+                       <select name="liaison" id="" class="form-control select2" required>
                             <option value=""></option>
                             <?php $liaisons = $employees->where('division_id', Auth::user()->employee->division_id)->where('liaison', true); ?>
                             @foreach($liaisons as $liaison)

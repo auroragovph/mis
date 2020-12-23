@@ -3739,7 +3739,7 @@ window.Cropper = __webpack_require__(/*! cropperjs/dist/cropper.js */ "./node_mo
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\cropper\cropper.js */"./resources/plugins/custom/cropper/cropper.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/cropper/cropper.js */"./resources/plugins/custom/cropper/cropper.js");
 
 
 /***/ })

@@ -122,7 +122,7 @@ window.BalloonEditor = __webpack_require__(/*! @ckeditor/ckeditor5-build-balloon
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\ckeditor\ckeditor-balloon.js */"./resources/plugins/custom/ckeditor/ckeditor-balloon.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/ckeditor/ckeditor-balloon.js */"./resources/plugins/custom/ckeditor/ckeditor-balloon.js");
 
 
 /***/ })

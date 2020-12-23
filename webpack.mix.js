@@ -62,6 +62,22 @@ mix.sass('resources/metronic/sass/style.scss', 'public/css/style.bundle.css', {
     mix.js(file, `public/${file.replace('resources/metronic/', '')}`);
 });
 
+
+
+// INDIVIDUAL MODULES
+
+// SYSTEM SCSS
+(glob.sync('Modules/System/Resources/assets/sass/**/!(_)*.scss') || []).forEach(file => {
+    file = file.replace(/[\\\/]+/g, '/');
+    mix.sass(file, file.replace('Modules/System/Resources/assets/sass/', 'public/css/system/').replace(/\.scss$/, '.css'));
+});
+
+// SYSTEM JS
+(glob.sync('Modules/System/Resources/assets/js/**/*.js') || []).forEach(file => {
+    mix.js(file, `public/js/system/${file.replace('Modules/System/Resources/assets/', '')}`);
+});
+
+
 // Metronic media
 mix.copyDirectory('resources/metronic/media', 'public/media');
 

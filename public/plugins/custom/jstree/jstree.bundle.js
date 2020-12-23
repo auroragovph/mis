@@ -26473,7 +26473,7 @@ __webpack_require__(/*! jstree/dist/jstree.js */ "./node_modules/jstree/dist/jst
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\jstree\jstree.js */"./resources/plugins/custom/jstree/jstree.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/jstree/jstree.js */"./resources/plugins/custom/jstree/jstree.js");
 
 
 /***/ })

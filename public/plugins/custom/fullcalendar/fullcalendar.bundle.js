@@ -25095,7 +25095,7 @@ window.FullCalendarTimeGrid = __webpack_require__(/*! @fullcalendar/timegrid/mai
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\fullcalendar\fullcalendar.js */"./resources/plugins/custom/fullcalendar/fullcalendar.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/fullcalendar/fullcalendar.js */"./resources/plugins/custom/fullcalendar/fullcalendar.js");
 
 
 /***/ })

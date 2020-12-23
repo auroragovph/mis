@@ -654,7 +654,7 @@ jQuery(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\metronic\js\pages\custom\inbox\inbox.js */"./resources/metronic/js/pages/custom/inbox/inbox.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/metronic/js/pages/custom/inbox/inbox.js */"./resources/metronic/js/pages/custom/inbox/inbox.js");
 
 
 /***/ })

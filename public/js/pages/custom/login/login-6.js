@@ -152,7 +152,7 @@ var KTLogin = function () {
             }).then(function(response) { // Return valid JSON
       	// Release button
       	KTUtil.btnRelease(formSubmitButton);
-      			if (response && typeof response === 'object' && response.status && response.status == 'success') {
+      		if (response && typeof response === 'object' && response.status && response.status == 'success') {
       		Swal.fire({
                      text: "All is cool! Now you submit this form",
                      icon: "success",
@@ -403,7 +403,7 @@ jQuery(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\metronic\js\pages\custom\login\login-6.js */"./resources/metronic/js/pages/custom/login/login-6.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/metronic/js/pages/custom/login/login-6.js */"./resources/metronic/js/pages/custom/login/login-6.js");
 
 
 /***/ })

@@ -149,7 +149,7 @@ window.Uppy = __webpack_require__(/*! uppy/dist/uppy.min.js */ "./node_modules/u
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\uppy\uppy.js */"./resources/plugins/custom/uppy/uppy.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/uppy/uppy.js */"./resources/plugins/custom/uppy/uppy.js");
 
 
 /***/ })

@@ -2529,7 +2529,7 @@ window.GMaps = __webpack_require__(/*! gmaps/gmaps.js */ "./node_modules/gmaps/g
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\gmaps\gmaps.js */"./resources/plugins/custom/gmaps/gmaps.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/gmaps/gmaps.js */"./resources/plugins/custom/gmaps/gmaps.js");
 
 
 /***/ })

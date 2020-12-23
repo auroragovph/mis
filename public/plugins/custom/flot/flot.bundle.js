@@ -1879,7 +1879,7 @@ __webpack_require__(/*! flot/source/jquery.flot.axislabels.js */ "./node_modules
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\flot\flot.js */"./resources/plugins/custom/flot/flot.js");
+module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/flot/flot.js */"./resources/plugins/custom/flot/flot.js");
 
 
 /***/ })

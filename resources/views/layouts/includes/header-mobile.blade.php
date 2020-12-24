@@ -2,7 +2,7 @@
 <div id="kt_header_mobile" class="header-mobile">
     <!--begin::Logo-->
     <a href="index.html">
-        <img alt="Logo" src="{{ asset('media/logos/logo-default.png') }}" class="max-h-30px" />
+        <img alt="Logo" src="{{ asset('media/logos/logo-header.png') }}" class="max-h-30px" />
     </a>
     <!--end::Logo-->
     <!--begin::Toolbar-->

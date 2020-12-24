@@ -18,8 +18,10 @@ Divisions
             </g>
         </svg>
         <!--end::Svg Icon-->
-    </span>New Record</button>
-    <!--end::Button-->
+    </span>
+    New Record
+</button>
+<!--end::Button-->
 @endsection
 
 @section('content')

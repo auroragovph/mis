@@ -46702,7 +46702,7 @@ __webpack_require__(/*! tinymce/themes/mobile/theme.js */ "./node_modules/tinymc
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/tinymce/tinymce.js */"./resources/plugins/custom/tinymce/tinymce.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\tinymce\tinymce.js */"./resources/plugins/custom/tinymce/tinymce.js");
 
 
 /***/ })

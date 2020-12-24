@@ -21,7 +21,7 @@
                         <input name="alias" type="text" class="form-control" placeholder="Enter alias" />
                     </div>
                     <div class="form-group">
-                        <label>Office Name</label>
+                        <label>Office</label>
                         <select class="form-control select2" id="kt_select2" name="office" data-api="{{ route('sys.office.index') }}">
                             <option label="Label"></option>
                         </select>

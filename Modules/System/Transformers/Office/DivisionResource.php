@@ -14,6 +14,13 @@ class DivisionResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($request->header('X-Select2')){
+            return [
+                'id' => $this->id,
+                'text' => office_helper($this)
+            ];
+        }
+        
         return [
             'id' => $this->id,
             'name' => $this->name,

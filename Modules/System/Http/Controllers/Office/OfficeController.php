@@ -5,22 +5,41 @@ namespace Modules\System\Http\Controllers\Office;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\System\Entities\Office\SYS_Office;
+use Modules\HumanResource\Entities\HR_Plantilla;
 use Modules\System\Entities\Office\SYS_Division;
-use Modules\System\Http\Requests\Office\OfficeStoreRequest;
 use Modules\System\Transformers\Office\OfficeResource;
+use Modules\System\Http\Requests\Office\OfficeStoreRequest;
 
 class OfficeController extends Controller
 {
+    public function dev()
+    {
+        $file = storage_path('app/seeds/hrm/plantilla.json');
+        $plantilla = collect(json_decode(file_get_contents($file), true));
+
+        $datas = $plantilla->chunk(10);
+
+        // dd($datas);
+
+        foreach($datas as $data){
+            HR_Plantilla::insert($data->toArray());
+        }
+
+        // HR_Plantilla::insert($datas);
+
+
+        // HR_Plantilla::insert($plantilla->toArray());
+    }
     public function index(Request $request)
     {
+        // return $this->dev();
 
         if($request->ajax()){
 
 
             if($request->has('search')){
                 $q = $request->get('search');
-                $datas = SYS_Office::where('name', $q)->orWhere('alias', $q)->get();
-                
+                $datas = SYS_Office::where('name', 'like', '%'.$q.'%')->orWhere('alias', 'like', '%'.$q.'%')->get();
             }else{
                 $datas = SYS_Office::with('divisions')->get();
             }
@@ -35,12 +54,8 @@ class OfficeController extends Controller
     public function store(OfficeStoreRequest $request)
     {
         $office = SYS_Office::create([
-            "name" => $request->name,
-            "alias" => $request->alias,
-        ]);
-
-        $division = SYS_Division::create([
-            "office_id" => $office->id
+            "name" => $request->post('name'),
+            "alias" => $request->post('alias'),
         ]);
 
         return redirect(route('sys.office.index'))->with('alert-success', 'Office has been created.');

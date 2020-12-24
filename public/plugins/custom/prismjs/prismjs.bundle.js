@@ -2067,7 +2067,7 @@ __webpack_require__(/*! ../../../metronic/js/vendors/plugins/prism.init.js */ ".
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/prismjs/prismjs.js */"./resources/plugins/custom/prismjs/prismjs.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\prismjs\prismjs.js */"./resources/plugins/custom/prismjs/prismjs.js");
 
 
 /***/ })

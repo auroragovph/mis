@@ -20,4 +20,4 @@
 @section('css-custom')
 @show
 
-<link rel="shortcut icon" href="{{ asset('media/logos/favicon.ico') }}" />
+<link rel="shortcut icon" href="{{ asset('media/logos/favicon.png') }}" />

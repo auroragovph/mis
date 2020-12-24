@@ -42,7 +42,7 @@
         <!--end::Main-->
         
 		@include('layouts.panels.user')
-		@include('layouts.panels.chat')
+		{{-- @include('layouts.panels.chat') --}}
 		@include('layouts.panels.scrolltop')
 		@include('layouts.includes.js')
 	</body>

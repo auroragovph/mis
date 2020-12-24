@@ -1472,7 +1472,7 @@ __webpack_require__(/*! jqvmap/dist/maps/jquery.vmap.europe.js */ "./node_module
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/jqvmap/jqvmap.js */"./resources/plugins/custom/jqvmap/jqvmap.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\jqvmap\jqvmap.js */"./resources/plugins/custom/jqvmap/jqvmap.js");
 
 
 /***/ })

@@ -71,10 +71,19 @@ mix.sass('resources/metronic/sass/style.scss', 'public/css/style.bundle.css', {
     file = file.replace(/[\\\/]+/g, '/');
     mix.sass(file, file.replace('Modules/System/Resources/assets/sass/', 'public/css/system/').replace(/\.scss$/, '.css'));
 });
-
 // SYSTEM JS
 (glob.sync('Modules/System/Resources/assets/js/**/*.js') || []).forEach(file => {
     mix.js(file, `public/js/system/${file.replace('Modules/System/Resources/assets/', '')}`);
+});
+
+// HUMAN RESOURCE SCSS
+(glob.sync('Modules/HumanResource/Resources/assets/sass/**/!(_)*.scss') || []).forEach(file => {
+    file = file.replace(/[\\\/]+/g, '/');
+    mix.sass(file, file.replace('Modules/HumanResource/Resources/assets/sass/', 'public/css/humanresource/').replace(/\.scss$/, '.css'));
+});
+// HUMAN RESOURCE JS
+(glob.sync('Modules/HumanResource/Resources/assets/js/**/*.js') || []).forEach(file => {
+    mix.js(file, `public/js/humanresource/${file.replace('Modules/HumanResource/Resources/assets/js/', '')}`);
 });
 
 

@@ -165,32 +165,23 @@ var KTFormCreate = function(){
                     url: $("#kt_select2").data('api'),
                     dataType: 'json',
                     delay: 250,
+                    headers: {
+                        "X-Select2" : "true2"
+                    },
                     data: function(params) {
                         return {
-                            search: params.term, // search term
-                            page: params.page
+                            search: params.term,
                         };
                     },
-                    processResults: function(data, params) {
-                        // parse the results into the format expected by Select2
-                        // since we are using custom formatting functions we do not need to
-                        // alter the remote JSON data, except to indicate that infinite
-                        // scrolling can be used
-                        params.page = params.page || 1;
-
-                        return {
-                            results: data.items,
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
-                        };
+                    processResults: function(data, page) {
+                        return { results: data.data };
                     },
                     cache: true
                 },
                 escapeMarkup: function(markup) {
                     return markup;
                 }, // let our custom formatter work
-                minimumInputLength: 3
+                minimumInputLength: 2
             });
 
         });

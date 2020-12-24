@@ -1890,7 +1890,7 @@ __webpack_require__(/*! jkanban/dist/jkanban.js */ "./node_modules/jkanban/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/kanban/kanban.js */"./resources/plugins/custom/kanban/kanban.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\kanban\kanban.js */"./resources/plugins/custom/kanban/kanban.js");
 
 
 /***/ })

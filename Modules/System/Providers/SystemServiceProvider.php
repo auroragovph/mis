@@ -4,6 +4,7 @@ namespace Modules\System\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\System\Entities\Office\SYS_Office;
 
 class SystemServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ class SystemServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerObservers();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -53,6 +55,16 @@ class SystemServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
         );
+    }
+
+    /**
+     * Register Observers.
+     *
+     * @return void
+     */
+    public function registerObservers()
+    {
+        SYS_Office::observe(\Modules\System\Observers\Office\OfficeObserver::class);
     }
 
     /**

@@ -122,7 +122,7 @@ window.DecoupledEditor = __webpack_require__(/*! @ckeditor/ckeditor5-build-decou
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/ckeditor/ckeditor-document.js */"./resources/plugins/custom/ckeditor/ckeditor-document.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\ckeditor\ckeditor-document.js */"./resources/plugins/custom/ckeditor/ckeditor-document.js");
 
 
 /***/ })

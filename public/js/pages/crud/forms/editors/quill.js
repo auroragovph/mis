@@ -132,7 +132,7 @@ var KTQuilDemos = function () {
         $.post('/your-endpoint', {
           partial: JSON.stringify(change)
         });
-         Send entire document
+          Send entire document
         $.post('/your-endpoint', {
           doc: JSON.stringify(quill.getContents())
         });
@@ -171,7 +171,7 @@ jQuery(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/metronic/js/pages/crud/forms/editors/quill.js */"./resources/metronic/js/pages/crud/forms/editors/quill.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\metronic\js\pages\crud\forms\editors\quill.js */"./resources/metronic/js/pages/crud/forms/editors/quill.js");
 
 
 /***/ })

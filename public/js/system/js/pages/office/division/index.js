@@ -238,24 +238,17 @@ var KTFormCreate = function () {
           url: $("#kt_select2").data('api'),
           dataType: 'json',
           delay: 250,
+          headers: {
+            "X-Select2": "true2"
+          },
           data: function data(params) {
             return {
-              search: params.term,
-              // search term
-              page: params.page
+              search: params.term
             };
           },
-          processResults: function processResults(data, params) {
-            // parse the results into the format expected by Select2
-            // since we are using custom formatting functions we do not need to
-            // alter the remote JSON data, except to indicate that infinite
-            // scrolling can be used
-            params.page = params.page || 1;
+          processResults: function processResults(data, page) {
             return {
-              results: data.items,
-              pagination: {
-                more: params.page * 30 < data.total_count
-              }
+              results: data.data
             };
           },
           cache: true
@@ -264,7 +257,7 @@ var KTFormCreate = function () {
           return markup;
         },
         // let our custom formatter work
-        minimumInputLength: 3
+        minimumInputLength: 2
       });
     });
   };
@@ -294,7 +287,7 @@ jQuery(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/Modules/System/Resources/assets/js/pages/office/division/index.js */"./Modules/System/Resources/assets/js/pages/office/division/index.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\Modules\System\Resources\assets\js\pages\office\division\index.js */"./Modules/System/Resources/assets/js/pages/office/division/index.js");
 
 
 /***/ })

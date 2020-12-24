@@ -233,7 +233,7 @@ jQuery(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/Modules/System/Resources/assets/js/pages/office/index.js */"./Modules/System/Resources/assets/js/pages/office/index.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\Modules\System\Resources\assets\js\pages\office\index.js */"./Modules/System/Resources/assets/js/pages/office/index.js");
 
 
 /***/ })

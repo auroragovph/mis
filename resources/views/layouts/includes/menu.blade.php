@@ -97,6 +97,8 @@
                     </div>
                 </li>
 
+                @include('humanresource::layouts.menu')
+
                 @include('system::layouts.menu')
                 
             </ul>

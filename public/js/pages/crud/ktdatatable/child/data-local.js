@@ -192,7 +192,7 @@ mainTableInit();}};}();jQuery(document).ready(function(){KTDatatableChildDataLoc
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/metronic/js/pages/crud/ktdatatable/child/data-local.js */"./resources/metronic/js/pages/crud/ktdatatable/child/data-local.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\metronic\js\pages\crud\ktdatatable\child\data-local.js */"./resources/metronic/js/pages/crud/ktdatatable/child/data-local.js");
 
 
 /***/ })

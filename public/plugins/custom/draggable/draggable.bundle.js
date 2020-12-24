@@ -39484,7 +39484,7 @@ __webpack_require__(/*! @shopify/draggable/lib/plugins/swap-animation.js */ "./n
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/xijeixhan/Desktop/newmis/resources/plugins/custom/draggable/draggable.js */"./resources/plugins/custom/draggable/draggable.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\mis2\resources\plugins\custom\draggable\draggable.js */"./resources/plugins/custom/draggable/draggable.js");
 
 
 /***/ })

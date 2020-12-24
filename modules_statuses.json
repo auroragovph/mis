@@ -1,4 +1,5 @@
 {
     "System": true,
-    "FileManagement": true
+    "FileManagement": true,
+    "HumanResource": true
 }

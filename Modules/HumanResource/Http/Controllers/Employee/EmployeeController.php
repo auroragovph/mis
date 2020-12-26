@@ -2,12 +2,14 @@
 
 namespace Modules\HumanResource\Http\Controllers\Employee;
 
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Contracts\Support\Renderable;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\HumanResource\Http\Requests\Employee\EmployeeStoreRequest;
+use Modules\HumanResource\Http\Requests\Employee\EmployeeUpdateRequest;
 use Modules\HumanResource\Transformers\Employee\EmployeeDTResource;
 
 class EmployeeController extends Controller
@@ -24,7 +26,7 @@ class EmployeeController extends Controller
     public function create()
     {
         $divisions = SYS_Division::with('office')->get();
-        return view('humanresource::employee.create', [
+        return view('humanresource::employee.create.index', [
             'divisions' => $divisions
         ]);
     }
@@ -69,9 +71,110 @@ class EmployeeController extends Controller
             'liaison' => ($request->has('liaison')) ? true : false
         ]);
 
-
         // creating an account
+        if($request->post('account') == 'manual'){
+            $username = $request->post('username');
+            $password = bcrypt($request->post('password'));
+        }else{
+            $username = name_to_username($this->post('firstname'), $this->post('lastname'));
+            $password = bcrypt($this->post('password'));
+        }
+
+        $account = Account::create([
+            'employee_id' => $employee->id,
+            'username' => $username,
+            'password' => $password
+        ]);
 
         return response()->json(['message' => 'Employee has been registered.']);
+    }
+
+    public function edit($id)
+    {
+        $employee = HR_Employee::with('position', 'division.office', 'account')->findOrFail($id);
+
+        return view('humanresource::employee.edit.index', [
+            'employee' => $employee
+        ]);
+    }
+
+    public function update(EmployeeUpdateRequest $request, HR_Employee $employee)
+    {
+     
+        $reload = false;
+
+        switch($request->header('X-Edit-Employee')){
+
+            case 'information': 
+                // checking if request has file
+                if($request->hasFile('profile_avatar')){
+
+                    $file = $request->file('profile_avatar');
+                    $path = $file->store('public/employees/profile');
+                    $image_name = str_replace('public/employees/profile/', '', $path);
+
+                    $current_image = $employee->info['image'];
+
+                    if($current_image != null){
+                        unlink(storage_path("app/public/employees/profile/".$current_image));
+                    }
+
+                    $reload = true;
+
+                }else{
+                    $image_name = $employee->info['image'];
+                }
+
+                $employee->update([
+                    'name->fname' => $request->post('firstname'),
+                    'name->lname' => $request->post('lastname'),
+                    'name->mname' => $request->post('middlename'),
+                    'name->sname' => $request->post('namesuffix'),
+                    'name->title' => $request->post('nametitle'),
+
+                    'info->gender' => $request->post('sex'),
+                    'info->birthday' => $request->post('birthday'),
+                    'info->address' => $request->post('address'),
+                    'info->civilStatus' => $request->post('civil'),
+                    'info->phoneNumber' => $request->post('phone'),
+                    'info->image' => $image_name
+                ]);
+
+            break;
+            
+            case 'employment': 
+                $employee->update([
+
+                    'division_id' => $request->post('division'),
+                    'position_id' => $request->post('position'),
+                    'card' => $request->post('card'),
+
+                    'employment->type' => $request->post('appointment'),
+
+                    'liaison' => ($request->has('liaison')) ? true : false
+
+                ]);
+            break;
+
+            case 'credentials':
+
+                $fields['username'] = $request->post('username');
+
+                // checking if password is set
+                if($request->post('password') != ''){
+                   $fields['password'] = bcrypt($request->post('password'));
+                }
+
+                $employee->account()->update($fields);
+
+            break;
+
+            default:
+                return response()->json(['message' => 'Cannot identify request header.'], 422);
+            break;
+
+        }
+
+        return response()->json(['message' => 'Employee has been updated.', 'reload' => $reload]);
     }
 }

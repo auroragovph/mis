@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 22);
+/******/ 	return __webpack_require__(__webpack_require__.s = 23);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -214,7 +214,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 22:
+/***/ 23:
 /*!*****************************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/datatables/advanced/column-visibility.js ***!
   \*****************************************************************************************/

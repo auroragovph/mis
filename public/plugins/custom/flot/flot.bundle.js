@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1872,7 +1872,7 @@ __webpack_require__(/*! flot/source/jquery.flot.axislabels.js */ "./node_modules
 
 /***/ }),
 
-/***/ 10:
+/***/ 11:
 /*!*****************************************************!*\
   !*** multi ./resources/plugins/custom/flot/flot.js ***!
   \*****************************************************/

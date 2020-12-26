@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 138);
+/******/ 	return __webpack_require__(__webpack_require__.s = 139);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -219,7 +219,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 138:
+/***/ 139:
 /*!*****************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/features/miscellaneous/cropper.js ***!
   \*****************************************************************************/

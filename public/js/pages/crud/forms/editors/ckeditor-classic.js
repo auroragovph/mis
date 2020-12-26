@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 53);
+/******/ 	return __webpack_require__(__webpack_require__.s = 54);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -141,7 +141,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 53:
+/***/ 54:
 /*!**********************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/editors/ckeditor-classic.js ***!
   \**********************************************************************************/

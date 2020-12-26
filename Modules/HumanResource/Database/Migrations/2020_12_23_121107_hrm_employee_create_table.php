@@ -16,8 +16,6 @@ class HrmEmployeeCreateTable extends Migration
         Schema::create('hrm_employees', function (Blueprint $table) {
             $table->id();
 
-            // I ADD THE DIVISION_ID CONSTRAINED IN SYS_DIVISION MIGRATION FILE
-            
             $table->foreignId('position_id')->nullable()->constrained('hrm_plantilla')->onDelete('set null');
 
             $table->json('name')->nullable();

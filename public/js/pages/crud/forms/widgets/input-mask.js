@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 74);
+/******/ 	return __webpack_require__(__webpack_require__.s = 75);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -168,7 +168,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 74:
+/***/ 75:
 /*!****************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/widgets/input-mask.js ***!
   \****************************************************************************/

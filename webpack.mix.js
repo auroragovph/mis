@@ -17,8 +17,21 @@ const rimraf = require('rimraf');
 
 // Default
 mix.js('resources/js/app.js', 'public/js')
-    .scripts('resources/js/config.js', 'public/js/config.js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .scripts('resources/js/config.js', 'public/js/config.js');
+
+
+
+
+// GLOBAL SCSS
+(glob.sync('resources/sass/**/!(_)*.scss') || []).forEach(file => {
+    file = file.replace(/[\\\/]+/g, '/');
+    mix.sass(file, file.replace('resources/sass/', 'public/css/').replace(/\.scss$/, '.css'));
+});
+
+// GLOBAL JAVASCRIPT 
+(glob.sync('resources/js/pages/**/*.js') || []).forEach(file => {
+    mix.js(file, `public/js/${file.replace('resources/js/', '')}`);
+});
 
 // Global jquery
 // mix.autoload({
@@ -136,7 +149,7 @@ mix.webpackConfig({
 });
 
 // Webpack.mix does not copy fonts, manually copy
-(glob.sync('resources/metronic/plugins/**/*.+(woff|woff2|eot|ttf)') || []).forEach(file => {
+(glob.sync('resources/metronic/plugins/**/*.+(woff|woff2|eot|ttf|svg)') || []).forEach(file => {
     var folder = file.match(/resources\/metronic\/plugins\/(.*?)\//)[1];
     mix.copy(file, `public/plugins/global/fonts/${folder}/${path.basename(file)}`);
 });

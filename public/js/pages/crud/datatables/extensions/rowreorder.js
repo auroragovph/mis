@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -215,7 +215,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 42:
+/***/ 43:
 /*!************************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/datatables/extensions/rowreorder.js ***!
   \************************************************************************************/

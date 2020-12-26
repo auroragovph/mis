@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 57);
+/******/ 	return __webpack_require__(__webpack_require__.s = 58);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -121,7 +121,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 57:
+/***/ 58:
 /*!****************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/editors/summernote.js ***!
   \****************************************************************************/

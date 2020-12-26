@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 46);
+/******/ 	return __webpack_require__(__webpack_require__.s = 47);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -395,7 +395,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 46:
+/***/ 47:
 /*!*******************************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/datatables/search-options/column-search.js ***!
   \*******************************************************************************************/

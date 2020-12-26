@@ -28,7 +28,7 @@ class EmployeeDTResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => name_helper($this->name),
-            'position' => $this->position->position,
+            'position' => $this->position->position ?? 'N/A',
             'office' => office_helper($this->division),
             'appointment' => $employment['type'] ?? null,
             'image' => $image,

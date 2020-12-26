@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 96);
+/******/ 	return __webpack_require__(__webpack_require__.s = 97);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -185,7 +185,7 @@ mainTableInit();}};}();jQuery(document).ready(function(){KTDatatableChildDataLoc
 
 /***/ }),
 
-/***/ 96:
+/***/ 97:
 /*!********************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/ktdatatable/child/data-local.js ***!
   \********************************************************************************/

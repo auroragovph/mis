@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 60);
+/******/ 	return __webpack_require__(__webpack_require__.s = 61);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -278,7 +278,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 60:
+/***/ 61:
 /*!*********************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/validation/form-widgets.js ***!
   \*********************************************************************************/

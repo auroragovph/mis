@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 33);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -234,7 +234,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 32:
+/***/ 33:
 /*!********************************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/datatables/data-sources/ajax-server-side.js ***!
   \********************************************************************************************/

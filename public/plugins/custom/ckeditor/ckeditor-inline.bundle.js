@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -115,7 +115,7 @@ window.InlineEditor = __webpack_require__(/*! @ckeditor/ckeditor5-build-inline/b
 
 /***/ }),
 
-/***/ 7:
+/***/ 8:
 /*!********************************************************************!*\
   !*** multi ./resources/plugins/custom/ckeditor/ckeditor-inline.js ***!
   \********************************************************************/

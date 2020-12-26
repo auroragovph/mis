@@ -637,6 +637,18 @@ if (! function_exists('user_agent')) {
     }
 }
 
+if (! function_exists('name_to_username')) {
+    /**
+    * Convert name to username
+    * @return array
+    */
+    function name_to_username($fname, $lname){
+        // return str_replace(' ', '_', strtolower($fname." ".$lname))."_".mt_rand(1,999);
+        return str_replace(' ', '_', strtolower($fname." ".$lname));
+    }
+}
+
+
 
 
 
@@ -855,6 +867,16 @@ function name_helper($name, $arrangement = 'FMIL'){
         case 'FMNL':  
             $name = $fname." ".$mname." ".$lname;
         break;
+
+        case 'SYM-F': 
+            $name = strtoupper($fname[0]);
+        break;
+
+        case 'SYM-FL': 
+            $name = strtoupper($fname[0].$lname[0]);
+        break;
+
+
         default:
            $name = null;
         break;

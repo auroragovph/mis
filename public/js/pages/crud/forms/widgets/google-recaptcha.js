@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 73);
+/******/ 	return __webpack_require__(__webpack_require__.s = 74);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -114,7 +114,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 73:
+/***/ 74:
 /*!**********************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/widgets/google-recaptcha.js ***!
   \**********************************************************************************/

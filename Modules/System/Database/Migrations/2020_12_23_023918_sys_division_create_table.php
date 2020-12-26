@@ -23,13 +23,6 @@ class SysDivisionCreateTable extends Migration
             $table->softDeletes('deleted_at', 0);
             $table->timestamps();
         });
-
-        // SETTING UP FOREIGN RELATIONSHIPS
-        Schema::table('hrm_employees', function (Blueprint $table) {
-            $table->foreignId('division_id')->after('id')->nullable()->constrained('sys_division')->onDelete('set null');
-        });
-
-
     }
 
     /**

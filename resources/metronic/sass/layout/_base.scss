@@ -22,6 +22,7 @@ body {
     font-size: $root-font-size !important;
     font-weight: $font-weight-base;
     font-family: $font-family-base;
+    // zoom: 1.1 !important; 
 
     // Tablet mode
     @include media-breakpoint-down(lg) {

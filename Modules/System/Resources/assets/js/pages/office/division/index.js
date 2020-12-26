@@ -195,11 +195,6 @@ var KTFormCreate = function(){
 	};
 }();
 
-
-
-
-
-
 jQuery(document).ready(function() {
 
     KTDatatableOfficeList.init();

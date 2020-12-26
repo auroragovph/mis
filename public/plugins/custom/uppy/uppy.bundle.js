@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -142,7 +142,7 @@ window.Uppy = __webpack_require__(/*! uppy/dist/uppy.min.js */ "./node_modules/u
 
 /***/ }),
 
-/***/ 19:
+/***/ 20:
 /*!*****************************************************!*\
   !*** multi ./resources/plugins/custom/uppy/uppy.js ***!
   \*****************************************************/

@@ -1,18 +1,17 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::group(['prefix' => 'system', 'middleware' => ['auth:web']], function(){
 
-Route::middleware('auth:api')->get('/system', function (Request $request) {
-    return $request->user();
+    Route::prefix('office')->namespace('Office')->group(function(){
+
+        Route::get('/', 'OfficeController@index')->name('api.sys.office.index');
+
+        Route::prefix('division')->group(function(){
+            Route::get('/lists', 'DivisionController@lists')->name('api.sys.office.division.index');
+        });
+
+    });
+
 });

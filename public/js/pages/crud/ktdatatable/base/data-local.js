@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 91);
+/******/ 	return __webpack_require__(__webpack_require__.s = 92);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -318,7 +318,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 91:
+/***/ 92:
 /*!*******************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/ktdatatable/base/data-local.js ***!
   \*******************************************************************************/

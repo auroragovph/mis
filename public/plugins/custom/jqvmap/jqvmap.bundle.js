@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1465,7 +1465,7 @@ __webpack_require__(/*! jqvmap/dist/maps/jquery.vmap.europe.js */ "./node_module
 
 /***/ }),
 
-/***/ 13:
+/***/ 14:
 /*!*********************************************************!*\
   !*** multi ./resources/plugins/custom/jqvmap/jqvmap.js ***!
   \*********************************************************/

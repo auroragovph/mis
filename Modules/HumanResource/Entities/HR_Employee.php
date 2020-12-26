@@ -2,16 +2,16 @@
 
 namespace Modules\HumanResource\Entities;
 
-
+use App\Models\Account;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
-use Modules\System\Entities\SYS_User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\System\Entities\Office\SYS_Division;
 
 class HR_Employee extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
     protected $guarded = [];
     protected $table = 'hrm_employees';
@@ -23,6 +23,11 @@ class HR_Employee extends Model
         'liaison' => 'boolean',
         'properties' => 'json'
     ];
+    
+    public static function newFactory()
+    {
+        return \Modules\HumanResource\Database\factories\EmployeeFactory::new();
+    }
 
     public function scopeLiaison($query)
     {
@@ -44,9 +49,9 @@ class HR_Employee extends Model
         return $this->belongsTo(SYS_Division::class, 'division_id', 'id');
     }
 
-    public function user()
+    public function account()
     {
-        return $this->hasOne(SYS_User::class, 'employee_id', 'id');
+        return $this->hasOne(Account::class, 'employee_id', 'id');
     }
 
     public function position()

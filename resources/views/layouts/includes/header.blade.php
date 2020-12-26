@@ -5,7 +5,7 @@
         <!--begin::Left-->
         <div class="d-none d-lg-flex align-items-center mr-3">
             <!--begin::Logo-->
-            <a href="index.html" class="mr-20">
+            <a href="{{ route('dashboard') }}" class="mr-20">
                 <img alt="Logo" src="{{ asset('media/logos/logo-header.png') }}" class="logo-default max-h-70px" />
             </a>
             <!--end::Logo-->
@@ -60,9 +60,9 @@
             <div class="topbar-item">
                 <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_panel_toggle">
                     <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                    <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">Sean</span>
+                    <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{ auth()->user()->employee->name['fname'] }}</span>
                     <span class="symbol symbol-35 symbol-light-success">
-                        <span class="symbol-label font-size-h5 font-weight-bold">S</span>
+                        <span class="symbol-label font-size-h5 font-weight-bold">{{ name_helper(auth()->user()->employee->name, 'SYM-F') }}</span>
                     </span>
                 </div>
             </div>

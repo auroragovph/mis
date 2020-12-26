@@ -3,11 +3,17 @@
 namespace Modules\HumanResource\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\HumanResource\Database\factories\PositionFactory;
 
 class HR_Plantilla extends Model
 {
     protected $guarded = [];
     protected $table = 'hrm_plantilla';
+
+    protected static function newFactory()
+    {
+        return PositionFactory::new();
+    }
 
     public function salary_grade()
     {

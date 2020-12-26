@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -25088,7 +25088,7 @@ window.FullCalendarTimeGrid = __webpack_require__(/*! @fullcalendar/timegrid/mai
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /*!*********************************************************************!*\
   !*** multi ./resources/plugins/custom/fullcalendar/fullcalendar.js ***!
   \*********************************************************************/

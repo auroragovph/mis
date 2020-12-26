@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 124);
+/******/ 	return __webpack_require__(__webpack_require__.s = 125);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -125,7 +125,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 124:
+/***/ 125:
 /*!***********************************************************************!*\
   !*** multi ./resources/metronic/js/pages/features/cards/draggable.js ***!
   \***********************************************************************/

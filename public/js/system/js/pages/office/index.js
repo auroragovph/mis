@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 152);
+/******/ 	return __webpack_require__(__webpack_require__.s = 153);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -226,7 +226,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 152:
+/***/ 153:
 /*!************************************************************************!*\
   !*** multi ./Modules/System/Resources/assets/js/pages/office/index.js ***!
   \************************************************************************/

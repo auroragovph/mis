@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 50);
+/******/ 	return __webpack_require__(__webpack_require__.s = 51);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -115,7 +115,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 50:
+/***/ 51:
 /*!************************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/editors/bootstrap-markdown.js ***!
   \************************************************************************************/

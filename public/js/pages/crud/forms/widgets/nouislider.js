@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 76);
+/******/ 	return __webpack_require__(__webpack_require__.s = 77);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -363,7 +363,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 76:
+/***/ 77:
 /*!****************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/widgets/nouislider.js ***!
   \****************************************************************************/

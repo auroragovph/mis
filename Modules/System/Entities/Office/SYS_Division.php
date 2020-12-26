@@ -2,14 +2,23 @@
 
 namespace Modules\System\Entities\Office;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\HumanResource\Entities\HR_Employee;
+use Modules\System\Database\factories\DivisionFactory;
 
 class SYS_Division extends Model
 {
+
+    use HasFactory;
     
     protected $guarded = [];
     protected $table = 'sys_division';
+
+    protected static function newFactory()
+    {
+        return DivisionFactory::new();
+    }
 
     public function scopeLists($query, $all = true)
     {

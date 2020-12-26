@@ -26,12 +26,19 @@
 
                 <div class="d-flex align-items-center mt-5">
                     <div class="symbol symbol-100 mr-5">
-                        <div class="symbol-label" style="background-image:url('{{ asset("media/users/300_21.jpg") }}')"></div>
+                        
+                        @if(auth()->user()->employee->info['image'] == null)
+                            <div class="symbol symbol-success mr-3">
+                                <span class="symbol-label font-size-h1">{{ name_helper(auth()->user()->employee->name, 'SYM-FL') }}</span>
+                            </div>
+                        @else
+                        <div class="symbol-label" style="background-image:url('{{ asset("storage/employees/profile/".auth()->user()->employee->info['image']) }}')"></div>
+                        @endif
                         <i class="symbol-badge bg-success"></i>
                     </div>
                     <div class="d-flex flex-column">
-                        <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">James Jones</a>
-                        <div class="text-muted mt-1">Application Developer</div>
+                        <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ name_helper(auth()->user()->employee->name, 'FL') }}</a>
+                        <div class="text-muted mt-1">{{ auth()->user()->employee->position->position ?? 'N/A' }}</div>
                         <div class="navi mt-2">
                             <a href="#" class="navi-item">
                                 <span class="navi-link p-0 pb-2">
@@ -48,10 +55,13 @@
                                             <!--end::Svg Icon-->
                                         </span>
                                     </span>
-                                    <span class="navi-text text-muted text-hover-primary">jm@softplus.com</span>
+                                    <span class="navi-text text-muted text-hover-primary">{{ '@'.auth()->user()->username }}</span>
                                 </span>
                             </a>
-                            <a href="#" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace Modules\HumanResource\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
@@ -22,10 +23,11 @@ class HumanResourceServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Router $router)
     {
         $this->registerTranslations();
         $this->registerConfig();
+        $this->registerMiddleware($router);
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
@@ -53,6 +55,16 @@ class HumanResourceServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
         );
+    }
+
+     /**
+     * Register config.
+     *
+     * @return void
+     */
+    protected function registerMiddleware($router)
+    {
+        $router->aliasMiddleware('hrm-employee-edit-header', \Modules\HumanResource\Http\Middleware\Employee\EditCheckHeaders::class);
     }
 
     /**

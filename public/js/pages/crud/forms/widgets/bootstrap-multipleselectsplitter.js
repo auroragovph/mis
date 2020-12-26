@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 66);
+/******/ 	return __webpack_require__(__webpack_require__.s = 67);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -115,7 +115,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 66:
+/***/ 67:
 /*!**************************************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/widgets/bootstrap-multipleselectsplitter.js ***!
   \**************************************************************************************************/

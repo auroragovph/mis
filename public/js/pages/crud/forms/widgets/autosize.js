@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 61);
+/******/ 	return __webpack_require__(__webpack_require__.s = 62);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -119,7 +119,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 61:
+/***/ 62:
 /*!**************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/widgets/autosize.js ***!
   \**************************************************************************/

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2522,7 +2522,7 @@ window.GMaps = __webpack_require__(/*! gmaps/gmaps.js */ "./node_modules/gmaps/g
 
 /***/ }),
 
-/***/ 12:
+/***/ 13:
 /*!*******************************************************!*\
   !*** multi ./resources/plugins/custom/gmaps/gmaps.js ***!
   \*******************************************************/

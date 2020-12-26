@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 78);
+/******/ 	return __webpack_require__(__webpack_require__.s = 79);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -332,7 +332,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 78:
+/***/ 79:
 /*!************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/widgets/tagify.js ***!
   \************************************************************************/

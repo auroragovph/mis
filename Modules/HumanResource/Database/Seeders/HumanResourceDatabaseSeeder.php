@@ -14,11 +14,11 @@ class HumanResourceDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        // Model::unguard();
 
-        $this->call([
-            SalaryGradeTableSeeder::class,
-            PlantillaTableSeeder::class
-        ]);
+        // $this->call([
+        //     SalaryGradeTableSeeder::class,
+        //     PlantillaTableSeeder::class
+        // ]);
     }
 }

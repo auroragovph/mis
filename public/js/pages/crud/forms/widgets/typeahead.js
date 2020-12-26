@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 79);
+/******/ 	return __webpack_require__(__webpack_require__.s = 80);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -225,7 +225,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 79:
+/***/ 80:
 /*!***************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/widgets/typeahead.js ***!
   \***************************************************************************/

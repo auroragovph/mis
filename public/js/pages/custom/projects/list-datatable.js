@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 109);
+/******/ 	return __webpack_require__(__webpack_require__.s = 110);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -364,7 +364,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 109:
+/***/ 110:
 /*!*****************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/custom/projects/list-datatable.js ***!
   \*****************************************************************************/

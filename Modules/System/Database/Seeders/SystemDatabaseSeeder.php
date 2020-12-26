@@ -14,10 +14,10 @@ class SystemDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        // Model::unguard();
 
-        $this->call([
-            OfficeTableSeeder::class
-        ]);
+        // $this->call([
+        //     OfficeTableSeeder::class
+        // ]);
     }
 }

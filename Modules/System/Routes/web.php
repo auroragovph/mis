@@ -2,10 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Route::group(['prefix' => 'system', 'middleware' => ['auth:web', 'permission:godmode']], function(){
+Route::group(['prefix' => 'system', 'middleware' => ['auth:web']], function(){
     
-Route::group(['prefix' => 'system'], function(){
-
     Route::get('/', function(){
         return redirect(route('sys.dashboard'));
     });
@@ -20,6 +18,7 @@ Route::group(['prefix' => 'system'], function(){
 
         Route::prefix('division')->group(function(){
             Route::get('/', 'DivisionController@index')->name('sys.office.division.index');
+            Route::get('/lists', 'DivisionController@lists')->middleware('only.ajax')->name('sys.office.division.lists');
             Route::post('/', 'DivisionController@store')->name('sys.office.division.store');
         });
 

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 97);
+/******/ 	return __webpack_require__(__webpack_require__.s = 98);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -193,7 +193,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 97:
+/***/ 98:
 /*!***************************************************************!*\
   !*** multi ./resources/metronic/js/pages/custom/chat/chat.js ***!
   \***************************************************************/

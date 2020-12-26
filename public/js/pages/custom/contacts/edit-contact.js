@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 99);
+/******/ 	return __webpack_require__(__webpack_require__.s = 100);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -118,7 +118,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 99:
+/***/ 100:
 /*!***************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/custom/contacts/edit-contact.js ***!
   \***************************************************************************/

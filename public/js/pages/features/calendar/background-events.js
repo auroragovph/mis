@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 119);
+/******/ 	return __webpack_require__(__webpack_require__.s = 120);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -263,7 +263,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 119:
+/***/ 120:
 /*!**********************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/features/calendar/background-events.js ***!
   \**********************************************************************************/

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 72);
+/******/ 	return __webpack_require__(__webpack_require__.s = 73);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -209,7 +209,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 72:
+/***/ 73:
 /*!*******************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/widgets/form-repeater.js ***!
   \*******************************************************************************/

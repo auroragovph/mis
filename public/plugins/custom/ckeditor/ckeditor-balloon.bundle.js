@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -115,7 +115,7 @@ window.BalloonEditor = __webpack_require__(/*! @ckeditor/ckeditor5-build-balloon
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!*********************************************************************!*\
   !*** multi ./resources/plugins/custom/ckeditor/ckeditor-balloon.js ***!
   \*********************************************************************/

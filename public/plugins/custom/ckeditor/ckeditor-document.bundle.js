@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -115,7 +115,7 @@ window.DecoupledEditor = __webpack_require__(/*! @ckeditor/ckeditor5-build-decou
 
 /***/ }),
 
-/***/ 6:
+/***/ 7:
 /*!**********************************************************************!*\
   !*** multi ./resources/plugins/custom/ckeditor/ckeditor-document.js ***!
   \**********************************************************************/

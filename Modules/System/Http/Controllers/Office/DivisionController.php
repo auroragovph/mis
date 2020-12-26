@@ -12,6 +12,7 @@ use Modules\System\Transformers\Office\DivisionResource;
 
 class DivisionController extends Controller
 {
+    
     public function index(Request $request)
     {
         if($request->ajax()){
@@ -21,12 +22,33 @@ class DivisionController extends Controller
             }else{
                 $datas = SYS_Division::with('office')->get();
             }
-
             $datas = DivisionResource::collection($datas);
             return $datas;
         }
         return view('system::office.division.index');
         
+    }
+
+    public function lists(Request $request)
+    {
+
+        if($request->has('search')){
+            $key = $request->input('search');
+            $divisions = SYS_Division::where('name', 'like', "%{$key}%")
+                            ->orWhere('alias', 'like', "%{$key}%")
+                            ->orWhereHas('office', function($query) use($key){
+                                $query->where('name', 'like', "%{$key}%");
+                            })
+                            ->orWhereHas('office', function($query) use($key){
+                                $query->where('alias', 'like', "%{$key}%");
+                            })->get();
+        }else{
+            $divisions = SYS_Division::with('office')->get();
+        }
+
+        // dd($divisions);
+
+        return DivisionResource::collection($divisions);
     }
 
     public function store(DivisionStoreRequest $request)

@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Route::group(['prefix' => 'human-resource', 'middleware' => ['auth:web', 'permission:godmode']], function(){
-Route::group(['prefix' => 'human-resource'], function(){
+Route::group(['prefix' => 'human-resource', 'middleware' => ['auth:web']], function(){
     
     Route::get('/dashboard', 'DashboardController@index')->name('hrm.dashboard');
 
@@ -12,8 +11,9 @@ Route::group(['prefix' => 'human-resource'], function(){
         Route::get('/create', "EmployeeController@create")->name('hrm.employee.create');
         Route::post('/create', "EmployeeController@store")->name('hrm.employee.store');
 
-        Route::get('/{id}/edit', "EmployeeController@edit")->name('hrm.employee.edit');
-        Route::post('/{id}/edit', "EmployeeController@update")->name('hrm.employee.update');
+        Route::get('/{employee}/edit', "EmployeeController@edit")->name('hrm.employee.edit');
+        
+        Route::post('/{employee}/edit', "EmployeeController@update")->name('hrm.employee.update')->middleware('hrm-employee-edit-header', 'only.ajax');
     });
 
     Route::prefix('plantilla')->namespace('Plantilla')->group(function(){

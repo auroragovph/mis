@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 23);
+/******/ 	return __webpack_require__(__webpack_require__.s = 24);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -143,7 +143,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 23:
+/***/ 24:
 /*!***************************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/datatables/advanced/footer-callback.js ***!
   \***************************************************************************************/

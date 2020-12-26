@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 155);
+/******/ 	return __webpack_require__(__webpack_require__.s = 157);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -102,7 +102,7 @@ var KTDTEmployeeList = function () {
   var _demo = function _demo() {
     var _token = $('meta[name=csrf-token]').attr('content');
 
-    var datatable = $('#kt_datatable').KTDatatable({
+    var datatable = $('#kt_datatable_employee_list').KTDatatable({
       // datasource definition
       data: {
         type: 'remote',
@@ -202,7 +202,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 155:
+/***/ 157:
 /*!***************************************************************************!*\
   !*** multi ./Modules/HumanResource/Resources/assets/js/employee/index.js ***!
   \***************************************************************************/

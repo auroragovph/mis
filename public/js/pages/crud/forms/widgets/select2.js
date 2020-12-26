@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 77);
+/******/ 	return __webpack_require__(__webpack_require__.s = 78);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -263,7 +263,7 @@ jQuery(document).ready(function () {
 
 /***/ }),
 
-/***/ 77:
+/***/ 78:
 /*!*************************************************************************!*\
   !*** multi ./resources/metronic/js/pages/crud/forms/widgets/select2.js ***!
   \*************************************************************************/

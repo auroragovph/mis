@@ -47,12 +47,66 @@ var KTUInitPlugins = function () {
 			minimumInputLength: 2
 		});
 
-		// init select 2 position
+		// init select 2 role
 		$("#kt_select2_position").select2({
 			placeholder: "Search for position",
 			allowClear: true,
 			ajax: {
 				url: $("#kt_select2_position").data('api'),
+				dataType: 'json',
+				delay: 250,
+				headers: {
+					"X-Select2" : "true2"
+				},
+				data: function(params) {
+					return {
+						search: params.term,
+					};
+				},
+				processResults: function(data, page) {
+					return { results: data.data };
+				},
+				cache: true
+			},
+			escapeMarkup: function(markup) {
+				return markup;
+			}, // let our custom formatter work
+			minimumInputLength: 2
+		});
+
+		// init select 2 position
+		$("#kt_select2_role").select2({
+			placeholder: "Search for role",
+			allowClear: true,
+			ajax: {
+				url: $("#kt_select2_role").data('api'),
+				dataType: 'json',
+				delay: 250,
+				headers: {
+					"X-Select2" : "true2"
+				},
+				data: function(params) {
+					return {
+						search: params.term,
+					};
+				},
+				processResults: function(data, page) {
+					return { results: data.data };
+				},
+				cache: true
+			},
+			escapeMarkup: function(markup) {
+				return markup;
+			}, // let our custom formatter work
+			minimumInputLength: 2
+		});
+
+		// init select 2 position
+		$("#kt_select2_permissions").select2({
+			placeholder: "Search for permissions (Use CTRL key to select multiple)",
+			allowClear: true,
+			ajax: {
+				url: $("#kt_select2_permissions").data('api'),
 				dataType: 'json',
 				delay: 250,
 				headers: {
@@ -244,12 +298,35 @@ var KTFormValidation = function() {
         });
 	}
 
+	var _formACL = function() {
+		FormValidation.formValidation(
+			document.getElementById('kt_form_acl'),
+			{
+				plugins: {
+					trigger: new FormValidation.plugins.Trigger(),
+					// Validate fields when clicking the Submit button
+					submitButton: new FormValidation.plugins.SubmitButton(),
+            		// Submit the form when all fields are valid
+            		// defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+					// Bootstrap Framework Integration
+					bootstrap: new FormValidation.plugins.Bootstrap({
+						eleInvalidClass: '',
+						eleValidClass: '',
+					})
+				}
+			}
+		).on('core.form.valid', function(){
+            FKTFormACL.submit();
+        });
+	}
+
 	return {
 		// public functions
 		init: function() {
 			_formInfo();
 			_formEmployment();
 			_formCredentials();
+			_formACL();
 		}
 	};
 
@@ -526,6 +603,94 @@ var KTFormCredentials = function(){
 		submit: function() {
 			_form = $('#kt_form_credentials');
 			_card = new KTCard('credentialsTab');
+			_submit();
+		}
+	}
+}();
+
+var FKTFormACL = function(){
+
+	var _form;
+	var _card;
+
+	var _submit = function() {
+
+		// BLOCKING THE CARD
+		KTApp.block(_card.getSelf(), {
+				overlayColor: '#ffffff',
+				type: 'loader',
+				state: 'primary',
+				opacity: 0.3,
+				message: 'Submitting...',
+				size: 'lg'
+		});
+
+		axios.post(_form.attr('action'), _form.serialize(), {
+			headers: {
+				'X-Edit-Employee' : 'acl'
+			}
+		}).then(res => {
+
+			swal.fire({
+				text: res.data.message,
+				icon: "success",
+				buttonsStyling: false,
+				confirmButtonText: "Ok, got it!",
+				customClass: {
+					confirmButton: "btn font-weight-bold btn-light"
+				}
+			});
+
+        }).catch(err => {
+
+			let error = err.response;
+			let res = error.data;
+			var errTitle = '';
+			var errMessage = '';
+
+			console.log(error);
+
+			switch(error.status){
+				case 500: 
+					errTitle = 'Internal Service Error';
+					errMessage = res.message;
+				break;
+				case 422:
+					let errors = res.errors;
+					let firstErr = Object.keys(errors)[0];
+					errTitle =  res.message;
+					errMessage = errors[firstErr][0];
+				break;
+				default: 
+					errTitle = 'Oooops.';
+					errMessage = 'Something went wrong.';
+				break;
+			}
+
+			swal.fire({
+				title:	errTitle,
+				text: errMessage,
+				icon: "error",
+				buttonsStyling: false,
+				confirmButtonText: "Ok, got it!",
+				customClass: {
+					confirmButton: "btn font-weight-bold btn-light"
+				}
+			});
+
+			
+
+		}).finally(res => {
+			// unblocking the card
+			KTApp.unblock(_card.getSelf());
+		});
+		
+	}
+
+	return {
+		submit: function() {
+			_form = $('#kt_form_acl');
+			_card = new KTCard('aclTab');
 			_submit();
 		}
 	}

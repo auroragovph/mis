@@ -8,6 +8,9 @@ use Modules\HumanResource\Database\Seeders\EmployeeTableSeeder;
 use Modules\HumanResource\Database\Seeders\PlantillaTableSeeder;
 use Modules\System\Database\Seeders\OfficeTableSeeder;
 use Modules\HumanResource\Database\Seeders\SalaryGradeTableSeeder;
+use Modules\System\Database\Seeders\PermissionRoleTableSeeder;
+use Modules\System\Database\Seeders\PermissionTableSeeder;
+use Modules\System\Database\Seeders\RoleTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,8 +30,13 @@ class DatabaseSeeder extends Seeder
             SalaryGradeTableSeeder::class,
             PlantillaTableSeeder::class,
             EmployeeTableSeeder::class,
-            AccountSeeder::class
 
+            // PermissionTableSeeder::class,
+            // RoleTableSeeder::class,
+
+            PermissionRoleTableSeeder::class,
+
+            AccountSeeder::class
         ]);
     }
 }

@@ -14,12 +14,14 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        Account::create([
+        $account = Account::create([
             'employee_id' => 1,
             'username' => 'xijeixhan',
             'password' => bcrypt('jems7130'),
             'status' => true,
             'properties' => null
         ]);
+
+        $account->assignRole('ROOT');
     }
 }

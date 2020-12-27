@@ -51,7 +51,7 @@ Divisions
         <!--end::Search Form-->
         <!--end: Search Form-->
         <!--begin: Datatable-->
-        <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable"></div>
+        <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable_division_list"></div>
         <!--end: Datatable-->
     </div>
 </div>
@@ -75,7 +75,7 @@ Divisions
 @endsection
 
 @section('js-custom')
-<script src="{{ asset('js/system/js/pages/office/division/index.js') }}"></script>
+<script src="{{ asset('js/modules/system/pages/office/division/index.js') }}"></script>
 @endsection
 
 

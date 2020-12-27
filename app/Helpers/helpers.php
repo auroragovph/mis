@@ -649,6 +649,19 @@ if (! function_exists('name_to_username')) {
 }
 
 
+if (! function_exists('menu_helper')) {
+    /**
+    * Convert name to username
+    * @return array
+    */
+    function menu_helper($string){
+        $current_url = request()->url();
+        $menu_url = request()->getSchemeAndHttpHost()."/".$string;
+        return (strpos($current_url, $menu_url) === false) ? '' : 'menu-item-here';
+    }
+}
+
+
 
 
 

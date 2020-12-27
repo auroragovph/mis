@@ -10,7 +10,7 @@ var KTDatatableOfficeList = function() {
 
         var _token = $('meta[name=csrf-token]').attr('content');
 
-        var datatable = $('#kt_datatable').KTDatatable({
+        var datatable = $('#kt_datatable_office_list').KTDatatable({
            
             data: {
                 type: 'remote',
@@ -57,7 +57,7 @@ var KTDatatableOfficeList = function() {
                     field: 'id',
                     title: '#',
                     sortable: 'asc',
-                    width: 30,
+                    width: 50,
                     type: 'number',
                     selector: false,
                     textAlign: 'center',

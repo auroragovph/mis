@@ -92,7 +92,7 @@ var KTDTEmployeeList = function() {
 							var state = states[stateNo];
 
 							output = `<div class="d-flex align-items-center">\
-								<div class="symbol symbol-40 symbol-light-'+state+' flex-shrink-0">\
+								<div class="symbol symbol-40 symbol-light-${state} flex-shrink-0">\
 									<span class="symbol-label font-size-h4 font-weight-bold">${fullName.charAt(0)}</span>\
 								</div>\
 								<div class="ml-4">\

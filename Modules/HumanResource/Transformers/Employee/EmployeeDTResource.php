@@ -19,8 +19,7 @@ class EmployeeDTResource extends JsonResource
         }else{
             $image = null;
         }
-
-
+        
         $employment = $this->employment;
 
 

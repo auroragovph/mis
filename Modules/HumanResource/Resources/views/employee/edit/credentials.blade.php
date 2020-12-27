@@ -17,7 +17,7 @@
             <!--begin::Group-->
              <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" name="username" value="{{ $employee->account->username }}">
+                <input type="text" class="form-control" name="username" value="{{ $employee->account->username ?? '' }}">
             </div>
             <!--end::Group-->
 

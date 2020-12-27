@@ -3397,15 +3397,16 @@
 
 			// datatable UI icons
 			icons: {
-				sort: {asc: 'flaticon2-arrow-up', desc: 'flaticon2-arrow-down'},
+				sort: {asc: 'fas fa-arrow-down', desc: 'fas fa-arrow-down'},
+
 				pagination: {
-					next: 'flaticon2-next',
-					prev: 'flaticon2-back',
-					first: 'flaticon2-fast-back',
-					last: 'flaticon2-fast-next',
-					more: 'flaticon-more-1',
+					next: 'fal fa-chevron-right',
+					prev: 'fal fa-chevron-left',
+					first: 'fal fa-chevron-double-left',
+					last: 'fal fa-chevron-double-right',
+					more: 'fal fa-ellipsis-h',
 				},
-				rowDetail: {expand: 'fa fa-caret-down', collapse: 'fa fa-caret-right'},
+				rowDetail: {expand: 'fal fa-caret-down', collapse: 'fal fa-caret-right'},
 			},
 		},
 

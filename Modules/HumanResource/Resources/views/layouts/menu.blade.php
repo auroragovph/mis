@@ -1,4 +1,4 @@
-<li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
+<li class="menu-item menu-item-submenu menu-item-rel {{ menu_helper('human-resource') }}" data-menu-toggle="click" aria-haspopup="true">
     <a href="javascript:;" class="menu-link menu-toggle">
         <span class="menu-text">Human Resource</span>
         <span class="menu-desc"></span>

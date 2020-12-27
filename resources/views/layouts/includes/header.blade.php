@@ -1,7 +1,7 @@
 <!--begin::Header-->
 <div id="kt_header" class="header header-fixed">
     <!--begin::Container-->
-    <div class="container">
+    <div class="container-fluid">
         <!--begin::Left-->
         <div class="d-none d-lg-flex align-items-center mr-3">
             <!--begin::Logo-->

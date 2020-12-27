@@ -20,8 +20,6 @@ mix.js('resources/js/app.js', 'public/js')
     .scripts('resources/js/config.js', 'public/js/config.js');
 
 
-
-
 // GLOBAL SCSS
 (glob.sync('resources/sass/**/!(_)*.scss') || []).forEach(file => {
     file = file.replace(/[\\\/]+/g, '/');
@@ -64,39 +62,31 @@ mix.sass('resources/metronic/sass/style.scss', 'public/css/style.bundle.css', {
     mix.sass(file, `public/${file.replace('resources/', '').replace('.scss', '.bundle.css')}`)
 });
 
-// // Metronic css pages (single page use)
+// Metronic css pages (single page use)
 (glob.sync('resources/metronic/sass/pages/**/!(_)*.scss') || []).forEach(file => {
     file = file.replace(/[\\\/]+/g, '/');
     mix.sass(file, file.replace('resources/metronic/sass', 'public/css').replace(/\.scss$/, '.css'));
 });
 
 // // Metronic js pages (single page use)
-(glob.sync('resources/metronic/js/pages/**/*.js') || []).forEach(file => {
-    mix.js(file, `public/${file.replace('resources/metronic/', '')}`);
-});
+// (glob.sync('resources/metronic/js/pages/**/*.js') || []).forEach(file => {
+//     mix.js(file, `public/${file.replace('resources/metronic/', '')}`);
+// });
 
 
 
-// INDIVIDUAL MODULES
+// IMPORT MODULES
 
-// SYSTEM SCSS
-(glob.sync('Modules/System/Resources/assets/sass/**/!(_)*.scss') || []).forEach(file => {
+//  SCSS
+(glob.sync('Modules/**/!(_)*.scss') || []).forEach(file => {
     file = file.replace(/[\\\/]+/g, '/');
-    mix.sass(file, file.replace('Modules/System/Resources/assets/sass/', 'public/css/system/').replace(/\.scss$/, '.css'));
-});
-// SYSTEM JS
-(glob.sync('Modules/System/Resources/assets/js/**/*.js') || []).forEach(file => {
-    mix.js(file, `public/js/system/${file.replace('Modules/System/Resources/assets/', '')}`);
+    mix.sass(file, `public/css/${file.replace('Resources/assets/sass/', '').replace(/\.scss/, '.css')}`);
+    // mix.sass(file, file.replace('Resources/assets/sass/', 'public/css/').replace(/\.scss$/, '.css'));
 });
 
-// HUMAN RESOURCE SCSS
-(glob.sync('Modules/HumanResource/Resources/assets/sass/**/!(_)*.scss') || []).forEach(file => {
-    file = file.replace(/[\\\/]+/g, '/');
-    mix.sass(file, file.replace('Modules/HumanResource/Resources/assets/sass/', 'public/css/humanresource/').replace(/\.scss$/, '.css'));
-});
-// HUMAN RESOURCE JS
-(glob.sync('Modules/HumanResource/Resources/assets/js/**/*.js') || []).forEach(file => {
-    mix.js(file, `public/js/humanresource/${file.replace('Modules/HumanResource/Resources/assets/js/', '')}`);
+// JS
+(glob.sync('Modules/**/*.js') || []).forEach(file => {
+    mix.js(file, `public/js/${file.replace('Resources/assets/js/', '')}`);
 });
 
 
@@ -121,6 +111,11 @@ mix.webpackConfig({
                         // fontawesome
                         search: /url\(.*?webfonts\/(fa-)/ig,
                         replace: 'url\(./fonts/@fortawesome/$1'
+                    },
+                    {
+                        // fontawesome-pro
+                        search: /url\(.*?font\/(fa-)/ig,
+                        replace: 'url\(./fonts/font-awesome-pro/$1'
                     },
                     {
                         // flaticon
@@ -153,48 +148,8 @@ mix.webpackConfig({
     var folder = file.match(/resources\/metronic\/plugins\/(.*?)\//)[1];
     mix.copy(file, `public/plugins/global/fonts/${folder}/${path.basename(file)}`);
 });
+
 (glob.sync('node_modules/+(@fortawesome|socicon|line-awesome)/**/*.+(woff|woff2|eot|ttf)') || []).forEach(file => {
     var folder = file.match(/node_modules\/(.*?)\//)[1];
     mix.copy(file, `public/plugins/global/fonts/${folder}/${path.basename(file)}`);
 });
-
-// Optional: Import datatables.net
-mix.scripts([
-    'node_modules/datatables.net/js/jquery.dataTables.js',
-    'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js',
-    'node_modules/datatables.net-autofill/js/dataTables.autoFill.min.js',
-    'node_modules/datatables.net-autofill-bs4/js/autoFill.bootstrap4.min.js',
-    'node_modules/jszip/dist/jszip.min.js',
-    'node_modules/pdfmake/build/pdfmake.min.js',
-    'node_modules/pdfmake/build/vfs_fonts.js',
-    'node_modules/datatables.net-buttons/js/dataTables.buttons.min.js',
-    'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js',
-    'node_modules/datatables.net-buttons/js/buttons.colVis.js',
-    'node_modules/datatables.net-buttons/js/buttons.flash.js',
-    'node_modules/datatables.net-buttons/js/buttons.html5.js',
-    'node_modules/datatables.net-buttons/js/buttons.print.js',
-    'node_modules/datatables.net-colreorder/js/dataTables.colReorder.min.js',
-    'node_modules/datatables.net-fixedcolumns/js/dataTables.fixedColumns.min.js',
-    'node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
-    'node_modules/datatables.net-keytable/js/dataTables.keyTable.min.js',
-    'node_modules/datatables.net-responsive/js/dataTables.responsive.min.js',
-    'node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js',
-    'node_modules/datatables.net-rowgroup/js/dataTables.rowGroup.min.js',
-    'node_modules/datatables.net-rowreorder/js/dataTables.rowReorder.min.js',
-    'node_modules/datatables.net-scroller/js/dataTables.scroller.min.js',
-    'node_modules/datatables.net-select/js/dataTables.select.min.js',
-], 'public/plugins/custom/datatables/datatables.bundle.js');
-mix.styles([
-    'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css',
-    'node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css',
-    'node_modules/datatables.net-autofill-bs4/css/autoFill.bootstrap4.min.css',
-    'node_modules/datatables.net-colreorder-bs4/css/colReorder.bootstrap4.min.css',
-    'node_modules/datatables.net-fixedcolumns-bs4/css/fixedColumns.bootstrap4.min.css',
-    'node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css',
-    'node_modules/datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css',
-    'node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css',
-    'node_modules/datatables.net-rowgroup-bs4/css/rowGroup.bootstrap4.min.css',
-    'node_modules/datatables.net-rowreorder-bs4/css/rowReorder.bootstrap4.min.css',
-    'node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css',
-    'node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css',
-], 'public/plugins/custom/datatables/datatables.bundle.css');

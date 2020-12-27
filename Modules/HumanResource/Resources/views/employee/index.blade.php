@@ -9,7 +9,7 @@ Employee Management
 <!--begin::Toolbar-->
 <div class="d-flex align-items-center">
     <!--begin::Button-->
-    <a href="{{ route('hrm.employee.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base"><i class="la la-plus"></i> Register new Employee</a>
+    <a href="{{ route('hrm.employee.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base"><i class="fal fa-plus"></i> Register new Employee</a>
     <!--end::Button-->
    
 </div>
@@ -63,7 +63,7 @@ Employee Management
 @endsection
 
 @section('js-custom')
-<script src="{{ asset('js/humanresource/employee/index.js') }}"></script>
+<script src="{{ asset('js/modules/humanresource/employee/index.js') }}"></script>
 @endsection
 
 

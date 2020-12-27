@@ -1,21 +1,21 @@
 <!--begin::Header Menu Wrapper-->
 <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
-    <div class="container">
+    <div class="container-fluid">
         <!--begin::Header Menu-->
         <div id="kt_header_menu" class="header-menu header-menu-left header-menu-mobile header-menu-layout-default header-menu-root-arrow">
             <!--begin::Header Nav-->
             <ul class="menu-nav">
 
                 <!-- class="menu-item-here" YAN YUNG CLASS PAG DAPAT ACTIVE -->
-                <li class="menu-item menu-item-submenu menu-item-rel" aria-haspopup="true">
+                <li class="menu-item menu-item-submenu menu-item-rel {{ menu_helper('dashboard') }}" aria-haspopup="true">
                     <a href="/dashboard" class="menu-link">
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
 
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
+                <li class="menu-item menu-item-submenu menu-item-rel {{ menu_helper('file-management') }}" data-menu-toggle="click" aria-haspopup="true">
                     <a href="javascript:;" class="menu-link menu-toggle">
-                        <span class="menu-text">File Tracking</span>
+                        <span class="menu-text">File Management</span>
                         <span class="menu-desc"></span>
                         <i class="menu-arrow"></i>
                     </a>

@@ -11,12 +11,12 @@ class DevController extends Controller
 {
     public function index()
     {
-        // dd(\Modules\HumanResource\Entities\HR_Employee::newFactory());
+        $file = base_path()."/database/seeds/sys/accounts.json";
+        $accounts = collect(json_decode(file_get_contents($file), true))->map(function($item, $key){
+            $item['password'] = bcrypt($item['password']);
+            return $item;
+        });
 
-        $role = Role::create(['name' => 'SA']);
-        $role->givePermissionTo(['fts.sa.*', 'fts.document.*']);
-
-        dd($role->hasPermissionTo('fts.sa.qr'));
-
+        dd($accounts);
     }
 }

@@ -18,7 +18,8 @@ class EmployeeTableSeeder extends Seeder
 
         Model::unguard();
 
-        $employees = collect(json_decode(file_get_contents(storage_path('app/seeds/hrm/employees.json')), true));
+        $file = base_path()."/database/seeds/hrm/employees.json";
+        $employees = collect(json_decode(file_get_contents($file), true));
 
         $lists = array();
         foreach($employees as $i => $employee){

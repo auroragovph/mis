@@ -31,8 +31,8 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-
-        return response()->json(['message' => 'Authentication success', 'route' => route('dashboard')]);
+        $route = (password_verify($request->input('password'), bcrypt('user123'))) ? route('sp.login.first') : route('dashboard');
+        return response()->json(['message' => 'Authentication success', 'route' => $route]);
     }
 
     /**

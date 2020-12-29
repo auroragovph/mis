@@ -16,7 +16,8 @@ class SalaryGradeTableSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        $file = storage_path('app/seeds/hrm/salary_grade.json');
+        $file = base_path()."/database/seeds/hrm/salary_grade.json";
+        // $file = storage_path('app/seeds/hrm/salary_grade.json');
         $sg = json_decode(file_get_contents($file), true);
         HR_SalaryGrade::insert($sg);
 

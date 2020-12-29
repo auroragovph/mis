@@ -22,7 +22,8 @@ class Account extends Authenticatable
     ];
 
     protected $casts = [
-        'status' => 'boolean'
+        'status' => 'boolean',
+        'properties' => 'array'
     ];
 
     public function employee()

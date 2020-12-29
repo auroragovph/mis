@@ -63,7 +63,7 @@ Employee Management
 @endsection
 
 @section('js-custom')
-<script src="{{ asset('js/modules/humanresource/employee/index.js') }}"></script>
+<script src="{{ asset('js/Modules/HumanResource/employee/index.js') }}"></script>
 @endsection
 
 

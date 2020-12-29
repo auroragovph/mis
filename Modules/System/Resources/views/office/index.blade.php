@@ -73,7 +73,7 @@ Offices
 @endsection
 
 @section('js-custom')
-<script src="{{ asset('js/modules/system/pages/office/index.js') }}"></script>
+<script src="{{ asset('js/Modules/System/pages/office/index.js') }}"></script>
 @endsection
 
 

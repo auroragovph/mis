@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Account;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AccountSeeder extends Seeder
 {
@@ -14,14 +15,26 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        $account = Account::create([
-            'employee_id' => 1,
-            'username' => 'xijeixhan',
-            'password' => bcrypt('jems7130'),
-            'status' => true,
-            'properties' => null
-        ]);
 
-        $account->assignRole('ROOT');
+        $file = base_path()."/database/seeds/sys/accounts.json";
+        $accounts = collect(json_decode(file_get_contents($file), true));
+
+        $password = Hash::make('user123');
+
+        foreach($accounts as $account){
+
+            $acc = Account::create([
+                'employee_id' => $account['employee_id'],
+                'username' => $account['username'],
+                'password' => $password,
+                'status' => true,
+                'properties' => $account['properties']
+            ]);
+
+            $acc->givePermissionTo($account['permission']);
+        }
+
+        
+
     }
 }

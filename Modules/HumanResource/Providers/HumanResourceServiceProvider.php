@@ -58,7 +58,7 @@ class HumanResourceServiceProvider extends ServiceProvider
     }
 
      /**
-     * Register config.
+     * Register middlewares.
      *
      * @return void
      */

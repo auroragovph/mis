@@ -47,3 +47,17 @@ Route::group(['prefix' => 'system', 'middleware' => ['auth:web']], function(){
     });
 
 });
+
+
+Route::group([
+    'prefix' => 'special-pages',
+    'middleware' => 'auth:web',
+    'namespace' => 'SpecialPages'
+], function(){
+
+    Route::prefix('login')->group(function(){
+        Route::get('/first-login', 'FirstLoginController@index')->name('sp.login.first')->middleware('sp-firstlogin');
+        Route::post('/{employee}/first-login', 'FirstLoginController@submit')->name('sp.login.first.post')->middleware('sp-firstlogin');
+    });
+
+});

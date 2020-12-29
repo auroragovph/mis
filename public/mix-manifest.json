@@ -7,6 +7,7 @@
     "/js/Modules/HumanResource/employee/index.js": "/js/Modules/HumanResource/employee/index.js",
     "/js/Modules/HumanResource/webpack.mix.js": "/js/Modules/HumanResource/webpack.mix.js",
     "/js/Modules/System/app.js": "/js/Modules/System/app.js",
+    "/js/Modules/System/pages/account/first-login.js": "/js/Modules/System/pages/account/first-login.js",
     "/js/Modules/System/pages/account/index.js": "/js/Modules/System/pages/account/index.js",
     "/js/Modules/System/pages/acl/role/index.js": "/js/Modules/System/pages/acl/role/index.js",
     "/js/Modules/System/pages/office/division/index.js": "/js/Modules/System/pages/office/division/index.js",

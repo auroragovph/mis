@@ -14,10 +14,16 @@ class SYS_Division extends Model
     
     protected $guarded = [];
     protected $table = 'sys_division';
+    
 
     protected static function newFactory()
     {
         return DivisionFactory::new();
+    }
+
+    public static function getTableName()
+    {
+        return with(new static)->getTable();
     }
 
     public function scopeLists($query, $all = true)

@@ -41,7 +41,7 @@ class DivisionController extends Controller
                             })
                             ->orWhereHas('office', function($query) use($key){
                                 $query->where('alias', 'like', "%{$key}%");
-                            })->get();
+                            })->with('office')->get();
         }else{
             $divisions = SYS_Division::with('office')->get();
         }

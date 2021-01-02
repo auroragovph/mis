@@ -47,8 +47,6 @@ Employee Management
     </div>
 </div>
 <!--end::Card-->
-
-
 @endsection
 
 

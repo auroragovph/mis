@@ -3,12 +3,12 @@
 <div class="card card-custom gutter-b tab-pane fade @if($refferer != 'sys.account.index') show active @endif" id="informationTab" role="tabpanel" aria-labelledby="informationTab-tab">
     <!--begin::Header-->
    <div class="card-header py-3">
-    <div class="card-title align-items-start flex-column">
-        <h3 class="card-label font-weight-bolder text-dark">Personal Information</h3>
-        <span class="text-muted font-weight-bold font-size-sm mt-1">Update your personal informaiton</span>
+        <div class="card-title align-items-start flex-column">
+            <h3 class="card-label font-weight-bolder text-dark">Personal Information</h3>
+            <span class="text-muted font-weight-bold font-size-sm mt-1">Update your personal informaiton</span>
+        </div>
     </div>
-</div>
-<!--end::Header-->
+    <!--end::Header-->
 
     <!--begin::Body-->
     <div class="card-body">

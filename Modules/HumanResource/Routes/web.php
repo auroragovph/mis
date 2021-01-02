@@ -7,6 +7,11 @@ Route::group(['prefix' => 'human-resource', 'middleware' => ['auth:web']], funct
     Route::get('/dashboard', 'DashboardController@index')->name('hrm.dashboard');
 
     Route::prefix('employee')->namespace('Employee')->group(function(){
+
+
+        Route::get('/lists', "EmployeeController@lists")->name('hrm.employee.lists');
+
+
         Route::get('/', "EmployeeController@index")->name('hrm.employee.index');
         Route::get('/create', "EmployeeController@create")->name('hrm.employee.create');
         Route::post('/create', "EmployeeController@store")->name('hrm.employee.store');

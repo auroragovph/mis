@@ -29,6 +29,11 @@ class HR_Employee extends Model
         return \Modules\HumanResource\Database\factories\EmployeeFactory::new();
     }
 
+    public static function getTableName()
+    {
+        return with(new static)->getTable();
+    }
+
     public function scopeLiaison($query)
     {
         return $query->where('liaison', true);

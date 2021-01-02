@@ -9,7 +9,9 @@ Register New Employee
 <!--begin::Toolbar-->
 <div class="d-flex align-items-center">
     <!--begin::Button-->
-    <a href="{{ route('hrm.employee.index') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base"><i class="la la-reply"></i> Return back</a>
+    <a href="{{ route('hrm.employee.index') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+        <i class="la la-reply"></i> Return back
+    </a>
     <!--end::Button-->
    
 </div>

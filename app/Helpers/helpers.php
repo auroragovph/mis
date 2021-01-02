@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  Utility Helpers for Management Information System of Provincial Government of Aurora
  *
@@ -202,7 +203,7 @@ if (! function_exists('series')) {
     function series($string){
 
         if(strlen($string) <= 8){
-            return 0;
+            return $string;
         }
 
         return (int)substr($string, 8, 8);
@@ -418,6 +419,73 @@ if (! function_exists('show_status')) {
     }
 }
 
+
+if (! function_exists('document_status')) {
+    /**
+    * Return color of the status in the show form
+    * @param string
+    * @return string  
+    */
+    function document_status($status, $return = 'status')
+    {
+        switch($status)
+        {
+            case '0':  
+                $label =  'danger';
+                $status = 'Cancelled';
+            break;
+
+            case '1':  
+                $label = 'warning';
+                $status = 'Wating for Activation';
+            break;
+
+            case '2':  
+                $label = 'primary';
+                $status = 'On Process';
+            break;
+
+            case '3':  
+                $label = 'success';
+                $status = 'Approves';
+            break;
+
+            case '4':  
+                $label = 'danger';
+                $status = 'Disapproved';
+            break;
+
+            case '5':  
+                $label = 'warning';
+                $status = 'Pending';
+            break;
+
+            case '6':  
+                $label = 'danger';
+                $status = 'Pending';
+            break;
+
+            case '7':  
+                $label = 'success';
+                $status = 'For Withdrawal';
+            break;
+
+            case '8':  
+                $label = 'primary';
+                $status = 'Paid';
+            break;
+
+            default:
+                $label = 'inverse';
+                $status = 'Undefined';
+            break;
+        }
+
+        return ($return == 'status') ? $status : $label;
+    }
+}
+
+
 if (! function_exists('transmittal_status')) {
     /**
     * Return color of the status in the show form
@@ -507,6 +575,17 @@ if (! function_exists('iah')) {
             return 'selected';
         }
         
+    }
+}
+
+if (! function_exists('auth_division')) {
+    /**
+    * Return authenticated employees division id
+    * @return string
+    */
+    function auth_division()
+    {
+       return auth()->user()->employee->division_id;
     }
 }
 
@@ -660,6 +739,47 @@ if (! function_exists('menu_helper')) {
         return (strpos($current_url, $menu_url) === false) ? '' : 'menu-item-here';
     }
 }
+
+
+if (! function_exists('qr_to_base64')) {
+    /**
+    * Convert name to username
+    * @return array
+    */
+    function qr_to_base64($string){
+        $qr = \SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')
+                    ->size(500)
+                    ->merge('/public/media/logos/favicon.png', .3)
+                    ->errorCorrection('H')
+                    ->generate($string);
+
+        return base64_encode($qr);
+    }
+}
+
+if (! function_exists('pretty_number')) {
+    /**
+    * Convert number to pretty
+    * @param string
+    * @return string
+    */
+    function pretty_number($string){
+        return number_format(floatval($string), 2);
+    }
+}
+
+if (! function_exists('link_back')) {
+    /**
+    * Convert name to username
+    * @return array
+    */
+    function link_back($route = '#'){
+        $referer = request()->headers->get('referer');
+        return ($referer == null) ? $route : $referer;
+    }
+}
+
+
 
 
 

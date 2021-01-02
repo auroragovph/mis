@@ -11,9 +11,29 @@ use Modules\System\Entities\Office\SYS_Division;
 use Modules\HumanResource\Http\Requests\Employee\EmployeeStoreRequest;
 use Modules\HumanResource\Http\Requests\Employee\EmployeeUpdateRequest;
 use Modules\HumanResource\Transformers\Employee\EmployeeDTResource;
+use Modules\HumanResource\Transformers\Employee\EmployeeListResource;
 
 class EmployeeController extends Controller
 {
+
+    public function lists(Request $request)
+    {
+        $employees = HR_Employee::query();
+
+        if($request->has('search')){
+            $q = strtolower($request->input('search'));
+            $employees->whereRaw("LOWER(`name`) LIKE '%{$q}%' ");
+        }
+
+        if($request->has('liaison')){
+            $employees->liaison();
+        }
+
+        $data = EmployeeListResource::collection($employees->onlyDivision()->get());
+
+        return response()->json($data);
+    }
+
     public function index(Request $request)
     {
         if($request->ajax()){

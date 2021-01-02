@@ -2,6 +2,7 @@
 
 namespace Modules\FileManagement\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
@@ -28,6 +29,9 @@ class FileManagementServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        $this->registerBladeComponents();
+
     }
 
     /**
@@ -108,5 +112,16 @@ class FileManagementServiceProvider extends ServiceProvider
             }
         }
         return $paths;
+    }
+
+    /**
+     * Register blade components.
+     *
+     * @return void
+     */
+    public function registerBladeComponents()
+    {
+        Blade::component('fms-qr', \Modules\FileManagement\Views\QR::class);
+        Blade::component('fms-attachments', \Modules\FileManagement\Views\Attachment::class);
     }
 }

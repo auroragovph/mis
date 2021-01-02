@@ -1,5 +1,5 @@
 <!--begin::Container-->
-<div class="d-flex flex-row flex-column-fluid container-fluid">
+<div class="d-flex flex-row flex-column-fluid container">
     <!--begin::Content Wrapper-->
     <div class="main d-flex flex-column flex-row-fluid">
         

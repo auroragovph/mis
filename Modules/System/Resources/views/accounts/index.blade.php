@@ -56,7 +56,7 @@ Account Management
 @endsection
 
 @section('js-custom')
-<script src="{{ asset('js/modules/system/pages/account/index.js') }}"></script>
+<script src="{{ asset('js/Modules/System/pages/account/index.js') }}"></script>
 @endsection
 
 

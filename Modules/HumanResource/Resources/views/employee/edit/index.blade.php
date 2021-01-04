@@ -118,7 +118,7 @@ Edit Employee
 @endsection
 
 @section('js-custom')
-<script src="{{ asset('js/modules/humanresource/employee/edit.js') }}"></script>
+<script src="{{ asset('js/Modules/HumanResource/employee/edit.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 @endsection
 

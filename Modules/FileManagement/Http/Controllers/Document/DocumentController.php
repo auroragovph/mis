@@ -16,7 +16,7 @@ class DocumentController extends Controller
     {
         $document = FMS_Document::with('attachments', 'encoder', 'liaison', 'division.office')->findOrFail($id);
         
-        require base_path()."\Modules\FileManagement\Includes\SwitchDocument.php";
+        require base_path()."/Modules/FileManagement/Includes/SwitchDocument.php";
 
         return view('filemanagement::documents.receipt', [
             'document' => $document,

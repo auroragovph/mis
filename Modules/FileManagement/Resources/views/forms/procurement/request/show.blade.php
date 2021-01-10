@@ -35,7 +35,7 @@ Purchase Request
                 </a>
             </li>
             <li class="navi-item">
-                <a href="{{ route('fms.documents.cancel.index', $pr->document_id) }}" class="navi-link">
+                <a href="{{ route('fms.documents.cancel.form', $pr->document_id) }}" class="navi-link">
                     <span class="navi-text">
                         <i class="flaticon2-cancel"></i> Cancel Document
                     </span>

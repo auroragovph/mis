@@ -8,7 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // dd(request()->url());
         return view('dashboard.index');
     }
 }

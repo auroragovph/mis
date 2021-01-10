@@ -2,7 +2,7 @@
 
 
 @section('page-title')
-CAFOA
+Purchase Request
 @endsection
 
 @section('toolbar')
@@ -20,7 +20,7 @@ CAFOA
     <!--begin::Header-->
    <div class="card-header py-3">
         <div class="card-title align-items-start flex-column">
-            <h3 class="card-label font-weight-bolder text-dark">CAFOA Form</h3>
+            <h3 class="card-label font-weight-bolder text-dark">Purchase Request Form</h3>
             <span class="text-muted font-weight-bold font-size-sm mt-1">Please fill up the form</span>
         </div>
     </div>
@@ -63,7 +63,7 @@ CAFOA
 
             <div id="kt_repeater_1">
                 <div class="form-group row">
-                    <div data-repeater-list="" class="col-lg-12">
+                    <div data-repeater-list="lists" class="col-lg-12">
                         <div data-repeater-item="" class="form-group row align-items-center">
                             <div class="col-md-3">
                                 <label>Stock Number:</label>
@@ -78,13 +78,13 @@ CAFOA
 
                             <div class="col-md-3">
                                 <label>Quantity:</label>
-                                <input type="text" class="form-control" name="quantity"/>
+                                <input type="number" min="0" class="form-control" name="quantity"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
 
                             <div class="col-md-3">
                                 <label>Item Cost:</label>
-                                <input type="text" name="amount" class="form-control"/>
+                                <input type="number" step="0.01" name="amount" class="form-control"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
 

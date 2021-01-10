@@ -46,7 +46,7 @@ class HR_Employee extends Model
 
     public function scopeOnlyDivision($query)
     {
-        return $query->where('division_id', Auth::user()->employee->division_id);
+        return $query->where('division_id', authenticated()->employee->division_id);
     }
 
     public function division()

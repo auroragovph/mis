@@ -12,6 +12,15 @@ use Modules\FileManagement\Transformers\Forms\Procurement\Request\RequestDTResou
 
 class PRController extends Controller
 {
+    public function __construct()
+    {
+        // middlewares
+        // $this->middleware('fms.document.check', ['only' => ['show', 'edit', 'update', 'print']]);
+        // $this->middleware(['permission:fms.document.create'], ['only' => ['create', 'store']]);
+        // $this->middleware(['permission:fms.document.edit'], ['only' => ['edit', 'update']]);
+        $this->middleware(['only.ajax'], ['only' => ['store', 'update']]);
+    }
+
     public function index(Request $request)
     {
         if($request->ajax()){
@@ -35,6 +44,9 @@ class PRController extends Controller
             config('constants.office.PTO'),
             config('constants.office.BUDGET'),
         ])->get();
+
+        // activity loger
+        activitylog(['name' => 'fms', 'log' => 'Request new purchase request form.']);
         
         return view('filemanagement::forms.procurement.request.create', [
             'employees' => $employees
@@ -46,11 +58,6 @@ class PRController extends Controller
         // storing document
         $document = FMS_Document::directStore($request->post('liaison'), config('constants.document.type.procurement.request'));
 
-        $lists = [];
-        foreach($request->post('lists') as $i => $list){
-            $lists[$i] = json_decode($list, true);
-        }
-
         $pr = FMS_PR::create([
             'document_id' => $document->id,
             'requesting_id' => $request->post('requesting'),
@@ -59,8 +66,11 @@ class PRController extends Controller
             'fund' => $request->post('fund'),
             'fpp' => $request->post('fpp'),
             'purpose' => $request->post('purpose'),
-            'lists' => $lists
+            'lists' => $request->post('lists')
         ]);
+
+        // activity loger
+        activitylog(['name' => 'fms', 'log' => 'Encode new purchase request']);
 
         // setting session
         session()->flash('alert-success', 'Purchase request has been encoded.');
@@ -86,6 +96,9 @@ class PRController extends Controller
                     'approval'
                     )->findOrFail($id);
 
+        // activity loger
+        activitylog(['name' => 'fms', 'log' => 'Request purchase request information']);
+
         return view('filemanagement::forms.procurement.request.show', [
             'pr' => $pr
         ]);
@@ -101,6 +114,11 @@ class PRController extends Controller
         ])->get();
 
         $pr = FMS_PR::with('document')->findOrFail($id);
+
+        // activity loger
+        activitylog(['name' => 'fms', 'log' => 'Edit purchase request.', 'props' => [
+           'edit' => ['model' => FMS_PR::class,'id' => $pr->id]
+        ]]);
         
         return view('filemanagement::forms.procurement.request.edit', [
             'employees' => $employees,
@@ -112,11 +130,6 @@ class PRController extends Controller
     {
         $pr = FMS_PR::with('document')->findOrFail($id);
 
-        $lists = [];
-        foreach($request->post('lists') as $i => $list){
-            $lists[$i] = json_decode($list, true);
-        }
-
         $pr->update([
             'requesting_id' => $request->post('requesting'),
             'treasury_id' => $request->post('treasury'),
@@ -125,11 +138,16 @@ class PRController extends Controller
             'fund' => $request->post('fund'),
             'fpp' => $request->post('fpp'),
             'purpose' => $request->post('purpose'),
-            'lists' => $lists
+            'lists' => $request->post('lists')
         ]);
 
         // setting session
         session()->flash('alert-success', 'Purchase request has been updated.');
+
+        // activity loger
+        activitylog(['name' => 'fms', 'log' => 'Update purchase request.', 'props' => [
+            'edit' => ['model' => FMS_PR::class,'id' => $pr->id]
+        ]]);
 
         return response()->json([
             'message' => "Purchase request has been updated.",

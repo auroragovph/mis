@@ -11,6 +11,8 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
         Route::get('/', 'DocumentController@index')->name('fms.documents.index');
         Route::get('/{id}/redirect', 'DocumentController@redirect')->name('fms.documents.redirect');
         Route::get('/{id}/receipt', 'DocumentController@receipt')->name('fms.documents.receipt');
+        Route::get('/track', 'DocumentController@track')->name('fms.documents.track');
+
 
         Route::group(['prefix' => 'cancel'], function(){
             Route::get('/', 'CancellationController@index')->name('fms.documents.cancel.index');
@@ -50,13 +52,6 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
             Route::post('/', 'NumberingController@number')->name('fms.documents.number.number');
         });
 
-
-        Route::prefix('track')->group(function(){
-            Route::get('/', 'TrackingController@track')->name('fms.documents.track');
-        });
-
-
-
     });
 
 
@@ -84,17 +79,6 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
 
     });
 
-    // Route::prefix('obligation-request')->namespace('Forms\OBR')->group(function(){
-    //     Route::get('/', 'ObligationRequestController@index')->name('fms.obr.index');
-    //     Route::post('/lists', 'ObligationRequestController@lists')->name('fms.obr.lists');
-    //     Route::get('/create', 'ObligationRequestController@create')->name('fms.obr.create');
-    //     Route::post('/create', 'ObligationRequestController@store')->name('fms.obr.store');
-    //     Route::get('/{id}/show', 'ObligationRequestController@show')->name('fms.obr.show');
-    //     Route::get('/{id}/edit', 'ObligationRequestController@edit')->name('fms.obr.edit');
-    //     Route::post('/{id}/edit', 'ObligationRequestController@update')->name('fms.obr.update');
-    //     Route::get('/{id}/print', 'ObligationRequestController@print')->name('fms.obr.print');
-
-    // });
 
     Route::prefix('cafoa')->namespace('Forms\Cafoa')->group(function(){
         Route::get('/', 'CafoaController@index')->name('fms.cafoa.index');
@@ -129,20 +113,20 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
             Route::post('/create', 'ItineraryController@store')->name('fms.travel.itinerary.store');
             Route::get('/{id}/show', 'ItineraryController@show')->name('fms.travel.itinerary.show');
             Route::get('/{id}/edit', 'ItineraryController@edit')->name('fms.travel.itinerary.edit');
-            Route::post('/{id}/edit', 'ItineraryController@update')->name('fms.travel.itinerary.update');
+            Route::put('/{id}/edit', 'ItineraryController@update')->name('fms.travel.itinerary.update');
         });
 
     });
 
 
-    Route::prefix('application-for-leave')->namespace('Forms\AFL')->group(function(){
+    Route::prefix('application-for-leave')->namespace('Forms')->group(function(){
         Route::get('/', 'AFLController@index')->name('fms.afl.index');
         Route::post('/create', 'AFLController@create')->name('fms.afl.create');
         Route::put('/create', 'AFLController@store')->name('fms.afl.store');
         Route::get('/{id}/show', 'AFLController@show')->name('fms.afl.show');
         Route::get('/{id}/edit', 'AFLController@edit')->name('fms.afl.edit');
         Route::get('/{id}/print', 'AFLController@print')->name('fms.afl.print');
-        Route::post('/{id}/edit', 'AFLController@update')->name('fms.afl.update');
+        Route::patch('/{id}/edit', 'AFLController@update')->name('fms.afl.update');
     });
 
 

@@ -43,6 +43,7 @@ class FmsFormTravelItineraryCreateTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('fms_form_travel_itinerary');
+        
     }
 }

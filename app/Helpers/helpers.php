@@ -47,25 +47,6 @@ if (! function_exists('ucnames')) {
     }
 }
 
-if (! function_exists('actlog')) {
-    /**
-     * Store activity logs
-     * @param string $logName
-     * @return array $log
-     */
-    function actlog($logName = 'sys', $logMessage = '', $properties = [])
-    {
-        $log = activity($logName)
-                ->withProperties([
-                    'agent' => user_agent(),
-                    $properties
-                ])
-                ->log($logMessage);
-
-        return $log;
-    }
-}
-
 if (! function_exists('name_mutate')) {
     /**
      * Explode the string and remove unnessary blank key
@@ -368,56 +349,23 @@ if (! function_exists('show_status')) {
     */
     function show_status($status)
     {
-        switch($status)
-        {
-            case '0':  
-                $status =  '<span class="badge bg-danger">CANCELLED</span>';
-            break;
-
-            case '1':  
-                $status =  '<span class=\"badge bg-secondary\">DEACTIVATED</span>';
-            break;
-
-            case '2':  
-                $status =  '<span class="badge bg-primary">ON PROCESS</span>';
-            break;
-
-            case '3':  
-                $status =  '<span class="badge bg-lime">APPROVED</span>';
-            break;
-
-            case '4':  
-                $status =  '<span class="badge bg-purple">DISAPPROVED</span>';
-            break;
-
-            case '5':  
-                $status =  '<span class="badge bg-olive">PENDING</span>';
-            break;
-
-            case '6':  
-                $status =  '<span class="badge bg-warning">RETURNED</span>';
-            break;
-
-            case '7':  
-                $status =  '<span class="badge bg-olive">FOR WITHDRAWAL</span>';
-            break;
-
-            case '8':  
-                $status =  '<span class="badge bg-lime">PAID</span>';
-            break;
-
-           
-
-
-
-            default:
-                $status =  '<span class="badge bg-black">UNDEFINED</span>';
-            break;
-        }
-
-        return $status;
+        $status = document_status($status);
+        $color = document_status($status, 'label');
+        return "<span class=\"label label-light-{$color} label-inline font-weight-bold label-lg\">{$status}</span>";
     }
 }
+
+if (! function_exists('authenticated')) {
+    /**
+    * Return the current authenticated user
+    * @return object  
+    */
+    function authenticated(){
+        return session()->get('authenticated');
+    }
+}
+
+
 
 
 if (! function_exists('document_status')) {
@@ -585,7 +533,7 @@ if (! function_exists('auth_division')) {
     */
     function auth_division()
     {
-       return auth()->user()->employee->division_id;
+       return authenticated()->employee->division_id;
     }
 }
 
@@ -770,12 +718,33 @@ if (! function_exists('pretty_number')) {
 
 if (! function_exists('link_back')) {
     /**
-    * Convert name to username
+    * Return the referer url
     * @return array
     */
     function link_back($route = '#'){
         $referer = request()->headers->get('referer');
         return ($referer == null) ? $route : $referer;
+    }
+}
+
+if (! function_exists('activitylog')) {
+    /**
+    * Insert activity logs
+    * @param array
+    * @return object
+    */
+    function activitylog($array){
+        $name = $array['name'] ?? 'sys';
+        $log = $array['log'] ?? '';
+        $properties = $array['props'] ?? null;
+
+        $log = \Modules\System\Entities\SYS_ActivityLog::create([
+            'name' => $name,
+            'log' => $log,
+            'properties' => $properties,
+            'employee_id' => authenticated()->employee_id,
+            'agent' => user_agent()
+        ]);
     }
 }
 

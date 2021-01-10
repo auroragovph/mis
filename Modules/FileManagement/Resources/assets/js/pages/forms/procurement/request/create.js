@@ -109,9 +109,7 @@ var KTFormValidation = function() {
 var KTForm = function(){
 
     var _form;
-    var _data;
     var _card;
-    var _rows;
 
 	var _submit = function() {
 
@@ -125,15 +123,7 @@ var KTForm = function(){
 				size: 'lg'
         });
 
-        _data = new FormData(document.querySelector('#kt_form'));
-        _rows = $('#kt_repeater_1').repeaterVal()[""];
-
-        _rows.forEach(element => {
-           _data.append('lists[]', JSON.stringify(element))
-        });
-
-
-        axios.post(_form.attr('action'), _data)
+        axios.post(_form.attr('action'), _form.serialize())
         .then(res => {
 			swal.fire({
 				text: res.data.message,

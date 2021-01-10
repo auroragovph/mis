@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Account;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,11 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $route = (password_verify($request->input('password'), bcrypt('user123'))) ? route('sp.login.first') : route('dashboard');
+        
+        // saving into sessions
+        $authenticated = Account::with('employee.position', 'employee.division.office')->find(auth()->user()->id);
+        $request->session()->put('authenticated', $authenticated);
+        
         return response()->json(['message' => 'Authentication success', 'route' => $route]);
     }
 

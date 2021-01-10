@@ -2,6 +2,7 @@
 
 use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\Procurement\FMS_PR;
+use Modules\FileManagement\Entities\Travel\FMS_IOT;
 use Modules\FileManagement\Entities\Travel\FMS_TO;
 
 switch($document->type){
@@ -61,6 +62,16 @@ switch($document->type){
 
         $datas['Employees'] = substr($employees, 0, -2);
 
+    break;
+
+    case config('constants.document.type.travel.itinerary'): 
+        $iot = FMS_IOT::with('employee', 'head', 'supervisor')->where('document_id', $id)->first();
+
+        $datas['Employee'] = name_helper($iot->employee->name);
+        $datas['Number'] = $iot->number;
+        $datas['Fund'] = $iot->fund;
+        $datas['Date of Travel'] = $iot->travel_date;
+        $datas['Purpose'] = $iot->travel_purpose;
     break;
 
     default: 

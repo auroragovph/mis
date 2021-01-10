@@ -27,18 +27,18 @@
                 <div class="d-flex align-items-center mt-5">
                     <div class="symbol symbol-100 mr-5">
                         
-                        @if(Auth::user()->employee->info['image'] == null)
+                        @if(authenticated()->employee->info['image'] == null)
                             <div class="symbol symbol-success mr-3">
-                                <span class="symbol-label font-size-h1">{{ name_helper( Auth::user()->employee->name, 'SYM-FL') }}</span>
+                                <span class="symbol-label font-size-h1">{{ name_helper( authenticated()->employee->name, 'SYM-FL') }}</span>
                             </div>
                         @else
-                        <div class="symbol-label" style="background-image:url('{{ asset("storage/employees/profile/".Auth::user()->employee->info['image']) }}')"></div>
+                        <div class="symbol-label" style="background-image:url('{{ asset("storage/employees/profile/".authenticated()->employee->info['image']) }}')"></div>
                         @endif
                         <i class="symbol-badge bg-success"></i>
                     </div>
                     <div class="d-flex flex-column">
-                        <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ name_helper( Auth::user()->employee->name, 'FL') }}</a>
-                        <div class="text-muted mt-1">{{ Auth::user()->employee->position->position ?? 'N/A' }}</div>
+                        <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ name_helper( authenticated()->employee->name, 'FL') }}</a>
+                        <div class="text-muted mt-1">{{ authenticated()->employee->position->position ?? 'N/A' }}</div>
                         <div class="navi mt-2">
                             <a href="#" class="navi-item">
                                 <span class="navi-link p-0 pb-2">
@@ -55,7 +55,7 @@
                                             <!--end::Svg Icon-->
                                         </span>
                                     </span>
-                                    <span class="navi-text text-muted text-hover-primary">{{ '@'.Auth::user()->username }}</span>
+                                    <span class="navi-text text-muted text-hover-primary">{{ '@'.authenticated()->username }}</span>
                                 </span>
                             </a>
                             <form action="{{ route('logout') }}" method="POST">

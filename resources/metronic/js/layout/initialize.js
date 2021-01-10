@@ -69,5 +69,5 @@ KTUtil.ready(function() {
     KTLayoutQuickUser.init('kt_quick_user');
 
     // Init Quick Search Handle
-    KTLayoutSearchInline().init('kt_quick_search_inline');
+    // KTLayoutSearchInline().init('kt_quick_search_inline');
 });

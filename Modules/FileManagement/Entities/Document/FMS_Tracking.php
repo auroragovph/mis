@@ -18,22 +18,20 @@ class FMS_Tracking extends Model
 
     public function liaison()
     {
-        return $this->belongsTo(HR_Employee::class, 'liaison_id', 'id');
+        return $this->belongsTo(HR_Employee::class, 'liaison_id');
     }
 
     public function clerk()
     {
-        return $this->belongsTo(HR_Employee::class, 'user_id', 'id');
+        return $this->belongsTo(HR_Employee::class, 'user_id');
     }
 
     public function division()
     {
-        return $this->belongsTo(SYS_Division::class, 'division_id', 'id');
+        return $this->belongsTo(SYS_Division::class, 'division_id');
     }
-
-
-
-    public static function log($id, $action, $purpose, $status, $liaison_id = 0)
+    
+    public static function log($id, $action, $purpose, $status, $liaison_id = null)
     {
         return static::create([
             'document_id' => $id,

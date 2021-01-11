@@ -749,6 +749,39 @@ if (! function_exists('activitylog')) {
 }
 
 
+if (! function_exists('arrdif')) {
+    /**
+    * Insert activity logs
+    * @param array
+    * @return object
+    */
+    function arrdif($old, $new){
+
+        $changes = array();
+
+        foreach($old as $key => $value){
+
+            if(is_array($value)){
+                $changes[$key] = arrdif($value, $new[$key]);
+            }else{
+
+                if($value != $new[$key]){
+
+                    $changes[$key] = [
+                        'old' => $old[$key],
+                        'new' => $new[$key]
+                    ];
+                }
+
+            }
+        }
+
+        return $changes;
+      
+    }
+}
+
+
 
 
 

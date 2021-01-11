@@ -59,7 +59,7 @@ CAFOA
 
             <div id="kt_repeater_1">
                 <div class="form-group row">
-                    <div data-repeater-list="" class="col-lg-12">
+                    <div data-repeater-list="lists" class="col-lg-12">
                         <div data-repeater-item="" class="form-group row align-items-center">
                             <div class="col-md-2">
                                 <label>Function:</label>

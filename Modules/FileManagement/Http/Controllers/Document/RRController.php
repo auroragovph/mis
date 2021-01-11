@@ -26,16 +26,55 @@ class RRController extends Controller
 
         // checking if document exists
         if($document == null || $document->qr !== $request->document){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request to receive or release the document but failed. Reason: Document not found.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'We cannot find this document. Please check the QR code and try again.');
         }
 
         // check if document is not cancelled
         if($document->status == 0){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request to receive or release the document but failed. Reason: Document was cancelled.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'The document has been cancelled.');
         }
 
         // check if document is activated
         if($document->status == 1){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request to receive or release the document but failed. Reason: Document is not activated.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'Please activate the document first.');
         }
 
@@ -45,9 +84,35 @@ class RRController extends Controller
 
         // checking if the liaison exists
         if($liaison == null){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request to receive or release the document but failed. Reason: Liaison officer not found.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'The liaison officer not found.');
         }
         if($liaison->liaison == false){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request to receive or release the document but failed. Reason: Employee is not registered as liaison.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'Employee is not registered as liaison.');
         }
 
@@ -57,6 +122,19 @@ class RRController extends Controller
         // check if you can receive this paper
 
         if($track == null){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request to receive or release the document but failed. Reason: Tracks not found.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+            
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'Tracks not found.');
         }
         //if the document is currently receive
@@ -64,20 +142,44 @@ class RRController extends Controller
             // check if the document is receive in your division/office
             if($track->division_id != Auth::user()->employee->division_id){
                 $office = office_helper($track->division);
+
+
+                // activity loger
+                activitylog([
+                    'name' => 'fms',
+                    'log' => 'Request to receive or release the document but failed. Reason: Document was received in another office.', 
+                    'props' => [
+                        'model' => [
+                            'id' => $id,
+                            'class' => FMS_Document::class
+                        ]
+                    ]
+                ]);
+
+
                 return redirect(route('fms.documents.rr.index'))->with('alert-error', "This document current receive at <b> {$office} </b>. Please release the document first and try again!");
             }
         }
 
         // requiring the switchs
-        require base_path()."\Modules\FileManagement\Includes\SwitchDocument.php";
+        require base_path()."/Modules/FileManagement/Includes/SwitchDocument.php";
 
         // setting session id 
         session(['fms.document.edit' => $id]);
         session(['fms.document.liaison' => $liaison->id]);
         ($track->action == 0) ? session(['fms.document.track' => 1]) : session(['fms.document.track' => 0]);
 
-         // logging
-        //  FMS_DocumentLog::log($document->id, 'Request to receive/release the document');
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request to receive or release the document.', 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_Document::class
+                ]
+            ]
+        ]);
 
         return view('filemanagement::documents.rr', [
             'document' => $document,

@@ -25,6 +25,8 @@ class CafoaController extends Controller
             return response()->json($datas);
         }
 
+        activitylog(['name' => 'fms', 'log' => 'Request cafoa list']);
+
         return view('filemanagement::forms.cafoa.index');
     }
 
@@ -36,6 +38,9 @@ class CafoaController extends Controller
             config('constants.office.PTO'),
             config('constants.office.BUDGET'),
         ])->get();
+
+        activitylog(['name' => 'fms', 'log' => 'Request cafoa form']);
+
 
         return view('filemanagement::forms.cafoa.create', [
             'employees' => $employees
@@ -60,6 +65,19 @@ class CafoaController extends Controller
             )
         ->findOrFail($id);
 
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request to edit cafoa', 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_Cafoa::class
+                ]
+            ]
+        ]);
+
         return view('filemanagement::forms.cafoa.edit', [
             'employees' => $employees,
             'cafoa' => $cafoa
@@ -71,11 +89,6 @@ class CafoaController extends Controller
         // storing document
         $document = FMS_Document::directStore($request->post('liaison'), config('constants.document.type.cafoa'));
 
-        $lists = [];
-        foreach($request->post('lists') as $i => $list){
-            $lists[$i] = json_decode($list, true);
-        }
-
         $cafoa = FMS_Cafoa::create([
             'payee' => $request->post('payee'),
             'document_id' => $document->id,
@@ -84,11 +97,23 @@ class CafoaController extends Controller
             'budget_id' => $request->post('budget'),
             'accountant_id' => $request->post('accountant'),
             'requesting_id' => $request->post('requesting'),
-            'lists' => $lists
+            'lists' => $request->post('lists')
         ]);
 
          // setting session
          session()->flash('alert-success', 'Cafoa has been encoded.');
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Encode cafoa', 
+            'props' => [
+                'model' => [
+                    'id' => $cafoa->id,
+                    'class' => FMS_Cafoa::class
+                ]
+            ]
+        ]);
 
          return response()->json([
              'message' => "CAFOA has been encoded.",
@@ -112,6 +137,18 @@ class CafoaController extends Controller
                         )
                     ->findOrFail($id);
 
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request information of CAFOA', 
+            'props' => [
+                'model' => [
+                    'id' => $cafoa->id,
+                    'class' => FMS_Cafoa::class
+                ]
+            ]
+        ]);
+
         return view('filemanagement::forms.cafoa.show', compact('cafoa'));
     }
 
@@ -119,10 +156,7 @@ class CafoaController extends Controller
     {
         $cafoa = FMS_Cafoa::with('document')->findOrFail($id);
 
-        $lists = [];
-        foreach($request->post('lists') as $i => $list){
-            $lists[$i] = json_decode($list, true);
-        }
+        $oldCafoa = $cafoa->toArray();
 
         $cafoa->update([
             'payee' => $request->post('payee'),
@@ -131,7 +165,7 @@ class CafoaController extends Controller
             'budget_id' => $request->post('budget'),
             'accountant_id' => $request->post('accountant'),
             'requesting_id' => $request->post('requesting'),
-            'lists' => $lists
+            'lists' => $request->post('lists')
         ]);
 
 
@@ -139,8 +173,32 @@ class CafoaController extends Controller
             'liaison_id' => $request->post('liaison')
         ]);
 
-         // setting session
-         session()->flash('alert-success', 'Cafoa has been updated.');
+        // setting session
+        session()->flash('alert-success', 'Cafoa has been updated.');
+
+
+        $newCafoa = $cafoa->toArray();
+
+
+        // dd($newCafoa);
+        dd(arrdif($oldCafoa, $newCafoa));
+
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Update CAFOA information', 
+            'props' => [
+                'model' => [
+                    'id' => $cafoa->id,
+                    'class' => FMS_Cafoa::class
+                ],
+                'data' => [
+                    'old' => array_diff($oldCafoa, $newCafoa),
+                    'new' => array_diff($newCafoa, $oldCafoa)
+                ]
+            ]
+        ]);
 
          return response()->json([
              'message' => "CAFOA has been updated.",

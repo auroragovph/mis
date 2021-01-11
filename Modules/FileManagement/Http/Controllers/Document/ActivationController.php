@@ -12,6 +12,9 @@ class ActivationController extends Controller
 {
     public function index()
     {
+        // activity loger
+        activitylog(['name' => 'fms', 'log' => 'Request activation form.']);
+
         return view('filemanagement::documents.activation');
     }
 
@@ -22,17 +25,61 @@ class ActivationController extends Controller
         $document = FMS_Document::find($id);
 
         if($document == null || $request->document != $document->qr){
+            
             $response['message'] = 'Document not found';
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Submit activation for ID: '. $id. ' but failed. Reason: '.$response['message'], 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return response()->json($response, 406);
         }
 
         if($document->status == '0'){
+
             $response['message'] = 'Document has been cancelled. All further transactions to this document is invalid.';
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Submit activation for ID: '. $id. ' but failed. Reason: '.$response['message'], 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
+
             return response()->json($response, 406);
         }
 
         if($document->status != '1'){
+
             $response['message'] = 'Document already activated.';
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Submit activation for ID: '. $id. ' but failed. Reason: '.$response['message'], 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
+
             return response()->json($response, 406);
         }
 
@@ -40,11 +87,40 @@ class ActivationController extends Controller
 
         $liaison = HR_Employee::where('card', employee_id_helper($request->liaison))->first();
         if($liaison == null){
+
             $response['message'] = 'Liaison ID not found.';
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Submit activation for ID: '. $id. ' but failed. Reason: '.$response['message'], 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
+
             return response()->json($response, 406);
         }
         if($liaison->liaison == false){
+
             $response['message'] = 'Employee is not a liaison officer!';
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Submit activation for ID: '. $id. ' but failed. Reason: '.$response['message'], 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return response()->json($response, 406);
         }
 
@@ -55,7 +131,17 @@ class ActivationController extends Controller
         FMS_Tracking::log($id, 0, 'Document Activation', 2, (int)$liaison->id);
 
         // logging
-        // FMS_DocumentLog::log($document->id, 'Activate the document.');
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Submit activation for ID: '.$id, 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_Document::class
+                ]
+            ]
+        ]);
 
 
         $response['message'] = 'Document activated.';

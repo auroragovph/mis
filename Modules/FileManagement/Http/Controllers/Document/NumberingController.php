@@ -14,6 +14,7 @@ class NumberingController extends Controller
 {
     public function index()
     {
+        activitylog(['name' => 'fms', 'log' => 'Request numbering form.']);
         return view('filemanagement::documents.numbering');
     }
 
@@ -24,12 +25,22 @@ class NumberingController extends Controller
         $document = FMS_Document::find($id);
 
         if($document == null || $document->qr != $request->document){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request numbering of document but failed. Reason: Document not found!', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return response()->json(['message' => 'Document not found!'], 406);
         }
 
-
-        // logging
-        // FMS_DocumentLog::log($document->id, 'Check the document if numberable.');
 
         $numberable = [
             config('constants.document.type.procurement.request'),
@@ -39,10 +50,36 @@ class NumberingController extends Controller
         ];
 
         if(!in_array($document->type, $numberable)){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request numbering of document but failed. Reason: Document is not numberable.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return response()->json(['message' => 'You cannot attach number to this document'], 406);
         }
 
         if($document->status == '1'){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request numbering of document but failed. Reason: Document is not activated.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return response()->json(['message' => 'Please activate this document first!'], 406);
         }
 
@@ -51,10 +88,36 @@ class NumberingController extends Controller
         // fetch the latest track of the document
         $logs = FMS_Tracking::where('document_id', $id)->orderBy('id', 'DESC')->first();
         if($logs->action !== 1){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request numbering of document but failed. Reason: Document is not currently received.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return response()->json(['message' => 'Please receive this document first before you attach the number!'], 406);
         }else{
             // check if the document is receive in your division/office
             if($logs->division_id != authenticated()->employee->division_id){
+
+                // activity loger
+                activitylog([
+                    'name' => 'fms',
+                    'log' => 'Request numbering of document but failed. Reason: Document is not currently received.', 
+                    'props' => [
+                        'model' => [
+                            'id' => $id,
+                            'class' => FMS_Document::class
+                        ]
+                    ]
+                ]);
+
                 return response()->json(['message' => 'Please receive this document first before you attach the number!'], 406);
             }
         }
@@ -76,6 +139,19 @@ class NumberingController extends Controller
             'type' => $response['data']['meta']['type']
         ]]);
 
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Search document for numbering', 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_Document::class
+                ]
+            ]
+        ]);
+
         return response()->json($response, 200);
     }
 
@@ -83,7 +159,16 @@ class NumberingController extends Controller
     {
         $details = session()->pull('fms.document.numbering');
 
-        if(!$details || $details == null){return response()->json(['message' => 'Session not found'], 406);}
+        if(!$details || $details == null){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Request numbering of document but failed. Reason: Session not found.'
+            ]);
+
+            return response()->json(['message' => 'Session not found'], 406);
+        }
 
 
         $id = $details['id'];
@@ -138,6 +223,19 @@ class NumberingController extends Controller
             $response['status'] = 406;
 
         }
+
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request numbering of document. Message: '.$response['message'], 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_Document::class
+                ]
+            ]
+        ]);
 
 
         return response()->json($response, $response['status']);

@@ -12,6 +12,8 @@ class AttachmentController extends Controller
 {
     public function index()
     {
+        activitylog(['name' => 'fms', 'log' => 'Request document attach form.']);
+
         return view('filemanagement::documents.attach');
     }
 
@@ -22,27 +24,53 @@ class AttachmentController extends Controller
         $document = FMS_Document::find($id);
 
         if($document == null || $document->qr !== $request->document){
+
+            // activity loger
+            activitylog([
+                'name' => 'fms',
+                'log' => 'Submit attachment for ID: '. $id. ' but failed. Reason: Document not found.', 
+                'props' => [
+                    'model' => [
+                        'id' => $id,
+                        'class' => FMS_Document::class
+                    ]
+                ]
+            ]);
+
             return redirect()->back()->with('alert-error', 'Document not found');
         }
 
-         // logging
-        //  FMS_DocumentLog::log($document->id, 'Check the document if exists.');
-
-
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Check document if exists for attachment controller.', 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_Document::class
+                ]
+            ]
+        ]);
 
         return redirect(route('fms.documents.attach.form', $document->id));
-
-
     }
 
     public function form($id)
     {
         $document = FMS_Document::with('attachments')->findOrFail($id);
 
-         // logging
-        //  FMS_DocumentLog::log($document->id, 'Request attachment form for the document');
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Attachment form', 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_Document::class
+                ]
+            ]
+        ]);
 
-        // dd($document);
 
         return view('filemanagement::documents.attach', [
             'document' => $document
@@ -103,8 +131,18 @@ class AttachmentController extends Controller
             }
         }
 
-         // logging
-        //  FMS_DocumentLog::log($id, 'Add attachments to the document');
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Add attachment to the document.', 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_Document::class
+                ]
+            ]
+        ]);
+
 
         return redirect()->back()->with('alert-success', 'Documents has been attached.');
     }

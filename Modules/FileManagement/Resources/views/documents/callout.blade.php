@@ -5,12 +5,11 @@
             <!--begin::Body-->
             <div class="card-body">
                 <div class="p-4">
-                    <h3 class="text-white font-weight-bolder my-7">Create CRM Reports</h3>
-                    <p class="text-muted font-size-lg mb-7">Cause marketing is marketing
-                    <br />done by a for-profit business
-                    <br />that seeks to increase profits
-                    <br />to better society</p>
-                    <a href='#' class="btn btn-danger font-weight-bold px-6 py-3">Create Report</a>
+                    <h3 class="text-white font-weight-bolder my-7">File Management Announcements</h3>
+                    <p class="text-white font-size-lg mb-7">
+                        Please attach the documents when you release the documents.
+                    </p>
+                    {{-- <a href='#' class="btn btn-danger font-weight-bold px-6 py-3">Create Report</a> --}}
                 </div>
             </div>
             <!--end::Body-->

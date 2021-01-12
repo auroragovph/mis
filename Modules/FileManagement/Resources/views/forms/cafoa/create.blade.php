@@ -80,7 +80,7 @@ CAFOA
 
                             <div class="col-md-3">
                                 <label>Amount:</label>
-                                <input type="text" name="amount" class="form-control"/>
+                                <input type="number" step="0.01" name="amount" class="form-control"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
                            

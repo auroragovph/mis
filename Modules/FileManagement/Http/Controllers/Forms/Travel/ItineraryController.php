@@ -19,12 +19,18 @@ class ItineraryController extends Controller
             $datas = ItineraryDTResource::collection($model);
             return response()->json($datas);
         }
+
+        activitylog(['name' => 'fms', 'log' => 'Request itinerary of travel list']);
+
         return view('filemanagement::forms.travel.itinerary.index');
     }
 
     public function create()
     {
         $employees = HR_Employee::where('division_id', auth_division())->get();
+
+        activitylog(['name' => 'fms', 'log' => 'Request itinerary of travel form']);
+
         return view('filemanagement::forms.travel.itinerary.create', [
             'employees' => $employees
         ]);
@@ -49,6 +55,18 @@ class ItineraryController extends Controller
         // setting session
         session()->flash('alert-success', 'Itinerary of travel has been encoded.');
 
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Encode cafoa', 
+            'props' => [
+                'model' => [
+                    'id' => $iot->id,
+                    'class' => FMS_IOT::class
+                ]
+            ]
+        ]);
+
         return response()->json([
             'message' => "Itinerary of travel has been encoded.",
             'route' => route('fms.travel.itinerary.show', $iot->id)
@@ -72,6 +90,18 @@ class ItineraryController extends Controller
 
         )->findOrFail($id);
 
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request information of Iitnerary of Travel', 
+            'props' => [
+                'model' => [
+                    'id' => $iot->id,
+                    'class' => FMS_IOT::class
+                ]
+            ]
+        ]);
+
         return view('filemanagement::forms.travel.itinerary.show', [
             'iot' => $iot
         ]);
@@ -83,6 +113,19 @@ class ItineraryController extends Controller
     {
         $iot = FMS_IOT::with('document')->findOrFail($id);
         $employees = HR_Employee::where('division_id', auth_division())->get();
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request to edit itinerary of travel', 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_IOT::class
+                ]
+            ]
+        ]);
+
         return view('filemanagement::forms.travel.itinerary.edit', [
             'iot' => $iot,
             'employees' => $employees
@@ -107,6 +150,18 @@ class ItineraryController extends Controller
 
         // setting session
         session()->flash('alert-success', 'Itinerary of travel has been updated.');
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Update itinerary of travel information', 
+            'props' => [
+                'model' => [
+                    'id' => $iot->id,
+                    'class' => FMS_Cafoa::class
+                ]
+            ]
+        ]);
 
         return response()->json([
             'message' => "Itinerary of travel has been updated.",

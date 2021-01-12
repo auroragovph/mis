@@ -156,8 +156,6 @@ class CafoaController extends Controller
     {
         $cafoa = FMS_Cafoa::with('document')->findOrFail($id);
 
-        $oldCafoa = $cafoa->toArray();
-
         $cafoa->update([
             'payee' => $request->post('payee'),
             'requesting_id' => $request->post('requesting'),
@@ -168,20 +166,12 @@ class CafoaController extends Controller
             'lists' => $request->post('lists')
         ]);
 
-
         $cafoa->document()->update([
             'liaison_id' => $request->post('liaison')
         ]);
 
         // setting session
         session()->flash('alert-success', 'Cafoa has been updated.');
-
-
-        $newCafoa = $cafoa->toArray();
-
-
-        // dd($newCafoa);
-        dd(arrdif($oldCafoa, $newCafoa));
 
 
         // activity loger
@@ -192,10 +182,6 @@ class CafoaController extends Controller
                 'model' => [
                     'id' => $cafoa->id,
                     'class' => FMS_Cafoa::class
-                ],
-                'data' => [
-                    'old' => array_diff($oldCafoa, $newCafoa),
-                    'new' => array_diff($newCafoa, $oldCafoa)
                 ]
             ]
         ]);

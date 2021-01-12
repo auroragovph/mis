@@ -1,125 +1,138 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Repeater</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="https://bootswatch.com/3/paper/bootstrap.min.css" />
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        
 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Arial', sans-serif;
+}
+.page-border{
+    border: 2px solid black;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td,th {
+    vertical-align: baseline;
+}
+
+.pl-3{
+    padding-left: 10px;
+}
+
+.ml-3{
+    margin-left: 10px;
+}
+
+.text-right{
+    text-align: right;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.center{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btm{
+    border-top: 2px solid black;
+}
+
+.bbm{
+    border-bottom: 2px solid black;
+}
+
+.blm{
+    border-left: 2px solid black;
+}
+
+.brm{
+    border-right: 2px solid black;
+}
+
+.bt{
+    border-top: 1px solid black;
+}
+
+.bb{
+    border-bottom: 1px solid black;
+}
+
+.bl{
+    border-left: 1px solid black;
+}
+
+.br{
+    border-right: 1px solid black;
+}
+
+.rep{
+    font-size: 12px;
+}
+
+.pro{
+    font-size: 12px;
+    margin-top: -5px;
+}
+
+h3{
+    font-size: 20px;
+}
+
+.footer-page p{
+    font-size: 10px;
+}
+    </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <!-- Repeater Html Start -->
-                <div id="repeater">
-                    <!-- Repeater Heading -->
-                    <div class="repeater-heading">
-                        <h5 class="pull-left">Repeater</h5>
-                        <button class="btn btn-primary pt-5 pull-right repeater-add-btn">
-                            Add
-                        </button>
-                    </div>
-                    <div class="clearfix"></div>
-                    <!-- Repeater Items -->
-                    <div class="items" data-group="test">
-                        <!-- Repeater Content -->
-                        <div class="item-content">
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-lg-2 control-label">Name</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputName" placeholder="Name" data-name="name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputEmail" placeholder="Email" data-skip-name="true" data-name="email">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Repeater Remove Btn -->
-                        <div class="pull-right repeater-remove-btn">
-                            <button class="btn btn-danger remove-btn">
-                                Remove
-                            </button>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="items" data-group="test">
-                        <!-- Repeater Content -->
-                        <div class="item-content">
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-lg-2 control-label">Name</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputName" placeholder="Name" data-name="name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputEmail" placeholder="Email" data-skip-name="true" data-name="email">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Repeater Remove Btn -->
-                        <div class="pull-right repeater-remove-btn">
-                            <button class="btn btn-danger remove-btn">
-                                Remove
-                            </button>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="items" data-group="test">
-                        <!-- Repeater Content -->
-                        <div class="item-content">
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-lg-2 control-label">Name</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputName" placeholder="Name" data-name="name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-                                <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputEmail" placeholder="Email" data-skip-name="true" data-name="email">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Repeater Remove Btn -->
-                        <div class="pull-right repeater-remove-btn">
-                            <button class="btn btn-danger remove-btn">
-                                Remove
-                            </button>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-                <!-- Repeater End -->
-            </div>
-        </div>
-    </div>
-    <!-- Import repeater js  -->
-    {{-- <script src="./repeater.js" type="text/javascript"></script> --}}
+    <table class="btm blm brm">
 
-    <!--begin::Global Theme Bundle(used by all pages)-->
-<script src="{{ asset('plugins/global/plugins.bundle.js') }}"></script>
-<script src="{{ asset('plugins/custom/prismjs/prismjs.bundle.js') }}"></script>
-<script src="{{ asset('js/scripts.bundle.js') }}"></script>
-<!--end::Global Theme Bundle-->
+        <thead>
 
+            <tr>
+                <th colspan="6">PURCHASE REQUEST</th>
+            </tr>
 
-    <script>
-        /* Create Repeater */
-        $("#repeater").createRepeater({
-            showFirstItemToDefault: true,
-        });
-    </script>
+            <tr class="bt bb">
+                <th class="br">ROW1</th>
+                <th class="br">ROW2</th>
+                <th class="br">ROW3</th>
+                <th class="br">ROW4</th>
+                <th class="br">ROW5</th>
+                <th>ROW6</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="bt bb">
+                <td class="br">ROW1</td>
+                <td class="br">ROW2</td>
+                <td class="br">ROW3</td>
+                <td class="br">ROW4</td>
+                <td class="br">ROW5</td>
+                <td>ROW6</td>
+            </tr>
+
+        </tbody>
+        <tfoot>
+            <tr class="bbm">
+                <th colspan="6">PURCHASE REQUEST</th>
+            </tr>
+        </tfoot>
+    </table>
 </body>
-
 </html>

@@ -12,26 +12,6 @@ class DevController extends Controller
 {
     public function index()
     {
-
-      $arr1 = [
-        'one' => 'one',
-        'two' => 'two',
-        'three' => [
-          'a' => 'a',
-          'b' => 'c'
-        ]
-      ];
-
-      $arr2 = [
-        'one' => 'one',
-        'two' => 'three',
-        'three' => [
-          'a' => 'a',
-          'b' => 'b'
-        ]
-      ];
-
-
-      dd(arrdif($arr2, $arr1));
+      return view('dev');
     }
 }

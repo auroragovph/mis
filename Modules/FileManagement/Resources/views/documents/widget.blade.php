@@ -2,86 +2,104 @@
     <div class="col-md-5">
         <div class="row">
             <div class="col-xl-6">
+
                 <!--begin::Tiles Widget 2-->
-                <div class="card card-custom bg-danger gutter-b" style="height: 175px">
-                    <!--begin::Body-->
-                    <div class="card-body p-0">
-                        <!--begin::Stats-->
-                        <div class="card-spacer pb-0">
-                            <div class="text-inverse-danger font-weight-bold">Author Stats</div>
-                            <div class="text-inverse-danger font-weight-bolder font-size-h3">3,620</div>
-                        </div>
-                        <!--end::Stats-->
-                        <!--begin::Chart-->
-                        <div id="kt_tiles_widget_2_chart" class="card-rounded-bottom" style="height: 75px"></div>
-                        <!--end::Chart-->
+                <div class="card card-custom bg-primary gutter-b" style="height: 150px">
+                    <div class="card-body">
+                        <span class="svg-icon svg-icon-3x svg-icon-white ml-n2">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                    <rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                                    <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z" fill="#000000" opacity="0.3"></path>
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">790</div>
+                        <a href="#" class="text-inverse-success font-weight-bold font-size-lg mt-1">Today's Document</a>
                     </div>
-                    <!--end::Body-->
                 </div>
                 <!--end::Tiles Widget 2-->
-                <!--begin::Tiles Widget 3-->
-                <div class="card card-custom bgi-no-repeat bgi-no-repeat bgi-size-cover gutter-b" style="height: 175px; background-image: url(assets/media/bg/bg-9.jpg)">
-                    <!--begin::Body-->
-                    <div class="card-body d-flex flex-column">
-                        <!--begin::Title-->
-                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h3">Properties</a>
-                        <!--end::Title-->
+
+                <!--begin::Tiles Widget 2-->
+                <div class="card card-custom gutter-b bg-success" style="height: 150px">
+                    <div class="card-body">
+                        <span class="svg-icon svg-icon-3x svg-icon-white ml-n2">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                    <rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                                    <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z" fill="#000000" opacity="0.3"></path>
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">790</div>
+                        <a href="#" class="text-inverse-success font-weight-bold font-size-lg mt-1">Total Document</a>
                     </div>
-                    <!--end::Body-->
                 </div>
-                <!--end::Tiles Widget 3-->
+                <!--end::Tiles Widget 2-->
+
             </div>
             <div class="col-xl-6">
-                <!--begin::Tiles Widget 4-->
-                <div class="card card-custom gutter-b" style="height: 175px">
-                    <!--begin::Body-->
-                    <div class="card-body d-flex flex-column">
-                        <!--begin::Stats-->
-                        <div class="flex-grow-1">
-                            <div class="text-dark-50 font-weight-bold">Total Sales</div>
-                            <div class="font-weight-bolder font-size-h3">4,9M</div>
-                        </div>
-                        <!--end::Stats-->
-                        <!--begin::Progress-->
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <!--end::Progress-->
+                <!--begin::Tiles Widget 2-->
+                <div class="card card-custom bg-warning gutter-b" style="height: 150px">
+                    <div class="card-body">
+                        <span class="svg-icon svg-icon-3x svg-icon-white ml-n2">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                    <rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                                    <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z" fill="#000000" opacity="0.3"></path>
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">790</div>
+                        <a href="#" class="text-inverse-success font-weight-bold font-size-lg mt-1">On Process</a>
                     </div>
-                    <!--end::Body-->
                 </div>
-                <!--end::Tiles Widget 4-->
-                <!--begin::Tiles Widget 5-->
-                <div class="card card-custom bg-info gutter-b" style="height: 175px">
-                    <!--begin::Body-->
-                    <div class="card-body p-0">
-                        <!--begin::Stats-->
-                        <div class="card-spacer pb-0">
-                            <div class="text-inverse-info font-weight-bold">Commisions</div>
-                            <div class="text-inverse-info font-weight-bolder font-size-h3">$2,005</div>
-                        </div>
-                        <!--end::Stats-->
-                        <!--begin::Chart-->
-                        <div id="kt_tiles_widget_5_chart" class="card-rounded-bottom" style="height: 75px"></div>
-                        <!--end::Chart-->
+                <!--end::Tiles Widget 2-->
+
+                <!--begin::Tiles Widget 2-->
+                <div class="card card-custom bg-danger gutter-b" style="height: 150px">
+                    <div class="card-body">
+                        <span class="svg-icon svg-icon-3x svg-icon-white ml-n2">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                    <rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5"></rect>
+                                    <path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z" fill="#000000" opacity="0.3"></path>
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">790</div>
+                        <a href="#" class="text-inverse-success font-weight-bold font-size-lg mt-1">Returned</a>
                     </div>
-                    <!--end::Body-->
                 </div>
-                <!--end::Tiles Widget 5-->
+                <!--end::Tiles Widget 2-->
+
             </div>
+
         </div>
-        <!--begin::Mixed Widget 20-->
+        {{-- <!--begin::Mixed Widget 20-->
         <div class="card card-custom bgi-no-repeat gutter-b" style="height: 180px; background-color: #4AB58E; background-position: calc(100% + 0.5rem) bottom; background-size: 25% auto; background-image: url(assets/media/svg/humans/custom-1.svg)">
             <!--begin::Body-->
             <div class="card-body d-flex align-items-center">
                 <div class="py-2">
-                    <h3 class="text-white font-weight-bolder mb-3">30% Off Themes</h3>
-                    <p class="text-white font-size-lg">Get your discounted themes of the month
-                    <br />No hassle, no worries, no fuss
-                    <br />Instant rewards, everyday</p>
+                    <h3 class="text-white font-weight-bolder mb-3">File Management Announcements</h3>
+                    <p class="text-white font-size-lg">
+                        Please attach the documents when you released the documents.
+                    </p>
                 </div>
             </div>
             <!--end::Body-->
         </div>
-        <!--end::Mixed Widget 20-->
+        <!--end::Mixed Widget 20--> --}}
     </div>

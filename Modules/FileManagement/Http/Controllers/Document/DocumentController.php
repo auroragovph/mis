@@ -43,6 +43,12 @@ class DocumentController extends Controller
             $tracks = FMS_Tracking::with('liaison', 'clerk', 'division.office')->where('document_id', $id)->orderBy('id', 'DESC')->get();
 
         }
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Track document'
+        ]);
         
 
         return view('filemanagement::documents.track', [

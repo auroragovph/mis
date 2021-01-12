@@ -22,11 +22,15 @@ class TravelOrderController extends Controller
             return response()->json($datas);
         }
 
+        activitylog(['name' => 'fms', 'log' => 'Request travel order list']);
+
         return view('filemanagement::forms.travel.order.index');
     }
 
     public function create()
     {
+        activitylog(['name' => 'fms', 'log' => 'Request travel order form']);
+
         return view('filemanagement::forms.travel.order.create');
     }
 
@@ -57,6 +61,18 @@ class TravelOrderController extends Controller
         // setting session
         session()->flash('alert-success', 'Travel Order has been encoded.');
 
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Encode travel order', 
+            'props' => [
+                'model' => [
+                    'id' => $to->id,
+                    'class' => FMS_TO::class
+                ]
+            ]
+        ]);
+
         return response()->json([
             'message' => "Travel Order has been encoded.",
             'route' => route('fms.travel.order.show', $to->id)
@@ -67,6 +83,19 @@ class TravelOrderController extends Controller
     public function show($id)
     {
         $to = FMS_TO::with('document.liaison', 'document.encoder', 'document.division.office', 'lists.employee.position')->findOrFail($id);
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request information of travel order', 
+            'props' => [
+                'model' => [
+                    'id' => $to->id,
+                    'class' => FMS_Cafoa::class
+                ]
+            ]
+        ]);
+
         return view('filemanagement::forms.travel.order.show', compact('to'));
     }
 
@@ -75,6 +104,18 @@ class TravelOrderController extends Controller
         $to = FMS_TO::with('document', 'lists')->findOrFail($id);
         $employees = HR_Employee::with('position')->onlyDivision()->get();
         $divisions = SYS_Division::with('office')->get();
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request to edit travel order.', 
+            'props' => [
+                'model' => [
+                    'id' => $id,
+                    'class' => FMS_Cafoa::class
+                ]
+            ]
+        ]);
 
         return view('filemanagement::forms.travel.order.edit', [
             'employees' => $employees,
@@ -115,6 +156,18 @@ class TravelOrderController extends Controller
         // setting session
         session()->flash('alert-success', 'Travel Order has been updated.');
 
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Update travel order information', 
+            'props' => [
+                'model' => [
+                    'id' => $to->id,
+                    'class' => FMS_Cafoa::class
+                ]
+            ]
+        ]);
+
         return response()->json([
             'message' => "Travel Order has been updated.",
             'route' => route('fms.travel.order.show', $to->id)
@@ -131,6 +184,18 @@ class TravelOrderController extends Controller
                             'approval.position'
                 )
             ->findOrFail($id);
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Print travel order information', 
+            'props' => [
+                'model' => [
+                    'id' => $to->id,
+                    'class' => FMS_Cafoa::class
+                ]
+            ]
+        ]);
 
         return view('filemanagement::forms.travel.order.print', [
             'to' => $to

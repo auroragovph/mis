@@ -33,6 +33,9 @@ class PRController extends Controller
             return response()->json($datas);
         }
 
+        // activity loger
+        activitylog(['name' => 'fms', 'log' => 'Request purchase request list.']);
+
         return view('filemanagement::forms.procurement.request.index');
     }
 
@@ -70,7 +73,16 @@ class PRController extends Controller
         ]);
 
         // activity loger
-        activitylog(['name' => 'fms', 'log' => 'Encode new purchase request']);
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Encode cafoa', 
+            'props' => [
+                'model' => [
+                    'id' => $pr->id,
+                    'class' => FMS_PR::class
+                ]
+            ]
+        ]);
 
         // setting session
         session()->flash('alert-success', 'Purchase request has been encoded.');
@@ -97,7 +109,16 @@ class PRController extends Controller
                     )->findOrFail($id);
 
         // activity loger
-        activitylog(['name' => 'fms', 'log' => 'Request purchase request information']);
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request information of purchase request', 
+            'props' => [
+                'model' => [
+                    'id' => $pr->id,
+                    'class' => FMS_PR::class
+                ]
+            ]
+        ]);
 
         return view('filemanagement::forms.procurement.request.show', [
             'pr' => $pr

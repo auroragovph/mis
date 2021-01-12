@@ -81,7 +81,7 @@ CAFOA
 
                             <div class="col-md-3">
                                 <label>Amount:</label>
-                                <input type="text" name="amount" class="form-control" value="{{ $list['amount'] ?? '' }}"/>
+                                <input type="number" step="0.01" name="amount" class="form-control" value="{{ $list['amount'] ?? '' }}"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
                            

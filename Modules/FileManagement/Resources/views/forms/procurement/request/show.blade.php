@@ -7,7 +7,7 @@ Purchase Request
 
 @section('toolbar')
  <!--begin::Button-->
- <a href="{{ link_back(route('fms.procurement.request.index')) }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base mr-2">
+ <a href="{{ route('fms.procurement.request.index') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base mr-2">
     <i class="fal fa-arrow-left"></i> Return back
 </a>
 <!--end::Button-->

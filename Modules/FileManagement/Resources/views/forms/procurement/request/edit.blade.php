@@ -7,7 +7,7 @@ Purchase Request
 
 @section('toolbar')
  <!--begin::Button-->
- <a href="{{ route('fms.cafoa.index') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+ <a href="{{ route('fms.procurement.request.index') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
     <i class="fal fa-arrow-left"></i> Return back
 </a>
 <!--end::Button-->
@@ -85,13 +85,13 @@ Purchase Request
 
                             <div class="col-md-3">
                                 <label>Quantity:</label>
-                                <input type="text" class="form-control" value="{{ $list['quantity'] }}" name="quantity"/>
+                                <input type="number" min="0" class="form-control" value="{{ $list['quantity'] }}" name="quantity"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
 
                             <div class="col-md-3">
                                 <label>Item Cost:</label>
-                                <input type="text" name="amount" {{ $list['amount'] }} class="form-control"/>
+                                <input type="number" step="0.01" name="amount" {{ $list['amount'] }} class="form-control"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
 

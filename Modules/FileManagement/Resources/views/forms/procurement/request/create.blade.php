@@ -7,7 +7,7 @@ Purchase Request
 
 @section('toolbar')
  <!--begin::Button-->
- <a href="{{ route('fms.cafoa.index') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+ <a href="{{ route('fms.procurement.request.index') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
     <i class="fal fa-arrow-left"></i> Return back
 </a>
 <!--end::Button-->

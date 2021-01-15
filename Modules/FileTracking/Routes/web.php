@@ -81,7 +81,8 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
     
         Route::prefix('cafoa')->namespace('Forms')->group(function(){
             Route::get('/', 'CafoaController@index')->name('fts.cafoa.index');
-            Route::post('/', 'CafoaController@store')->name('fts.cafoa.store');
+            Route::get('/create', 'CafoaController@create')->name('fts.cafoa.create');
+            Route::post('/create', 'CafoaController@store')->name('fts.cafoa.store');
             Route::get('/{id}/edit', 'CafoaController@edit')->name('fts.cafoa.edit');
             Route::post('/{id}/edit', 'CafoaController@update')->name('fts.cafoa.update');
         });

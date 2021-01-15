@@ -8,7 +8,7 @@
         <ul class="menu-subnav">
 
             <li class="menu-item" aria-haspopup="true">
-                <a href="{{ route('fms.documents.index') }}" class="menu-link">
+                <a href="{{ route('fts.documents.index') }}" class="menu-link">
                     <span class="svg-icon menu-icon">
                         <!--begin::Svg Icon | path:media/svg/icons/General/Shield-check.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">

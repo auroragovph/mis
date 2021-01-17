@@ -19,10 +19,16 @@ class CafoaStoreRequest extends FormRequest
     {
 
         return [
-            'series'        =>  ['required', Rule::exists((new FTS_QR())->getTable(), 'id')->where('status', 0)],
+            'series'        =>  ['sometimes', 'required', Rule::exists((new FTS_QR())->getTable(), 'id')->where('status', 0)],
             'division'      =>  ['required', Rule::exists((new SYS_Division())->getTable(), 'id')],
-            'liaison'       =>  ['required', Rule::exists((new HR_Employee())->getTable(), 'id')->where('liaison', 1)]
+            'liaison'       =>  ['required', Rule::exists((new HR_Employee())->getTable(), 'id')->where('liaison', 1)],
+
+            'payee'         => 'required',
+            'amount'        => 'required',
+            'particulars'   => 'required'
         ];
+
+        
     }
 
     /**

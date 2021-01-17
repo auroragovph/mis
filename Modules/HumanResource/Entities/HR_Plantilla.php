@@ -2,11 +2,14 @@
 
 namespace Modules\HumanResource\Entities;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\HumanResource\Database\factories\PositionFactory;
 
 class HR_Plantilla extends Model
 {
+    use HasFactory;
+    
     protected $guarded = [];
     protected $table = 'hrm_plantilla';
 

@@ -2,6 +2,7 @@
 
 namespace Modules\FileTracking\Http\Controllers\Forms;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\FileTracking\Entities\FTS_QR;
 use Modules\FileTracking\Entities\FTS_Cafoa;
@@ -10,11 +11,18 @@ use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
 use Modules\FileTracking\Http\Requests\Cafoa\CafoaStoreRequest;
+use Modules\FileTracking\Transformers\CafoaDTResource;
 
 class CafoaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if($request->ajax()){
+            $model = FTS_Cafoa::with('document')->get();
+            $datas = CafoaDTResource::collection($model);
+            return response()->json($datas);
+        }
+
         return view('filetracking::forms.cafoa.index');
     }
 
@@ -104,6 +112,42 @@ class CafoaController extends Controller
                 'series' => $series,
                 'print' => true
             ])
+        ], 200);
+    }
+
+    public function edit($id)
+    {
+        $cafoa = FTS_Cafoa::with('document')->findOrFail($id);
+
+        $divisions = SYS_Division::lists();
+        $liaisons = HR_Employee::liaison()->get();
+
+        return view('filetracking::forms.cafoa.edit', [
+            'cafoa' => $cafoa,
+            'divisions' => $divisions,
+            'liaisons' => $liaisons
+        ]);
+    }
+
+    public function update(CafoaStoreRequest $request, $id)
+    {
+        $cafoa = FTS_Cafoa::with('document')->findOrFail($id);
+
+        $cafoa->update([
+            'number' => $request->post('number'),
+            'payee' => $request->post('payee'),
+            'amount' => $request->post('amount'),
+            'particulars' => $request->post('particulars')
+        ]);
+
+        $cafoa->document()->update([
+            'division_id' => $request->post('division'),
+            'liaison_id' => $request->post('liaison')
+        ]);
+
+        return response()->json([
+            'message' => 'CAFOA has been updated.',
+            'route' => route('fts.cafoa.index')
         ], 200);
     }
 }

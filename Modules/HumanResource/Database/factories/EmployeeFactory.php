@@ -4,6 +4,7 @@ namespace Modules\HumanResource\Database\factories;
 use Modules\HumanResource\Entities\HR_Plantilla;
 use Modules\System\Entities\Office\SYS_Division;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\HumanResource\Entities\HR_Employee;
 
 class EmployeeFactory extends Factory
 {
@@ -12,7 +13,7 @@ class EmployeeFactory extends Factory
      *
      * @var string
      */
-    protected $model = \Modules\HumanResource\Entities\HR_Employee::class;
+    protected $model = HR_Employee::class;
 
     /**
      * Define the model's default state.
@@ -48,14 +49,14 @@ class EmployeeFactory extends Factory
         ];
 
         return [
-           'division_id' => SYS_Division::factory(),
-           'position_id' => HR_Plantilla::factory(),
-           'name' => json_encode($name),
-           'info' => json_encode($info),
-           'employment' => json_encode($employment),
-           'card' => $this->faker->numerify('PGA-###'),
-           'liaison' => $this->faker->randomElement($array = array (1, 0)),
-           'properties' => null
+           'division_id'    => SYS_Division::factory(),
+           'position_id'    => HR_Plantilla::factory(),
+           'name'           => $name,
+           'info'           => $info,
+           'employment'     => $employment,
+           'card'           => $this->faker->numerify('PGA-###'),
+           'liaison'        => $this->faker->randomElement($array = array (1, 0)),
+           'properties'     => null
         ];
     }
 }

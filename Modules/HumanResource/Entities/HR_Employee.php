@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\HumanResource\Database\factories\EmployeeFactory;
 use Modules\System\Entities\Office\SYS_Division;
 
 class HR_Employee extends Model
@@ -26,7 +27,7 @@ class HR_Employee extends Model
     
     public static function newFactory()
     {
-        return \Modules\HumanResource\Database\factories\EmployeeFactory::new();
+        return EmployeeFactory::new();
     }
 
     public static function getTableName()

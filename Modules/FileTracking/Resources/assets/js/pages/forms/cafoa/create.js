@@ -115,8 +115,13 @@ var KTForm = function(){
 					// reset plugins
 					KTUInitPlugins.init();
 
-                    // open new tab
-                    window.open(res.data.receipt, '_blank');
+					if(res.data.receipt !== undefined){
+						// open new tab
+						window.open(res.data.receipt, '_blank');
+					}else{
+						window.location.href = res.data.route;
+					}
+                   
                 }
             });
 
@@ -129,6 +134,10 @@ var KTForm = function(){
 
 			switch(error.status){
 				case 500: 
+					errTitle = 'Internal Service Error';
+					errMessage = res.message;
+				break;
+				case 406: 
 					errTitle = 'Internal Service Error';
 					errMessage = res.message;
 				break;

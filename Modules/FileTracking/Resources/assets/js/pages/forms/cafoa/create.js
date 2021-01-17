@@ -49,6 +49,13 @@ var KTFormValidation = function() {
 								message: 'Liaison officer is required'
 							}
 						}
+					},
+					particulars: {
+						validators: {
+							notEmpty: {
+								message: 'Particular is required'
+							}
+						}
 					}
 				},
 				plugins: {

@@ -18,7 +18,7 @@
                     <option value="{{ route('fts.cafoa.index') }}">Certifications on Appropriations, Funds and Obligation of Allotment (CAFOA / OBR)</option>
                     <option value="{{ route('fts.dv.index') }}">Disbursement Voucher (DV) </option>
                     <option value="{{ route('fts.payroll.index') }}">Payroll </option>
-                    <option value="{{ route('fts.procurement.request.index') }}">Purchase Request (PR) </option>
+                    <option value="{{ route('fts.pr.index') }}">Purchase Request (PR) </option>
 
                     <option value="{{ route('fts.travel.itinerary.index') }}">TEV - Itinerary of Travel </option>
 

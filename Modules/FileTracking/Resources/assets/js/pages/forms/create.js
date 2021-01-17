@@ -37,16 +37,23 @@ var KTFormValidation = function() {
 						}
 					},
 					division: {
-						requesting: {
+						validators: {
 							notEmpty: {
 								message: 'Requesting office is required'
 							}
 						}
 					},
 					liaison: {
-						liaison: {
+						validators: {
 							notEmpty: {
 								message: 'Liaison officer is required'
+							}
+						}
+					},
+					particulars: {
+						validators: {
+							notEmpty: {
+								message: 'Particular is required'
 							}
 						}
 					}
@@ -96,6 +103,7 @@ var KTForm = function(){
         });
 
         axios.post(_form.attr('action'), _form.serialize())
+
         .then(res => {
 			swal.fire({
 				text: res.data.message,
@@ -108,8 +116,19 @@ var KTForm = function(){
 				}
 			}).then((result) => {
                 if (result.isConfirmed) {
-                   
+                    // reset form
+					_form.trigger('reset');
 
+					// reset plugins
+					KTUInitPlugins.init();
+
+					if(res.data.receipt !== undefined){
+						// open new tab
+						window.open(res.data.receipt, '_blank');
+					}else{
+						window.location.href = res.data.route;
+					}
+                   
                 }
             });
 
@@ -122,6 +141,10 @@ var KTForm = function(){
 
 			switch(error.status){
 				case 500: 
+					errTitle = 'Internal Service Error';
+					errMessage = res.message;
+				break;
+				case 406: 
 					errTitle = 'Internal Service Error';
 					errMessage = res.message;
 				break;

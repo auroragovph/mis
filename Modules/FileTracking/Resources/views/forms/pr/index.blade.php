@@ -9,8 +9,8 @@ Payroll
 <!--begin::Toolbar-->
 <div class="d-flex align-items-center">
     <!--begin::Button-->
-    <a href="{{ route('fts.payroll.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-        <i class="fal fa-plus"></i> New Payroll
+    <a href="{{ route('fts.pr.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+        <i class="fal fa-plus"></i> New Purchase Request
     </a>
     <!--end::Button-->
    

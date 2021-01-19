@@ -31,9 +31,9 @@
 		<!--begin::Main-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Login-->
-			<div class="login login-5 wizard d-flex flex-column flex-lg-row flex-column-fluid">
+			<div class="login login-5 wizard d-flex flex-column flex-lg-row flex-column-fluid"  >
 				<!--begin::Aside-->
-				<div class="login-aside d-flex flex-column flex-row-auto">
+				<div class="login-aside d-flex flex-column flex-row-auto" style="background-color: #90e0ef; ">
 					<!--begin::Aside Top-->
 					<div class="d-flex flex-column-auto flex-column pt-lg-10 pt-15">
 						<!--begin::Aside header-->
@@ -54,7 +54,8 @@
 				</div>
 				<!--begin::Aside-->
 				<!--begin::Content-->
-				<div class="login-content flex-row-fluid d-flex flex-column p-10">
+				<div class="login-content flex-row-fluid d-flex flex-column p-10" style="background-image: url('/media/bg/bg-10.jpg'); background-size: cover;"> 
+
 					<!--begin::Wrapper-->
 					<div class="d-flex flex-row-fluid flex-center">
 						<!--begin::Signin-->
@@ -64,22 +65,21 @@
                                 @csrf
 								<!--begin::Title-->
 								<div class="pb-5 pb-lg-15">
-									<h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h3>
-									<div class="text-muted font-weight-bold font-size-h4">Need access?
-									<a href="javascript:;;" class="text-primary font-weight-bolder">Request for account</a></div>
+									<h3 class="font-weight-bolder text-white font-size-h2 font-size-h1-lg">Sign In</h3>
+									{{-- <div class="text-muted font-weight-bold font-size-h4">Need access?
+									<a href="javascript:;;" class="text-primary font-weight-bolder">Request for account</a></div> --}}
 								</div>
 								<!--begin::Title-->
 								<!--begin::Form group-->
 								<div class="form-group">
-									<label class="font-size-h6 font-weight-bolder text-dark">Username</label>
+									<label class="font-size-h6 font-weight-bolder text-white">Username</label>
 									<input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="text" name="username" autocomplete="off" />
 								</div>
 								<!--end::Form group-->
 								<!--begin::Form group-->
 								<div class="form-group">
 									<div class="d-flex justify-content-between mt-n5">
-										<label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
-										<a href="javascript:;;" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot Password ?</a>
+										<label class="font-size-h6 font-weight-bolder text-white pt-5">Password</label>
 									</div>
 									<input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
 								</div>
@@ -92,12 +92,14 @@
 							</form>
 							<!--end::Form-->
 
-							<h6 class="font-weight-light text-center font-size-h6 text-dark-50 mt-15">Developed By: <a href="https://github.com/jmprns" target="_new">@JMPRNS</a></h6>
 
 						</div>
 						<!--end::Signin-->
 					</div>
 					<!--end::Wrapper-->
+
+					<h6 class="font-weight-light text-right font-size-h6 text-white mt-15">Developed By: PGO-MIS <a class="text-white" href="https://github.com/jmprns">@JMPRNS</a></h6>
+
 				</div>
 				<!--end::Content-->
 			</div>

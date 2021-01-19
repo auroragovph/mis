@@ -225,12 +225,12 @@ if (! function_exists('fts_action_button')) {
 
 
         if($edit['route'] != ''){
-            if(auth()->user()->can('fts.document.edit')){
+            if(authenticated()->can('fts.document.edit')){
                 $action .= '<a class="dropdown-item" href="'.route($edit['route'], $edit['id']).'"> <i class="fal fa-edit"> </i> Edit</a>';
             }
         }
         
-        if(auth()->user()->can('fts.document.print')){
+        if(authenticated()->can('fts.document.print')){
             $action .= '<a class="dropdown-item" target="_blank" href="'.route('fts.documents.receipt', ['series' => $series, 'print' => 'true']).'"><i class="fal fa-print"></i> Print</a>';
         }
 
@@ -282,7 +282,7 @@ if(! function_exists('fts_series_lists')) {
      * @return string
      */
     function fts_series_lists($modifier = 'available'){
-        $qrs = new Modules\FileTracking\Entities\Document\FTS_Qr;
+        $qrs = new \Modules\FileTracking\Entities\Document\FTS_Qr;
         return ($modifier == 'available') ? $qrs->where('status', false)->get() : $qrs->get();
     }
 }
@@ -500,7 +500,7 @@ if (! function_exists('dm_abort')) {
 
     function dm_abort($a, $b, $code = 404, $strict = true){
 
-        if($strict == false && auth()->user()->can('godmode')){
+        if($strict == false && authenticated()->can('godmode')){
             return true;
         }
 

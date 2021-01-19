@@ -2,6 +2,7 @@
 
 namespace Modules\FileTracking\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
@@ -28,6 +29,9 @@ class FileTrackingServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        $this->registerBladeComponents();
+
     }
 
     /**
@@ -108,5 +112,16 @@ class FileTrackingServiceProvider extends ServiceProvider
             }
         }
         return $paths;
+    }
+
+    /**
+     * Register blade components.
+     *
+     * @return void
+     */
+    public function registerBladeComponents()
+    {
+        Blade::component('fts-qr', \Modules\FileTracking\Views\Qr::class);
+        Blade::component('fts-attachments', \Modules\FileTracking\Views\Attachment::class);
     }
 }

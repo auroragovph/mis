@@ -74,7 +74,8 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
 
         Route::prefix('application-for-leave')->namespace('Forms')->group(function(){
             Route::get('/', 'AFLController@index')->name('fts.afl.index');
-            Route::post('/', 'AFLController@store')->name('fts.afl.store');
+            Route::get('/create', 'AFLController@create')->name('fts.afl.create');
+            Route::post('/create', 'AFLController@store')->name('fts.afl.store');
             Route::get('/{id}/edit', 'AFLController@edit')->name('fts.afl.edit');
             Route::post('/{id}/edit', 'AFLController@update')->name('fts.afl.update');
         });

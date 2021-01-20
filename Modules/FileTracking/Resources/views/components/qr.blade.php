@@ -21,33 +21,33 @@
         <!--begin::Contact-->
         <div class="py-9">
 
-            <p class="font-weight-bold mr-2">
+            <p class="font-weight-bolder mr-2">
                 Requesting Office: <br>
-                <span class="text-muted font-weight-normal">{{ office_helper($document->division) }}</span>
+                <span class="font-weight-normal">{{ office_helper($document->division) }}</span>
             </p>
 
-            <p class="font-weight-bold mr-2">
+            <p class="font-weight-bolder mr-2">
                 Liaison Office: <br>
-                <span class="text-muted font-weight-normal">{{ name_helper($document->liaison->name) }}</span>
+                <span class="font-weight-normal">{{ name_helper($document->liaison->name) }}</span>
             </p>
 
-            <p class="font-weight-bold mr-2">
+            <p class="font-weight-bolder mr-2">
                 Encoded By: <br>
-                <span class="text-muted font-weight-normal">{{ name_helper($document->encoder->name) }}</span>
+                <span class="font-weight-normal">{{ name_helper($document->encoder->name) }}</span>
             </p>
 
-            <p class="font-weight-bold mr-2">
+            <p class="font-weight-bolder mr-2">
                 Encoded Date: <br>
-                <span class="text-muted font-weight-normal">{{ $document->encoded }}</span>
+                <span class="font-weight-normal">{{ $document->encoded }}</span>
             </p>
 
             @if(!empty($datas))
                 <hr>
 
                 @foreach($datas as $key => $data)
-                <p class="font-weight-bold mr-2">
+                <p class="font-weight-bolder mr-2">
                     {{ $key }}: <br>
-                    <span class="text-muted font-weight-normal">{{ $data }}</span>
+                    <span class="font-weight-normal">{{ $data }}</span>
                 </p>
                 @endforeach
             @endif

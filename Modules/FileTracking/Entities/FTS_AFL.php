@@ -17,6 +17,6 @@ class FTS_AFL extends Model
 
     public function document()
     {
-        return $this->belongsTo(FTS_Document::class, 'document_id', 'id');
+        return $this->belongsTo(FTS_Document::class, 'document_id');
     }
 }

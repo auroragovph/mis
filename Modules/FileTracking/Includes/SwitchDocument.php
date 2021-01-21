@@ -1,5 +1,6 @@
 <?php
 
+use Modules\FileTracking\Entities\FTS_AFL;
 use Modules\FileTracking\Entities\FTS_Cafoa;
 use Modules\FileTracking\Entities\FTS_DisbursementVoucher;
 use Modules\FileTracking\Entities\FTS_Payroll;
@@ -46,6 +47,19 @@ switch($document->type){
         $datas['Destination'] = $iot->destination;
         $datas['Purpose'] = $iot->particulars;
         $datas['Amount'] = number_format(floatval($iot->amount), 2);
+    break;
+
+    case config('constants.document.type.afl'): //AFL
+        $afl = FTS_AFL::where('document_id', $document->id)->first();
+
+        $datas['Name'] = $afl->name;
+        $datas['Position'] = $afl->position;
+        $datas['Credits as of'] = $afl->credits;
+        $datas['...hidden'] = [
+            'vacation' => $afl->leave['vacation'],
+            'sick' => $afl->leave['sick']
+        ];
+
     break;
 
     

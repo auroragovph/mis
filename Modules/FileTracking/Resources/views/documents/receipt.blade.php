@@ -115,6 +115,7 @@
                         </tr>
 
                         @foreach($datas as $key => $data)
+                            @if($key == '...hidden') @continue @endif
                         <tr class="bt">
                             <td>{{ $key }}:</td>
                             <td>{{ $data }}</td>
@@ -123,8 +124,8 @@
 
                         @if($document->type == config('constants.document.type.afl'))
                         @php 
-                            $vl = $document['..hidden']['vacation'];
-                            $sl = $document['..hidden']['sick'];
+                            $vl = $datas['...hidden']['vacation'];
+                            $sl = $datas['...hidden']['sick'];
                         @endphp
                         <tr>
                             <td colspan="2">

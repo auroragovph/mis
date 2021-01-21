@@ -11,12 +11,20 @@ use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
 use Modules\FileTracking\Http\Requests\AFL\StoreRequest;
+use Modules\FileTracking\Http\Requests\AFL\UpdateRequest;
+use Modules\FileTracking\Transformers\AFLDTResource;
 
 class AFLController extends Controller
 {
     public function index()
     {
+        if(request()->ajax()){
+            $model = FTS_AFL::with('document')->get();
+            $datas = AFLDTResource::collection($model);
+            return response()->json($datas);
+        }
 
+        return view('filetracking::forms.afl.index');
     }
 
     public function create()
@@ -89,5 +97,59 @@ class AFLController extends Controller
             ])
         ]);
 
+    }
+
+    public function edit($id)
+    {
+        $afl = FTS_AFL::with('document')->findOrFail($id);
+
+        $qrs = FTS_QR::available();
+        $divisions = SYS_Division::lists();
+        $liaisons = HR_Employee::liaison()->get();
+
+        return view('filetracking::forms.afl.edit', [
+            'afl' => $afl,
+            'qrs' => $qrs,
+            'divisions' => $divisions,
+            'liaisons' => $liaisons
+        ]);
+    }
+
+    public function update(UpdateRequest $request, $id)
+    {
+        $afl = FTS_AFL::with('document')->findOrFail($id);
+
+        $leave = [
+            'vacation' => [$request->post('v1'), $request->post('v2')],
+            'sick' => [$request->post('s1'), $request->post('s2')]
+        ];
+
+        $inclusives = collect([]);
+
+        foreach(explode(',', $request->post('inclusive')) as $date){
+            $inclusives->push(Carbon::parse($date)->format('Y-m-d'));
+        }
+
+        $afl->update([
+            'name' => $request->post('name'),
+            'position' => $request->post('position'),
+            'type' => $request->post('type'),
+            'credits' => $request->post('credits'),
+            'leave' => $leave,
+            'inclusives' => [
+                'dates' => $inclusives->sort()->values()->all()
+            ],
+            'particulars' => 'AFL FOR. '.$request->post('name')
+        ]);
+
+        $afl->document()->update([
+            'division_id' => $request->post('division'),
+            'liaison_id' => $request->post('liaison')
+        ]);
+
+        return response()->json([
+            'message' => 'Application for leave has been updated.',
+            'route' => route('fts.afl.index')
+        ], 200);
     }
 }

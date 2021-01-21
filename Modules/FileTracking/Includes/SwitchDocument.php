@@ -6,6 +6,7 @@ use Modules\FileTracking\Entities\FTS_DisbursementVoucher;
 use Modules\FileTracking\Entities\FTS_Payroll;
 use Modules\FileTracking\Entities\Procurement\FTS_PurchaseRequest;
 use Modules\FileTracking\Entities\Travel\FTS_Itinerary;
+use Modules\FileTracking\Entities\Travel\FTS_TravelOrder;
 
 switch($document->type){
 
@@ -60,6 +61,19 @@ switch($document->type){
             'sick' => $afl->leave['sick']
         ];
 
+    break;
+
+    case config('constants.document.type.travel.order'): //TO 
+        $to = FTS_TravelOrder::where('document_id', $document->id)->first();
+
+        $datas['Employees'] = collect($to->employees)->map(function($item, $key){
+            return $item['employee']." - ".$item['position'];
+        })->implode(', ');
+
+        $datas['Destination'] = $to->destination;
+        $datas['Departure'] = $to->departure;
+        $datas['Arrival'] = $to->arrival;
+        $datas['Purpose'] = $to->particulars;
     break;
 
     

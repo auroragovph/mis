@@ -126,7 +126,8 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
     
             Route::prefix('order')->group(function(){
                 Route::get('/', 'TravelOrderController@index')->name('fts.travel.order.index');
-                Route::post('/', 'TravelOrderController@store')->name('fts.travel.order.store');
+                Route::get('/create', 'TravelOrderController@create')->name('fts.travel.order.create');
+                Route::post('/create', 'TravelOrderController@store')->name('fts.travel.order.store');
                 Route::get('/{id}/edit', 'TravelOrderController@edit')->name('fts.travel.order.edit');
                 Route::post('/{id}/edit', 'TravelOrderController@update')->name('fts.travel.order.update');
     

@@ -13,10 +13,10 @@ class FTS_DA extends Model
         'properties' => 'array'
     ];
 
-    public function scopeLists($query)
-    {
-        // return $query->distinct('description')->get();
-        return $query->select([DB::raw('DISTINCT(description)')])
-                    ->get();
-    }
+    // public function scopeLists($query)
+    // {
+    //     // return $query->distinct('description')->get();
+    //     return $query->select([DB::raw('DISTINCT(description)')])
+    //                 ->get();
+    // }
 }

@@ -55,6 +55,11 @@ class FTS_Document extends Model
         return $this->belongsTo(SYS_Division::class, 'division_id', 'id');
     }
 
+    public function attachments()
+    {
+        return $this->hasMany(FTS_DA::class, 'document_id');
+    }
+
     public function afl()
     {
         return $this->hasOne(FTS_AFL::class, 'document_id', 'id');

@@ -111,33 +111,6 @@ Disbursement Voucher
                 </div>
   
             </div>
-          
-  
-            <div class="row">
-  
-              <div class="col-md-12">
-                  <div class="form-group">
-                      <label for="">Attached Documents:</label>
-                      <select name="attachments[]" class="form-control select2-tags" multiple style="width: 100%">
-                         
-                      </select>
-                  </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="">* Liaison Officer:</label> <br>
-                  <select name="liaison" class="form-control select2" required style="width: 100%">
-                      <option value="" hidden disabled selected></option>
-                      @foreach($liaisons as $liaison)
-                        <option value="{{ $liaison->id }}">{{ name_helper($liaison->name) }}</option>
-                      @endforeach
-                  </select>
-                </div>
-              </div>
-
-            </div>
-
 
             <div class="separator separator-dashed mb-5"></div>
             <button type="submit" class="btn btn-primary mt-5" name="submitButton">Submit</button>

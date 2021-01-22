@@ -2,15 +2,15 @@
 
 
 @section('page-title')
-CAFOA
+Application for Leave
 @endsection
 
 @section('toolbar')
 <!--begin::Toolbar-->
 <div class="d-flex align-items-center">
     <!--begin::Button-->
-    <a href="{{ route('fts.cafoa.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-        <i class="fal fa-plus"></i> New CAFOA
+    <a href="{{ route('fts.afl.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+        <i class="fal fa-plus"></i> New AFL
     </a>
     <!--end::Button-->
    

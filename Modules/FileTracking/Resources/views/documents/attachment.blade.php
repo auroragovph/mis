@@ -19,6 +19,7 @@ Document Attachment
     </div>
 
     <div class="col-xl-8">
+
         <!--begin::Advance Table Widget 5-->
         <div class="card card-custom gutter-b" id="card-box" data-card="true">
           <!--begin::Header-->
@@ -75,8 +76,65 @@ Document Attachment
               </form>
           </div>
           <!--end::Body-->
-      </div>
-      <!--end::Advance Table Widget 5-->
+        </div>
+        <!--end::Advance Table Widget 5-->
+
+
+        <div class="card card-custom gutter-b">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3 class="card-label">Attachments</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">By</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($document->attachments as $attachment)
+                        <tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $attachment->name }}</td>
+                            <td>
+                                @foreach($attachment->properties as $key => $value)
+                                    <span><strong>{{ ucfirst($key) }}:</strong> {{ $value }}</span> <br>
+                                @endforeach
+                            </td>
+                            <td>{{ name_helper($attachment->encoder->name) }}</td>
+
+                            <td>
+
+                                @if($attachment->file !== null)
+                                <a target="_blank" href="#" class="btn btn-icon btn-light-primary btn-sm mr-2" data-toggle="tooltip" title="View Attachment">
+                                    <i class="flaticon-attachment"></i>
+                                </a>
+                                @endif
+
+                                <a href="#" class="btn btn-icon btn-light-warning btn-sm mr-2" data-toggle="tooltip" title="Edit Attachment">
+                                    <i class="flaticon2-edit"></i>
+                                </a>
+
+                                <a href="#" class="btn btn-icon btn-light-danger btn-sm mr-2" data-toggle="tooltip" title="Unlink attachment">
+                                    <i class="flaticon2-rubbish-bin-delete-button"></i>
+                                </a>
+
+
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
       
     </div>
 </div>

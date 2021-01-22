@@ -126,14 +126,7 @@ Purchase Request
   
             <div class="row">
   
-              <div class="col-md-12">
-                  <div class="form-group">
-                      <label for="">Attached Documents:</label>
-                      <select name="attachments[]" class="form-control select2-tags" multiple style="width: 100%">
-                         
-                      </select>
-                  </div>
-              </div>
+            
 
               <div class="col-md-12">
                 <div class="form-group">

@@ -31,7 +31,7 @@ class AttachmentController extends Controller
 
     public function form($id)
     {
-        $document = FTS_Document::with('encoder', 'liaison', 'division.office')->findOrFail($id);
+        $document = FTS_Document::with('encoder', 'liaison', 'division.office', 'attachments.encoder')->findOrFail($id);
 
         require base_path()."/Modules/FileTracking/Includes/SwitchDocument.php";
 

@@ -351,7 +351,7 @@ if (! function_exists('show_status')) {
     {
         $status = document_status($status);
         $color = document_status($status, 'label');
-        return "<span class=\"label label-light-{$color} label-inline font-weight-bold label-lg\">{$status}</span>";
+        return "<span class=\"label label-light-{$color} label-inline font-weight-bold \">{$status}</span>";
     }
 }
 

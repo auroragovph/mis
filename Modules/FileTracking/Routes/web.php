@@ -29,6 +29,11 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
             Route::post('/', 'AttachmentController@check')->name('fts.documents.attach.check');
             Route::get('/{id}/attachments', 'AttachmentController@form')->name('fts.documents.attach.form');
             Route::post('/{id}/attachments', 'AttachmentController@store')->name('fts.documents.attach.attach');
+
+            Route::get('/{file}/stream', 'AttachmentController@file')->name('fts.documents.attach.file');
+
+
+
         });
 
         Route::group(['prefix' => 'receive-release', 'middleware' => ['permission:fts.sa.rr']], function(){
@@ -50,19 +55,18 @@ Route::group(['prefix' => 'file-tracking', 'middleware' => 'auth:web'], function
 
         Route::group(['prefix' => 'transmittal', 'middleware' => ['permission:fts.sa.transmittal']], function(){
 
-            Route::group(['prefix' => 'release'], function(){
-                Route::get('/', 'TransmittalController@releaseIndex')->name('fts.documents.transmittal.release.index');
-                Route::post('/', 'TransmittalController@releaseForm')->name('fts.documents.transmittal.release.form');
-                Route::put('/', 'TransmittalController@releaseSubmit')->name('fts.documents.transmittal.release.submit');
+            Route::get('/', 'TransmittalController@index')->name('fts.documents.transmittal.index');
+            Route::post('/form', 'TransmittalController@form')->name('fts.documents.transmittal.form');
 
-                Route::get('/{uuid}/print', 'TransmittalController@releasePrint')->name('fts.documents.transmittal.release.print');
-            });
+            Route::post('/form/release', 'TransmittalController@release')->name('fts.documents.transmittal.form.release');
+            
+            Route::get('/{uuid}/print', 'TransmittalController@print')->name('fts.documents.transmittal.print');
 
-            Route::group(['prefix' => 'receive'], function(){
-                Route::get('/', 'TransmittalController@receiveIndex')->name('fts.documents.transmittal.receive.index');
-                Route::post('/', 'TransmittalController@receiveForm')->name('fts.documents.transmittal.receive.form');
-                Route::put('/', 'TransmittalController@receiveSubmit')->name('fts.documents.transmittal.receive.submit');
-            });
+            Route::post('/form/receive', 'TransmittalController@form2')->name('fts.documents.transmittal.receive.form');
+            Route::put('/form/receive', 'TransmittalController@receive')->name('fts.documents.transmittal.receive.submit');
+
+
+
 
 
 

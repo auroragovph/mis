@@ -42,17 +42,17 @@ class FTS_Document extends Model
 
     public function encoder()
     {
-        return $this->belongsTo(HR_Employee::class, 'encoder_id', 'id');
+        return $this->belongsTo(HR_Employee::class, 'encoder_id');
     }
 
     public function liaison()
     {
-        return $this->belongsTo(HR_Employee::class, 'liaison_id', 'id');
+        return $this->belongsTo(HR_Employee::class, 'liaison_id');
     }
 
     public function division()
     {
-        return $this->belongsTo(SYS_Division::class, 'division_id', 'id');
+        return $this->belongsTo(SYS_Division::class, 'division_id');
     }
 
     public function attachments()
@@ -62,47 +62,47 @@ class FTS_Document extends Model
 
     public function afl()
     {
-        return $this->hasOne(FTS_AFL::class, 'document_id', 'id');
+        return $this->hasOne(FTS_AFL::class, 'document_id');
     }
 
     public function cafoa()
     {
-        return $this->hasOne(FTS_Cafoa::class, 'document_id', 'id');
+        return $this->hasOne(FTS_Cafoa::class, 'document_id');
     }
 
     public function itinerary()
     {
-        return $this->hasOne(FTS_Itinerary::class, 'document_id', 'id');
+        return $this->hasOne(FTS_Itinerary::class, 'document_id');
     }
 
     public function payroll()
     {
-        return $this->hasOne(FTS_Payroll::class, 'document_id', 'id');
+        return $this->hasOne(FTS_Payroll::class, 'document_id');
     }
 
     public function purchase_request()
     {
-        return $this->hasOne(FTS_PurchaseRequest::class, 'document_id', 'id');
+        return $this->hasOne(FTS_PurchaseRequest::class, 'document_id');
     }
 
     public function travel_order()
     {
-        return $this->hasOne(FTS_TravelOrder::class, 'document_id', 'id');
+        return $this->hasOne(FTS_TravelOrder::class, 'document_id');
     }
 
     public function dv()
     {
-        return $this->hasOne(FTS_DisbursementVoucher::class, 'document_id', 'id');
+        return $this->hasOne(FTS_DisbursementVoucher::class, 'document_id');
     }
 
     public function tracks()
     {
-        return $this->hasMany(FTS_Tracking::class, 'document_id', 'id');
+        return $this->hasMany(FTS_Tracking::class, 'document_id');
     }
 
     public function latestTrack()
     {
-        return $this->hasOne(FTS_Tracking::class, 'document_id', 'id')->orderBy('created_at', 'desc');
+        return $this->hasOne(FTS_Tracking::class, 'document_id')->orderBy('created_at', 'desc');
     }
 
     

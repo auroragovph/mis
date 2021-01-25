@@ -18,8 +18,6 @@ class FTS_Transmittal extends Model
 
     protected $casts = [
         'documents' => 'json',
-        'office' => 'json',
-        'employee' => 'json'
     ];
     
     protected static function boot()
@@ -40,32 +38,27 @@ class FTS_Transmittal extends Model
 
     public function releasingOffice()
     {
-        return $this->belongsTo(SYS_Division::class, 'office->releasing', 'id');
+        return $this->belongsTo(SYS_Division::class, 'releasing_office');
     }
 
     public function receivingOffice()
     {
-        return $this->belongsTo(SYS_Division::class, 'office->receiving', 'id');
+        return $this->belongsTo(SYS_Division::class, 'receiving_office');
     }
 
     public function releasingEmployee()
     {
-        return $this->belongsTo(HR_Employee::class, 'employee->releasing', 'id');
+        return $this->belongsTo(HR_Employee::class, 'releasing_employee');
     }
 
     public function receivingEmployee()
     {
-        return $this->belongsTo(HR_Employee::class, 'employee->receiving', 'id');
+        return $this->belongsTo(HR_Employee::class, 'receiving_employee');
     }
 
     public function documentsInfo()
     {
         return $this->belongsToJson(FTS_Document::class, 'documents', 'id');
     }
-
-
-
-
-
 
 }

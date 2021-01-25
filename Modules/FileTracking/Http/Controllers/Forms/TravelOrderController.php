@@ -10,6 +10,7 @@ use Modules\FileTracking\Http\Requests\TO\StoreRequest;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Entities\Document\FTS_Tracking;
 use Modules\FileTracking\Entities\Travel\FTS_TravelOrder;
+use Modules\FileTracking\Http\Requests\TO\UpdateRequest;
 use Modules\FileTracking\Transformers\TODTResource;
 
 class TravelOrderController extends Controller
@@ -90,5 +91,47 @@ class TravelOrderController extends Controller
                 'print' => true
             ])
         ]);
+    }
+
+    public function edit($id)
+    {
+        $qrs = FTS_QR::available();
+        $divisions = SYS_Division::lists();
+        $liaisons = HR_Employee::liaison()->get();
+        $to = FTS_TravelOrder::with('document')->findOrFail($id);
+
+        return view('filetracking::forms.to.edit', [
+            'to' => $to,
+            'qrs' => $qrs,
+            'divisions' => $divisions,
+            'liaisons' => $liaisons
+        ]);
+    }
+
+    public function update(UpdateRequest $request, $id)
+    {
+        $to = FTS_TravelOrder::with('document')->findOrFail($id);
+
+        $to->update([
+            'number'        => $request->post('number'),
+            'date'          => $request->post('date'),
+            'employees'     => $request->post('employees'),
+            'destination'   => $request->post('destination'),
+            'departure'     => $request->post('departure'),
+            'arrival'       => $request->post('arrival'),
+            'particulars'   => $request->post('particulars')
+        ]);
+
+        $to->document()->update([
+            'division_id' => $request->post('division'),
+            'liaison_id' => $request->post('liaison')
+        ]);
+
+        return response()->json([
+            'message' => 'Travel Order has been updated.',
+            'route' => route('fts.travel.order.index')
+        ], 200);
+
+
     }
 }

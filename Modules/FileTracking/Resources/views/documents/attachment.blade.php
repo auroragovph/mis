@@ -88,12 +88,13 @@ Document Attachment
             </div>
             <div class="card-body">
                 <table class="table table-sm">
-                    <thead>
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
-                            <th scope="col">By</th>
                             <th scope="col">Details</th>
+
+                            <th scope="col">By</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -112,7 +113,7 @@ Document Attachment
                             <td>
 
                                 @if($attachment->file !== null)
-                                <a target="_blank" href="#" class="btn btn-icon btn-light-primary btn-sm mr-2" data-toggle="tooltip" title="View Attachment">
+                                <a target="_blank" href="{{ route('fts.documents.attach.file', $attachment->file) }}" class="btn btn-icon btn-light-primary btn-sm mr-2" data-toggle="tooltip" title="View Attachment">
                                     <i class="flaticon-attachment"></i>
                                 </a>
                                 @endif

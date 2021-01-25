@@ -10,7 +10,8 @@
         <!--end::Copyright-->
         <!--begin::Nav-->
         <div class="nav nav-dark order-1 order-md-2">
-            <a href="https://github.com/jmprns" target="_blank" class="nav-link pl-3 pr-0 text-muted text-hover-primary">Developed By: @JMPRNS</a>
+            <p class="nav-link pl-3 pr-0 text-white">Developed By: PGO-MIS &nbsp;&nbsp;&nbsp; <a target="_new" class="text-white" href="https://jmprns.netlify.app">@JMPRNS</a> </p>
+
         </div>
         <!--end::Nav-->
     </div>

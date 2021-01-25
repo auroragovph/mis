@@ -2,7 +2,7 @@
 
 
 @section('page-title')
-CAFOA
+Travel Order
 @endsection
 
 @section('toolbar')
@@ -10,7 +10,7 @@ CAFOA
 <div class="d-flex align-items-center">
     <!--begin::Button-->
     <a href="{{ route('fts.cafoa.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-        <i class="fal fa-plus"></i> New CAFOA
+        <i class="fal fa-plus"></i> New Travel Order
     </a>
     <!--end::Button-->
    

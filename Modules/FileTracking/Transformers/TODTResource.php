@@ -22,7 +22,7 @@ class TODTResource extends JsonResource
             'particulars' => $this->particulars,
             
             'print' => route('fts.documents.receipt', ['series' => $this->document->series,]),
-            'edit' => route('fts.pr.edit', $this->id),
+            'edit' => route('fts.travel.order.edit', $this->id),
 
             'number'        => $this->number,
             'date'          => $this->date,

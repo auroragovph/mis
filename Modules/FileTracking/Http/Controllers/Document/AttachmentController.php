@@ -4,6 +4,8 @@ namespace Modules\FileTracking\Http\Controllers\Document;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 use Modules\FileTracking\Entities\Document\FTS_DA;
 use Modules\FileTracking\Entities\Document\FTS_Document;
 use Modules\FileTracking\Http\Requests\Document\AttachmentStoreRequest;
@@ -47,6 +49,7 @@ class AttachmentController extends Controller
         if($request->hasFile('file')){
 
             $file = $request->file('file');
+            // $path = Storage::store;
             $path = $file->store('filetracking/document/attachments');
         }
 
@@ -54,7 +57,7 @@ class AttachmentController extends Controller
             'document_id' => $id,
             'employee_id' => authenticated()->employee_id,
             'name' => $request->post('name'), 
-            'file'  => $path ?? null,
+            'file'  => str_replace('filetracking/document/attachments/', '', $path) ?? null,
             'properties' => [
                 'number'    => $request->post('number') ?? null, 
                 'date'      => $request->post('date')   ?? null, 
@@ -66,5 +69,10 @@ class AttachmentController extends Controller
         return response()->json([
             'message' => 'Attachment success'
         ]);
+    }
+
+    public function file($file)
+    {
+        return response()->file(storage_path('app/filetracking/document/attachments/'.$file));
     }
 }

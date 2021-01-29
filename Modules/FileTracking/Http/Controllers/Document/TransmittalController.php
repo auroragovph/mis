@@ -72,10 +72,13 @@ class TransmittalController extends Controller
                 $err['message'] .= 'Document has been cancelled. ';
             }
 
-            // checking if you currently receive the document
-            if($document['latest_track']['division_id'] != authenticated()->employee->division_id){
-                $err['message'] .= 'Document currently received in another office/division. ';
+            if($document['latest_track'] != null || !empty($document['latest_track'])){
+                // checking if you currently receive the document
+                if($document['latest_track']['division_id'] != authenticated()->employee->division_id){
+                    $err['message'] .= 'Document currently received in another office/division. ';
+                }
             }
+            
 
             if(!empty($err)){
                 $message = 'Cannot include in transmittal. '.$err['message'];

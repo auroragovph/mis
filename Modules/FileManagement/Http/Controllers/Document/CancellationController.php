@@ -84,7 +84,7 @@ class CancellationController extends Controller
             'log' => 'Submit document cancellation',
             'props' => [
                 'model' => [
-                    'id' => $id->id,
+                    'id' => $id,
                     'class' => FMS_Document::class
                 ]
             ]

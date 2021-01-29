@@ -46,7 +46,7 @@ Purchase Request
 
 
             <li class="navi-item">
-                <a href="{{ route('fms.travel.order.print', $pr->id) }}" class="navi-link">
+                <a href="{{ route('fms.procurement.request.print', $pr->id) }}" class="navi-link">
                     <span class="navi-text">
                         <i class="flaticon2-printer"></i> Print Document
                     </span>

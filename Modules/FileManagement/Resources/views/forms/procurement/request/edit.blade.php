@@ -91,7 +91,7 @@ Purchase Request
 
                             <div class="col-md-3">
                                 <label>Item Cost:</label>
-                                <input type="number" step="0.01" name="amount" {{ $list['amount'] }} class="form-control"/>
+                                <input type="number" step="0.01" name="amount" value="{{ $list['amount'] }}" class="form-control"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
 

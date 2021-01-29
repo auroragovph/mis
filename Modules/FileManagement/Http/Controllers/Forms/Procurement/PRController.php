@@ -176,4 +176,35 @@ class PRController extends Controller
         ]);
 
     }
+
+    public function print($id)
+    {
+        $pr = FMS_PR::with(
+
+            'document.attachments',
+            'document.liaison',
+            'document.encoder',
+            'document.division.office',
+
+            'requesting',
+            'treasury',
+            'approval'
+            )->findOrFail($id);
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request information for print of purchase request', 
+            'props' => [
+                'model' => [
+                    'id' => $pr->id,
+                    'class' => FMS_PR::class
+                ]
+            ]
+        ]);
+
+        return view('filemanagement::forms.procurement.request.print', [
+            'pr' => $pr
+        ]);
+    }
 }

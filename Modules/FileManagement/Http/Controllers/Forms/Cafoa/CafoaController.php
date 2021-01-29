@@ -192,4 +192,34 @@ class CafoaController extends Controller
          ]);
 
     }
+
+    public function print($id)
+    {
+
+        $cafoa = FMS_Cafoa::with(
+                                'document.attachments',
+                                'document.liaison',
+                                'document.encoder',
+                                'document.division.office',
+                                'requesting',
+                                'budget',
+                                'accounting',
+                                'treasury'
+                        )
+                    ->findOrFail($id);
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request information of CAFOA for print', 
+            'props' => [
+                'model' => [
+                    'id' => $cafoa->id,
+                    'class' => FMS_Cafoa::class
+                ]
+            ]
+        ]);
+
+        return view('filemanagement::forms.cafoa.print', compact('cafoa'));
+    }
 }

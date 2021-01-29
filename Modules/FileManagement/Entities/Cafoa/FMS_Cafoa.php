@@ -38,7 +38,7 @@ class FMS_Cafoa extends Model
 
     public function accounting()
     {
-        return $this->belongsTo(HR_Employee::class, 'accounting_id');
+        return $this->belongsTo(HR_Employee::class, 'accountant_id');
     }
 
     public function treasury()

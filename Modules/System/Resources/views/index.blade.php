@@ -1,9 +1,33 @@
-@extends('system::layouts.master')
+@extends('layouts.master')
+
+
+@section('page-title')
+
+@endsection
+
+@section('toolbar')
+@endsection
 
 @section('content')
-    <h1>Hello World</h1>
 
-    <p>
-        This view is loaded from module: {!! config('system.name') !!}
-    </p>
+    <livewire:system::sample  />
+
 @endsection
+
+
+@section('css-vendor')
+@livewireStyles
+@endsection
+
+@section('css-custom')
+@endsection
+
+
+@section('js-vendor')
+@livewireScripts
+@endsection
+
+@section('js-custom')
+@endsection
+
+

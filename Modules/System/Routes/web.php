@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'system', 'middleware' => ['auth:web']], function(){
+
+    Route::get('/', 'SystemController@index');
     
-    Route::get('/', function(){
-        return redirect(route('sys.dashboard'));
-    });
+    // Route::get('/', function(){
+    //     return redirect(route('sys.dashboard'));
+    // });
 
     Route::get('/dashboard', 'DashboardController@index')->name('sys.dashboard');
 

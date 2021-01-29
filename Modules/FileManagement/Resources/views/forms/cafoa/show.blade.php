@@ -46,7 +46,7 @@ CAFOA
 
 
             <li class="navi-item">
-                <a href="{{ route('fms.travel.order.print', $cafoa->id) }}" class="navi-link">
+                <a href="{{ route('fms.cafoa.print', $cafoa->id) }}" class="navi-link">
                     <span class="navi-text">
                         <i class="flaticon2-printer"></i> Print Document
                     </span>

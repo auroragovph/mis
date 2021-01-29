@@ -37,9 +37,12 @@ class TransmittalController extends Controller
 
 
         $transmits = array();
+        
 
         foreach($series as $i => $qr){
+
             $document = $documents->where('series', $qr)->first();
+
             $err['message'] = '';
             $err['code'] = '';
 
@@ -60,6 +63,8 @@ class TransmittalController extends Controller
 
                 continue;
             }
+
+
 
 
             // checking document type
@@ -97,8 +102,10 @@ class TransmittalController extends Controller
 
         // dd(session('fts.documents.transmittal'));
 
+        // dd($transmits);
+
         return view('filetracking::documents.transmittal.form', [
-            'transmits' => $transmits,
+            'transmits' => collect($transmits),
             'divisions' => SYS_Division::with('office')->get()
         ]);
     }

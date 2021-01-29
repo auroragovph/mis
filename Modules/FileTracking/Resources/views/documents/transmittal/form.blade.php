@@ -31,7 +31,7 @@ Transmittal
                     </thead>
                     <tbody>
                         @foreach($transmits as $transmit)
-                        <tr @if($transmit['error'] == true) class="bg-red" @endif>
+                        <tr @if($transmit['error'] == true) class="bg-danger" @endif>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $transmit['document']['series'] }}</td>
                             <td>{{ doc_type_only($transmit['document']['type']) }}</td>
@@ -57,23 +57,33 @@ Transmittal
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('fts.documents.transmittal.form.release') }}">
-                    @csrf
-                    <div class="form-group">
-                        <label for="">Office</label>
-                        <select name="division" class="form-control select2" required>
-                            <option value=""></option>
-                            @foreach($divisions as $division)
-                                <option value="{{ $division->id }}">{{ office_helper($division) }}</option>
-                            @endforeach
-                        </select>                        
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-shadow font-weight-bold mr-2"><i class="fal fa-upload"></i> Release</button>
+                <?php $errCount = $transmits->where('error', false)->count(); ?>
 
-                    </div>
-                </form>
+                @if($errCount !== 0)
+
+                    <form method="POST" action="{{ route('fts.documents.transmittal.form.release') }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="">Office</label>
+                            <select name="division" class="form-control select2" required>
+                                <option value=""></option>
+                                @foreach($divisions as $division)
+                                    <option value="{{ $division->id }}">{{ office_helper($division) }}</option>
+                                @endforeach
+                            </select>                        
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            
+                            <button type="submit" class="btn btn-primary btn-shadow font-weight-bold mr-2"><i class="fal fa-upload"></i> Release</button>
+                        </div>
+                    </form>
+
+                @else 
+                    
+                    <h3 class="h3">You can only release document at least one.</h3>
+
+                @endif
             </div>
         </div>
     </div>

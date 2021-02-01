@@ -68,6 +68,7 @@ class SignInController extends Controller
                 ]);
                 
                 session(['sys.password' => $request->password]);
+                
                 return response()->json(['message' => 'Success Login', 'route' => route('sp.login.first')], 200);
             }
         }

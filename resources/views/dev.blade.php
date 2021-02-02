@@ -1,138 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style>
-        
+@extends('layouts.master')
 
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-body{
-    font-family: 'Arial', sans-serif;
-}
-.page-border{
-    border: 2px solid black;
-}
 
-table{
-    width: 100%;
-    border-collapse: collapse;
-}
+@section('page-title')
+@endsection
 
-td,th {
-    vertical-align: baseline;
-}
+@section('toolbar')
+@endsection
 
-.pl-3{
-    padding-left: 10px;
-}
+@section('content')
+<div id="canvas"></div>
+@endsection
 
-.ml-3{
-    margin-left: 10px;
-}
 
-.text-right{
-    text-align: right;
-}
+@section('css-vendor')
+@endsection
 
-.text-center{
-    text-align: center;
-}
+@section('css-custom')
+@endsection
 
-.center{
-    text-align: center;
-    vertical-align: middle;
-}
 
-.btm{
-    border-top: 2px solid black;
-}
+@section('js-vendor')
+<script type="text/javascript" src="{{ asset('plugins/cdn/qrcode/qrcode.js') }}"></script>
+@endsection
 
-.bbm{
-    border-bottom: 2px solid black;
-}
+@section('js-custom')
 
-.blm{
-    border-left: 2px solid black;
-}
+<script type="text/javascript">
+    $('#canvas').qrcode({
+    // render method: 'canvas', 'image' or 'div'
+    render: 'canvas',
 
-.brm{
-    border-right: 2px solid black;
-}
+    // version range somewhere in 1 .. 40
+    minVersion: 1,
+    maxVersion: 40,
 
-.bt{
-    border-top: 1px solid black;
-}
+    // error correction level: 'L', 'M', 'Q' or 'H'
+    ecLevel: 'H',
 
-.bb{
-    border-bottom: 1px solid black;
-}
+    // offset in pixel if drawn onto existing canvas
+    left: 0,
+    top: 0,
 
-.bl{
-    border-left: 1px solid black;
-}
+    // size in pixel
+    size: 200,
 
-.br{
-    border-right: 1px solid black;
-}
+    // code color or image element
+    fill: '#000',
 
-.rep{
-    font-size: 12px;
-}
+    // background color or image element, null for transparent background
+    background: null,
 
-.pro{
-    font-size: 12px;
-    margin-top: -5px;
-}
+    // content
+    text: 'LASDJKLSFLKF',
 
-h3{
-    font-size: 20px;
-}
+    // corner radius relative to module width: 0.0 .. 0.5
+    radius: 0,
 
-.footer-page p{
-    font-size: 10px;
-}
-    </style>
-</head>
-<body>
-    <table class="btm blm brm">
+    // quiet zone in modules
+    quiet: 1,
 
-        <thead>
+    // modes
+    // 0: normal
+    // 1: label strip
+    // 2: label box
+    // 3: image strip
+    // 4: image box
 
-            <tr>
-                <th colspan="6">PURCHASE REQUEST</th>
-            </tr>
+    mode: 4,
 
-            <tr class="bt bb">
-                <th class="br">ROW1</th>
-                <th class="br">ROW2</th>
-                <th class="br">ROW3</th>
-                <th class="br">ROW4</th>
-                <th class="br">ROW5</th>
-                <th>ROW6</th>
-            </tr>
-        </thead>
+    mSize: 0.1,
+    mPosX: 0.5,
+    mPosY: 0.5,
 
-        <tbody>
-            <tr class="bt bb">
-                <td class="br">ROW1</td>
-                <td class="br">ROW2</td>
-                <td class="br">ROW3</td>
-                <td class="br">ROW4</td>
-                <td class="br">ROW5</td>
-                <td>ROW6</td>
-            </tr>
+    label: 'SR-00000000001',
+    fontname: 'sans-serif',
+    fontcolor: '#000',
 
-        </tbody>
-        <tfoot>
-            <tr class="bbm">
-                <th colspan="6">PURCHASE REQUEST</th>
-            </tr>
-        </tfoot>
-    </table>
-</body>
-</html>
+    image: "{{ asset('media/logos/logo-md.png') }}"
+});
+</script>
+@endsection
+
+

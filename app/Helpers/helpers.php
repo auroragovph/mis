@@ -275,18 +275,6 @@ if (! function_exists('is_date')) {
     }
 }
 
-if(! function_exists('fts_series_lists')) {
-    /**
-     * Return all the available QR Codes
-     * @param string 
-     * @return string
-     */
-    function fts_series_lists($modifier = 'available'){
-        $qrs = new \Modules\FileTracking\Entities\Document\FTS_Qr;
-        return ($modifier == 'available') ? $qrs->where('status', false)->get() : $qrs->get();
-    }
-}
-
 if (! function_exists('doc_type_only')) {
     /**
      * DOC TYPE HELPER
@@ -695,10 +683,10 @@ if (! function_exists('qr_to_base64')) {
     * @return array
     */
     function qr_to_base64($string){
-        $qr = \SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')
+        $format = (extension_loaded('imagick')) ? 'png' : 'svg';
+        $qr = \SimpleSoftwareIO\QrCode\Facades\QrCode::format($format)
                     ->size(500)
-                    ->merge('/public/media/logos/favicon.png', .3)
-                    ->errorCorrection('H')
+                    ->margin(1.5)
                     ->generate($string);
 
         return base64_encode($qr);

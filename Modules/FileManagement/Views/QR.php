@@ -6,8 +6,6 @@ use Illuminate\View\Component;
 
 class QR extends Component
 {
-
-    public $size;
     public $document;
     public $datas;
 
@@ -19,9 +17,8 @@ class QR extends Component
      * @param  string  $message
      * @return void
      */
-    public function __construct($size = 'sm-12', $document, $datas = [])
+    public function __construct($document, $datas = [])
     {
-        $this->size = $size;
         $this->document = $document;
         $this->datas = $datas;
     }

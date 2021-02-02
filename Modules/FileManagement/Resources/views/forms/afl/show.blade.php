@@ -77,7 +77,9 @@ Application For Leave
 
 @section('content')
 <div class="row">
-    <x-fms-qr size="xl-4" :document="$afl->document" />
+    <div class="col-xl-4">
+        <x-fms-qr :document="$afl->document" />
+    </div>
     <div class="col-xl-8">
           <!--begin::Advance Table Widget 5-->
           <div class="card card-custom  gutter-b">

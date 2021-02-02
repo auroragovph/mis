@@ -14,6 +14,6 @@ class DevController extends Controller
 {
     public function index()
     {
-        $qr = HR_Employee::factory(1)->create();
+        
     }
 }

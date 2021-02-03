@@ -191,6 +191,58 @@ class PRController extends Controller
             'approval'
             )->findOrFail($id);
 
+
+        $lists = collect($pr->lists);
+
+        $total_amount = $lists->sum(function($amount){
+            return $amount['quantity'] * $amount['amount'];
+        });
+
+        $pages = array();
+        $consumed_row = 0;
+        $pager = 0;
+
+        foreach($lists as $index => $list){
+
+            $new_line = substr_count($list['description'], "\r\n");
+
+            // count first the description of the list
+            $count = strlen($list['description']);
+
+            
+            $list_consumed = ($new_line == 0) ? ceil($count / 40) : $new_line + 1;
+
+            $consumed_row += $list_consumed;
+
+            $list['consumed_row'] = $list_consumed;
+
+            if($consumed_row >= 30){
+                $consumed_row = 0;
+                $pager++;
+            }else{
+
+                $pages[$pager][] = $list;
+
+                if($index + 1 == $lists->count()){
+                    // this is the last iteration
+                    for($consumed_row; $consumed_row <= 29; $consumed_row++){
+                        
+                       $blank['stock'] = '';
+                       $blank['unit'] = '';
+                       $blank['description'] = '&nbsp';
+                       $blank['quantity'] = null;
+                       $blank['amount'] = null;
+   
+                       $pages[$pager][] = $blank;
+                   }
+               }
+            }
+
+           
+        }
+
+        
+
         // activity loger
         activitylog([
             'name' => 'fms',
@@ -204,7 +256,9 @@ class PRController extends Controller
         ]);
 
         return view('filemanagement::forms.procurement.request.print', [
-            'pr' => $pr
+            'pr' => $pr,
+            'pages' => $pages,
+            'total_amount' => $total_amount
         ]);
     }
 }

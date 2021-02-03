@@ -19,7 +19,9 @@ Document Tracker
 
 @isset($document)
 <div class="row">
-    <x-fms-qr size="xl-4" :document="$document" :datas="$datas" />
+    <div class="col-xl-4">
+        <x-fms-qr  :document="$document" :datas="$datas" />
+    </div>
 
     <div class="col-xl-8">
           <!--begin::Advance Table Widget 5-->

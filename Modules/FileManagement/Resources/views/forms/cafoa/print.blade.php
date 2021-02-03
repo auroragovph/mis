@@ -52,6 +52,16 @@
             float: right;
         }
 
+        .m-auto{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        hr{
+            border: 0.5px solid gray;
+        }
+
     
     </style>  
     
@@ -89,7 +99,7 @@
                                 <td>{{ $list['function'] }}</td>
                                 <td>{{ $list['allotment'] }}</td>
                                 <td>{{ $list['code'] }}</td>
-                                <td>{{ $list['amount'] }}</td>
+                                <td>{{ pretty_number($list['amount']) }}</td>
                             </tr>
                             <?php
                                 $sum += $list['amount'];
@@ -116,10 +126,10 @@
                     <br>
 
                     <div>
-                        <p class="ml-3 align-left"><strong>RICARDO Q. BAUTISATA</strong></p>
+                        <p class="ml-3 align-left"><strong>{{ strtoupper(name_helper($cafoa->requesting->name)) }}</strong></p>
                         <p class="align-right">___________</p>
 
-                        <p class="ml-3 align-left" style="margin-top: -10px;">Provincial General Service Officer</p>
+                        <p class="ml-3 align-left" style="margin-top: -10px;">Requesting Officer</p>
                         <p class="align-right" style="margin-top: -10px;">Date &nbsp;&nbsp;&nbsp;</p>
                     </div>
 
@@ -147,7 +157,7 @@
 
                     <br><br>
                     <div>
-                        <p class="align-left"><strong>ATTY. PAZ L. TORREGOSA</strong></p>
+                        <p class="align-left"><strong>{{ strtoupper(name_helper($cafoa->budget->name)) }}</strong></p>
                         <p class="align-right">___________</p>
 
                         <p class="align-left" style="margin-top: -10px;">Budget Officer</p>
@@ -165,7 +175,7 @@
 
                     <br><br>
                     <div>
-                        <p class="align-left"><strong>MARY ZENCLAIRE N. ONG</strong></p>
+                        <p class="align-left"><strong>{{ strtoupper(name_helper($cafoa->treasury->name)) }}</strong></p>
                         <p class="align-right">___________</p>
                         <br><br><br>
 
@@ -183,7 +193,7 @@
 
                     <br><br>
                     <div>
-                        <p class="align-left"><strong>WILFREDO C. SATURNO</strong></p>
+                        <p class="align-left"><strong>{{ strtoupper(name_helper($cafoa->accounting->name)) }}</strong></p>
                         <p class="align-right">___________</p>
                         <br><br><br>
                         <p class="align-left" style="margin-top: -10px;">Accountant</p>
@@ -271,6 +281,19 @@
 
 
         </table>
+        <br>
+
+
+        <hr>
+
+        <img class="m-auto" height="100" width="100" src="data:image/svg+xml;base64, {{ qr_to_base64($cafoa->document->qr) }} ">
+        
+        <p class="text-center">
+
+            {{ $cafoa->document->qr }}
+        </p>
+
+
 
 
 

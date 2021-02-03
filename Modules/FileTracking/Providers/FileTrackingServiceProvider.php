@@ -121,7 +121,7 @@ class FileTrackingServiceProvider extends ServiceProvider
      */
     public function registerBladeComponents()
     {
-        Blade::component('fts-qr', \Modules\FileTracking\Views\Qr::class);
+        Blade::component('fts-qr', \Modules\FileTracking\Views\QR::class);
         Blade::component('fts-attachments', \Modules\FileTracking\Views\Attachment::class);
     }
 }

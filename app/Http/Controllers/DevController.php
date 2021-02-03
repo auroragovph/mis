@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Faker\Factory;
 use EmployeeFactory;
 use App\Models\Account;
 use Illuminate\Http\Request;
@@ -17,14 +18,28 @@ class DevController extends Controller
 {
     public function index()
     {
-        DB::statement("SET FOREIGN_KEY_CHECKS = 0");
-            $tables = DB::select('SHOW TABLES');
+        $lists = array();
+        $limit = 100;
 
-            // dd($tables);
-        foreach($tables as $table){
-            Schema::drop($table->Tables_in_mis);
-            echo 'Table '.$table->Tables_in_mis.' Droped. <br>';
+        $faker = Factory::create();
+
+        for($start = 0; $start <= $limit; $start++){
+
+            $lists[$start] = array(
+                'stock' => '',
+                'unit' => $faker->randomElement(['cm', 'set', 'kg', 'm']),
+                'quantity' => $faker->numberBetween(5, 100),
+                'amount' => $faker->numberBetween(100, 1000),
+                'description' => $faker->randomElement([
+                    $faker->sentence(),
+                    $faker->word(),
+                    "1 pc\r\n1 mouse\r\n1 keyboard "
+                ]),
+
+            );
         }
-        DB::statement("SET FOREIGN_KEY_CHECKS = 1");
+
+        echo json_encode($lists);
+
     }
 }

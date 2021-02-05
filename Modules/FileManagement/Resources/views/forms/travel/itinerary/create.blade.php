@@ -104,13 +104,13 @@ Itinerary of Travel
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Departure</label>
-                                            <input type="text" name="departure" class="form-control">
+                                            <input type="date" name="departure" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Arrival</label>
-                                            <input type="text" name="arrival" class="form-control">
+                                            <input type="date" name="arrival" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@ Itinerary of Travel
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Transportation</label>
-                                            <input type="text" name="trans" class="form-control">
+                                            <input type="number" step="0.01" name="trans" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -134,42 +134,29 @@ Itinerary of Travel
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Per diem</label>
-                                            <input type="text" name="diem" class="form-control">
+                                            <input type="number" step="0.01" name="diem" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Others</label>
-                                            <input type="text" name="other" class="form-control">
+                                            <input type="number" step="0.01" name="other" class="form-control">
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Total Amount</label>
-                                            <input type="number" step="0.01" name="amount" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger mt-5">
-                                            <i class="fal fa-times"></i></a>
-                                    </div>
-                                </div>
+                                <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger mt-5">
+                                    <i class="fal fa-times"></i>
+                                </a>
 
                                 
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-lg-12">
-                        <a href="javascript:;" data-repeater-create="" class="btn btn-sm font-weight-bolder btn-light-primary">
-                        <i class="fal fa-plus"></i>Add New Row</a>
-                    </div>
-                </div>
+                <a href="javascript:;" data-repeater-create="" class="btn btn-sm font-weight-bolder btn-light-primary">
+                    <i class="fal fa-plus"></i>Add New Row</a>
+                
             </div>
 
             <div class="separator separator-dashed mb-5"></div>

@@ -112,13 +112,13 @@ Itinerary of Travel
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Departure</label>
-                                            <input type="text" name="departure" class="form-control" value="{{ $list['departure'] }}">
+                                            <input type="date" name="departure" class="form-control" value="{{ $list['departure'] }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Arrival</label>
-                                            <input type="text" name="arrival" class="form-control"  value="{{ $list['arrival'] }}">
+                                            <input type="date" name="arrival" class="form-control"  value="{{ $list['arrival'] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@ Itinerary of Travel
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Transportation</label>
-                                            <input type="text" name="trans" class="form-control" value="{{ $list['trans'] }}">
+                                            <input type="number" step="0.01" name="trans" class="form-control" value="{{ $list['trans'] }}">
                                         </div>
                                     </div>
                                 </div>
@@ -142,32 +142,21 @@ Itinerary of Travel
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Per diem</label>
-                                            <input type="text" name="diem" class="form-control" value="{{ $list['diem'] }}">
+                                            <input type="number" step="0.01" name="diem" class="form-control" value="{{ $list['diem'] }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Others</label>
-                                            <input type="text" name="other" class="form-control" value="{{ $list['other'] }}">
+                                            <input type="number" step="0.01" name="other" class="form-control" value="{{ $list['other'] }}">
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Total Amount</label>
-                                            <input type="number" step="0.01" name="amount" class="form-control" value="{{ $list['amount'] }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger mt-5">
-                                            <i class="fal fa-times"></i></a>
-                                    </div>
+                                <div class="col-md-6">
+                                    <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger mt-5">
+                                        <i class="fal fa-times"></i></a>
                                 </div>
-
-                                
                             </div>
                         </div>
                         @endforeach

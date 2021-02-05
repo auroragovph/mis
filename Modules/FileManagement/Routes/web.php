@@ -73,8 +73,9 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
         });
 
         Route::prefix('order')->group(function(){
-            Route::get('/{id}/create', 'PurchaseOrderController@create')->name('fms.procurement.order.create');
-            Route::post('/{id}/store', 'PurchaseOrderController@create')->name('fms.procurement.order.store');
+            Route::get('/', 'POController@index')->name('fms.procurement.order.index');
+            Route::get('/{id}/create', 'POController@create')->name('fms.procurement.order.create');
+            Route::post('/{id}/store', 'POController@create')->name('fms.procurement.order.store');
         });
 
     });
@@ -112,6 +113,7 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
             Route::get('/create', 'ItineraryController@create')->name('fms.travel.itinerary.create');
             Route::post('/create', 'ItineraryController@store')->name('fms.travel.itinerary.store');
             Route::get('/{id}/show', 'ItineraryController@show')->name('fms.travel.itinerary.show');
+            Route::get('/{id}/print', 'ItineraryController@print')->name('fms.travel.itinerary.print');
             Route::get('/{id}/edit', 'ItineraryController@edit')->name('fms.travel.itinerary.edit');
             Route::put('/{id}/edit', 'ItineraryController@update')->name('fms.travel.itinerary.update');
         });

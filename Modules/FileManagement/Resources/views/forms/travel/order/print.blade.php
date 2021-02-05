@@ -54,9 +54,8 @@
                 </td>
     
                 <td width="20%" class="center qr-div" id="qr-div">
-                    <img width="75" height="75" src="data:image/png;base64, {{ qr_to_base64($to->document->qr) }}" alt="" class="symbol-label">
+                    <img width="75" height="75" src="data:image/svg+xml;base64, {{ qr_to_base64($to->document->qr) }}" alt="" class="symbol-label">
                     <span style="display: block; font-size: 10px">{{ $to->document->qr }}</span>
-                    
                 </td>
             </tr>
         </table>

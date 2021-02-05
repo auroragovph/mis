@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 
-class TravelOrderStoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -30,7 +30,7 @@ class TravelOrderStoreRequest extends FormRequest
                                     'required',
                                     Rule::exists(HR_Employee::getTableName(), 'id')->where('liaison', 1)
                                 ],
-            'requesting'       => [
+            'approval'       => [
                                     'required',
                                     Rule::exists(HR_Employee::getTableName(), 'id')
                                 ]

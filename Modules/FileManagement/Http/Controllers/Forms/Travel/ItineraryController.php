@@ -7,6 +7,8 @@ use Illuminate\Routing\Controller;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Travel\FMS_IOT;
+use Modules\FileManagement\Http\Requests\Forms\Itinerary\StoreRequest;
+use Modules\FileManagement\Http\Requests\Forms\Itinerary\UpdateRequest;
 use Modules\FileManagement\Http\Requests\Forms\Travels\Itinerary\ItineraryStoreRequest;
 use Modules\FileManagement\Transformers\Forms\Travel\Itinerary\ItineraryDTResource;
 
@@ -36,7 +38,7 @@ class ItineraryController extends Controller
         ]);
     }
 
-    public function store(ItineraryStoreRequest $request)
+    public function store(StoreRequest $request)
     {
         // storing document
         $document = FMS_Document::directStore($request->post('liaison'), config('constants.document.type.travel.itinerary'));
@@ -132,7 +134,7 @@ class ItineraryController extends Controller
         ]);
     }
 
-    public function update(ItineraryStoreRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $iot = FMS_IOT::with('document')->findOrFail($id);
 
@@ -168,5 +170,39 @@ class ItineraryController extends Controller
             'route' => route('fms.travel.itinerary.show', $iot->id)
         ]);
 
+    }
+
+    public function print($id)
+    {
+        $iot = FMS_IOT::with(
+
+            'document.division.office',
+
+            'employee.position',
+            'head',
+            'supervisor'
+
+        )->findOrFail($id);
+
+
+
+        // activity loger
+        activitylog([
+            'name' => 'fms',
+            'log' => 'Request information of Iitnerary of Travel', 
+            'props' => [
+                'model' => [
+                    'id' => $iot->id,
+                    'class' => FMS_IOT::class
+                ]
+            ]
+        ]);
+
+        return view('filemanagement::forms.travel.itinerary.print', [
+            'iot' => $iot,
+            'lists' => $lists
+        ]);
+
+        
     }
 }

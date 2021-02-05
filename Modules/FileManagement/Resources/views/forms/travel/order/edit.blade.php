@@ -121,7 +121,7 @@ Travel Order
                     <!--begin::Group-->
                     <div class="form-group">
                         <label>Requesting Officer</label>
-                        <select name="requesting" class="form-control select2">
+                        <select name="approval" class="form-control select2">
                             @foreach($employees as $employee)
                                 <option {{ sh($employee->id, $to->requesting_id) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                             @endforeach

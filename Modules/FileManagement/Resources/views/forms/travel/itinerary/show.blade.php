@@ -46,7 +46,7 @@ Itinerary Of Travel
 
 
             <li class="navi-item">
-                <a href="{{ route('fms.travel.order.print', $iot->id) }}" class="navi-link">
+                <a href="{{ route('fms.travel.itinerary.print', $iot->id) }}" class="navi-link">
                     <span class="navi-text">
                         <i class="flaticon2-printer"></i> Print Document
                     </span>
@@ -77,7 +77,10 @@ Itinerary Of Travel
 
 @section('content')
 <div class="row">
-    <x-fms-qr size="xl-4" :document="$iot->document" />
+    <div class="col-xl-4">
+        <x-fms-qr :document="$iot->document" />
+
+    </div>
     <div class="col-xl-8">
           <!--begin::Advance Table Widget 5-->
           <div class="card card-custom  gutter-b">
@@ -151,10 +154,10 @@ Itinerary Of Travel
                                     <td>{{ $list['departure'] }}</td>
                                     <td>{{ $list['arrival'] }}</td>
                                     <td>{{ $list['means'] }}</td>
-                                    <td>{{ $list['trans'] }}</td>
-                                    <td>{{ $list['diem'] }}</td>
-                                    <td>{{ $list['other'] }}</td>
-                                    <td>{{ $list['amount'] }}</td>
+                                    <td>{{ pretty_number($list['trans']) }}</td>
+                                    <td>{{ pretty_number($list['diem']) }}</td>
+                                    <td>{{ pretty_number($list['other']) }}</td>
+                                    <td>{{ pretty_number($list['trans'] + $list['other'] + $list['diem']) }}</td>
                                     <td></td>
                                 </tr>
                             @endforeach

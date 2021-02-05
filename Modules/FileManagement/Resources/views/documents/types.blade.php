@@ -19,7 +19,7 @@
                     {{-- <option value="{{ route('fms.obr.index') }}">Obligation Request (OBR)</option> --}}
                     <option value="{{ route('fms.travel.itinerary.index') }}">Itinerary of Travel </option>
                     <option value="{{ route('fms.procurement.request.index') }}">Purchase Request (PR) </option>
-                    {{-- <option value="{{ route('fms.procurement.order.index') }}">Purchase Order (PO)</option> --}}
+                    <option value="{{ route('fms.procurement.order.index') }}">Purchase Order (PO)</option>
                     <option value="{{ route('fms.travel.order.index') }}">Travel Order (TO)</option>
                 </select>
             </div>

@@ -2,20 +2,11 @@
 
 
 @section('page-title')
-Certification on Appropriations, Funds and Obligation Of Allotment
+Purchase Order (PR)
 @endsection
 
 @section('toolbar')
-<!--begin::Toolbar-->
-<div class="d-flex align-items-center">
-    <!--begin::Button-->
-    <a href="{{ route('fms.cafoa.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-        <i class="fal fa-plus"></i> New CAFOA
-    </a>
-    <!--end::Button-->
-   
-</div>
-<!--end::Toolbar-->
+
 @endsection
 
 @section('content')
@@ -44,7 +35,7 @@ Certification on Appropriations, Funds and Obligation Of Allotment
         <!--end::Search Form-->
         <!--end: Search Form-->
         <!--begin: Datatable-->
-        <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable_fms_cafoa_list"></div>
+        <div class="datatable datatable-bordered datatable-head-custom" id="ktdt_purchase_order"></div>
         <!--end: Datatable-->
     </div>
 </div>
@@ -63,7 +54,7 @@ Certification on Appropriations, Funds and Obligation Of Allotment
 @endsection
 
 @section('js-custom')
-<script src="{{ asset('js/Modules/FileManagement/pages/forms/cafoa/index.js') }}"></script>
+<script src="{{ asset('js/Modules/FileManagement/pages/forms/procurement/order/index.js') }}"></script>
 @endsection
 
 

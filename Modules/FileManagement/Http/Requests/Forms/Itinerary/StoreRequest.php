@@ -1,13 +1,12 @@
 <?php
 
-namespace Modules\FileManagement\Http\Requests\Forms\Travels\Itinerary;
+namespace Modules\FileManagement\Http\Requests\Forms\Itinerary;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\HumanResource\Entities\HR_Employee;
-use Modules\System\Entities\Office\SYS_Division;
 
-class ItineraryStoreRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,8 +15,8 @@ class ItineraryStoreRequest extends FormRequest
      */
     public function rules()
     {
-        $hrtable = HR_Employee::getTableName();
-
+        $hrtable = (new HR_Employee())->getTable();
+        
         return [
             'number'        => 'sometimes|nullable',
             'employee'      => 'required',

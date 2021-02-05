@@ -105,7 +105,7 @@ Travel Order
                     <!--begin::Group-->
                     <div class="form-group">
                         <label>Requesting Officer</label>
-                        <select name="requesting" id="kt_select2_requesting" class="form-control" data-api="{{ route('hrm.employee.lists') }}"></select>
+                        <select name="approval" id="kt_select2_requesting" class="form-control" data-api="{{ route('hrm.employee.lists') }}"></select>
                     </div>
                 </div>
                 <!--end::Group-->

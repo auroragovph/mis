@@ -12,8 +12,11 @@ Document Attach
 
 @isset($document)
 <div class="row">
-    <x-fms-qr size="xl-4" :document="$document" />
 
+    <div class="col-xl-4">
+        <x-fms-qr :document="$document" />
+
+    </div>
     <div class="col-xl-8">
         <div class="card card-custom  gutter-b">
             <!--begin::Header-->

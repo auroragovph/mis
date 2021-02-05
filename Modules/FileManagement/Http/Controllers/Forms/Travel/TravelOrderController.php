@@ -8,7 +8,9 @@ use Illuminate\Routing\Controller;
 use Modules\FileManagement\Entities\Travel\FMS_TO;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Travel\FMS_TOL;
+use Modules\FileManagement\Http\Requests\Forms\TravelOrder\StoreRequest;
 use Modules\FileManagement\Http\Requests\Forms\TravelOrder\TravelOrderStoreRequest;
+use Modules\FileManagement\Http\Requests\Forms\TravelOrder\UpdateRequest;
 use Modules\FileManagement\Transformers\Forms\Travel\TravelOrderDTResource;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
@@ -34,7 +36,7 @@ class TravelOrderController extends Controller
         return view('filemanagement::forms.travel.order.create');
     }
 
-    public function store(TravelOrderStoreRequest $request)
+    public function store(StoreRequest $request)
     {
         // storing document
         $document = FMS_Document::directStore($request->post('liaison'), 301);
@@ -124,7 +126,7 @@ class TravelOrderController extends Controller
         ]);
     }
 
-    public function update(TravelOrderStoreRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
 
         $to = FMS_TO::with(
@@ -136,13 +138,13 @@ class TravelOrderController extends Controller
 
         $to->update([
             'number' => $request->post('number'),
-            'destination' => $request->post('destination'),
-            'departure' => Carbon::parse($request->post('departure'))->format('Y-m-d'),
-            'arrival' => Carbon::parse($request->post('arrival'))->format('Y-m-d'),
-            'purpose' => $request->post('purpose'),
-            'instruction' => $request->post('instruction'),
-            'approval_id' => $request->post('approval_id'),
-            'charging_id' => $request->post('charging_id'),
+            'destination' => $request->destination,
+            'departure' => Carbon::parse($request->departure)->format('Y-m-d'),
+            'arrival' => Carbon::parse($request->arrival)->format('Y-m-d'),
+            'purpose' => $request->purpose,
+            'instruction' => $request->instruction,
+            'approval_id' => $request->approval,
+            'charging_id' => $request->charging
         ]);
 
         // inserting to lists

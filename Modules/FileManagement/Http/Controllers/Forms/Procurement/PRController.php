@@ -97,16 +97,17 @@ class PRController extends Controller
     public function show($id)
     {
         $pr = FMS_PR::with(
-
                     'document.attachments',
                     'document.liaison',
                     'document.encoder',
                     'document.division.office',
+                    'document.purchase_order',
 
                     'requesting',
                     'treasury',
                     'approval'
-                    )->findOrFail($id);
+                )->findOrFail($id);
+        
 
         // activity loger
         activitylog([

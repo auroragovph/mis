@@ -12,6 +12,7 @@
     "/js/Modules/FileManagement/pages/forms/afl/index.js": "/js/Modules/FileManagement/pages/forms/afl/index.js",
     "/js/Modules/FileManagement/pages/forms/cafoa/create.js": "/js/Modules/FileManagement/pages/forms/cafoa/create.js",
     "/js/Modules/FileManagement/pages/forms/cafoa/index.js": "/js/Modules/FileManagement/pages/forms/cafoa/index.js",
+    "/js/Modules/FileManagement/pages/forms/procurement/order/create.js": "/js/Modules/FileManagement/pages/forms/procurement/order/create.js",
     "/js/Modules/FileManagement/pages/forms/procurement/order/index.js": "/js/Modules/FileManagement/pages/forms/procurement/order/index.js",
     "/js/Modules/FileManagement/pages/forms/procurement/request/create.js": "/js/Modules/FileManagement/pages/forms/procurement/request/create.js",
     "/js/Modules/FileManagement/pages/forms/procurement/request/index.js": "/js/Modules/FileManagement/pages/forms/procurement/request/index.js",

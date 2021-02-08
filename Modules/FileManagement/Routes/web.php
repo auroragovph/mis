@@ -75,7 +75,10 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
         Route::prefix('order')->group(function(){
             Route::get('/', 'POController@index')->name('fms.procurement.order.index');
             Route::get('/{id}/create', 'POController@create')->name('fms.procurement.order.create');
-            Route::post('/{id}/store', 'POController@create')->name('fms.procurement.order.store');
+            Route::get('/{id}/show', 'POController@show')->name('fms.procurement.order.show');
+            Route::get('/{id}/edit', 'POController@edit')->name('fms.procurement.order.edit');
+            Route::put('/{id}/edit', 'POController@update')->name('fms.procurement.order.update');
+            Route::post('/{id}/store', 'POController@store')->name('fms.procurement.order.store');
         });
 
     });

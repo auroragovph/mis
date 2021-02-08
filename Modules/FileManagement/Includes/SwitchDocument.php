@@ -1,6 +1,7 @@
 <?php
 
 use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
+use Modules\FileManagement\Entities\Procurement\FMS_PO;
 use Modules\FileManagement\Entities\Procurement\FMS_PR;
 use Modules\FileManagement\Entities\Travel\FMS_IOT;
 use Modules\FileManagement\Entities\Travel\FMS_TO;
@@ -19,6 +20,18 @@ switch($document->type){
         $datas['Fund'] = $pr->fund;
         $datas['FPP'] = $pr->fpp;
         $datas['Amount'] = number_format($lists->sum(function($row){
+            return (floatval($row['quantity'] ?? 0) * floatval($row['amount'] ?? 0));
+        }), 2);
+
+    break;
+
+    case config('constants.document.type.procurement.order'): //PURCHASE ORDER
+        $po = FMS_PO::where('document_id', $id)->first();
+        $lists = collect($po->lists);
+
+        $datas['PO Number'] = $po->number;
+        $datas['Supplier']  = $po->supplier['firm'];
+        $datas['Amount']  = number_format($lists->sum(function($row){
             return (floatval($row['quantity'] ?? 0) * floatval($row['amount'] ?? 0));
         }), 2);
 

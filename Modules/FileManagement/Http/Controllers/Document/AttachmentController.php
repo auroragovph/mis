@@ -97,8 +97,7 @@ class AttachmentController extends Controller
                         'document_id' => $id,
                         'description' => $name,
                         'url' => str_replace('public/documents/', '', $path),
-                        'mime' => 'image',
-                        'employee_id' => Auth::user()->employee_id
+                        'mime' => 'image'
                     ]);
 
                 }
@@ -110,8 +109,7 @@ class AttachmentController extends Controller
                         'document_id' => $id,
                         'description' => $name,
                         'url' => str_replace('public/documents/', '', $path),
-                        'mime' => 'pdf',
-                        'employee_id' => Auth::user()->employee_id
+                        'mime' => 'pdf'
                     ]);
                 }
 
@@ -125,8 +123,7 @@ class AttachmentController extends Controller
                 FMS_DocumentAttach::create([
                     'document_id' => $id,
                     'description' => $tag,
-                    'mime' => 'text',
-                    'employee_id' => Auth::user()->employee_id
+                    'mime' => 'text'
                 ]);
             }
         }

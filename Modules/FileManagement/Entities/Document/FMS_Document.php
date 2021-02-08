@@ -13,6 +13,8 @@ use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\Travel\FMS_TravelOrder;
 // use Modules\FileManagement\Entities\Obr\FMS_ObligationRequest;
 use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
+use Modules\FileManagement\Entities\Procurement\FMS_PO;
+use Modules\FileManagement\Entities\Procurement\FMS_PR;
 use Modules\FileManagement\Entities\Procurement\FMS_PurchaseRequest;
 use Modules\FileManagement\Entities\Travel\FMS_Itinerary;
 
@@ -58,21 +60,33 @@ class FMS_Document extends Model
 
     public function encoder()
     {
-        return $this->belongsTo(HR_Employee::class, 'encoder_id', 'id');
+        return $this->belongsTo(HR_Employee::class, 'encoder_id');
     }
 
     public function liaison()
     {
-        return $this->belongsTo(HR_Employee::class, 'liaison_id', 'id');
+        return $this->belongsTo(HR_Employee::class, 'liaison_id');
     }
 
     public function division()
     {
-        return $this->belongsTo(SYS_Division::class, 'division_id', 'id');
+        return $this->belongsTo(SYS_Division::class, 'division_id');
     }
 
     public function attachments()
     {
-        return $this->hasMany(FMS_DocumentAttach::class, 'document_id', 'id');
+        return $this->hasMany(FMS_DocumentAttach::class, 'document_id');
     }
+
+    public function purchase_request()
+    {
+        return $this->hasOne(FMS_PR::class, 'document_id');
+    }
+
+    public function purchase_order()
+    {
+        return $this->hasOne(FMS_PO::class, 'document_id');
+    }
+
+
 }

@@ -32,9 +32,26 @@
                         <td>{{ Carbon\Carbon::parse($attachment->created_at)->format('F d, Y h:i A') }}</td>
                         <td>{{ name_helper($attachment->employee->name) }}</td>
                         <td>
-                            @if($attachment->mime !== 'text')
+                            @switch($attachment->mime)
+                                @case('image')
                                 <a href="{{ Storage::url('public/documents/'.$attachment->url) }}" target="_blank" class="btn btn-sm btn-primary"> <i class="fal fa-eye"></i> View</a>
-                            @endif
+
+                                @break
+
+                                @case('pdf')
+                                <a href="{{ Storage::url('public/documents/'.$attachment->url) }}" target="_blank" class="btn btn-sm btn-primary"> <i class="fal fa-eye"></i> View</a>
+                                @break
+
+                                @case('url/sys')
+                                   <?php $route = json_decode($attachment->url); ?>
+                                   {{-- {{ dd($route) }} --}}
+                                    <a href="{{ route($route[0], $route[1]) }}" target="_blank" class="btn btn-sm btn-primary"> <i class="fal fa-eye"></i> View</a>
+
+                                @break
+
+                            @endswitch
+
+                            
                         </td>
                     </tr>
                     @endforeach

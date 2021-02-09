@@ -80,53 +80,29 @@ class AttachmentController extends Controller
     public function attach(Request $request, $id)
     {
         
-        if($request->hasFile('files')){
-            // NOTE:: WE WILL DIRECTLY UPLOAD THE FILE. CRON JOBS WILL DECOMPRESS THE IMAGES AND ADD WATERMARKS
-            foreach($request->file('files') as $file){
+        $mime = '';
+        
+        if($request->hasFile('file')){
 
-                $mime = $file->getMimeType();
+            $mime = 'file';
 
-                $image_check = strpos($mime, 'image');
-                $pdf_check = strpos($mime, 'pdf');
-
-                if($image_check !== false){
-                    $name = $file->getClientOriginalName();
-
-                    $path = $file->store('public/documents');
-                    FMS_DocumentAttach::create([
-                        'document_id' => $id,
-                        'description' => $name,
-                        'url' => str_replace('public/documents/', '', $path),
-                        'mime' => 'image'
-                    ]);
-
-                }
-
-                if($pdf_check !== false){
-                    $name = $file->getClientOriginalName();
-                    $path = $file->store('documents');
-                    FMS_DocumentAttach::create([
-                        'document_id' => $id,
-                        'description' => $name,
-                        'url' => str_replace('public/documents/', '', $path),
-                        'mime' => 'pdf'
-                    ]);
-                }
-
-                continue;
-            }
+            $file = $request->file('file');
+            // $path = Storage::store;
+            $path = $file->store('filemanagement/document/attachments');
         }
 
-
-        if($request->tags !== null){
-            foreach($request->tags as $i => $tag){
-                FMS_DocumentAttach::create([
-                    'document_id' => $id,
-                    'description' => $tag,
-                    'mime' => 'text'
-                ]);
-            }
-        }
+        $attachment = FMS_DocumentAttach::create([
+            'document_id' => $id,
+            'description' => $request->post('name'), 
+            'url'  => (isset($path)) ? str_replace('filemanagement/document/attachments/', '', $path) : null,
+            'mime' => ($mime == '') ? 'text' : 'file',
+            'properties' => array(
+                'number'    => $request->post('number') ?? null, 
+                'date'      => $request->post('date')   ?? null, 
+                'amount'    => $request->post('amount') ?? null, 
+                'page'      => $request->post('page')   ?? null, 
+            )
+        ]);
 
         // activity loger
         activitylog([
@@ -140,7 +116,13 @@ class AttachmentController extends Controller
             ]
         ]);
 
+        return response()->json([
+            'message' => 'Attachment success'
+        ]);
+    }
 
-        return redirect()->back()->with('alert-success', 'Documents has been attached.');
+    public function file($file)
+    {
+        return response()->file(storage_path('app/filemanagement/document/attachments/'.$file));
     }
 }

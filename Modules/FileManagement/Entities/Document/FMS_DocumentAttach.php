@@ -9,6 +9,9 @@ class FMS_DocumentAttach extends Model
 {
     protected $guarded = [];
     protected $table = 'fms_documents_attachment';
+    protected $casts = [
+        'properties' => 'json'
+    ];
 
     protected static function boot()
     {
@@ -16,6 +19,7 @@ class FMS_DocumentAttach extends Model
 
         FMS_DocumentAttach::saving(function ($model) {
             $model->employee_id = authenticated()->employee_id;
+            $model->status = 1;
         });
     }
 

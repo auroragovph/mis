@@ -33,13 +33,10 @@
                         <td>{{ name_helper($attachment->employee->name) }}</td>
                         <td>
                             @switch($attachment->mime)
-                                @case('image')
-                                <a href="{{ Storage::url('public/documents/'.$attachment->url) }}" target="_blank" class="btn btn-sm btn-primary"> <i class="fal fa-eye"></i> View</a>
-
-                                @break
-
-                                @case('pdf')
-                                <a href="{{ Storage::url('public/documents/'.$attachment->url) }}" target="_blank" class="btn btn-sm btn-primary"> <i class="fal fa-eye"></i> View</a>
+                                @case('file')
+                                    <a target="_blank" href="{{ route('fms.documents.attach.file', $attachment->url) }}" class="btn btn-icon btn-light-primary btn-sm mr-2">
+                                        <i class="flaticon-attachment"></i>
+                                    </a>
                                 @break
 
                                 @case('url/sys')

@@ -92,13 +92,13 @@ class POController extends Controller
         // setting session
         session()->flash('alert-success', 'Purchase order has been encoded.');
 
-        // adding attachment
-        FMS_DocumentAttach::create([
-            'document_id' => $id,
-            'description' => 'Purchase Order',
-            'mime'  => 'url/sys',
-            'url'   => json_encode(array('fms.procurement.order.show', $po->id))
-        ]);
+        // adding attachmeent
+        // FMS_DocumentAttach::create([
+        //     'document_id' => $id,
+        //     'description' => 'Purchase Order',
+        //     'mime'  => 'url/sys',
+        //     'url'   => json_encode(array('fms.procurement.order.show', $po->id))
+        // ]);
 
         return response()->json([
             'message' => "Purchase order has been encoded.",

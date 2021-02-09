@@ -1,6 +1,25 @@
 "use strict";
 // Class definition
 
+var KTUInitPlugins = function () {
+	// Base elements
+
+	var initPlugins = function() {
+
+		// init select 2 employees
+		$(".select2").select2({
+			placeholder: "Select in the list",
+        });
+	}
+
+	return {
+		// public functions
+		init: function() {
+			initPlugins();
+		}
+	};
+}();
+
 var KTDatatableHtmlTableDemo = function() {
     // Private functions
 
@@ -115,4 +134,5 @@ var KTDatatableHtmlTableDemo = function() {
 
 jQuery(document).ready(function() {
 	KTDatatableHtmlTableDemo.init();
+	KTUInitPlugins.init();
 });

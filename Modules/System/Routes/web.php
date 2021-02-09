@@ -42,8 +42,9 @@ Route::group(['prefix' => 'system', 'middleware' => ['auth:web']], function(){
 
         Route::prefix('role')->group(function(){
             Route::get('/', 'RoleController@index')->name('sys.acl.role.index');
-            Route::get('/lists', 'RoleController@lists')->name('sys.acl.role.lists');
             Route::post('/', 'RoleController@store')->name('sys.acl.role.store');
+
+            Route::get('/lists', 'RoleController@lists')->name('sys.acl.role.lists');
         });
 
     });

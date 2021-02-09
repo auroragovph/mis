@@ -41,6 +41,8 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web'], functi
             Route::post('/', 'AttachmentController@check')->name('fms.documents.attach.check');
             Route::get('/{id}/attachments', 'AttachmentController@form')->name('fms.documents.attach.form');
             Route::post('/{id}/attachments', 'AttachmentController@attach')->name('fms.documents.attach.attach');
+            Route::get('/{file}/stream', 'AttachmentController@file')->name('fms.documents.attach.file');
+
         });
 
 

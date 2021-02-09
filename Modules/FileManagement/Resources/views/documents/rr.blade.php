@@ -11,8 +11,10 @@ Receive / Release
 @section('content')
 @isset($document)
 <div class="row">
-    <x-fms-qr size="xl-4" :document="$document" :datas="$datas" />
+    <div class="col-xl-4">
+        <x-fms-qr :document="$document" :datas="$datas" />
 
+    </div>
     <div class="col-xl-8">
         <div class="card card-custom gutter-b" id="card-box">
             <!--begin::Header-->

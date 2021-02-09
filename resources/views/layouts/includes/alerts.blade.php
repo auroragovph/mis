@@ -3,7 +3,7 @@
 
 @if(session('alert-success'))
 <div class="alert alert-custom alert-success fade show" role="alert">
-    <div class="alert-icon"><i class="la la-check-double"></i></div>
+    <div class="alert-icon"><i class="fas fa-check"></i></div>
     <div class="alert-text">{!! session('alert-success') !!}</div>
     <div class="alert-close">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">

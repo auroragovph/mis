@@ -18,36 +18,64 @@ Document Attach
 
     </div>
     <div class="col-xl-8">
-        <div class="card card-custom  gutter-b">
+        <!--begin::Advance Table Widget 5-->
+        <div class="card card-custom gutter-b" id="card-box" data-card="true">
             <!--begin::Header-->
-            <div class="card-header border-0 pt-5">
+            <div class="card-header border-0 py-5">
                 <h3 class="card-title align-items-start flex-column">
                     <span class="card-label font-weight-bolder text-dark">Attachment Form</span>
+                    {{-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> --}}
                 </h3>
             </div>
             <!--end::Header-->
             <!--begin::Body-->
             <div class="card-body">
-               <form action="{{ route('fms.documents.attach.attach', $document->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                    <div class="form-group">
-                        <label for="">Attach documents without image/pdf:</label>
-                        <select class="form-control select2" multiple name="tags[]">
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Attach documents with image/pdf:</label>
-                        <input type="file" name="files[]" class="form-control" accept="image/*, .pdf" multiple>
-                    </div>
-
-                    <hr>
-
-                    <button class="btn btn-primary">Attach</button>
-               </form>
+                <form id="kt_form" action="{{ route('fms.documents.attach.attach', $document->id) }}">
+                      <div class="form-group">
+                          <label for="">Name</label>
+                          <input type="text" class="form-control" name="name" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="">File</label>
+                          <input type="file" class="form-control" name="file" >
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="">Number / Control Number</label>
+                                  <input type="text" class="form-control" name="number" required>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="">Date</label>
+                                  <input type="date" class="form-control" name="date" required>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="">Amount</label>
+                                  <input type="text" class="form-control" name="amount">
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="">Number of Page</label>
+                                  <input type="text" class="form-control" name="page">
+                              </div>
+                          </div>
+                      </div>
+  
+                      <div class="separator separator-dashed mb-5"></div>
+  
+                      <button href="#" class="btn btn-primary btn-shadow font-weight-bold mr-2">Attach</button>
+                </form>
             </div>
             <!--end::Body-->
-        </div>
+          </div>
+          <!--end::Advance Table Widget 5-->
 
         <x-fms-attachments :attachments="$document->attachments" />
     </div>
@@ -89,14 +117,7 @@ Document Attach
 @endsection
 
 @section('js-custom')
-<script>
-    $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2({
-            tags: true
-        });
-    });
-</script>
+<script src="{{ asset('js/Modules/FileTracking/pages/documents/attachment.js') }}"></script>
 @endsection
 
 

@@ -20,7 +20,7 @@ Roles
                     <div class="row align-items-center">
                         <div class="col-lg-9 col-xl-8">
                             <div class="row align-items-center">
-                                <div class="col-md-4 my-2 my-md-0">
+                                <div class="col-md-8 my-2 my-md-0">
                                     <div class="input-icon">
                                         <input type="text" class="form-control" placeholder="Search..." id="kt_datatable_search_query" />
                                         <span>
@@ -43,7 +43,7 @@ Roles
         <!--end::Card-->
     </div>
     <div class="col-lg-4">
-        
+        @include('system::acl.role.create')
     </div>
 </div>
 @endsection

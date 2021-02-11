@@ -28,9 +28,8 @@ class AFLController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create()
     {
-        $employee = HR_Employee::onlyDivision()->findOrFail($request->post('employee'));
 
         $employees = HR_Employee::whereIn('division_id', [
             auth_division(),
@@ -38,27 +37,19 @@ class AFLController extends Controller
         ])->get();
 
         // setting up the sesssion
-        session(['fms.document.afl.create' => ['employee' => (int)$request->post('employee'), 'type' => $request->post('type')]]);
 
         return view('filemanagement::forms.afl.create', [
-            'employee' => $employee,
-            'employees' => $employees,
-            'type' => $request->post('type')
+            'employees' => $employees
         ]);
     }
 
     public function store(AFLStoreRequest $request)
     {
-        $details = session()->pull('fms.document.afl.create');
 
-        $type = $details['type'];
-        $employee = $details['employee'];
-
-
-        $document = FMS_Document::directStore($request->liaison, 500);
+        $document = FMS_Document::directStore($request->post('liaison'), config('constants.document.type.afl'));
 
         $properties = [
-            'type' => $details['type'],
+            'type' => $request->post('leave_type'),
             'commutation' => boolval($request->post('commutation')),
             'approved' => [
                 'with' => $request->post('days-with-pay'),
@@ -66,7 +57,7 @@ class AFLController extends Controller
             ],
         ];
 
-        switch($type){
+        switch($request->post('leave_type')){
 
             case 'Vacation': 
                 $details = [
@@ -101,7 +92,7 @@ class AFLController extends Controller
 
         $afl = FMS_AFL::create([
             'document_id' => $document->id,
-            'employee_id' => $employee,
+            'employee_id' => $request->post('employee'),
             'approval_id' => $request->post('approval'),
             'hr_id' => $request->post('hr'),
             'properties' => $properties,
@@ -212,5 +203,10 @@ class AFLController extends Controller
             'message' => 'Application for leave has been updated.',
             'route' => route('fms.afl.show', $afl->id)
         ]);
+    }
+
+    public function print($id)
+    {
+        return view('filemanagement::forms.afl.print');
     }
 }

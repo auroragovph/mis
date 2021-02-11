@@ -26,6 +26,7 @@ Purchase Request
         <form id="kt_form" action="{{ route('fts.pr.update', $pr->id) }}" method="POST">
 
             @csrf
+            @method('put')
             <div class="row">
   
               <div class="col-md-6">

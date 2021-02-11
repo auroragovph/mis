@@ -11,7 +11,14 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        return view('filemanagement::documents.index');
+        $documents = FMS_Document::with('latestTrack')
+                                    ->where('division_id', authenticated()->employee->division_id)
+                                    ->get(['id', 'created_at']);
+
+        return view('filemanagement::documents.index', [
+            'documents' => $documents,
+            'total' => FMS_Document::where('division_id', authenticated()->employee->division_id)->count()
+        ]);
     }
 
     public function receipt($id)

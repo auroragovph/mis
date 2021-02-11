@@ -24,8 +24,8 @@ Itinerary Of Travel
     <!--begin::Body-->
     <div class="card-body">
         <form id="kt_form" action="{{ route('fts.travel.itinerary.update', $iot->id) }}" method="POST">
-
             @csrf
+            @method('put')
             <div class="row">
   
               <div class="col-md-6">

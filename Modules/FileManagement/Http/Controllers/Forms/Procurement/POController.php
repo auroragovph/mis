@@ -2,14 +2,15 @@
 
 namespace Modules\FileManagement\Http\Controllers\Forms\Procurement;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\HumanResource\Entities\HR_Employee;
+use Modules\FileManagement\Entities\Procurement\FMS_PO;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
-use Modules\FileManagement\Entities\Procurement\FMS_PO;
 use Modules\FileManagement\Http\Requests\Forms\Procurement\Order\StoreRequest;
 use Modules\FileManagement\Http\Requests\Forms\Procurement\Order\UpdateRequest;
 use Modules\FileManagement\Transformers\Forms\Procurement\Order\OrderDTResource;
-use Modules\HumanResource\Entities\HR_Employee;
 
 class POController extends Controller
 {
@@ -31,8 +32,11 @@ class POController extends Controller
         return view('filemanagement::forms.procurement.order.index');
     }
 
-    public function create($id)
+    public function create(Request $request)
     {
+        $id = (int)$request->get('document');
+        
+
         $document = FMS_Document::with('purchase_request')
             ->where('id', $id)
             ->where('type', config('constants.document.type.procurement.request'))
@@ -51,8 +55,10 @@ class POController extends Controller
         ]);
     }
 
-    public function store(StoreRequest $request, $id)
+    public function store(StoreRequest $request)
     {
+
+        $id = session()->get('fms.document.create.po');
 
         $document = FMS_Document::with('purchase_request')
             ->where('id', $id)

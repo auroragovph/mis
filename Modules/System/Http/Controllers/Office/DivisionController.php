@@ -12,37 +12,58 @@ use Modules\System\Transformers\Office\DivisionResource;
 
 class DivisionController extends Controller
 {
-    
-    public function index(Request $request)
+
+    public function index()
     {
-        if($request->ajax()){
-            if($request->has('search')){
-                $q = $request->get('search');
-                $datas = SYS_Division::where('name', 'like', '%'.$q.'%')->orWhere('alias', 'like', '%'.$q.'%')->get();
-            }else{
+        if (request()->ajax()) {
+
+            if (request()->header('X-Select2') == true) {
+
+                if (request()->has('search')) {
+                    $key = request()->input('search');
+                    $divisions = SYS_Division::where('name', 'like', "%{$key}%")
+                        ->orWhere('alias', 'like', "%{$key}%")
+                        ->orWhereHas('office', function ($query) use ($key) {
+                            $query->where('name', 'like', "%{$key}%");
+                        })
+                        ->orWhereHas('office', function ($query) use ($key) {
+                            $query->where('alias', 'like', "%{$key}%");
+                        })->with('office')->get();
+                } else {
+                    $divisions = SYS_Division::with('office')->get();
+                }
+
+                return DivisionResource::collection($divisions);
+            }
+
+
+
+            if (request()->has('search')) {
+                $q = request()->get('search');
+                $datas = SYS_Division::where('name', 'like', '%' . $q . '%')->orWhere('alias', 'like', '%' . $q . '%')->get();
+            } else {
                 $datas = SYS_Division::with('office')->get();
             }
             $datas = DivisionResource::collection($datas);
             return $datas;
         }
         return view('system::office.division.index');
-        
     }
 
     public function lists(Request $request)
     {
 
-        if($request->has('search')){
+        if ($request->has('search')) {
             $key = $request->input('search');
             $divisions = SYS_Division::where('name', 'like', "%{$key}%")
-                            ->orWhere('alias', 'like', "%{$key}%")
-                            ->orWhereHas('office', function($query) use($key){
-                                $query->where('name', 'like', "%{$key}%");
-                            })
-                            ->orWhereHas('office', function($query) use($key){
-                                $query->where('alias', 'like', "%{$key}%");
-                            })->with('office')->get();
-        }else{
+                ->orWhere('alias', 'like', "%{$key}%")
+                ->orWhereHas('office', function ($query) use ($key) {
+                    $query->where('name', 'like', "%{$key}%");
+                })
+                ->orWhereHas('office', function ($query) use ($key) {
+                    $query->where('alias', 'like', "%{$key}%");
+                })->with('office')->get();
+        } else {
             $divisions = SYS_Division::with('office')->get();
         }
 
@@ -60,6 +81,6 @@ class DivisionController extends Controller
         ]);
 
         return redirect(route('sys.office.division.index'))
-                ->with('alert-success', 'Division has been created.');
+            ->with('alert-success', 'Division has been created.');
     }
 }

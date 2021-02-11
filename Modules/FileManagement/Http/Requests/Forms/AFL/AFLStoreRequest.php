@@ -18,6 +18,8 @@ class AFLStoreRequest extends FormRequest
         $hrtable = HR_Employee::getTableName();
 
         return [
+            'employee'      =>  ['required', Rule::exists($hrtable, 'id')],
+            'leave_type'    => 'required',
             'inclusive'     => 'required',
             'caf'           => 'required',
             'v1'            => 'required',

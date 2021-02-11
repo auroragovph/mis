@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        if($this->route('id') != session()->get('fms.document.create.po')){
+        if(session()->get('fms.document.create.po') == null){
             return false;
         }
 

@@ -43,31 +43,10 @@ var KTFormValidation = function() {
 			document.getElementById('kt_form'),
 			{
 				fields: {
-					'requesting': {
+					employee: {
 						validators: {
 							notEmpty: {
-								message: 'Requesting officer is required'
-							}
-						}
-					},
-					budget: {
-						validators: {
-							notEmpty: {
-								message: 'Budget officer is required'
-							}
-						}
-					},
-					treasury: {
-						validators: {
-							notEmpty: {
-								message: 'Treasury officer is required'
-							}
-						}
-					},
-					accountant: {
-						validators: {
-							notEmpty: {
-								message: 'Accountant officer is required'
+								message: 'Employee is required'
 							}
 						}
 					},
@@ -146,9 +125,6 @@ var KTForm = function(){
 			let res = error.data;
 			var errTitle = '';
 			var errMessage = '';
-
-			console.log(error);
-
 
 			switch(error.status){
 				case 500: 

@@ -18,7 +18,7 @@
             <!--begin::Group-->
              <div class="form-group">
                 <label>Role</label>
-                <select id="kt_select2_role" class="form-control" name="role" data-api="{{ route('sys.acl.role.lists') }}" style="width: 100%;" required>
+                <select id="kt_select2_role" class="form-control" name="role" data-api="{{ route('sys.acl.role.index') }}" style="width: 100%;" required>
                    @foreach($employee->account->getRoleNames() as $role)
                     <option selected>{{ $role }}</option>
                    @endforeach
@@ -30,7 +30,7 @@
             <!--begin::Group-->
             <div class="form-group">
                 <label>Permissions</label>
-                <select id="kt_select2_permissions" class="form-control" multiple name="permissions[]" data-api="{{ route('sys.acl.permission.lists') }}" style="width: 100%;" required>
+                <select id="kt_select2_permissions" class="form-control" multiple name="permissions[]" data-api="{{ route('sys.acl.permission.index') }}" style="width: 100%;" required>
                     
                     @foreach($employee->account->getAllPermissions()->pluck('name') as $permission)
                         <option selected>{{ $permission }}</option>

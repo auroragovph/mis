@@ -79,7 +79,7 @@
             <tr class="bt">
                 <td class="br" width="50%" rowspan="5">
                     <p class="ml-3"><strong>Request</strong></p>
-                    <p class="ml-3">Payee <span class="ml-3"><u>JIMWELL P. PARINAS</u></span></p>
+                    <p class="ml-3">Payee <span class="ml-3"><u>{{ strtoupper($cafoa->payee) }}</u></span></p>
 
 
                     <table class="fulltable" style="margin:auto; width:90%">
@@ -223,48 +223,15 @@
                             
                         </tr>
 
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-
-
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-
-
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-
-
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                        @for($j = 1; $j <= 5; $j++)
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        @endfor
 
 
                        

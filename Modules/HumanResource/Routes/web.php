@@ -1,36 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\HumanResource\Http\Controllers\Employee\EmployeeController;
+use Modules\HumanResource\Http\Controllers\Plantilla\PositionController;
+use Modules\HumanResource\Http\Controllers\Plantilla\SalaryGradeController;
 
-Route::group(['prefix' => 'human-resource', 'middleware' => ['auth:web']], function(){
-    
-    Route::get('/dashboard', 'DashboardController@index')->name('hrm.dashboard');
+Route::group(['prefix' => 'human-resource', 'middleware' => ['auth:web'], 'as' => 'hrm.'], function(){
 
-    Route::prefix('employee')->namespace('Employee')->group(function(){
+    Route::resource('employee',            EmployeeController::class)           ->except(['destory']);
 
-
-        Route::get('/lists', "EmployeeController@lists")->name('hrm.employee.lists');
-
-
-        Route::get('/', "EmployeeController@index")->name('hrm.employee.index');
-        Route::get('/create', "EmployeeController@create")->name('hrm.employee.create');
-        Route::post('/create', "EmployeeController@store")->name('hrm.employee.store');
-
-        Route::get('/{employee}/edit', "EmployeeController@edit")->name('hrm.employee.edit');
-        
-        Route::post('/{employee}/edit', "EmployeeController@update")->name('hrm.employee.update')->middleware('hrm-employee-edit-header', 'only.ajax');
-    });
-
-    Route::prefix('plantilla')->namespace('Plantilla')->group(function(){
-
-        Route::prefix('position')->group(function(){
-            Route::get('/', 'PositionController@index')->name('hrm.plantilla.position.index');
-            Route::get('/lists', 'PositionController@lists')->name('hrm.plantilla.position.lists');
-        });
-        Route::prefix('salary-grade')->group(function(){
-            Route::get('/', 'SalaryGradeController@index')->name('hrm.plantilla.sg.index');
-        });
-
+    Route::group(['prefix' => 'plantilla', 'as' => 'plantilla.'], function(){
+        Route::resource('position',         PositionController::class)          ->except(['destroy']);
+        Route::resource('salary-grade',     SalaryGradeController::class)       ->except(['destroy']);
     });
 
 });

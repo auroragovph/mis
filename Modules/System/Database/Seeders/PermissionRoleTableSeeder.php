@@ -23,12 +23,17 @@ class PermissionRoleTableSeeder extends Seeder
         $permissionNames = [
             'sys.sudo', 
 
+            'fms.*',
+            'fms.sa.*',
             'fms.sa.activate',
             'fms.sa.attach',
             'fms.sa.number',
             'fms.sa.rr',
+            'fms.sa.transmittal',
+            'fms.document.*',
             'fms.document.create',
             'fms.document.edit',
+            'fms.document.cancel',
 
             'fts.*',
             'fts.sa.*',
@@ -71,6 +76,15 @@ class PermissionRoleTableSeeder extends Seeder
             [
                 'name' => 'FTS - Encoder User',
                 'permissions' => ['fts.document.*']
+            ],
+
+            [
+                'name' => 'FMS - User',
+                'permissions' => ['fms.sa.rr', 'fms.sa.attach', 'fms.sa.number', 'fms.document.create']
+            ],
+            [
+                'name' => 'FMS - Special User',
+                'permissions' => ['fms.*']
             ]
 
         ];

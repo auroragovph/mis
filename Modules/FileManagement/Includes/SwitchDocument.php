@@ -1,5 +1,6 @@
 <?php
 
+use Modules\FileManagement\Entities\AFL\FMS_AFL;
 use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\Procurement\FMS_PO;
 use Modules\FileManagement\Entities\Procurement\FMS_PR;
@@ -7,6 +8,14 @@ use Modules\FileManagement\Entities\Travel\FMS_IOT;
 use Modules\FileManagement\Entities\Travel\FMS_TO;
 
 switch($document->type){
+
+    case config('constants.document.type.afl'): //AFL 
+        $afl = FMS_AFL::with('employee')->where('document_id', $id)->first();
+        $datas['Employee'] = name_helper($afl->employee->name);
+        $datas['Credits'] = $afl->credits['as-of'];
+        $datas['Type'] = $afl->properties['type'];
+
+    break;
 
     case config('constants.document.type.procurement.request'): // PURCHASE REQUEST
 

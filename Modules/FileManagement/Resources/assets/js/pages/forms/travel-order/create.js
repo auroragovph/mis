@@ -20,6 +20,9 @@ var KTUInitPlugins = function () {
 				url: $("#kt_select2_employees").data('api'),
 				dataType: 'json',
 				delay: 250,
+				headers: {
+					"X-Select2" : true
+				},
 				data: function(params) {
 					return {
 						search: params.term,
@@ -48,6 +51,9 @@ var KTUInitPlugins = function () {
 				url: $("#kt_select2_requesting").data('api'),
 				dataType: 'json',
 				delay: 250,
+				headers: {
+					"X-Select2" : "true2"
+				},
 				data: function(params) {
 					return {
 						search: params.term,
@@ -77,7 +83,7 @@ var KTUInitPlugins = function () {
 				dataType: 'json',
 				delay: 250,
 				headers: {
-					"X-Select2" : "true2"
+					"X-Select2" : true
 				},
 				data: function(params) {
 					return {

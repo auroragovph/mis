@@ -9,11 +9,19 @@ Application for Leave
 <!--begin::Toolbar-->
 <div class="d-flex align-items-center">
 
-<!--begin::Button-->
+{{-- <!--begin::Button-->
 <button type="button"data-toggle="modal" data-target="#exampleModal" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
     <i class="fal fa-plus"></i> New AFL
 </button>
+<!--end::Button--> --}}
+
+<!--begin::Button-->
+<a href="{{ route('fms.afl.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+    <i class="fal fa-plus"></i> New AFL
+</a>
 <!--end::Button-->
+
+
 </div>
 <!--end::Toolbar-->
 @endsection
@@ -49,7 +57,7 @@ Application for Leave
     </div>
 </div>
 <!--end::Card-->
-
+{{-- 
 <!-- Modal-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -90,7 +98,7 @@ Application for Leave
         </div>
     </div>
 </div>
-
+ --}}
 
 @endsection
 

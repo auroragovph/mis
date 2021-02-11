@@ -26,6 +26,7 @@ Travel Order
         <form id="kt_form" action="{{ route('fts.travel.order.update', $to->id) }}" method="POST">
 
             @csrf
+            @method('put')
             <div class="row">
   
               <div class="col-md-6">

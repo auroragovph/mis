@@ -53,3 +53,6 @@ $response = tap($kernel->handle(
 ))->send();
 
 $kernel->terminate($request, $response);
+
+
+// echo convert_bytes(memory_get_usage());

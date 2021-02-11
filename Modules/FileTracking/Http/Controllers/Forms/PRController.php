@@ -141,7 +141,7 @@ class PRController extends Controller
 
         return response()->json([
             'message' => 'Purchase Request has been updated.',
-            'route' => route('fts.payroll.index')
+            'route' => route('fts.pr.index')
         ], 200);
     }
 }

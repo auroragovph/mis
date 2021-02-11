@@ -57,7 +57,7 @@ class AttachmentController extends Controller
             'document_id' => $id,
             'employee_id' => authenticated()->employee_id,
             'name' => $request->post('name'), 
-            'file'  => str_replace('filetracking/document/attachments/', '', $path) ?? null,
+            'file'  => (isset($path)) ? str_replace('filetracking/document/attachments/', '', $path) : null,
             'properties' => [
                 'number'    => $request->post('number') ?? null, 
                 'date'      => $request->post('date')   ?? null, 

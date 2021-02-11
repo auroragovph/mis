@@ -77,7 +77,7 @@
                     <p class="pro">{{ strtoupper(config('constants.lgu')) }}</p>
                 </td>
                 <td width="20%" class="center">
-                    <img src="data:image/png;base64, {{ qr_to_base64($document->series) }}" width="80px" height="80px">
+                    <img src="data:image/svg+xml;base64, {{ qr_to_base64($document->series) }}" width="80px" height="80px">
                     <span style="display: block">{{ $document->seriesFull }}</span>
                 </td>
             </tr>

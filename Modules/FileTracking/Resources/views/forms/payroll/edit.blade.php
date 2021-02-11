@@ -26,6 +26,7 @@ Payroll
         <form id="kt_form" action="{{ route('fts.payroll.update', $payroll->id) }}" method="POST">
 
             @csrf
+            @method('put')
             <div class="row">
   
               <div class="col-md-6">

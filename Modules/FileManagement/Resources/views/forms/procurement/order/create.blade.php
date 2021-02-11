@@ -24,7 +24,7 @@ Purchase Order
 
     <!--begin::Body-->
     <div class="card-body">
-        <form class="form" id="kt_form" method="POST" action="{{ route('fms.procurement.order.store', $document->id) }}">
+        <form class="form" id="kt_form" method="POST" action="{{ route('fms.procurement.order.store') }}">
             @csrf
 
             <h4 class="font-size-h5">Supplier</h4>

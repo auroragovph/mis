@@ -139,13 +139,14 @@ class ItineraryController extends Controller
         $iot = FMS_IOT::with('document')->findOrFail($id);
 
         $iot->update([
-            'employee_id' => $request->post('employee'),
-            'fund' => $request->post('fund'),
-            'travel_date' => $request->post('travel-date'),
-            'travel_purpose' => $request->post('purpose'),
+            'employee_id'   => $request->post('employee'),
+            'number'        => $request->post('number'),
+            'fund'          => $request->post('fund'),
+            'travel_date'   => $request->post('travel-date'),
+            'travel_purpose'=> $request->post('purpose'),
             'supervisor_id' => $request->post('supervisor'),
-            'head_id' => $request->post('approving'),
-            'lists' => $request->post('lists')
+            'head_id'       => $request->post('approving'),
+            'lists'         => $request->post('lists')
         ]);
 
         $iot->document()->update(['liaison_id' => $request->post('liaison')]);

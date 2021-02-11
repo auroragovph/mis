@@ -36,7 +36,7 @@ Travel Order
                     <!--begin::Group-->
                     <div class="form-group">
                         <label>Employees</label>
-                        <select name="employees[]" id="kt_select2_employees" multiple class="form-control" data-api="{{ route('hrm.employee.lists') }}"></select>
+                        <select name="employees[]" id="kt_select2_employees" multiple class="form-control" data-api="{{ route('hrm.employee.index') }}"></select>
                     </div>
                 </div>
                 <!--end::Group-->
@@ -75,7 +75,7 @@ Travel Order
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Charging Office</label>
-                        <select name="charging" id="kt_select2_charging" class="form-control" data-api="{{ route('sys.office.division.lists') }}"></select>
+                        <select name="charging" id="kt_select2_charging" class="form-control" data-api="{{ route('sys.office.division.index') }}"></select>
                     </div>
                 </div>
                 <!--end::Group-->
@@ -105,7 +105,7 @@ Travel Order
                     <!--begin::Group-->
                     <div class="form-group">
                         <label>Requesting Officer</label>
-                        <select name="approval" id="kt_select2_requesting" class="form-control" data-api="{{ route('hrm.employee.lists') }}"></select>
+                        <select name="approval" id="kt_select2_requesting" class="form-control" data-api="{{ route('hrm.employee.index') }}"></select>
                     </div>
                 </div>
                 <!--end::Group-->
@@ -116,7 +116,7 @@ Travel Order
                     <!--begin::Group-->
                     <div class="form-group">
                         <label>Liaison Officer</label>
-                        <select name="liaison" id="kt_select2_liaison" class="form-control" data-api="{{ route('hrm.employee.lists') }}"></select>
+                        <select name="liaison" id="kt_select2_liaison" class="form-control" data-api="{{ route('hrm.employee.index') }}"></select>
 
                     </div>
                 </div>

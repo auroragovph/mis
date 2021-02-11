@@ -24,8 +24,8 @@ Disbursement Voucher
     <!--begin::Body-->
     <div class="card-body">
         <form id="kt_form" action="{{ route('fts.dv.update', $dv->id) }}" method="POST">
-
             @csrf
+            @method('put')
             <div class="row">
   
               <div class="col-md-6">

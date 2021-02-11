@@ -24,8 +24,7 @@ Application For Leave Form
 
     <!--begin::Body-->
     <div class="card-body">
-        <form id="kt_form" action="{{ route('fms.afl.store') }}" method="POST">
-            @method('PUT')
+        <form id="kt_form" action="{{ route('fms.afl.store') }}" method="POST" x-data="{leaveType: 'Vacation'}">
             @csrf
 
             <h6 class="h6 font-weight-bold">Employee Details</h6>
@@ -35,109 +34,116 @@ Application For Leave Form
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Employee</label>
-                        <input type="text" class="form-control" disabled value="{{ name_helper($employee->name) }}">
+                        <select name="employee" class="form-control select2" required>
+                            <option value=""></option>
+                            <?php $approvals = $employees->where('division_id', auth_division()); ?>
+                            @foreach($approvals as $approval)
+                                <option value="{{ $approval->id }}">{{ name_helper($approval->name) }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="">Position & Salary</label>
-                        <input type="text" class="form-control" disabled value="{{ name_helper($employee->name) }}">
+                        <label for="">Leave Type</label>
+                        <select name="leave_type" class="form-control" x-model="leaveType">
+                            <option>Vacation</option>
+                            <option>Sick</option>
+                            <option>Maternity</option>
+                            <option>Others</option>
+                        </select>
                     </div>
                 </div>
             </div>
 
-            <h6 class="h6 font-weight-bold">Leave Details ({{ strtoupper($type) }})</h6>
+            <h6 class="h6 font-weight-bold">Leave Details (<span x-text="leaveType"></span>)</h6>
+
+            <template x-if="leaveType == 'Vacation'">
+                <div class="row" x-data="{vac1: 'vac-tse', vac2: 'vac-ph'}">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="radio" id="vacation-tse" name="vacation1" value="vac-tse" x-model="vac1">
+                            <label for="vacation-tse">To seek employement</label>
+                            <br>
+                            <input type="radio" id="vacation-os" name="vacation1" value="vac-oth" x-model="vac1">
+                            <label for="vacation-os">Others (Specify)</label>
+                        </div>
+
+                        <template x-if="vac1 == 'vac-oth' ">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="vac-oth">
+                            </div>
+                        </template>
+
+                       
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">In case of Vacation Leave</label>
+                            <br>
+                            <input type="radio" id="vacation-witp" name="vacation2" value="vac-ph" x-model="vac2">
+                            <label for="vacation-witp">Within in the Philippines</label>
+                            <br>
+                            <input type="radio" id="vacation-as" name="vacation2" value="vac-abr" x-model="vac2">
+                            <label for="vacation-as">Abroad (Specify)</label>
+                        </div>
+
+                        <template x-if="vac2 == 'vac-abr' ">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="vac-abr">
+                            </div>
+                        </template>
+
+                        
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="leaveType == 'Sick'">
+                <div class="row" x-data="{sick: false}">
+                    <div class="col-md-12">
+                        <label for="">In case of sick leave</label>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="sick-inh" id="sick-inh" x-model="sick">
+                            <label class="form-check-label" for="sick-inh">In hospital</label>
+                        </div>
+
+                        <template x-if="sick == true">
+                            <div class="form-group mt-2" v-if="sick.inh">
+                                <label for="">Specify:</label>
+                                <input type="text" class="form-control" name="sick-spec">
+                            </div>
+                        </template>
+
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="leaveType == 'Maternity'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Specify your leave</label>
+                            <input type="text" class="form-control" value="Maternity" disabled>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="leaveType == 'Others'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Specify your leave</label>
+                            <input type="text" class="form-control" name="leave-other">
+                        </div>
+                    </div>
+                </div>
+            </template>
+
             <div class="separator separator-dashed mb-5"></div>
-
-            @switch($type)
-
-                @case('Vacation')
-                    <div class="row" x-data="{vac1: 'vac-tse', vac2: 'vac-ph'}">
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="radio" id="vacation-tse" name="vacation1" value="vac-tse" x-model="vac1">
-                                <label for="vacation-tse">To seek employement</label>
-                                <br>
-                                <input type="radio" id="vacation-os" name="vacation1" value="vac-oth" x-model="vac1">
-                                <label for="vacation-os">Others (Specify)</label>
-                            </div>
-
-                            <template x-if="vac1 == 'vac-oth' ">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="vac-oth">
-                                </div>
-                            </template>
-
-                           
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">In case of Vacation Leave</label>
-                                <br>
-                                <input type="radio" id="vacation-witp" name="vacation2" value="vac-ph" x-model="vac2">
-                                <label for="vacation-witp">Within in the Philippines</label>
-                                <br>
-                                <input type="radio" id="vacation-as" name="vacation2" value="vac-abr" x-model="vac2">
-                                <label for="vacation-as">Abroad (Specify)</label>
-                            </div>
-
-                            <template x-if="vac2 == 'vac-abr' ">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="vac-abr">
-                                </div>
-                            </template>
-
-                            
-                        </div>
-                    </div>
-                @break
-
-                @case('Sick')
-                    <div class="row" x-data="{sick: false}">
-                        <div class="col-md-12">
-                            <label for="">In case of sick leave</label>
-
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="sick-inh" id="sick-inh" x-model="sick">
-                                <label class="form-check-label" for="sick-inh">In hospital</label>
-                            </div>
-
-                            <template x-if="sick == true">
-                                <div class="form-group mt-2" v-if="sick.inh">
-                                    <label for="">Specify:</label>
-                                    <input type="text" class="form-control" name="sick-spec">
-                                </div>
-                            </template>
-
-                        </div>
-                    </div>
-                @break
-
-                @case('Maternity')
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="">Specify your leave</label>
-                                <input type="text" class="form-control" value="Maternity" disabled>
-                            </div>
-                        </div>
-                    </div>
-                @break
-
-                @default 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="">Specify your leave</label>
-                                <input type="text" class="form-control" name="leave-other">
-                            </div>
-                        </div>
-                    </div>
-                @break
-
-            @endswitch
 
             <h6 class="h6 font-weight-bold mt-5">Inclusive dates</h6>
             <div class="separator separator-dashed mb-5"></div>

@@ -6,6 +6,7 @@
     "/css/Modules/HumanResource/app.css": "/css/Modules/HumanResource/app.css",
     "/css/Modules/System/app.css": "/css/Modules/System/app.css",
     "/js/Modules/FileManagement/pages/documents/activation.js": "/js/Modules/FileManagement/pages/documents/activation.js",
+    "/js/Modules/FileManagement/pages/documents/attachment.js": "/js/Modules/FileManagement/pages/documents/attachment.js",
     "/js/Modules/FileManagement/pages/documents/numbering.js": "/js/Modules/FileManagement/pages/documents/numbering.js",
     "/js/Modules/FileManagement/pages/documents/rr.js": "/js/Modules/FileManagement/pages/documents/rr.js",
     "/js/Modules/FileManagement/pages/forms/afl/create.js": "/js/Modules/FileManagement/pages/forms/afl/create.js",

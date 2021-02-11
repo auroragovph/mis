@@ -17,7 +17,7 @@
                             </svg>
                             <!--end::Svg Icon-->
                         </span>
-                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">790</div>
+                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">{{ $documents->whereBetween('created_at', [Carbon\Carbon::now()->startOfDay(), Carbon\Carbon::now()->endOfDay()])->count() }}</div>
                         <a href="#" class="text-inverse-success font-weight-bold font-size-lg mt-1">Today's Document</a>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                             </svg>
                             <!--end::Svg Icon-->
                         </span>
-                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">790</div>
+                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">{{ $total }}</div>
                         <a href="#" class="text-inverse-success font-weight-bold font-size-lg mt-1">Total Document</a>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                             </svg>
                             <!--end::Svg Icon-->
                         </span>
-                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">790</div>
+                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">N/A</div>
                         <a href="#" class="text-inverse-success font-weight-bold font-size-lg mt-1">On Process</a>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                             </svg>
                             <!--end::Svg Icon-->
                         </span>
-                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">790</div>
+                        <div class="text-inverse-success font-weight-bolder font-size-h2 mt-3">N/A</div>
                         <a href="#" class="text-inverse-success font-weight-bold font-size-lg mt-1">Returned</a>
                     </div>
                 </div>

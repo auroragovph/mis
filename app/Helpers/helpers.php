@@ -8,20 +8,21 @@
  *	@category		Helpers
  *	@author			JMPRNS@github
  *	@link			https://github.com/jmprns/fms
-*/
+ */
 
 
-if (! function_exists('employees')) {
+if (!function_exists('employees')) {
     /**
      * Return the lists of all employees
      * @param array
      * @return collection
      */
-    function employees($array){
+    function employees($array)
+    {
 
         $employees = \Modules\HumanResource\Entities\HR_Employee::query();
 
-        if(in_array('liaison', $array)){
+        if (in_array('liaison', $array)) {
             $employees->liaison();
         }
 
@@ -29,7 +30,7 @@ if (! function_exists('employees')) {
     }
 }
 
-if (! function_exists('ucnames')) {
+if (!function_exists('ucnames')) {
     /**
      * Convert names to strtolower then ucfirst
      * @param string $name
@@ -39,7 +40,7 @@ if (! function_exists('ucnames')) {
     {
         $arrays = explode(' ', $string);
 
-        $new = array_map(function($value){
+        $new = array_map(function ($value) {
             return ucfirst(strtolower($value));
         }, $arrays);
 
@@ -47,7 +48,7 @@ if (! function_exists('ucnames')) {
     }
 }
 
-if (! function_exists('name_mutate')) {
+if (!function_exists('name_mutate')) {
     /**
      * Explode the string and remove unnessary blank key
      * @param string $name
@@ -61,7 +62,7 @@ if (! function_exists('name_mutate')) {
     }
 }
 
-if (! function_exists('name_decode')) {
+if (!function_exists('name_decode')) {
     /**
      * Decode the given name into array
      * @param string $name
@@ -70,120 +71,125 @@ if (! function_exists('name_decode')) {
     function name_decode($name)
     {
         $final = array();
-        
+
 
 
         // check first if DOT exists
-        if(strpos($name, '.') !== false){
+        if (strpos($name, '.') !== false) {
             $explode = explode('.', $name);
             $final['lname'] = name_mutate($explode[1]);
             $final['mname'] = name_mutate(substr($explode[0], -1));
             $final['fname'] = name_mutate(substr_replace($explode[0], '', -1));
-            
-        }else{
+        } else {
 
             $explode = explode(' ', $name);
 
-            switch(count($explode)){
+            switch (count($explode)) {
 
-                case 2: 
+                case 2:
                     $final['fname'] = name_mutate($explode[0]);
                     $final['mname'] = '';
                     $final['lname'] = name_mutate($explode[1]);
-                break;
+                    break;
 
                 case 3:
                     $final['fname'] = name_mutate($explode[0]);
                     $final['mname'] = name_mutate($explode[1]);
-                    $final['lname'] = name_mutate($explode[2]); 
-                break;
+                    $final['lname'] = name_mutate($explode[2]);
+                    break;
 
-                case 4: 
-                    $final['fname'] = name_mutate($explode[0]." ".$explode[1]);
+                case 4:
+                    $final['fname'] = name_mutate($explode[0] . " " . $explode[1]);
                     $final['mname'] = '';
-                    $final['lname'] = name_mutate($explode[2]." ".$explode[3]);
-                break;
+                    $final['lname'] = name_mutate($explode[2] . " " . $explode[3]);
+                    break;
 
-                default: 
+                default:
                     $final['fname'] = name_mutate($name);
                     $final['mname'] = '';
                     $final['lname'] = '';
-                break;
-
+                    break;
             }
-
-
         }
 
         return $final;
     }
 }
 
-if (! function_exists('numwords')) {
+if (!function_exists('numwords')) {
     /**
      * Convert number to readable word
-     * @param float $number
+     * @param string $number
      * @param string $currency
      * @return string
      */
-    function numwords($number, $currency = 'pesos'){
+    function numwords($number, string $currency = 'pesos')
+    {
+        $amount = explode('.', (string)$number);
 
-        $word = '';
+        // return $amount;
 
-        $whole = new NumberFormatter('ph', NumberFormatter::SPELLOUT);
-        $filter = $whole->format($number);
+        $whole_number = new NumberFormatter('ph', NumberFormatter::SPELLOUT);
+        $whole = $whole_number->format($amount[0]);
 
-        if(strpos($filter, 'point')){
-            $ex = explode(' point ', $filter);
-            $word .= $ex[0];
-            $word .= ' '.$currency.' and ';
-            $word .= $ex[1];
-            $word .= ' centavos';
-        }else{
-            $word .= $filter;
-            $word .= ' '.$currency;
+        $whole_plural = ((int)$amount[0] <= 1) ? 'peso' : 'pesos';
+
+        $words = $whole . " " . $whole_plural;
+
+        if (array_key_exists(1, $amount)) {
+
+            $cent_value = (strlen($amount[1]) == 1) ? $amount[1] . "0" : $amount[1];
+
+            $cent_number = new NumberFormatter('ph', NumberFormatter::SPELLOUT);
+            $cent = $cent_number->format($cent_value);
+
+            $plural = ($cent_value > 1) ? 'centavos' : 'centavo';
+
+            $words .= ' and ' . $cent . ' ' . $plural;
         }
-        return $word;
 
+        return $words;
     }
 }
 
-if (! function_exists('numonly')) {
+if (!function_exists('numonly')) {
     /**
      * Remove all the string in a string except for numbers
      * @param string $currency
      * @return int 
      */
-    function numonly($string){
+    function numonly($string)
+    {
         return preg_replace('/[^0-9]/', '', $string);
     }
 }
 
-if (! function_exists('doc_match')) {
+if (!function_exists('doc_match')) {
     /**
      * Checking if the document match with the correct type
      * @param string $doctype
      * @param string $type
      * @return void
      */
-    function doc_match($doctype, $type){
+    function doc_match($doctype, $type)
+    {
 
-        if($doctype != $type){
+        if ($doctype != $type) {
             return abort(404);
         }
-
     }
 }
 
-if (! function_exists('series')) {
+if (!function_exists('series')) {
     /**
      * Convert series to document ID
      * @param string 
      * @return string
      */
-    function series($string){
+    function series($string)
+    {
 
-        if(strlen($string) <= 8){
+        if (strlen($string) <= 8) {
             return $string;
         }
 
@@ -191,31 +197,32 @@ if (! function_exists('series')) {
     }
 }
 
-if (! function_exists('fts_series')) {
+if (!function_exists('fts_series')) {
     /**
      * Convert FTS series to integer
      * @param string 
      * @return string
      */
-    function fts_series($string, $action = 'decode'){
+    function fts_series($string, $action = 'decode')
+    {
 
-        if($action == 'encode'){
+        if ($action == 'encode') {
             $string = strtoupper($string);
-            return (strpos($string, 'SR') == false) ? 'SR-'.str_pad($string, 11, '0', STR_PAD_LEFT) : $string;
+            return (strpos($string, 'SR') == false) ? 'SR-' . str_pad($string, 11, '0', STR_PAD_LEFT) : $string;
         }
 
         return (int)preg_replace('/[^0-9]/', '', $string);
-
     }
 }
 
-if (! function_exists('fts_action_button')) {
+if (!function_exists('fts_action_button')) {
     /**
      * Convert FTS series to integer
      * @param string 
      * @return string
      */
-    function fts_action_button($series, $edit = ['route' => '', 'id' => 0]){
+    function fts_action_button($series, $edit = ['route' => '', 'id' => 0])
+    {
 
         $action =   '<div class="dropdown dropleft">
                         <button class="btn btn-default btn-xs" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -224,117 +231,121 @@ if (! function_exists('fts_action_button')) {
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
 
 
-        if($edit['route'] != ''){
-            if(authenticated()->can('fts.document.edit')){
-                $action .= '<a class="dropdown-item" href="'.route($edit['route'], $edit['id']).'"> <i class="fal fa-edit"> </i> Edit</a>';
+        if ($edit['route'] != '') {
+            if (authenticated()->can('fts.document.edit')) {
+                $action .= '<a class="dropdown-item" href="' . route($edit['route'], $edit['id']) . '"> <i class="fal fa-edit"> </i> Edit</a>';
             }
         }
-        
-        if(authenticated()->can('fts.document.print')){
-            $action .= '<a class="dropdown-item" target="_blank" href="'.route('fts.documents.receipt', ['series' => $series, 'print' => 'true']).'"><i class="fal fa-print"></i> Print</a>';
+
+        if (authenticated()->can('fts.document.print')) {
+            $action .= '<a class="dropdown-item" target="_blank" href="' . route('fts.documents.receipt', ['series' => $series, 'print' => 'true']) . '"><i class="fal fa-print"></i> Print</a>';
         }
 
-        $action .= '<a class="dropdown-item" href="'.route('fts.documents.track', ['series' => $series]).'"> <i class="fal fa-search"></i> Track</a>';
-                    
+        $action .= '<a class="dropdown-item" href="' . route('fts.documents.track', ['series' => $series]) . '"> <i class="fal fa-search"></i> Track</a>';
+
         $action .= '</div></div>';
 
         return $action;
     }
 }
 
-if (! function_exists('divisions')) {
+if (!function_exists('divisions')) {
     /**
      * Get the lists of divisions with it's office
      * @param string 
      * @return object|array
      */
-    function divisions($type = 'object'){
+    function divisions($type = 'object')
+    {
         $divisions = Modules\System\Entities\Office\SYS_Division::with('office')->get();
         return ($type == 'array') ? $divisions->toArray() : $divisions;
     }
 }
 
 
-if (! function_exists('is_date')) {
+if (!function_exists('is_date')) {
     /**
      * Check if the string is date
      * @param string 
      * @return bool
      */
-    function is_date($string){
+    function is_date($string)
+    {
 
-        if(!$string){return false;}
-
-        try{
-            return Carbon\Carbon::parse($string)->format('Y-m-d');
-            // return true;
-        }catch(\Exception $e){
+        if (!$string) {
             return false;
         }
 
+        try {
+            return Carbon\Carbon::parse($string)->format('Y-m-d');
+            // return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }
 
-if (! function_exists('doc_type_only')) {
+if (!function_exists('doc_type_only')) {
     /**
      * DOC TYPE HELPER
-    * @param int $int
-    * @return string
-    */
-    function doc_type_only($int){
-        switch($int){
+     * @param int $int
+     * @return string
+     */
+    function doc_type_only($int)
+    {
+        switch ($int) {
 
-            case 101: 
+            case 101:
                 $type = 'Purchase Request';
-            break;
+                break;
 
-            case 102: 
+            case 102:
                 $type = 'Purchase Order';
-            break;
+                break;
 
-            case 200: 
+            case 200:
                 $type = 'Obligation Request';
-            break;
+                break;
 
-            case 301: 
+            case 301:
                 $type = 'Travel Order';
-            break;
+                break;
 
-            case 302: 
+            case 302:
                 $type = 'Itinerary of Travel';
-            break;
+                break;
 
-            case 400: 
+            case 400:
                 $type = 'CAFOA';
-            break;
+                break;
 
-            case 500: 
+            case 500:
                 $type = 'Application for Leave';
-            break;
+                break;
 
-            case 600: 
+            case 600:
                 $type = 'Disbursement Voucher';
-            break;
+                break;
 
-            case 700: 
+            case 700:
                 $type = 'Payroll';
-            break;
-            
+                break;
+
             default:
                 // $type = 'undefined';
                 $type = $int;
-            break;
+                break;
         }
         return $type;
     }
 }
 
-if (! function_exists('show_status')) {
+if (!function_exists('show_status')) {
     /**
-    * Return color of the status in the show form
-    * @param string
-    * @return string  
-    */
+     * Return color of the status in the show form
+     * @param string
+     * @return string  
+     */
     function show_status($status)
     {
         $status = document_status($status);
@@ -343,12 +354,13 @@ if (! function_exists('show_status')) {
     }
 }
 
-if (! function_exists('authenticated')) {
+if (!function_exists('authenticated')) {
     /**
-    * Return the current authenticated user
-    * @return object  
-    */
-    function authenticated(){
+     * Return the current authenticated user
+     * @return object  
+     */
+    function authenticated()
+    {
         return session()->get('authenticated');
     }
 }
@@ -356,65 +368,64 @@ if (! function_exists('authenticated')) {
 
 
 
-if (! function_exists('document_status')) {
+if (!function_exists('document_status')) {
     /**
-    * Return color of the status in the show form
-    * @param string
-    * @return string  
-    */
+     * Return color of the status in the show form
+     * @param string
+     * @return string  
+     */
     function document_status($status, $return = 'status')
     {
-        switch($status)
-        {
-            case '0':  
+        switch ($status) {
+            case '0':
                 $label =  'danger';
                 $status = 'Cancelled';
-            break;
+                break;
 
-            case '1':  
+            case '1':
                 $label = 'warning';
                 $status = 'Wating for Activation';
-            break;
+                break;
 
-            case '2':  
+            case '2':
                 $label = 'primary';
                 $status = 'On Process';
-            break;
+                break;
 
-            case '3':  
+            case '3':
                 $label = 'success';
                 $status = 'Approves';
-            break;
+                break;
 
-            case '4':  
+            case '4':
                 $label = 'danger';
                 $status = 'Disapproved';
-            break;
+                break;
 
-            case '5':  
+            case '5':
                 $label = 'warning';
                 $status = 'Pending';
-            break;
+                break;
 
-            case '6':  
+            case '6':
                 $label = 'danger';
                 $status = 'Pending';
-            break;
+                break;
 
-            case '7':  
+            case '7':
                 $label = 'success';
                 $status = 'For Withdrawal';
-            break;
+                break;
 
-            case '8':  
+            case '8':
                 $label = 'primary';
                 $status = 'Paid';
-            break;
+                break;
 
             default:
                 $label = 'inverse';
                 $status = 'Undefined';
-            break;
+                break;
         }
 
         return ($return == 'status') ? $status : $label;
@@ -422,169 +433,168 @@ if (! function_exists('document_status')) {
 }
 
 
-if (! function_exists('transmittal_status')) {
+if (!function_exists('transmittal_status')) {
     /**
-    * Return color of the status in the show form
-    * @param string
-    * @return string  
-    */
+     * Return color of the status in the show form
+     * @param string
+     * @return string  
+     */
     function transmittal_status($transmittal)
     {
 
-        if($transmittal->status == 1){
+        if ($transmittal->status == 1) {
 
-            if($transmittal->isExpired == true){
+            if ($transmittal->isExpired == true) {
                 return '<span class="badge bg-danger">EXPIRED</span>';
             }
-            
         }
-        
-        switch($transmittal->status)
-        {
-           
-            case '1':  
+
+        switch ($transmittal->status) {
+
+            case '1':
                 $status =  '<span class="badge bg-primary">PENDING</span>';
-            break;
+                break;
 
-            case '2':  
+            case '2':
                 $status =  '<span class="badge bg-success">RECEIVED</span>';
-            break;
+                break;
 
-            case '3':  
+            case '3':
                 $status =  '<span class="badge bg-danger">EXPIRED</span>';
-            break;
+                break;
 
             default:
                 $status =  '<span class="badge bg-black">UNDEFINED</span>';
-            break;
+                break;
         }
 
         return $status;
     }
 }
 
-if (! function_exists('sh')) {
+if (!function_exists('sh')) {
     /**
-    * Echo selected in select option
-    * @param string
-    * @return string
-    */
+     * Echo selected in select option
+     * @param string
+     * @return string
+     */
     function sh($a, $b)
     {
-        if($a == $b){
+        if ($a == $b) {
             return 'selected';
         }
     }
 }
 
-if (! function_exists('dm_abort')) {
+if (!function_exists('dm_abort')) {
     /**
-    * Check the parameters if match and return http response
-    * @param string $a
-    * @param string $b
-    * @param int $code
-    * @return void
-    */
+     * Check the parameters if match and return http response
+     * @param string $a
+     * @param string $b
+     * @param int $code
+     * @return void
+     */
 
-    function dm_abort($a, $b, $code = 404, $strict = true){
+    function dm_abort($a, $b, $code = 404, $strict = true)
+    {
 
-        if($strict == false && authenticated()->can('godmode')){
+        if ($strict == false && authenticated()->can('godmode')) {
             return true;
         }
 
-        if($a != $b){
+        if ($a != $b) {
             return abort($code);
         }
     }
 }
 
-if (! function_exists('iah')) {
+if (!function_exists('iah')) {
     /**
-    * Echo selected in select option
-    * @param string
-    * @param array
-    * @return string
-    */
+     * Echo selected in select option
+     * @param string
+     * @param array
+     * @return string
+     */
     function iah($a, $b)
     {
-        if(in_array($a, $b)){
+        if (in_array($a, $b)) {
             return 'selected';
         }
-        
     }
 }
 
-if (! function_exists('auth_division')) {
+if (!function_exists('auth_division')) {
     /**
-    * Return authenticated employees division id
-    * @return string
-    */
+     * Return authenticated employees division id
+     * @return string
+     */
     function auth_division()
     {
-       return authenticated()->employee->division_id;
+        return authenticated()->employee->division_id;
     }
 }
 
-if (! function_exists('tonh')) {
+if (!function_exists('tonh')) {
     /**
-    * Return all the name of the emloyees in travel order
-    * @param object
-    * @return string
-    */
-    function tonh($employees){
+     * Return all the name of the emloyees in travel order
+     * @param object
+     * @return string
+     */
+    function tonh($employees)
+    {
 
         $string = '';
-    
-    
-        foreach($employees as $employee){
-            $string .= name_helper($employee->name).", ";
+
+
+        foreach ($employees as $employee) {
+            $string .= name_helper($employee->name) . ", ";
         }
-    
-    
+
+
         return substr($string, 0, -2);
-    
     }
 }
 
-if (! function_exists('employee_id_helper')){
+if (!function_exists('employee_id_helper')) {
     /**
-    * Get the employee ID from the QR Code
-    * @param object
-    * @return string
-    */
+     * Get the employee ID from the QR Code
+     * @param object
+     * @return string
+     */
     function employee_id_helper($string)
     {
         $string = strtoupper($string);
 
-        if(strpos($string, 'PGA-JO-')){
+        if (strpos($string, 'PGA-JO-')) {
             $explode = explode('PGA-JO-', $string);
-            return 'PGA-JO-'.numonly($explode[1]);
+            return 'PGA-JO-' . numonly($explode[1]);
         }
 
-        if(strpos($string, 'PGA-C-')){
+        if (strpos($string, 'PGA-C-')) {
             $explode = explode('PGA-C-', $string);
-            return 'PGA-C-'.numonly($explode[1]);
+            return 'PGA-C-' . numonly($explode[1]);
         }
 
-        if(strpos($string, 'PGA-P-')){
+        if (strpos($string, 'PGA-P-')) {
             $explode = explode('PGA-P-', $string);
-            return 'PGA-C-'.numonly($explode[1]);
+            return 'PGA-C-' . numonly($explode[1]);
         }
-        
+
         return $string;
     }
 }
 
-if (! function_exists('office_helper')) {
+if (!function_exists('office_helper')) {
     /**
-    * DOC TYPE HELPER
-    * @param array
-    * @param string
-    * @return string
-    */
-    function office_helper($array, $return = 'all'){
+     * DOC TYPE HELPER
+     * @param array
+     * @param string
+     * @return string
+     */
+    function office_helper($array, $return = 'all')
+    {
 
-        if($array == null){
+        if ($array == null) {
             return null;
         }
 
@@ -592,28 +602,27 @@ if (! function_exists('office_helper')) {
         $division = ['name' => $array['name'], 'alias' => $array['alias']];
 
         // check if the division is the main office .... return the office name
-        if($division['name'] == 'MAIN'){
+        if ($division['name'] == 'MAIN') {
             return ($office['alias'] == null) ? $office['name'] : "{$office['name']} ({$office['alias']})";
-        }else{
+        } else {
             // if not the main return the division name with office alias
 
             // check if the office name is null
             $off = ($office['alias'] == null) ? '' : "{$office['alias']} - ";
             return ($division['alias'] == null) ? "{$off} {$division['name']}" : "{$off} {$division['name']} ({$division['alias']})";
-
         }
-
     }
 }
 
-if (! function_exists('hrefroute')) {
+if (!function_exists('hrefroute')) {
     /**
-    * Hyperlink to route show helper
-    * @param int $id
-    * @param string $route
-    * @return string
-    */
-    function hrefroute($id, $route, $size = 'xs', $color = 'primary', $icon = 'eye', $verb = 'View'){
+     * Hyperlink to route show helper
+     * @param int $id
+     * @param string $route
+     * @return string
+     */
+    function hrefroute($id, $route, $size = 'xs', $color = 'primary', $icon = 'eye', $verb = 'View')
+    {
 
         $route = route($route, $id);
 
@@ -630,16 +639,16 @@ if (! function_exists('hrefroute')) {
 
             </a>
         ";
-    
     }
 }
 
-if (! function_exists('user_agent')) {
+if (!function_exists('user_agent')) {
     /**
-    * Return the user agent
-    * @return array
-    */
-    function user_agent(){
+     * Return the user agent
+     * @return array
+     */
+    function user_agent()
+    {
 
         $agent = new Jenssegers\Agent\Agent();
 
@@ -652,76 +661,82 @@ if (! function_exists('user_agent')) {
     }
 }
 
-if (! function_exists('name_to_username')) {
+if (!function_exists('name_to_username')) {
     /**
-    * Convert name to username
-    * @return array
-    */
-    function name_to_username($fname, $lname){
+     * Convert name to username
+     * @return array
+     */
+    function name_to_username($fname, $lname)
+    {
         // return str_replace(' ', '_', strtolower($fname." ".$lname))."_".mt_rand(1,999);
-        return str_replace(' ', '_', strtolower($fname." ".$lname));
+        return str_replace(' ', '_', strtolower($fname . " " . $lname));
     }
 }
 
 
-if (! function_exists('menu_helper')) {
+if (!function_exists('menu_helper')) {
     /**
-    * Convert name to username
-    * @return array
-    */
-    function menu_helper($string){
+     * Convert name to username
+     * @return array
+     */
+    function menu_helper($string)
+    {
         $current_url = request()->url();
-        $menu_url = request()->getSchemeAndHttpHost()."/".$string;
+        $menu_url = request()->getSchemeAndHttpHost() . "/" . $string;
         return (strpos($current_url, $menu_url) === false) ? '' : 'menu-item-here';
     }
 }
 
 
-if (! function_exists('qr_to_base64')) {
+if (!function_exists('qr_to_base64')) {
     /**
-    * Convert name to username
-    * @return array
-    */
-    function qr_to_base64($string){
+     * Convert name to username
+     * @return array
+     */
+    function qr_to_base64($string)
+    {
         $format = (extension_loaded('imagick')) ? 'png' : 'svg';
         $qr = \SimpleSoftwareIO\QrCode\Facades\QrCode::format($format)
-                    ->size(500)
-                    ->margin(1.5)
-                    ->generate($string);
+            ->size(500)
+            ->margin(1.5)
+            ->generate($string);
 
         return base64_encode($qr);
     }
 }
 
-if (! function_exists('pretty_number')) {
+if (!function_exists('pretty_number')) {
     /**
-    * Convert number to pretty
-    * @param string
-    * @return string
-    */
-    function pretty_number($string){
+     * Convert number to pretty
+     * @param string
+     * @return string
+     */
+    function pretty_number($string)
+    {
         return number_format(floatval($string), 2);
     }
 }
 
-if (! function_exists('link_back')) {
+if (!function_exists('link_back')) {
     /**
-    * Return the referer url
-    * @return array
-    */
-    function link_back($route = '#'){
+     * Return the referer url
+     * @return array
+     */
+    function link_back($route = '#')
+    {
         $referer = request()->headers->get('referer');
         return ($referer == null) ? $route : $referer;
     }
 }
 
-if (! function_exists('activitylog')) {
+if (!function_exists('activitylog')) {
     /**
-    * Insert activity logs
-    * @param array
-    * @return object
-    */
-    function activitylog($array){
+     * Insert activity logs
+     * @param array
+     * @return object
+     */
+    function activitylog($array)
+    {
         $name = $array['name'] ?? 'sys';
         $log = $array['log'] ?? '';
         $properties = $array['props'] ?? null;
@@ -737,47 +752,47 @@ if (! function_exists('activitylog')) {
 }
 
 
-if (! function_exists('arrdif')) {
+if (!function_exists('arrdif')) {
     /**
-    * Insert activity logs
-    * @param array
-    * @return object
-    */
-    function arrdif($old, $new){
+     * Insert activity logs
+     * @param array
+     * @return object
+     */
+    function arrdif($old, $new)
+    {
 
         $changes = array();
 
-        foreach($old as $key => $value){
+        foreach ($old as $key => $value) {
 
-            if(is_array($value)){
+            if (is_array($value)) {
                 $changes[$key] = arrdif($value, $new[$key]);
-            }else{
+            } else {
 
-                if($value != $new[$key]){
+                if ($value != $new[$key]) {
 
                     $changes[$key] = [
                         'old' => $old[$key],
                         'new' => $new[$key]
                     ];
                 }
-
             }
         }
 
         return $changes;
-      
     }
 }
 
 
 
-if (! function_exists('amount_in_words')) {
+if (!function_exists('amount_in_words')) {
     /**
-    * Insert activity logs
-    * @param array
-    * @return object
-    */
-    function amount_in_words($amount, $currency = 'pesos'){
+     * Insert activity logs
+     * @param array
+     * @return object
+     */
+    function amount_in_words($amount, $currency = 'pesos')
+    {
 
         $format = new NumberFormatter("en", NumberFormatter::SPELLOUT);
         $words = $format->format($amount);
@@ -785,66 +800,78 @@ if (! function_exists('amount_in_words')) {
         $check_centavos = strpos($words, 'point');
 
 
-        if($check_centavos == false){
-            return $words." ".$currency;
+        if ($check_centavos == false) {
+            return $words . " " . $currency;
         }
 
         $explode = explode('point', $words);
 
-        return $explode[0].$currency." and".$explode[1]." centavos";
-        
+        return $explode[0] . $currency . " and" . $explode[1] . " centavos";
+    }
+}
+
+if (!function_exists('convert_bytes')) {
+    /**
+     * Converto bytes in readable size
+     * @param string
+     * @return string
+     */
+
+    function convert_bytes($size)
+    {
+        $unit = array('b', 'kb', 'mb', 'gb', 'tb', 'pb');
+        return @round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
     }
 }
 
 
 
 
+
 function tracking_table_status($status)
 {
-    switch($status)
-    {
-        case '0':  
+    switch ($status) {
+        case '0':
             $status =  '<span class="btn-danger ">CANCELLED</span>';
-        break;
+            break;
 
-        case '1':  
+        case '1':
             $status =  '<span class="btn-warning ">DEACTIVATED</span>';
-        break;
+            break;
 
-        case '2':  
+        case '2':
             $status =  '<span class="btn-primary ">ON PROCESS</span>';
-        break;
+            break;
 
-        case '3':  
+        case '3':
             $status =  '<span class="btn-success ">APPROVED</span>';
-        break;
+            break;
 
-        case '4':  
+        case '4':
             $status =  '<span class="btn-danger ">DISAPPROVED</span>';
-        break;
+            break;
 
-        case '5':  
+        case '5':
             $status =  '<span class="btn-info ">PENDING</span>';
-        break;
+            break;
 
-        case '6':  
+        case '6':
             $status =  '<span class="btn-warning ">RETURNED</span>';
-        break;
+            break;
 
-        case '7':  
+        case '7':
             $status =  '<span class="bg-olive">FOR WITHDRAWAL</span>';
-        break;
+            break;
 
-        case '8':  
+        case '8':
             $status =  '<span class="bg-lime">PAID</span>';
-        break;
+            break;
 
         default:
             $status =  '<span class="btn-inverse ">UNDEFINED</span>';
-        break;
+            break;
     }
     return $status;
-
 }
 
 
@@ -858,7 +885,7 @@ function implode_attached($attachments)
 {
     $data = array();
 
-    foreach($attachments as $attachment){
+    foreach ($attachments as $attachment) {
         $data[] = $attachment->description;
     }
 
@@ -875,12 +902,11 @@ function unique_array($delimeter, $datas)
 {
     $array = array();
 
-    foreach($datas as $data){
+    foreach ($datas as $data) {
 
-        if(!in_array($data[$delimeter], $array)){
+        if (!in_array($data[$delimeter], $array)) {
             $array[] = $data[$delimeter];
         }
-
     }
 
     return $array;
@@ -897,9 +923,10 @@ function unique_array($delimeter, $datas)
  * @param string
  * @return string
  */
-function in_array_any($needles, $haystack) {
+function in_array_any($needles, $haystack)
+{
     return (bool)array_intersect($needles, $haystack);
- }
+}
 
 
 
@@ -909,24 +936,25 @@ function in_array_any($needles, $haystack) {
  * @param int
  * @return string
  */
-function leave_helper($type){
+function leave_helper($type)
+{
 
-    switch((int)$type){
+    switch ((int)$type) {
         case 1:
             $type = 'Vacation';
-        break;
+            break;
 
         case 2:
             $type = 'Sick';
-        break;
+            break;
 
         case 3:
             $type = 'Maternity';
-        break;
-        
+            break;
+
         default:
             $type = 'Others';
-        break;
+            break;
     }
     return $type;
 }
@@ -937,21 +965,22 @@ function leave_helper($type){
  * @param int
  * @return string
  */
-function print_text_helper($string){
+function print_text_helper($string)
+{
 
     $length = strlen($string);
 
     // $formatted = '14px';
 
-    if($length <= 15){
+    if ($length <= 15) {
         $formatted = '13px';
     }
 
-    if($length > 15 && $length <= 40){
+    if ($length > 15 && $length <= 40) {
         $formatted = '12px';
     }
 
-    if($length >= 41){
+    if ($length >= 41) {
         $formatted = '10px';
     }
 
@@ -964,13 +993,13 @@ function print_text_helper($string){
  * @param int
  * @return string
  */
-function padding_helper($string, $length, $pad = STR_PAD_BOTH){
+function padding_helper($string, $length, $pad = STR_PAD_BOTH)
+{
 
     $string = str_pad($string, $length, '*', $pad);
     $string = str_replace("*", "&nbsp;", $string);
 
     return $string;
-
 }
 
 /**
@@ -978,7 +1007,8 @@ function padding_helper($string, $length, $pad = STR_PAD_BOTH){
  * @param array
  * @return string
  */
-function name_helper($name, $arrangement = 'FMIL'){
+function name_helper($name, $arrangement = 'FMIL')
+{
 
     $name = (array)$name;
 
@@ -991,46 +1021,44 @@ function name_helper($name, $arrangement = 'FMIL'){
     // $lname = @$name['lname'];
 
 
-    
-    switch($arrangement){
-    
+
+    switch ($arrangement) {
+
         case 'LFMI':
-          $name = $lname.", ".$fname." ".@$mname[0].".";
-        break;
+            $name = $lname . ", " . $fname . " " . @$mname[0] . ".";
+            break;
 
         case 'LFM':
-            $name = $lname.", ".$fname." ".$mname;
-        break;
+            $name = $lname . ", " . $fname . " " . $mname;
+            break;
 
-        case 'FMIL':  
-            $name = $fname." ".@$mname[0].". ".$lname;
-        break;
+        case 'FMIL':
+            $name = $fname . " " . @$mname[0] . ". " . $lname;
+            break;
 
-        case 'FL': 
-            $name = $fname." ".$lname;
-        break;
-    
-        case 'FMNL':  
-            $name = $fname." ".$mname." ".$lname;
-        break;
+        case 'FL':
+            $name = $fname . " " . $lname;
+            break;
 
-        case 'SYM-F': 
+        case 'FMNL':
+            $name = $fname . " " . $mname . " " . $lname;
+            break;
+
+        case 'SYM-F':
             $name = strtoupper($fname[0]);
-        break;
+            break;
 
-        case 'SYM-FL': 
-            $name = strtoupper($fname[0].$lname[0]);
-        break;
+        case 'SYM-FL':
+            $name = strtoupper($fname[0] . $lname[0]);
+            break;
 
 
         default:
-           $name = null;
-        break;
-
+            $name = null;
+            break;
     }
 
     return $name;
-
 }
 
 
@@ -1044,25 +1072,24 @@ function name_helper($name, $arrangement = 'FMIL'){
  * @param array
  * @return string
  */
-function office_alias_helper($array){
+function office_alias_helper($array)
+{
 
-    if($array->name == 'MAIN'){
-        if($array->office->alias != ''){
+    if ($array->name == 'MAIN') {
+        if ($array->office->alias != '') {
             $office = "{$array->office->alias}";
-        }else{
+        } else {
             $office = "{$array->office->name}";
         }
-
-    }else{
-        if($array->alias != ''){
+    } else {
+        if ($array->alias != '') {
             $office = "{$array->alias}";
-        }else{
+        } else {
             $office = "{$array->name}";
         }
     }
 
     return $office;
-    
 }
 
 /**
@@ -1070,20 +1097,20 @@ function office_alias_helper($array){
  * @param string
  * @return string
  */
-function employment_helper($type){
-    switch($type)
-    {
-        case '1': 
+function employment_helper($type)
+{
+    switch ($type) {
+        case '1':
             $em = 'JOB ORDER';
-        break;
+            break;
 
-        case '2': 
+        case '2':
             $em = 'CASUAL';
-        break;
+            break;
 
-        case '3': 
+        case '3':
             $em = 'PERMANENT';
-        break;
+            break;
     }
 
     return $em;
@@ -1097,18 +1124,18 @@ function employment_helper($type){
  */
 function action_helper($act)
 {
-    switch($act){
+    switch ($act) {
         case 'RECEIVE':
-            $a = 0; 
-        break;
+            $a = 0;
+            break;
 
         case 'RELEASE':
-            $a = 1; 
-        break;
+            $a = 1;
+            break;
 
         default:
-            $a = false; 
-        break;
+            $a = false;
+            break;
     }
 
     return $a;
@@ -1123,56 +1150,57 @@ function action_helper($act)
  * @param int
  * @return string
  */
-function get_date_diff( $time1, $time2, $precision = 3 ) {
-	// If not numeric then convert timestamps
-	if( !is_int( $time1 ) ) {
-		$time1 = strtotime( $time1 );
-	}
-	if( !is_int( $time2 ) ) {
-		$time2 = strtotime( $time2 );
-	}
-	// If time1 > time2 then swap the 2 values
-	if( $time1 > $time2 ) {
-		list( $time1, $time2 ) = array( $time2, $time1 );
-	}
-	// Set up intervals and diffs arrays
-	$intervals = array( 'year', 'month', 'day', 'hour', 'minute', 'second' );
-	$diffs = array();
-	foreach( $intervals as $interval ) {
-		// Create temp time from time1 and interval
-		$ttime = strtotime( '+1 ' . $interval, $time1 );
-		// Set initial values
-		$add = 1;
-		$looped = 0;
-		// Loop until temp time is smaller than time2
-		while ( $time2 >= $ttime ) {
-			// Create new temp time from time1 and interval
-			$add++;
-			$ttime = strtotime( "+" . $add . " " . $interval, $time1 );
-			$looped++;
-		}
-		$time1 = strtotime( "+" . $looped . " " . $interval, $time1 );
-		$diffs[ $interval ] = $looped;
-	}
-	$count = 0;
-	$times = array();
-	foreach( $diffs as $interval => $value ) {
-		// Break if we have needed precission
-		if( $count >= $precision ) {
-			break;
-		}
-		// Add value and interval if value is bigger than 0
-		if( $value > 0 ) {
-			if( $value != 1 ){
-				$interval .= "s";
-			}
-			// Add value and interval to times array
-			$times[] = $value . " " . $interval;
-			$count++;
-		}
-	}
-	// Return string with times
-	return implode( ", ", $times );
+function get_date_diff($time1, $time2, $precision = 3)
+{
+    // If not numeric then convert timestamps
+    if (!is_int($time1)) {
+        $time1 = strtotime($time1);
+    }
+    if (!is_int($time2)) {
+        $time2 = strtotime($time2);
+    }
+    // If time1 > time2 then swap the 2 values
+    if ($time1 > $time2) {
+        list($time1, $time2) = array($time2, $time1);
+    }
+    // Set up intervals and diffs arrays
+    $intervals = array('year', 'month', 'day', 'hour', 'minute', 'second');
+    $diffs = array();
+    foreach ($intervals as $interval) {
+        // Create temp time from time1 and interval
+        $ttime = strtotime('+1 ' . $interval, $time1);
+        // Set initial values
+        $add = 1;
+        $looped = 0;
+        // Loop until temp time is smaller than time2
+        while ($time2 >= $ttime) {
+            // Create new temp time from time1 and interval
+            $add++;
+            $ttime = strtotime("+" . $add . " " . $interval, $time1);
+            $looped++;
+        }
+        $time1 = strtotime("+" . $looped . " " . $interval, $time1);
+        $diffs[$interval] = $looped;
+    }
+    $count = 0;
+    $times = array();
+    foreach ($diffs as $interval => $value) {
+        // Break if we have needed precission
+        if ($count >= $precision) {
+            break;
+        }
+        // Add value and interval if value is bigger than 0
+        if ($value > 0) {
+            if ($value != 1) {
+                $interval .= "s";
+            }
+            // Add value and interval to times array
+            $times[] = $value . " " . $interval;
+            $count++;
+        }
+    }
+    // Return string with times
+    return implode(", ", $times);
 }
 
 
@@ -1182,47 +1210,39 @@ function get_date_diff( $time1, $time2, $precision = 3 ) {
  * @return boolean
  */
 
-function permission_helper($array = '', $strict = false){
+function permission_helper($array = '', $strict = false)
+{
 
     // Return true if the user is a ROOT user
-    if($_SESSION['role']['description'] == 'Root User' || $_SESSION['role']['id'] == 1){
+    if ($_SESSION['role']['description'] == 'Root User' || $_SESSION['role']['id'] == 1) {
         return true;
     }
 
     $count = 0;
     $permissions = $_SESSION['permissions'];
 
-    if(!is_array($array)){
+    if (!is_array($array)) {
         $array = [$array];
     }
 
-    foreach($array as $permission){
-        if(in_array($permission, $permissions)){
+    foreach ($array as $permission) {
+        if (in_array($permission, $permissions)) {
             $count++;
         }
     }
 
-    if($strict == false){
+    if ($strict == false) {
 
-        if($count != 0){
+        if ($count != 0) {
             return true;
         }
 
         return false;
     }
 
-    if(empty($array) || $count < count($array)){
+    if (empty($array) || $count < count($array)) {
         return false;
     }
 
     return true;
-
 }
-
-
-
-
-
-
-
-

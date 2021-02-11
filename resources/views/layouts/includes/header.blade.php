@@ -17,7 +17,7 @@
             <div class="topbar-item mr-3 w-100 w-lg-auto justify-content-start">
                 <div class="quick-search quick-search-inline w-auto w-lg-300px" id="kt_quick_search_inline">
                     <!--begin::Form-->
-                    <form method="get" class="quick-search-form">
+                    <form method="get" class="quick-search-form" action="{{ route('fms.documents.track') }}">
                         <div class="input-group rounded bg-light">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -34,7 +34,7 @@
                                     </span>
                                 </span>
                             </div>
-                            <input type="text" class="form-control h-40px" placeholder="Search..." />
+                            <input value="{{ request()->get('qr') }}" type="text" name="qr" class="form-control h-40px" placeholder="Search..." />
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="quick-search-close ki ki-close icon-sm"></i>

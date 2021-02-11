@@ -2,15 +2,15 @@
 
 
 @section('page-title')
-Payroll
+Itinerary of Travel
 @endsection
 
 @section('toolbar')
 <!--begin::Toolbar-->
 <div class="d-flex align-items-center">
     <!--begin::Button-->
-    <a href="{{ route('fts.payroll.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-        <i class="fal fa-plus"></i> New Payroll
+    <a href="{{ route('fts.travel.itinerary.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
+        <i class="fal fa-plus"></i> New Itinerary
     </a>
     <!--end::Button-->
    

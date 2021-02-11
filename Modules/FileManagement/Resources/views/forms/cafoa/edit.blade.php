@@ -30,7 +30,7 @@ CAFOA
     <div class="card-body">
         <form class="form" id="kt_form" method="POST" action="{{ route('fms.cafoa.update', $cafoa->id) }}">
             @csrf
-
+            @method('put')
             <div class="row">
                 <div class="col-md-6">
                     <!--begin::Group-->

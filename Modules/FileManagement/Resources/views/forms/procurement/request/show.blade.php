@@ -73,7 +73,7 @@ Purchase Request
 
             @if($pr->document->purchase_order == null)
             <li class="navi-item">
-                <a target="_new" href="{{ route('fms.procurement.order.create', $pr->document_id) }}" class="navi-link">
+                <a target="_new" href="{{ route('fms.procurement.order.create', ['document' => $pr->document_id]) }}" class="navi-link">
                     <span class="navi-text">
                         <i class="flaticon2-open-box"></i> Convert into PO
                     </span>
@@ -81,7 +81,7 @@ Purchase Request
             </li>
             @else 
             <li class="navi-item">
-                <a target="_new" href="{{ route('fms.procurement.order.show', $pr->document_id) }}" class="navi-link">
+                <a target="_new" href="{{ route('fms.procurement.order.show', $pr->document->purchase_order->id) }}" class="navi-link">
                     <span class="navi-text">
                         <i class="flaticon-eye"></i> Show Purchase Order
                     </span>

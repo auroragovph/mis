@@ -43,9 +43,18 @@ class FMS_Document extends Model
         ]);
     }
 
+
     public function scopeOnlyDivision($query)
     {
-        return $query->where('division_id', auth()->user()->employee->division_id);
+        return $query->where('division_id', authenticated()->employee->division_id);
+    }
+
+    public function scopeToday($query)
+    {
+        $start = Carbon::now()->startOfDay();
+        $end = Carbon::now()->endOfDay();
+
+        return $query->whereIn('created_at', [$start, $end]);
     }
 
     public function getQrAttribute()
@@ -78,15 +87,13 @@ class FMS_Document extends Model
         return $this->hasMany(FMS_DocumentAttach::class, 'document_id');
     }
 
-    public function purchase_request()
+    public function tracks()
     {
-        return $this->hasOne(FMS_PR::class, 'document_id');
+        return $this->hasMany(FMS_Tracking::class, 'document_id');
     }
 
-    public function purchase_order()
+    public function latestTrack()
     {
-        return $this->hasOne(FMS_PO::class, 'document_id');
+        return $this->hasMany(FMS_Tracking::class, 'document_id')->orderByDesc('created_at')->take(1);
     }
-
-
 }

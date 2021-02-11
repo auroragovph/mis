@@ -5,7 +5,7 @@
 
         <!--begin::User-->
         <div class="text-center mb-10">
-            <img class="w-50 h-50" src="data:image/png;base64, {{ qr_to_base64($document->seriesFull) }} ">
+            <img class="w-50 h-50" src="data:image/svg+xml;base64, {{ qr_to_base64($document->seriesFull) }} ">
             <p class="my-2 mt-3">{{ $document->seriesFull }}</p>
 
             <h2 class="font-weight-bolder my-2 mt-3">{{ strtoupper(doc_type_only($document->type)) }}</h2>

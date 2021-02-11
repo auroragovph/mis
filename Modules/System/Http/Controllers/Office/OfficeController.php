@@ -12,38 +12,16 @@ use Modules\System\Http\Requests\Office\OfficeStoreRequest;
 
 class OfficeController extends Controller
 {
-    public function dev()
+    
+    public function index()
     {
-        $file = storage_path('app/seeds/hrm/plantilla.json');
-        $plantilla = collect(json_decode(file_get_contents($file), true));
-
-        $datas = $plantilla->chunk(10);
-
-        // dd($datas);
-
-        foreach($datas as $data){
-            HR_Plantilla::insert($data->toArray());
-        }
-
-        // HR_Plantilla::insert($datas);
-
-
-        // HR_Plantilla::insert($plantilla->toArray());
-    }
-    public function index(Request $request)
-    {
-        // return $this->dev();
-
-        if($request->ajax()){
-
-
-            if($request->has('search')){
-                $q = $request->get('search');
+        if(request()->ajax()){
+            if(request()->has('search')){
+                $q = request()->get('search');
                 $datas = SYS_Office::where('name', 'like', '%'.$q.'%')->orWhere('alias', 'like', '%'.$q.'%')->get();
             }else{
                 $datas = SYS_Office::with('divisions')->get();
             }
-
             $datas = OfficeResource::collection($datas);
             return $datas;
         }

@@ -18,25 +18,34 @@ class EmployeeController extends Controller
 
     public function lists(Request $request)
     {
-        $employees = HR_Employee::query();
-
-        if($request->has('search')){
-            $q = strtolower($request->input('search'));
-            $employees->whereRaw("LOWER(`name`) LIKE '%{$q}%' ");
-        }
-
-        if($request->has('liaison')){
-            $employees->liaison();
-        }
-
-        $data = EmployeeListResource::collection($employees->onlyDivision()->get());
-
-        return response()->json($data);
     }
 
     public function index(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
+
+
+            if ($request->header('X-Select2') == true) {
+
+                $employees = HR_Employee::query();
+
+                if ($request->has('search')) {
+                    $q = strtolower($request->input('search'));
+                    $employees->whereRaw("LOWER(`name`) LIKE '%{$q}%' ");
+                }
+
+                if ($request->has('liaison')) {
+                    $employees->liaison();
+                }
+
+                $data = EmployeeListResource::collection($employees->onlyDivision()->get());
+
+                return response()->json($data);
+            }
+
+
+
+
             return EmployeeDTResource::collection(HR_Employee::with('division.office', 'position')->get());
         }
 
@@ -55,13 +64,12 @@ class EmployeeController extends Controller
     {
 
         // checking if request has file
-        if($request->hasFile('profile_avatar')){
+        if ($request->hasFile('profile_avatar')) {
 
             $file = $request->file('profile_avatar');
             $path = $file->store('public/employees/profile');
             $image_name = str_replace('public/employees/profile/', '', $path);
-
-        }else{
+        } else {
             $image_name = null;
         }
 
@@ -92,10 +100,10 @@ class EmployeeController extends Controller
         ]);
 
         // creating an account
-        if($request->post('account') == 'manual'){
+        if ($request->post('account') == 'manual') {
             $username = $request->post('username');
             $password = bcrypt($request->post('password'));
-        }else{
+        } else {
             $username = name_to_username($this->post('firstname'), $this->post('lastname'));
             $password = bcrypt($this->post('password'));
         }
@@ -120,14 +128,14 @@ class EmployeeController extends Controller
 
     public function update(EmployeeUpdateRequest $request, HR_Employee $employee)
     {
-     
+
         $reload = false;
 
-        switch($request->header('X-Edit-Employee')){
+        switch ($request->header('X-Edit-Employee')) {
 
-            case 'information': 
+            case 'information':
                 // checking if request has file
-                if($request->hasFile('profile_avatar')){
+                if ($request->hasFile('profile_avatar')) {
 
                     $file = $request->file('profile_avatar');
                     $path = $file->store('public/employees/profile');
@@ -135,13 +143,12 @@ class EmployeeController extends Controller
 
                     $current_image = $employee->info['image'];
 
-                    if($current_image != null){
-                        unlink(storage_path("app/public/employees/profile/".$current_image));
+                    if ($current_image != null) {
+                        unlink(storage_path("app/public/employees/profile/" . $current_image));
                     }
 
                     $reload = true;
-
-                }else{
+                } else {
                     $image_name = $employee->info['image'];
                 }
 
@@ -160,9 +167,9 @@ class EmployeeController extends Controller
                     'info->image' => $image_name
                 ]);
 
-            break;
-            
-            case 'employment': 
+                break;
+
+            case 'employment':
                 $employee->update([
 
                     'division_id' => $request->post('division'),
@@ -174,25 +181,24 @@ class EmployeeController extends Controller
                     'liaison' => ($request->has('liaison')) ? true : false
 
                 ]);
-            break;
+                break;
 
             case 'credentials':
 
                 $fields['username'] = $request->post('username');
 
                 // checking if password is set
-                if($request->post('password') != ''){
-                   $fields['password'] = bcrypt($request->post('password'));
+                if ($request->post('password') != '') {
+                    $fields['password'] = bcrypt($request->post('password'));
                 }
 
                 $employee->account()->update($fields);
 
-            break;
+                break;
 
             default:
                 return response()->json(['message' => 'Cannot identify request header.'], 422);
-            break;
-
+                break;
         }
 
         return response()->json(['message' => 'Employee has been updated.', 'reload' => $reload]);

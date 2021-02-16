@@ -176,13 +176,10 @@ class ItineraryController extends Controller
     public function print($id)
     {
         $iot = FMS_IOT::with(
-
             'document.division.office',
-
             'employee.position',
             'head',
             'supervisor'
-
         )->findOrFail($id);
 
 
@@ -201,7 +198,7 @@ class ItineraryController extends Controller
 
         return view('filemanagement::forms.travel.itinerary.print', [
             'iot' => $iot,
-            'lists' => $lists
+            'lists' => $iot->lists
         ]);
 
         

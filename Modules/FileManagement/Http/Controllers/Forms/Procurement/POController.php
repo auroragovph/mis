@@ -176,4 +176,19 @@ class POController extends Controller
         ]);
 
     }
+
+    public function print($id)
+    {
+        $po = FMS_PO::with(
+            'document.attachments',
+            'document.liaison',
+            'document.encoder',
+            'document.division.office',
+            )->findOrFail($id);
+
+
+        return view('filemanagement::forms.procurement.order.print', [
+            'po' => $po
+        ]);
+    }
 }

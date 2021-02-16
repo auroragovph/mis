@@ -9,7 +9,7 @@ use Modules\HumanResource\Transformers\Plantilla\PositionResource;
 
 class PositionController extends Controller
 {
-    public function lists(Request $request)
+    public function index(Request $request)
     {
         if($request->ajax()){
 

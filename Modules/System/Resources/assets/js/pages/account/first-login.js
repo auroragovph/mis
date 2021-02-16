@@ -270,7 +270,7 @@ var KTAddUser = function () {
 				dataType: 'json',
 				delay: 250,
 				headers: {
-					"X-Select2" : "true2"
+					"X-Select2" : true
 				},
 				data: function(params) {
 					return {

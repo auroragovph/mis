@@ -15,6 +15,9 @@ switch($document->type){
         $datas['Credits'] = $afl->credits['as-of'];
         $datas['Type'] = $afl->properties['type'];
 
+        $datas['...hidden']['vacation'] = $afl->credits['vacation'];
+        $datas['...hidden']['sick']     = $afl->credits['sick'];
+
     break;
 
     case config('constants.document.type.procurement.request'): // PURCHASE REQUEST

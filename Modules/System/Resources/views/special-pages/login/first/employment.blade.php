@@ -7,7 +7,7 @@
             <!--begin::Group-->
             <div class="form-group">
                 <label>Office / Division</label>
-                <select id="kt_select2_division" class="form-control" name="division" data-api="{{ route('sys.office.division.lists') }}" style="width: 100%;" required>
+                <select id="kt_select2_division" class="form-control" name="division" data-api="{{ route('sys.office.division.index') }}" style="width: 100%;" required>
                 </select>
             </div>
         </div>
@@ -16,7 +16,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label>Position</label>
-                <select id="kt_select2_position" class="form-control" name="position" data-api="{{ route('hrm.plantilla.position.lists') }}" style="width: 100%;" required>
+                <select id="kt_select2_position" class="form-control" name="position" data-api="{{ route('hrm.plantilla.position.index') }}" style="width: 100%;" required>
                     <option value="{{ auth()->user()->employee->position_id }}" selected>{{ auth()->user()->employee->position->position ?? '' }}</option>
                 </select>
             </div>

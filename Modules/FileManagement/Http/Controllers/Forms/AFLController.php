@@ -207,6 +207,16 @@ class AFLController extends Controller
 
     public function print($id)
     {
-        return view('filemanagement::forms.afl.print');
+        $afl = FMS_AFL::with(
+            'document.attachments',
+            'document.encoder',
+            'document.liaison',
+            'document.division.office',
+            'employee', 'hr', 'approval'
+        )->findOrFail($id);
+
+        return view('filemanagement::forms.afl.print', [
+            'afl' => $afl
+        ]);
     }
 }

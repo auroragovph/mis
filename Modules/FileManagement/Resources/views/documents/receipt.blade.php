@@ -115,16 +115,17 @@
                         </tr>
 
                         @foreach($datas as $key => $data)
-                        <tr class="bt">
-                            <td>{{ $key }}:</td>
-                            <td>{{ $data }}</td>
-                        </tr>
+                            @continue($key = '...hidden')
+                            <tr class="bt">
+                                <td>{{ $key }}:</td>
+                                <td>{{ $data }}</td>
+                            </tr>
                         @endforeach
 
                         @if($document->type == config('constants.document.type.afl'))
                         @php 
-                            $vl = $document['..hidden']['vacation'];
-                            $sl = $document['..hidden']['sick'];
+                            $vl = $datas['...hidden']['vacation'];
+                            $sl = $datas['...hidden']['sick'];
                         @endphp
                         <tr>
                             <td colspan="2">
@@ -191,7 +192,7 @@
                     <br><br>
                     Printed Date: {{ date('F d, Y h:i A') }}
                     <br><br><br>
-                    <br><br><br>
+                    <br><br>
                 </td>
             </tr>
             <tr>

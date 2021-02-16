@@ -70,14 +70,28 @@ var KTDTList = function() {
 					overflow: 'visible',
 					autoHide: false,
 					template: function(row) {
-                        return `
-                            <a href="${row.show}" class="btn btn-icon btn-light-primary btn-sm mr-2" title="Show">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="${row.edit}" class="btn btn-icon btn-light-warning btn-sm mr-2">
-                                <i class="fas fa-edit"></i>
-                            </a>
-	                    `;
+
+						let rowAction = ``;
+
+
+						rowAction += `
+										<a href="${row.show}" class="btn btn-icon btn-light-primary btn-sm mr-2" title="Show">
+											<i class="fas fa-eye"></i>
+										</a>
+									`;
+						
+
+
+						if(row.status != 0){
+							rowAction += `
+								<a href="${row.edit}" class="btn btn-icon btn-light-warning btn-sm mr-2">
+									<i class="fas fa-edit"></i>
+								</a>
+							`;
+						}
+
+						return rowAction;
+						
 					},
 				}],
 		});

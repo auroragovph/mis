@@ -103,7 +103,7 @@
 
                 <tr>
                     <td colspan="4" class="brm">
-                        <span><strong>Position:</strong> {{ $iot->employee->position->position }}</span>
+                        <span><strong>Position:</strong> {{ $iot->employee->position->position ?? '' }}</span>
                     </td>
                     <td colspan="5" rowspan="2" class="bbm">
                         <span><strong>Purpose of Travel:</strong> {{ $iot->travel_purpose }}</span>

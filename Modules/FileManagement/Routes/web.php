@@ -69,7 +69,9 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
         });
 
         Route::group(['prefix' => 'order', 'as' => 'order.'], function(){
-            Route::resource('/',    POController::class)            ->except(['destroy'])       ->parameters(['' => 'id']);
+            Route::resource('/',        POController::class)                ->except(['destroy'])       ->parameters(['' => 'id']);
+            Route::get('/{id}/print',  [POController::class, 'print'])     ->name('print');
+
         });
 
     });

@@ -5,7 +5,7 @@ use Modules\HumanResource\Http\Controllers\Employee\EmployeeController;
 use Modules\HumanResource\Http\Controllers\Plantilla\PositionController;
 use Modules\HumanResource\Http\Controllers\Plantilla\SalaryGradeController;
 
-Route::group(['prefix' => 'human-resource', 'middleware' => ['auth:web'], 'as' => 'hrm.'], function(){
+Route::group(['prefix' => 'human-resource', 'middleware' => ['auth:web', 'specific.division:'.config('constants.office.HRMO')], 'as' => 'hrm.'], function(){
 
     Route::resource('employee',            EmployeeController::class)           ->except(['destory']);
 

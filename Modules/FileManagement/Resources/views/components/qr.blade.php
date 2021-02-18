@@ -45,9 +45,13 @@
             </p>
 
             @if(!empty($datas))
+            
                 <hr>
 
                 @foreach($datas as $key => $data)
+
+                @continue($key == '...hidden')
+
                 <p class="font-weight-bold mr-2">
                     {{ $key }}: <br>
                     <span class="text-muted font-weight-normal">{{ $data }}</span>

@@ -2,5 +2,7 @@
     "System": true,
     "FileManagement": true,
     "HumanResource": true,
-    "FileTracking": true
+    "FileTracking": true,
+    "General": true,
+    "MessengerController": true
 }

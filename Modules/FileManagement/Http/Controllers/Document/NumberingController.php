@@ -12,6 +12,11 @@ use Modules\FileManagement\Entities\Travel\FMS_TO;
 
 class NumberingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:fms.sa.number']);
+    }
+
     public function index()
     {
         activitylog(['name' => 'fms', 'log' => 'Request numbering form.']);

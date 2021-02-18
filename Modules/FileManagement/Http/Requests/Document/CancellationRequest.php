@@ -28,6 +28,7 @@ class CancellationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return (authenticated()->can('fms.document.cancel')) ? true : false;
+
     }
 }

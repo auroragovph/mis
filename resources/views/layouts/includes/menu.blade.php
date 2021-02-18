@@ -13,10 +13,18 @@
                     </a>
                 </li>
 
+                
                 @include('filemanagement::layouts.menu-fms')
+
                 @include('filetracking::layouts.menu-fts')
-                @include('humanresource::layouts.menu')
-                @include('system::layouts.menu')
+
+                @if(authenticated()->employee->division_id == config('constants.office.HRMO') || authenticated()->can('sys.sudo'))
+                    @include('humanresource::layouts.menu-hrm')
+                @endif
+
+                @can('sys.sudo')
+                    @include('system::layouts.menu-sys')
+                @endcan
                 
             </ul>
             <!--end::Header Nav-->

@@ -36,6 +36,6 @@ class RRRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return (authenticated()->can('fms.sa.rr')) ? true : false;
     }
 }

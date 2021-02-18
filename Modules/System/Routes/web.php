@@ -7,8 +7,11 @@ use Modules\System\Http\Controllers\ACL\RoleController;
 use Modules\System\Http\Controllers\Office\DivisionController;
 use Modules\System\Http\Controllers\Office\OfficeController;
 use Modules\System\Http\Controllers\SpecialPages\FirstLoginController;
+use Modules\System\Http\Controllers\SystemController;
 
-Route::group(['prefix' => 'system', 'as' => 'sys.', 'middleware' => ['auth:web']], function(){
+Route::group(['prefix' => 'system', 'as' => 'sys.', 'middleware' => ['auth:web', 'permission:sys.sudo']], function(){
+
+    Route::get('/dashboard', [SystemController::class, 'index'])                ->name('dashboard');
 
     Route::group(['prefix' => 'office', 'as' => 'office.'], function(){
 

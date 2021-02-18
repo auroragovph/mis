@@ -45,6 +45,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return (authenticated()->can('fms.document.edit')) ? true : false;
+
     }
 }

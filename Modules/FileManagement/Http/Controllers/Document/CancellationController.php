@@ -8,6 +8,11 @@ use Modules\FileManagement\Http\Requests\Document\CancellationRequest;
 
 class CancellationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:fms.document.cancel']);
+    }
+
     public function index()
     {
         activitylog(['name' => 'fms', 'log' => 'Request document cancellation form.']);

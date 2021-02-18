@@ -29,6 +29,7 @@ class UpdateRequest extends FormRequest
             return false;
         }
 
-        return true;
+        return (authenticated()->can('fms.document.edit')) ? true : false;
+
     }
 }

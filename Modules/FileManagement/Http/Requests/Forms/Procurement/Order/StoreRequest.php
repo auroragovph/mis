@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
             return false;
         }
 
-        return true;
+        return (authenticated()->can('fms.document.create')) ? true : false;
+
     }
 }

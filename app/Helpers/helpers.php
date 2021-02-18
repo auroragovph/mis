@@ -394,7 +394,7 @@ if (!function_exists('document_status')) {
 
             case '3':
                 $label = 'success';
-                $status = 'Approves';
+                $status = 'Approved';
                 break;
 
             case '4':

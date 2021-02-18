@@ -10,11 +10,14 @@ use Modules\FileManagement\Http\Requests\Document\ActivationRequest;
 
 class ActivationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:fms.sa.activate']);
+    }
     public function index()
     {
         // activity loger
         activitylog(['name' => 'fms', 'log' => 'Request activation form.']);
-
         return view('filemanagement::documents.activation');
     }
 

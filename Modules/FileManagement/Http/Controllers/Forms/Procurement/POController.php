@@ -184,6 +184,10 @@ class POController extends Controller
             'document.liaison',
             'document.encoder',
             'document.division.office',
+
+            'approving.position'
+
+
             )->findOrFail($id);
 
 

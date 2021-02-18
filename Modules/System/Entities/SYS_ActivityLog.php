@@ -14,4 +14,13 @@ class SYS_ActivityLog extends Model
         'agent' => 'json'
     ];
 
+    public function scopeSelf($query)
+    {
+        return $query->where('employee_id', authenticated()->employee_id)->orderBy('created_at', 'DESC');
+    }
+
+    
+
+
+
 }

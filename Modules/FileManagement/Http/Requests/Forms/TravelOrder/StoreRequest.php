@@ -44,6 +44,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return (authenticated()->can('fms.document.create')) ? true : false;
+
     }
 }

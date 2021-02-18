@@ -10,7 +10,6 @@
 
 @section('content')
 
-    <livewire:system::sample  />
 
 @endsection
 

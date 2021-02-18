@@ -12,6 +12,11 @@ use Modules\FileManagement\Http\Requests\Document\RRRequest;
 
 class RRController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:fms.sa.rr']);
+    }
+
     public function index()
     {
         return view('filemanagement::documents.rr');
@@ -193,6 +198,8 @@ class RRController extends Controller
         $id = session()->pull('fms.document.edit');
         $liaison = session()->pull('fms.document.liaison');
         $action = session()->pull('fms.document.track');
+        $document = FMS_Document::find($id);
+        $document->update(['status' => $request->status]);
         $track = FMS_Tracking::log($id, $action, $request->purpose, $request->status, $liaison);
         ($action == 0) ? $acm = 'Document has been release.' : $acm = 'Document has been receive.' ;
 

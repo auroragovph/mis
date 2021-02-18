@@ -7,6 +7,7 @@
     <div class="menu-submenu menu-submenu-classic menu-submenu-left">
         <ul class="menu-subnav">
 
+            @canany(['fms.document.*', 'fms.document.create', 'fms.document.edit'])
             <li class="menu-item" aria-haspopup="true">
                 <a href="{{ route('fms.documents.index') }}" class="menu-link">
                     <span class="svg-icon menu-icon">
@@ -29,6 +30,7 @@
                     <span class="menu-text">Documents</span>
                 </a>
             </li>
+            @endcanany
 
             <li class="menu-item" aria-haspopup="true">
                 <a href="{{ route('fms.documents.track') }}" class="menu-link">
@@ -47,6 +49,7 @@
                 </a>
             </li>
 
+            @canany(['fms.sa.*', 'fms.sa.activate', 'fms.sa.attach', 'fms.sa.number', 'fms.sa.rr', 'fms.sa.transmittal'])
             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
                 <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon">
@@ -73,6 +76,8 @@
                 </a>
                 <div class="menu-submenu menu-submenu-classic menu-submenu-right">
                     <ul class="menu-subnav">
+
+                        @can('fms.sa.activate')
                         <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route('fms.documents.activation.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
@@ -81,6 +86,9 @@
                                 <span class="menu-text">Activation</span>
                             </a>
                         </li>
+                        @endcan
+
+                        @can('fms.document.cancel')
                         <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route('fms.documents.cancel.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
@@ -89,6 +97,9 @@
                                 <span class="menu-text">Cancellation</span>
                             </a>
                         </li>
+                        @endcan
+
+                        @can('fms.sa.number')
                         <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route('fms.documents.number.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
@@ -97,6 +108,9 @@
                                 <span class="menu-text">Numbering</span>
                             </a>
                         </li>
+                        @endcan
+
+                        @can('fms.sa.rr')
                         <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route('fms.documents.rr.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
@@ -105,10 +119,13 @@
                                 <span class="menu-text">Receive / Release</span>
                             </a>
                         </li>
+                        @endcan
+
                     </ul>
                 </div>
             </li>
-            
+            @endcanany
+
         </ul>
     </div>
 </li>

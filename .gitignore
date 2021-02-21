@@ -9,6 +9,9 @@
 
 /storage/*.key
 /vendor
+/.idea/
+/.vscode/
+/docker/mysql/data/
 .env
 .env.backup
 .phpunit.result.cache

@@ -30,14 +30,7 @@
                                 <span class="menu-text">Roles</span>
                             </a>
                         </li>
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('sys.acl.permission.index') }}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-line">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Permissions</span>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </li>
 
@@ -66,7 +59,7 @@
                     </ul>
                 </li>
 
-                <li class="menu-item">
+                {{-- <li class="menu-item">
                     <h3 class="menu-heading menu-toggle">
                         <span class="menu-text">Database</span>
                         <i class="menu-arrow"></i>
@@ -89,7 +82,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
             </ul>
         </div>

@@ -11,15 +11,16 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    public function lists(Request $request)
-    {
-        $roles = ($request->has('search')) ? Role::with('permissions')->where('name', 'like', '%'.$request->input('search').'%')->get() : Role::with('permissions')->get();
-        return RoleResource::collection($roles);
-    }
-
     public function index()
     {
+
+        if(request()->ajax()){
+            $roles = (request()->has('search')) ? Role::with('permissions')->where('name', 'like', '%'.request()->input('search').'%')->get() : Role::with('permissions')->get();
+            return RoleResource::collection($roles);
+        }
+
         $permissions = Permission::get();
+
         return view('system::acl.role.index', [
             'permissions' => $permissions
         ]);

@@ -14,11 +14,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Office Name</label>
-                        <input name="name" type="text" class="form-control" placeholder="Enter email" />
+                        <input name="name" type="text" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label>Office Alias</label>
-                        <input name="alias" type="text" class="form-control" placeholder="Enter email" />
+                        <input name="alias" type="text" class="form-control" />
                     </div>
                 </div>
                 <div class="modal-footer">

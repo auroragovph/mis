@@ -36,7 +36,7 @@ Roles
                 <!--end::Search Form-->
                 <!--end: Search Form-->
                 <!--begin: Datatable-->
-                <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable_role_list" data-api="{{ route('sys.acl.role.lists') }}"></div>
+                <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable_role_list" data-api="{{ route('sys.acl.role.index') }}"></div>
                 <!--end: Datatable-->
             </div>
         </div>

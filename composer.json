@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "doctrine/dbal": "^3.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -16,7 +17,6 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "livewire/livewire": "^2.3",
         "mhmiton/laravel-modules-livewire": "dev-master",
         "nwidart/laravel-modules": "^8.2",
         "simplesoftwareio/simple-qrcode": "^4.1",
@@ -31,8 +31,6 @@
         "laravel/sail": "^0.0.5",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "pestphp/pest": "^1.0",
-        "pestphp/pest-plugin-laravel": "^1.0",
         "phpunit/phpunit": "^9.3.3"
     },
     "config": {

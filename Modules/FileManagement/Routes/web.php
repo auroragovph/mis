@@ -37,7 +37,7 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
     
             Route::group(['prefix' => 'activate', 'middleware' => 'can:fms.sa.activate', 'as' => 'activation.'], function(){
                 Route::get('/',                 [ActivationController::class, 'index'])     ->name('index');
-                Route::post('/',                [ActivationController::class, 'submit'])    ->name('submit');
+                Route::post('/',                [ActivationController::class, 'submit'])    ->name('submit')    ->middleware('only.ajax');
             });
     
             Route::group(['prefix' => 'receive-release', 'middleware' => 'can:fms.sa.rr', 'as' => 'rr.'], function(){

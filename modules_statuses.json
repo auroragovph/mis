@@ -4,5 +4,6 @@
     "HumanResource": true,
     "FileTracking": true,
     "General": true,
-    "MessengerController": true
+    "MessengerController": true,
+    "GeneralService": true
 }

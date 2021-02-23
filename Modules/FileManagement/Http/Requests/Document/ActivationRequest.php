@@ -3,6 +3,8 @@
 namespace Modules\FileManagement\Http\Requests\Document;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Modules\HumanResource\Entities\HR_Employee;
 
 class ActivationRequest extends FormRequest
 {
@@ -14,8 +16,8 @@ class ActivationRequest extends FormRequest
     public function rules()
     {
         return [
-            'document'      =>  'required',
-            'liaison'       =>  'required'
+            'document'      =>  ['required'],
+            'liaison'       =>  ['required']
         ];
     }
 

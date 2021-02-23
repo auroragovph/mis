@@ -23,6 +23,7 @@ class ActivationController extends Controller
 
     public function submit(ActivationRequest $request)
     {
+
         $id = series($request->document);
 
         $document = FMS_Document::find($id);
@@ -133,7 +134,6 @@ class ActivationController extends Controller
         // save to tracking
         FMS_Tracking::log($id, 0, 'Document Activation', 2, (int)$liaison->id);
 
-        // logging
         // activity loger
         activitylog([
             'name' => 'fms',

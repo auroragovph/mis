@@ -11,6 +11,11 @@ class DocumentController extends Controller
 {
     public function index()
     {
+
+        if(!authenticated()->can('fms.document.create')){
+            return abort(403);
+        }
+
         $documents = FMS_Document::with('latestTrack')
                                     ->where('division_id', authenticated()->employee->division_id)
                                     ->get(['id', 'created_at']);

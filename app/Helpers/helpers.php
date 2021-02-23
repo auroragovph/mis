@@ -361,7 +361,8 @@ if (!function_exists('authenticated')) {
      */
     function authenticated()
     {
-        return session()->get('authenticated');
+        // return session()->get('authenticated');
+        return auth()->user();
     }
 }
 
@@ -745,7 +746,8 @@ if (!function_exists('activitylog')) {
             'name' => $name,
             'log' => $log,
             'properties' => $properties,
-            'employee_id' => authenticated()->employee_id,
+            // 'employee_id' => authenticated()->employee_id,
+            'employee_id' => auth()->user()->employee_id,
             'agent' => user_agent()
         ]);
     }

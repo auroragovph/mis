@@ -19,7 +19,11 @@ class ActivationTest extends TestCase
         $response->assertRedirect(route('login'));
 
         $response = $this->actingAs($this->user)->get(route('fms.documents.activation.index'));
-        $response->assertStatus(200);
+        $response->assertSeeTextInOrder([
+            'Document Activation',
+            'Document ID',
+            'Liaison QR'
+        ]);
     }
 
     public function test_only_authorized_employee_can_access_activation_page()

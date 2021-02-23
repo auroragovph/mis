@@ -13,5 +13,4 @@ class RRTest extends TestCase
     {
         $this->authorize_test(route('fms.documents.rr.index'));
     }
-
 }

@@ -16,7 +16,7 @@ class PRController extends Controller
     {
         // middlewares
         // $this->middleware('fms.document.check', ['only' => ['show', 'edit', 'update', 'print']]);
-        // $this->middleware(['permission:fms.document.create'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:fms.document.create'], ['only' => ['create', 'store']]);
         // $this->middleware(['permission:fms.document.edit'], ['only' => ['edit', 'update']]);
         $this->middleware(['only.ajax'], ['only' => ['store', 'update']]);
     }

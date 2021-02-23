@@ -31,6 +31,8 @@ abstract class TestCase extends BaseTestCase
     protected function authorize_test($route)
     {
         $user = $this->user;
+        $this->actingAs($user)->get($route)->assertStatus(200);
+
         $user->syncPermissions();
         $this->actingAs($user)->get($route)->assertStatus(403);
     }

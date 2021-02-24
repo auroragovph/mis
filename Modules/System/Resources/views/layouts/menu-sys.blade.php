@@ -40,6 +40,7 @@
                         <i class="menu-arrow"></i>
                     </h3>
                     <ul class="menu-inner">
+
                         <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route('sys.office.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
@@ -48,6 +49,7 @@
                                 <span class="menu-text">Office</span>
                             </a>
                         </li>
+
                         <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route('sys.office.division.index') }}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-line">
@@ -56,6 +58,16 @@
                                 <span class="menu-text">Division</span>
                             </a>
                         </li>
+
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="{{ route('sys.office.modules') }}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-line">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Modules</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
 

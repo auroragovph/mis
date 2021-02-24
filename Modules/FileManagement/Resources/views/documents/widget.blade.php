@@ -1,5 +1,5 @@
 
-    <div class="col-md-5">
+    <div class="col-md-7">
         <div class="row">
             <div class="col-xl-6">
 
@@ -88,8 +88,8 @@
             </div>
 
         </div>
-        {{-- <!--begin::Mixed Widget 20-->
-        <div class="card card-custom bgi-no-repeat gutter-b" style="height: 180px; background-color: #4AB58E; background-position: calc(100% + 0.5rem) bottom; background-size: 25% auto; background-image: url(assets/media/svg/humans/custom-1.svg)">
+        <!--begin::Mixed Widget 20-->
+        <div class="card card-custom bgi-no-repeat gutter-b" style="height: 180px; background-color: #4AB58E; background-position: calc(100% + 0.5rem) bottom; background-size: 25% auto; background-image: url(/media/svg/humans/custom-1.svg)">
             <!--begin::Body-->
             <div class="card-body d-flex align-items-center">
                 <div class="py-2">
@@ -101,5 +101,5 @@
             </div>
             <!--end::Body-->
         </div>
-        <!--end::Mixed Widget 20--> --}}
+        <!--end::Mixed Widget 20-->
     </div>

@@ -13,7 +13,7 @@ Documents
 
     @include('filemanagement::documents.types')
     @include('filemanagement::documents.widget')
-    @include('filemanagement::documents.callout')
+    {{-- @include('filemanagement::documents.callout') --}}
 </div>
 @endsection
 

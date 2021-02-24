@@ -28,7 +28,8 @@ return [
         'HRMO'          => 13,
         'PTO'           => 4,
         'BUDGET'        => 5,
-        'ACCOUNTING'    => 7
+        'ACCOUNTING'    => 7,
+        'GSO'           => 1,          
     ],
 
     'document' => [

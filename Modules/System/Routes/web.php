@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\System\Http\Controllers\AccountController;
 use Modules\System\Http\Controllers\ACL\PermissionController;
 use Modules\System\Http\Controllers\ACL\RoleController;
+use Modules\System\Http\Controllers\ModuleController;
 use Modules\System\Http\Controllers\Office\DivisionController;
 use Modules\System\Http\Controllers\Office\OfficeController;
 use Modules\System\Http\Controllers\SpecialPages\FirstLoginController;
@@ -20,6 +21,10 @@ Route::group(['prefix' => 'system', 'as' => 'sys.', 'middleware' => ['auth:web',
         Route::group(['prefix' => 'division', 'as' => 'division.'], function(){
             Route::resource('/',        DivisionController::class)              ->except(['destroy']);
         });
+
+
+
+        Route::get('/modules',          ModuleController::class)              ->name('modules');
 
     });
 

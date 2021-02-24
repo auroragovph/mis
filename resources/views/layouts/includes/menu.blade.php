@@ -18,9 +18,17 @@
 
                 @include('filetracking::layouts.menu-fts')
 
-                @if(authenticated()->employee->division_id == config('constants.office.HRMO') || authenticated()->can('sys.sudo'))
-                    @include('humanresource::layouts.menu-hrm')
-                @endif
+
+                    @switch(authenticated()->employee->division_id)
+                        @case(config('constants.office.HRMO'))
+                            @include('humanresource::layouts.menu-hrm')
+                            @break
+                        @case(config('constants.office.HRMO'))
+                            @include('generalservice::layouts.menu-gso')
+                            @break
+                        @default
+                    @endswitch
+
 
                 @can('sys.sudo')
                     @include('system::layouts.menu-sys')

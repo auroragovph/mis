@@ -2,7 +2,7 @@
 
 
 @section('page-title')
-Purchase Order (PR)
+Purchase Order (PO)
 @endsection
 
 @section('toolbar')

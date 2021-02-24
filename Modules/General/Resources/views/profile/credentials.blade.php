@@ -12,13 +12,14 @@
         <!--end::Header-->
         <!--begin::Body-->
         <div class="card-body">
-            <form class="form" id="kt_form_credentials" method="POST" action="{{ route('hrm.employee.update', authenticated()->employee->id) }}">
+            <form class="form" id="kt_form_credentials" method="POST" action="{{ route('general.profile.credentials') }}">
                 @csrf
+                @method('PATCH')
 
                 <!--begin::Group-->
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control" name="username" value="{{ authenticated()->employee->account->username ?? '' }}">
+                    <input type="text" class="form-control" value="{{ authenticated()->employee->account->username ?? '' }}" disabled>
                 </div>
                 <!--end::Group-->
 
@@ -47,9 +48,7 @@
                     </div>
                     <!--end::Group-->
                 </div>
-
-            
-
+                
                 <div class="separator separator-dashed"></div>
 
                 <button type="submit" class="btn btn-success mt-5" name="submitButton">Save Changes</button>
@@ -60,7 +59,7 @@
     </div>
     <!--end::Advance Table Widget 7-->
 
-    <!--begin::Advance Table: Widget 7-->
+    {{-- <!--begin::Advance Table: Widget 7-->
     <div class="card card-custom gutter-b" >
         <!--begin::Header-->
         <div class="card-header py-3">
@@ -91,5 +90,5 @@
         </div>
         <!--end::Body-->
     </div>
-    <!--end::Advance Table Widget 7-->
+    <!--end::Advance Table Widget 7--> --}}
 </div>

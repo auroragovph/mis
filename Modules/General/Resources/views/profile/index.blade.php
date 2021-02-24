@@ -69,9 +69,6 @@ Profile
             @include('general::profile.employment')
             @include('general::profile.credentials')
             @include('general::profile.logs', ['logs' => $logs])
-            
-
-
         </div>
     </div>
     <!--end::Content-->

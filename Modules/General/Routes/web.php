@@ -25,6 +25,7 @@ Route::group(['prefix' => 'general', 'as' => 'general.', 'middleware' => ['auth:
 
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function(){
         Route::get('/', [ProfileController::class, 'index'])  ->name('index');
+        Route::patch('/credentials',    [ProfileController::class, 'credentials'])  ->name('credentials');
     });
 
 });

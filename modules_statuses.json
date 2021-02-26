@@ -4,5 +4,6 @@
     "HumanResource": true,
     "FileTracking": true,
     "General": true,
-    "GeneralService": true
+    "GeneralService": true,
+    "Budget": true
 }

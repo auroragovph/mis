@@ -36,7 +36,7 @@ Purchase Request
                     <!--begin::Group-->
                     <div class="form-group">
                         <label>Fund</label>
-                        <input type="text" class="form-control" name="payee" required/>
+                        <input type="text" class="form-control" name="fund" required/>
                     </div>
                 </div>
                 <!--end::Group-->

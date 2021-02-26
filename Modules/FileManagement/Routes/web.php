@@ -18,6 +18,7 @@ use Modules\FileManagement\Http\Controllers\Forms\{
     Travel\ItineraryController,
     Travel\TravelOrderController
 };
+use Modules\FileManagement\Http\Controllers\Forms\Procurement\ProcurementController;
 
 Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' => 'fms.'], function() {
 
@@ -62,6 +63,8 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
     });
 
     Route::group(['prefix' => 'procurement', 'as' => 'procurement.'],function(){
+
+        Route::get('/',                         [ProcurementController::class, 'index'])    ->name('index');
 
         Route::group(['prefix' => 'request', 'as' => 'request.'], function(){
             Route::resource('/',                PRController::class)                ->except(['destroy'])    ->parameters(['' => 'id']);

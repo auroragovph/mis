@@ -26,6 +26,9 @@
                         @case(config('constants.office.HRMO'))
                             @include('generalservice::layouts.menu-gso')
                             @break
+                        @case(config('constants.office.BUDGET'))
+                            @include('budget::layouts.menu-budget')
+                            @break
                         @default
                     @endswitch
 

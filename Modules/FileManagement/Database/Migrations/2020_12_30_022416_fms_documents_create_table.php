@@ -23,6 +23,8 @@ class FmsDocumentsCreateTable extends Migration
             $table->string('status', 2)->default('1');
             $table->integer('type');
 
+            // $table->string('particulars')->nullable();
+
             $table->json('properties')->nullable();
 
             $table->softDeletes('deleted_at')->nullable();

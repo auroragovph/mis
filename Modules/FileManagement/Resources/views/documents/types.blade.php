@@ -13,7 +13,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b" style="height: 150px; background-image: url(/media/stock-600x600/img-15.jpg)">
+                    <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b" style="height: 150px; background-image: url(/media/stock-600x600/img-13.jpg)">
                         <!--begin::Body-->
                         <div class="card-body text-center">
                             <a href="{{ route('fms.afl.index') }}" class="btn btn-link btn-link-dark-75 font-weight-bold font-size-h5">Application For Leave</a>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b" style="height: 150px; background-image: url(/media/stock-600x600/img-11.jpg)">
+                    <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b" style="height: 150px; background-image: url(/media/stock-600x600/img-5.jpg)">
                         <!--begin::Body-->
                         <div class="card-body text-center">
                             <a href="#" class="btn btn-link btn-link-dark-75 font-weight-bold font-size-h5 ">Payroll</a>
@@ -33,16 +33,16 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b" style="height: 150px; background-image: url(/media/stock-600x600/img-15.jpg)">
+                    <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b" style="height: 150px; background-image: url(/media/stock-600x600/img-19.jpg)">
                         <!--begin::Body-->
                         <div class="card-body text-center">
-                            <a href="#" class="btn btn-link btn-link-dark-75 font-weight-bold font-size-h5">Procurement</a>
+                            <a href="{{ route('fms.procurement.index') }}" class="btn btn-link btn-link-dark-75 font-weight-bold font-size-h5">Procurement</a>
                         </div>
                         <!--end::Body-->
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b" style="height: 150px; background-image: url(/media/stock-600x600/img-11.jpg)">
+                    <div class="card card-custom bgi-no-repeat bgi-size-cover gutter-b" style="height: 150px; background-image: url(/media/stock-600x600/img-21.jpg)">
                         <!--begin::Body-->
                         <div class="card-body text-center">
                             <a href="#" class="btn btn-link btn-link-dark-75 font-weight-bold font-size-h5 ">Travel</a>
@@ -54,6 +54,7 @@
 
 
             <div class="form-group">
+                <label for="">Or Select Another Document Type</label>
                 <select class="form-control select2" data-live-search="true" data-size="5" name="param" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
                     <option value="" selected hidden></option>
                     <option value="{{ route('fms.afl.index') }}">Application For Leave (AFL)</option>

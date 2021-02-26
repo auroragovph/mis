@@ -59,7 +59,11 @@ class PRController extends Controller
     public function store(PRStoreRequest $request)
     {
         // storing document
-        $document = FMS_Document::directStore($request->post('liaison'), config('constants.document.type.procurement.request'));
+        $document = FMS_Document::directStore(
+            $request->post('liaison'),
+            config('constants.document.type.procurement.request')
+            // $request->post('purpose')
+        );
 
         $pr = FMS_PR::create([
             'document_id' => $document->id,

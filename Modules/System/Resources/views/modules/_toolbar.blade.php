@@ -20,4 +20,13 @@
         </a>
     </li>
 
+    <li class="nav-item mb-2">
+        <a class="nav-link" id="budget-Tab-tab" data-toggle="tab" href="#budget-tab" aria-controls="employment">
+            <span class="nav-icon">
+                <i class="fal fa-user-tie"></i>
+            </span>
+            <span class="nav-text">Budget</span>
+        </a>
+    </li>
+
 </ul>

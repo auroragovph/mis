@@ -97,7 +97,7 @@ Purchase Order
                         <label>PR Number/s</label>
                         <select name="pr_number[]" class="form-control select2-tags" multiple>
                             @if($document->purchase_request->number != '')
-                            <option>{{ $document->purchase_request->number }}</option>
+                                <option selected>{{ $document->purchase_request->number }}</option>
                             @endif
                         </select>
                     </div>
@@ -224,7 +224,9 @@ Purchase Order
                     <!--begin::Group-->
                     <div class="form-group">
                         <label>Particulars</label>
-                        <textarea name="particulars" cols="30" rows="3" class="form-control"></textarea>
+                        <textarea name="particulars" cols="30" rows="3" class="form-control">
+                            {{ $document->purchase_request->purpose ?? '' }}
+                        </textarea>
                     </div>
                 </div>
                 <!--end::Group-->

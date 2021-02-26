@@ -35,6 +35,7 @@ Office Modules
         <div class="tab-content" id="myTabContent5">
             @include('system::modules.hrmo')
             @include('system::modules.gso')
+            @include('system::modules.budget')
         </div>
     </div>
     <!--end::Content-->

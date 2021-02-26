@@ -33,13 +33,20 @@ class FMS_Document extends Model
         return with(new static)->getTable();
     }
 
-    public static function directStore($liaison, $type)
+    /**
+     * @param int $liaison
+     * @param int $type
+     * @param string $particulars
+     * @return $this
+     */
+    public static function directStore($liaison, $type, $particulars = null)
     {
         return static::create([
             'division_id' => Auth::user()->employee->division_id,
             'liaison_id' => $liaison,
             'encoder_id' => Auth::user()->id,
             'type' => $type
+            // 'particulars' => $particulars
         ]);
     }
 

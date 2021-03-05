@@ -18,7 +18,10 @@ switch($document->type){
         $datas['...hidden']['vacation'] = $afl->credits['vacation'];
         $datas['...hidden']['sick']     = $afl->credits['sick'];
 
-    break;
+        $rel = $afl;
+
+
+        break;
 
     case config('constants.document.type.procurement.request'): // PURCHASE REQUEST
 
@@ -35,7 +38,8 @@ switch($document->type){
             return (floatval($row['quantity'] ?? 0) * floatval($row['amount'] ?? 0));
         }), 2);
 
-    break;
+        $rel = $pr;
+        break;
 
     case config('constants.document.type.procurement.order'): //PURCHASE ORDER
         $po = FMS_PO::where('document_id', $id)->first();
@@ -46,9 +50,13 @@ switch($document->type){
         $datas['Amount']  = number_format($lists->sum(function($row){
             return (floatval($row['quantity'] ?? 0) * floatval($row['amount'] ?? 0));
         }), 2);
+        $rel = $po;
 
-    break;
+        break;
 
+    
+    
+    case config('constants.document.type.procurement.cafoa'): // PURCHASE PROCUREMENT CAFOA
     case config('constants.document.type.cafoa'): 
         $cafoa = FMS_Cafoa::where('document_id', $id)->first();
 
@@ -57,20 +65,12 @@ switch($document->type){
         $datas['Amount'] = number_format(floatval(collect($cafoa->lists)->sum(function($row){
             return floatval($row['amount'] ?? 0);
         })), 2);
+        $rel = $cafoa;
 
         break;
 
-    case 200: //OBLIGATION REQUEST
-        $obr = FMS_ObligationRequest::with('lists')->where('document_id', $id)->first();
 
-        $datas['OBR Number'] = $obr->number;
-        $datas['Payee'] = $obr->payee;
-        $datas['Address'] = $obr->address;
-        $datas['Amount'] = number_format($obr->lists->sum('amount'), 2);
-
-    break;
-
-    case 301: //TRAVEL ORDER
+    case config('constants.document.type.travel.order'): //TRAVEL ORDER
         $to = FMS_TO::with('lists.employee')->where('document_id', $id)->first();
 
         $datas['TO Number'] = $to->number;
@@ -86,8 +86,9 @@ switch($document->type){
         }
 
         $datas['Employees'] = substr($employees, 0, -2);
+        $rel = $to;
 
-    break;
+        break;
 
     case config('constants.document.type.travel.itinerary'): 
         $iot = FMS_IOT::with('employee', 'head', 'supervisor')->where('document_id', $id)->first();
@@ -97,10 +98,13 @@ switch($document->type){
         $datas['Fund'] = $iot->fund;
         $datas['Date of Travel'] = $iot->travel_date;
         $datas['Purpose'] = $iot->travel_purpose;
-    break;
+        $rel = $iot;
+        break;
 
     default: 
         $datas[''] = null;
-    break;
+        $rel = null;
+
+        break;
 
 }

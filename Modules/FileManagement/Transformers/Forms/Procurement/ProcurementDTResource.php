@@ -20,6 +20,6 @@ class ProcurementDTResource extends JsonResource
             'qr' => $this->document->qr,
             'encoded' => $this->document->encoded,
             'office' => office_helper($this->document->division),
-        ]
+        ];
     }
 }

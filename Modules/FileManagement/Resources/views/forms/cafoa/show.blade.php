@@ -167,7 +167,7 @@ CAFOA
             <!--end::Body-->
         </div>
         <!--end::Advance Table Widget 5-->
-        <x-fms-attachments :attachments="[]" />
+        <x-fms-attachments :attachments="$cafoa->document->attachments" />
         
     </div>
 </div>

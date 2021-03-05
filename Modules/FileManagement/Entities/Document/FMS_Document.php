@@ -27,6 +27,9 @@ class FMS_Document extends Model
 
     protected $guarded = [];
     protected $table = 'fms_documents';
+    protected $casts = [
+        'properties'  => 'json'
+    ];
 
     public static function getTableName()
     {
@@ -44,7 +47,7 @@ class FMS_Document extends Model
         return static::create([
             'division_id' => Auth::user()->employee->division_id,
             'liaison_id' => $liaison,
-            'encoder_id' => Auth::user()->id,
+            'encoder_id' => Auth::user()->employee_id,
             'type' => $type
             // 'particulars' => $particulars
         ]);

@@ -18,6 +18,8 @@ use Modules\FileManagement\Http\Controllers\Forms\{
     Travel\ItineraryController,
     Travel\TravelOrderController
 };
+use Modules\FileManagement\Http\Controllers\Forms\Procurement\CafoaController as ProcurementCafoaController;
+use Modules\FileManagement\Http\Controllers\Forms\Procurement\ConsolidationController;
 use Modules\FileManagement\Http\Controllers\Forms\Procurement\ProcurementController;
 
 Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' => 'fms.'], function() {
@@ -76,6 +78,21 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
             Route::get('/{id}/print',  [POController::class, 'print'])     ->name('print');
 
         });
+
+        Route::group(['prefix' => 'cafoa', 'as' => 'cafoa.'], function(){
+            Route::get('/create/{id}', [ProcurementCafoaController::class, 'create'])->name('create');
+            Route::post('/create/{id}', [ProcurementCafoaController::class, 'store'])->name('store');
+            Route::get('/{id}', [ProcurementCafoaController::class, 'show'])->name('show');
+        });
+
+        Route::group(['prefix' => 'consolidate', 'as' => 'consolidate.'], function(){
+            Route::get('/',         [ConsolidationController::class, 'index'])->name('index');
+            Route::post('/',        [ConsolidationController::class, 'check'])->name('check');
+            Route::post('/form',    [ConsolidationController::class, 'form'])->name('form');
+            Route::post('/consolidate',    [ConsolidationController::class, 'store'])->name('store');
+        });
+
+
 
     });
     

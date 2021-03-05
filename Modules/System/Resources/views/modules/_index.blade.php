@@ -33,9 +33,7 @@ Office Modules
     <div class="flex-row-fluid ml-lg-8">
       
         <div class="tab-content" id="myTabContent5">
-            @include('system::modules.hrmo')
-            @include('system::modules.gso')
-            @include('system::modules.budget')
+            @include('system::modules.content')
         </div>
     </div>
     <!--end::Content-->

@@ -1,0 +1,13 @@
+{
+    "name": "BAC",
+    "alias": "bac",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BAC\\Providers\\BACServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

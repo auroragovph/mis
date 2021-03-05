@@ -12,7 +12,8 @@ class FMS_PR extends Model
     protected $guarded = [];
     protected $table = 'fms_form_purchase_request';
     protected $casts = [
-        'lists' => 'json'
+        'lists' => 'json',
+        'properties' => 'json'
     ];
 
     public function document()

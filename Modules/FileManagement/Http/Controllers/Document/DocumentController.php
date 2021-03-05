@@ -5,6 +5,7 @@ namespace Modules\FileManagement\Http\Controllers\Document;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\FileManagement\Entities\Document\FMS_Document;
+use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
 use Modules\FileManagement\Entities\Document\FMS_Tracking;
 
 class DocumentController extends Controller
@@ -63,10 +64,11 @@ class DocumentController extends Controller
         ]);
         
 
-        return view('filemanagement::documents.track', [
-            'document' => $document ?? null,
-            'datas' => $datas ?? [],
-            'tracks' => $tracks ?? null
+        return view('filemanagement::tracking.index', [
+            'document'      => $document ?? null,
+            'rel'           => $rel ?? null,
+            'datas'         => $datas ?? [],
+            'tracks'        => $tracks ?? null
         ]);
 
         

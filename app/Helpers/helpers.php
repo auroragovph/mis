@@ -302,6 +302,10 @@ if (!function_exists('doc_type_only')) {
             case 102:
                 $type = 'Purchase Order';
                 break;
+            
+            case 104: 
+                $type = 'CAFOA <br> (Procurement)';
+                break;
 
             case 200:
                 $type = 'Obligation Request';

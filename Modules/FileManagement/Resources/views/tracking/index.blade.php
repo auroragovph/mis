@@ -7,12 +7,19 @@ Document Tracker
 
 @section('toolbar')
 @isset($document)
+
 <!--begin::Button-->
  <a href="{{ route('fms.documents.track') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base mr-2">
     <i class="fal fa-arrow-left"></i> Track Another Document
 </a>
 <!--end::Button-->
+@include('filemanagement::tracking.action', [
+    'type' => $document->type,
+    'rel' => $rel
+])
+
 @endisset
+
 @endsection
 
 @section('content')
@@ -24,8 +31,8 @@ Document Tracker
     </div>
 
     <div class="col-xl-8">
-          <!--begin::Advance Table Widget 5-->
-          <div class="card card-custom  gutter-b">
+        <!--begin::Advance Table Widget 5-->
+        <div class="card card-custom  gutter-b">
             <!--begin::Header-->
             <div class="card-header border-0 py-5">
                 <h3 class="card-title align-items-start flex-column">
@@ -84,7 +91,8 @@ Document Tracker
             <!--end::Body-->
         </div>
         <!--end::Advance Table Widget 5-->
-        
+
+        <x-fms-attachments :attachments="$document->attachments" />
     </div>
 </div>
 @else 

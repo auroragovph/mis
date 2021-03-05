@@ -11,12 +11,10 @@
 
             <p class="my-2 mt-3">{{ $document->qr }}</p>
 
-            <h2 class="font-weight-bolder my-2 mt-3">{{ strtoupper(doc_type_only($document->type)) }}</h2>
+            <h2 class="font-weight-bolder my-2 mt-3">{!! strtoupper(doc_type_only($document->type)) !!}</h2>
 
             <span class="label label-light-{{ document_status($document->status, 'label') }} label-inline font-weight-bold label-lg">{{ document_status($document->status) }}</span>
 
-
-            
         </div>
         <!--end::User-->
 

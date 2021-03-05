@@ -19,6 +19,7 @@
                         <th>Name</th>
                         <th>Type</th>
                         <th>Date</th>
+                        <th>Information</th>
                         <th>By</th>
                         <th>Action</th>
                     </tr>
@@ -30,6 +31,12 @@
                         <td>{{ $attachment->description }}</td>
                         <td>{{ $attachment->mime }}</td>
                         <td>{{ Carbon\Carbon::parse($attachment->created_at)->format('F d, Y h:i A') }}</td>
+                        <td>
+                            @if($attachment->properties['number'] != null) <p><strong>Number:</strong> {{ $attachment->properties['number'] }}</p> @endif
+                            @if($attachment->properties['date'] != null) <p><strong>Date:</strong> {{ $attachment->properties['date'] }}</p> @endif
+                            @if($attachment->properties['amount'] != null) <p><strong>Amount:</strong> {{ $attachment->properties['amount'] }}</p> @endif
+                            @if($attachment->properties['page'] != null) <p><strong>Page:</strong> {{ $attachment->properties['page'] }}</p> @endif
+                        </td>
                         <td>{{ name_helper($attachment->employee->name) }}</td>
                         <td>
                             @switch($attachment->mime)

@@ -45,6 +45,7 @@ switch($document->type){
         }
     break;
 
+    case config('constants.document.type.procurement.cafoa'): // PROCUREMENT CAFOA
     case config('constants.document.type.cafoa'): // CAFOA
         $cafoa = FMS_Cafoa::where('document_id', $id)->first();
 

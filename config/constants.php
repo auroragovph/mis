@@ -41,7 +41,8 @@ return [
             'payroll'       => 700,
             'procurement'   => [
                 'request'   => 101,
-                'order'     => 102
+                'order'     => 102,
+                'cafoa'     => 104,
             ],
             'travel'        => [
                 'order'         => 301,

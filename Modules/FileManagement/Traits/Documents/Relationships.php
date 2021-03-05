@@ -2,6 +2,7 @@
 
 namespace Modules\FileManagement\Traits\Documents;
 
+use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\Procurement\FMS_PO;
 use Modules\FileManagement\Entities\Procurement\FMS_PR;
 

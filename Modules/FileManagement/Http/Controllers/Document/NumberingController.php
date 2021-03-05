@@ -50,6 +50,7 @@ class NumberingController extends Controller
         $numberable = [
             config('constants.document.type.procurement.request'),
             config('constants.document.type.procurement.order'),
+            config('constants.document.type.procurement.cafoa'),
             config('constants.document.type.cafoa'),
             config('constants.document.type.travel.order')
         ];

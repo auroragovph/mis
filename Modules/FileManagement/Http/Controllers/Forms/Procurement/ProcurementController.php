@@ -17,7 +17,7 @@ class ProcurementController extends Controller
             $procurement_types = array_values(config('constants.document.type.procurement'));
 
             $procurements = FMS_Document::with(
-                'purchase_request', 'purchase_order', 'division.office'
+                'purchase_request', 'purchase_order', 'cafoa', 'division.office'
             )->whereIn('type', $procurement_types)->get();
 
             foreach($procurements as $proc){
@@ -41,6 +41,13 @@ class ProcurementController extends Controller
                         $view           = route('fms.procurement.order.show', $proc->purchase_order->id);
                         $type           = 'Purchase Order';
                         break;
+                    case config('constants.document.type.procurement.cafoa'): 
+                            $number         = $proc->cafoa->number;
+                            $particulars    = $proc->cafoa->particulars;
+                            $amount         = number_format(collect($proc->cafoa->lists)->sum('amount'), 2);
+                            $view           = route('fms.cafoa.show', $proc->cafoa->id);
+                            $type           = 'Cafoa';
+                            break;
                     default:
                         $number         = null;
                         $particulars    = null;

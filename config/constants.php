@@ -29,7 +29,8 @@ return [
         'PTO'           => 4,
         'BUDGET'        => 5,
         'ACCOUNTING'    => 7,
-        'GSO'           => 1,          
+        'GSO'           => 1,
+        'BAC'           => 1,          
     ],
 
     'document' => [

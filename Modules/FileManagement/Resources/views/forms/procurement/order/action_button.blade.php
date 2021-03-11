@@ -35,6 +35,33 @@
                 </a>
             </li>
 
+            <li class="navi-separator mb-3 opacity-70"></li>
+
+            @if($po->document->type == config('constants.document.type.procurement.order'))
+
+            <li class="navi-item">
+                <a href="{{ route('fms.procurement.cafoa.create', $po->document_id) }}" class="navi-link">
+                    <span class="navi-text">
+                        <i class="flaticon2-clip-symbol"></i> Attach CAFOA
+                    </span>
+                </a>
+            </li>
+
+            @endif
+
+            @if($po->document->type == config('constants.document.type.procurement.cafoa'))
+
+            <li class="navi-item">
+                <a target="_new" href="{{ route('fms.procurement.cafoa.show', $po->document->cafoa->id) }}" class="navi-link">
+                    <span class="navi-text">
+                        <i class="flaticon-eye"></i> Show CAFOA
+                    </span>
+                </a>
+            </li>
+
+            @endif
+
+
             <li class="navi-item">
                 <a target="_new" href="{{ route('fms.procurement.request.show', $po->document->purchase_request->id) }}" class="navi-link">
                     <span class="navi-text">

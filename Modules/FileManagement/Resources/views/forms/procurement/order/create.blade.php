@@ -145,10 +145,6 @@ Purchase Order
                 </div>
                 <!--end::Group-->
             </div>
-
-
-
-
            
             <div class="separator separator-dashed mb-3"></div>
 
@@ -224,9 +220,7 @@ Purchase Order
                     <!--begin::Group-->
                     <div class="form-group">
                         <label>Particulars</label>
-                        <textarea name="particulars" cols="30" rows="3" class="form-control">
-                            {{ $document->purchase_request->purpose ?? '' }}
-                        </textarea>
+                        <textarea name="particulars" cols="30" rows="3" class="form-control">{{ $document->purchase_request->purpose ?? '' }}</textarea>
                     </div>
                 </div>
                 <!--end::Group-->

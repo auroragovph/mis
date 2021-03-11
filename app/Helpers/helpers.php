@@ -371,8 +371,6 @@ if (!function_exists('authenticated')) {
 }
 
 
-
-
 if (!function_exists('document_status')) {
     /**
      * Return color of the status in the show form
@@ -582,7 +580,7 @@ if (!function_exists('employee_id_helper')) {
 
         if (strpos($string, 'PGA-P-')) {
             $explode = explode('PGA-P-', $string);
-            return 'PGA-C-' . numonly($explode[1]);
+            return 'PGA-P-' . numonly($explode[1]);
         }
 
         return $string;

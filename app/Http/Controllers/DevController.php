@@ -19,6 +19,6 @@ class DevController extends Controller
 {
     public function index()
     {
-        dd(numwords('10.1'));
+        dd(config('filemanagement.menu'));
     }
 }

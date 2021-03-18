@@ -2,14 +2,34 @@
 
 namespace Modules\FileManagement\Http\Controllers\Forms\Procurement;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Http\Requests\Forms\Cafoa\CafoaStoreRequest;
+use Modules\FileManagement\Transformers\Forms\Procurement\Cafoa\CafoaDTResource;
 
 class CafoaController extends Controller
 {
+    public function index(Request $request)
+    {
+
+        if($request->ajax()){
+
+            $model = FMS_Cafoa::with('document')->whereHas('document', function($q){
+                $q->where('division_id', auth_division())->where('type', config('constants.document.type.procurement.cafoa'));
+            })->get();
+
+            $datas = CafoaDTResource::collection($model);
+            return response()->json($datas);
+        }
+
+        activitylog(['name' => 'fms', 'log' => 'Request cafoa list']);
+
+        return view('filemanagement::forms.procurement.cafoa.index');
+    }
+
     public function create($id)
     {
         $document = FMS_Document::with('purchase_order')

@@ -13,14 +13,17 @@ use Modules\FileManagement\Http\Controllers\Document\{
 use Modules\FileManagement\Http\Controllers\Forms\{
     AFLController,
     Cafoa\CafoaController,
+    
     Procurement\POController,
     Procurement\PRController,
+    Procurement\IARController,
+    Procurement\ConsolidationController,
+    Procurement\ProcurementController,
+    Procurement\CafoaController as ProcurementCafoaController,
+
     Travel\ItineraryController,
     Travel\TravelOrderController
 };
-use Modules\FileManagement\Http\Controllers\Forms\Procurement\CafoaController as ProcurementCafoaController;
-use Modules\FileManagement\Http\Controllers\Forms\Procurement\ConsolidationController;
-use Modules\FileManagement\Http\Controllers\Forms\Procurement\ProcurementController;
 
 Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' => 'fms.'], function() {
 
@@ -80,19 +83,23 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
         });
 
         Route::group(['prefix' => 'cafoa', 'as' => 'cafoa.'], function(){
-            Route::get('/create/{id}', [ProcurementCafoaController::class, 'create'])->name('create');
-            Route::post('/create/{id}', [ProcurementCafoaController::class, 'store'])->name('store');
-            Route::get('/{id}', [ProcurementCafoaController::class, 'show'])->name('show');
+            Route::resource('/',    ProcurementCafoaController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
+
+            // Route::get('/create/{id}', [ProcurementCafoaController::class, 'create'])->name('create');
+            // Route::post('/create/{id}', [ProcurementCafoaController::class, 'store'])->name('store');
+            // Route::get('/{id}', [ProcurementCafoaController::class, 'show'])->name('show');
         });
 
         Route::group(['prefix' => 'consolidate', 'as' => 'consolidate.'], function(){
-            Route::get('/',         [ConsolidationController::class, 'index'])->name('index');
-            Route::post('/',        [ConsolidationController::class, 'check'])->name('check');
-            Route::post('/form',    [ConsolidationController::class, 'form'])->name('form');
-            Route::post('/consolidate',    [ConsolidationController::class, 'store'])->name('store');
+            Route::get('/',             [ConsolidationController::class, 'index'])  ->name('index');
+            Route::post('/',            [ConsolidationController::class, 'check'])  ->name('check');
+            Route::post('/form',        [ConsolidationController::class, 'form'])   ->name('form');
+            Route::post('/consolidate', [ConsolidationController::class, 'store'])  ->name('store');
         });
 
-
+        Route::group(['prefix' => 'iar', 'as' => 'iar.'],function(){
+            Route::resource('/',    IARController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
+        });
 
     });
     

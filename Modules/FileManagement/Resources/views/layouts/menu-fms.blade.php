@@ -8,7 +8,22 @@
         <ul class="menu-subnav">
             @foreach(config('filemanagement.menu') as $menu)
             
-                @if(empty($menu['sub']))
+                @empty($menu['sub'])
+
+
+                    @empty($menu['permissions'])
+
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="{{ route($menu['route']) }}" class="menu-link">
+                                <i class="{{ $menu['icon'] ?? 'menu-bullet menu-bullet-dot' }}">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">{{ $menu['name'] }}</span>
+                            </a>
+                        </li>
+
+
+                    @else 
                         @canany($menu['permissions'])
                         <li class="menu-item" aria-haspopup="true">
                             <a href="{{ route($menu['route']) }}" class="menu-link">
@@ -19,8 +34,18 @@
                             </a>
                         </li>
                         @endcanany
-                   
+                        
+                    @endempty
+
+
+
+                
                 @else
+                    
+                    @php($list_permissisons = collect($menu['sub'])->pluck('permissions')->flatten())
+
+                    @canany($list_permissisons)
+                    
                     <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <i class="{{ $menu['icon'] ?? 'menu-bullet menu-bullet-dot' }}">
@@ -58,7 +83,12 @@
                             </ul>
                         </div>
                     </li>
-                @endif
+                    @endcanany
+
+
+
+
+                @endempty
 
             @endforeach
 

@@ -1,5 +1,7 @@
 <?php
 
+// use Illuminate\Auth\Access\Gate
+
 return [
     'name' => 'FileManagement',
 
@@ -8,8 +10,8 @@ return [
         [
             'name' => 'Document',
             'route' => 'fms.documents.index',
-            // 'permissions' => ['fms.document.*', 'fms.document.create', 'fms.document.edit'],
-            'permissions' => null,
+            'permissions' => ['fms.document.*', 'fms.document.create', 'fms.document.edit'],
+            // 'permissions' => null,
             'sub' => []
         ],
 
@@ -17,7 +19,8 @@ return [
             'name' => 'Track',
             'route' => 'fms.documents.track',
             'permissions' => [], 
-            'sub' => []
+            'sub' => [],
+            // 'icon' => 'fas fa-search'
         ],
 
         [
@@ -58,11 +61,25 @@ return [
             'route' => '#',
             'permissions' => [],
             'sub' => [
+
+                [
+                    'name'          => 'Inspection and Acceptance Report (IAR)',
+                    'route'         => 'fms.procurement.iar.index',
+                    'permissions'   => ['fms.oa.procurement.inspection'],
+                ],
+
                 [
                     'name'          => 'PR Consolidation',
                     'route'         => 'fms.procurement.consolidate.index',
                     'permissions'   => ['fms.oa.procurement.pr.consolidation'],
                 ],
+
+                [
+                    'name'          => 'Requisition and Issue Slip (RIS)',
+                    'route'         => 'fms.procurement.consolidate.index',
+                    'permissions'   => ['fms.oa.procurement.inspection'],
+                ],
+
             ]
         ],
 

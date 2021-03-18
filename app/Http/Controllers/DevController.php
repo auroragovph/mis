@@ -19,6 +19,18 @@ class DevController extends Controller
 {
     public function index()
     {
-        dd(config('filemanagement.menu'));
+
+        $menus = config('filemanagement.menu');
+
+        foreach($menus as $menu){
+
+            if(!empty($menu['sub'])){
+                $list_permissisons = collect($menu['sub'])->pluck('permissions')->flatten();
+
+                dd($list_permissisons);
+            }
+
+        }
+    
     }
 }

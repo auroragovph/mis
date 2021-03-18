@@ -83,7 +83,7 @@
             </tr>
             <tr>
                 <td colspan="3" class="bb">
-                    <h4 class="receipt-type text-center"> {{ strtoupper(doc_type_only($document->type)) }} </h4>
+                    <h4 class="receipt-type text-center"> {{ str_replace('<BR>', '', strtoupper(doc_type_only($document->type))) }} </h4>
                 </td>
             </tr>
         </table>

@@ -787,33 +787,6 @@ if (!function_exists('arrdif')) {
     }
 }
 
-
-
-if (!function_exists('amount_in_words')) {
-    /**
-     * Insert activity logs
-     * @param array
-     * @return object
-     */
-    function amount_in_words($amount, $currency = 'pesos')
-    {
-
-        $format = new NumberFormatter("en", NumberFormatter::SPELLOUT);
-        $words = $format->format($amount);
-
-        $check_centavos = strpos($words, 'point');
-
-
-        if ($check_centavos == false) {
-            return $words . " " . $currency;
-        }
-
-        $explode = explode('point', $words);
-
-        return $explode[0] . $currency . " and" . $explode[1] . " centavos";
-    }
-}
-
 if (!function_exists('convert_bytes')) {
     /**
      * Converto bytes in readable size
@@ -920,10 +893,6 @@ if (!function_exists('checkbox_svg')) {
         }
     }
 }
-
-
-
-
 
 
 

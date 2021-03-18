@@ -30,10 +30,15 @@ class PermissionRoleTableSeeder extends Seeder
             'fms.sa.number',
             'fms.sa.rr',
             'fms.sa.transmittal',
+
+            'fms.oa.procurement.pr.consolidation',
+            'fms.oa.procurement.inspection',
+
             'fms.document.*',
             'fms.document.create',
             'fms.document.edit',
             'fms.document.cancel',
+
 
             'fts.*',
             'fts.sa.*',

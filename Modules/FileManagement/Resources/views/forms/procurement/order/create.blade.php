@@ -151,6 +151,7 @@ Purchase Order
             <div id="kt_repeater_1">
                 <div class="form-group row">
                     <div data-repeater-list="lists" class="col-lg-12">
+                        @foreach($document->purchase_request->lists as $list)
                         <div data-repeater-item="" class="form-group row align-items-center">
                             <div class="col-md-3">
                                 <label>Stock Number:</label>
@@ -159,25 +160,25 @@ Purchase Order
                             </div>
                             <div class="col-md-3">
                                 <label>Unit:</label>
-                                <input type="text" name="unit" class="form-control"/>
+                                <input type="text" name="unit" class="form-control" value="{{ $list['unit'] ?? '' }}"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
 
                             <div class="col-md-3">
                                 <label>Quantity:</label>
-                                <input type="number" min="0" class="form-control" name="quantity"/>
+                                <input type="number" min="0" class="form-control" name="quantity" value="{{ $list['quantity'] ?? '' }}"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
 
                             <div class="col-md-3">
                                 <label>Item Cost:</label>
-                                <input type="number" step="0.01" name="amount" class="form-control"/>
+                                <input type="number" step="0.01" name="amount" class="form-control" value="{{ $list['amount'] ?? '' }}"/>
                                 <div class="d-md-none mb-2"></div>
                             </div>
 
                             <div class="col-md-12 mt-5">
                                 <label>Item Description:</label>
-                                <textarea name="description"  cols="30" rows="3" class="form-control"></textarea>
+                                <textarea name="description"  cols="30" rows="3" class="form-control">{{ $list['description'] ?? '' }}</textarea>
                                 <div class="d-md-none mb-2"></div>
                             </div>
                            
@@ -186,6 +187,7 @@ Purchase Order
                                 <i class="fal fa-times"></i></a>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="form-group row">

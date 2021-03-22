@@ -1,0 +1,18 @@
+{
+    "/js/Modules/FileManagement/pages/forms/afl/index.js": "/js/Modules/FileManagement/pages/forms/afl/index.js",
+    "/js/Modules/FileManagement/pages/forms/cafoa/create.js": "/js/Modules/FileManagement/pages/forms/cafoa/create.js",
+    "/js/Modules/FileManagement/pages/forms/cafoa/index.js": "/js/Modules/FileManagement/pages/forms/cafoa/index.js",
+    "/js/Modules/FileManagement/pages/forms/procurement/index.js": "/js/Modules/FileManagement/pages/forms/procurement/index.js",
+    "/js/Modules/FileManagement/pages/forms/procurement/order/create.js": "/js/Modules/FileManagement/pages/forms/procurement/order/create.js",
+    "/js/Modules/FileManagement/pages/forms/procurement/order/index.js": "/js/Modules/FileManagement/pages/forms/procurement/order/index.js",
+    "/js/Modules/FileManagement/pages/forms/procurement/request/create.js": "/js/Modules/FileManagement/pages/forms/procurement/request/create.js",
+    "/js/Modules/FileManagement/pages/forms/procurement/request/index.js": "/js/Modules/FileManagement/pages/forms/procurement/request/index.js",
+    "/js/Modules/FileManagement/pages/forms/travel-itinerary/create.js": "/js/Modules/FileManagement/pages/forms/travel-itinerary/create.js",
+    "/js/Modules/FileManagement/pages/forms/travel-itinerary/index.js": "/js/Modules/FileManagement/pages/forms/travel-itinerary/index.js",
+    "/js/Modules/FileManagement/pages/forms/travel-order/create.js": "/js/Modules/FileManagement/pages/forms/travel-order/create.js",
+    "/js/Modules/FileManagement/pages/forms/travel-order/index.js": "/js/Modules/FileManagement/pages/forms/travel-order/index.js",
+    "/css/Modules/System/app.css": "/css/Modules/System/app.css",
+    "/css/Modules/HumanResource/app.css": "/css/Modules/HumanResource/app.css",
+    "/css/Modules/FileManagement/paper.css": "/css/Modules/FileManagement/paper.css",
+    "/css/Modules/FileManagement/app.css": "/css/Modules/FileManagement/app.css"
+}

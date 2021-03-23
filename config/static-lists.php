@@ -35,4 +35,17 @@ return [
         8 => 'Paid',
     ],
 
+
+    'status' => [
+        ['name' => 'Cancelled',                 'color' => 'danger'],
+        ['name' => 'Waiting for Activation',    'color' => 'warning'],
+        ['name' => 'On Process',                'color' => 'primary'],
+        ['name' => 'Approved',                  'color' => 'success'],
+        ['name' => 'Disapproved',               'color' => 'danger'],
+        ['name' => 'Pending',                   'color' => 'warning'],
+        ['name' => 'Return',                    'color' => 'danger'],
+        ['name' => 'For Withdrawal',            'color' => 'success'],
+        ['name' => 'Paid',                      'color' => 'primary'],
+    ]
+
 ];

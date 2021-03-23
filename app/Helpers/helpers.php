@@ -30,6 +30,8 @@ if (!function_exists('employees')) {
     }
 }
 
+
+
 if (!function_exists('ucnames')) {
     /**
      * Convert names to strtolower then ucfirst
@@ -415,7 +417,7 @@ if (!function_exists('document_status')) {
 
             case 6:
                 $label = 'danger';
-                $status = 'Pending';
+                $status = 'Returned';
                 break;
 
             case 7:

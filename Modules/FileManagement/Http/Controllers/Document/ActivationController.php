@@ -25,17 +25,13 @@ class ActivationController extends Controller
     {
 
         $id = series($request->document);
-
         $document = FMS_Document::find($id);
 
         if($document == null || $request->document != $document->qr){
-            
-            $response['message'] = 'Document not found';
-
             // activity loger
             activitylog([
                 'name' => 'fms',
-                'log' => 'Submit activation for ID: '. $id. ' but failed. Reason: '.$response['message'], 
+                'log' => 'Submit activation for ID: '. $id. ' but failed. Reason: Document not found', 
                 'props' => [
                     'model' => [
                         'id' => $id,
@@ -44,7 +40,7 @@ class ActivationController extends Controller
                 ]
             ]);
 
-            return response()->json($response, 406);
+            return redirect()->back()->with('alert-error', 'Document not found');
         }
 
         if($document->status == '0'){
@@ -63,8 +59,7 @@ class ActivationController extends Controller
                 ]
             ]);
 
-
-            return response()->json($response, 406);
+            return redirect()->back()->with('alert-error', $response['message']);
         }
 
         if($document->status != '1'){
@@ -83,16 +78,15 @@ class ActivationController extends Controller
                 ]
             ]);
 
-
-            return response()->json($response, 406);
+            return redirect()->back()->with('alert-error', $response['message']);
         }
 
         // checking liaison
+        $liaison = HR_Employee::find_liaison($request->liaison);
 
-        $liaison = HR_Employee::where('card', employee_id_helper($request->liaison))->first();
         if($liaison == null){
 
-            $response['message'] = 'Liaison ID not found.';
+            $response['message'] = 'Liaison not found.';
 
             // activity loger
             activitylog([
@@ -105,28 +99,9 @@ class ActivationController extends Controller
                     ]
                 ]
             ]);
-
-
-            return response()->json($response, 406);
+            return redirect()->back()->with('alert-error', $response['message']);
         }
-        if($liaison->liaison == false){
 
-            $response['message'] = 'Employee is not a liaison officer!';
-
-            // activity loger
-            activitylog([
-                'name' => 'fms',
-                'log' => 'Submit activation for ID: '. $id. ' but failed. Reason: '.$response['message'], 
-                'props' => [
-                    'model' => [
-                        'id' => $id,
-                        'class' => FMS_Document::class
-                    ]
-                ]
-            ]);
-
-            return response()->json($response, 406);
-        }
 
         $document->status = '2';
         $document->save();
@@ -148,6 +123,6 @@ class ActivationController extends Controller
 
 
         $response['message'] = 'Document activated.';
-        return response()->json($response, 200);
+        return redirect()->back()->with('alert-success', 'Document has been activated');
     }
 }

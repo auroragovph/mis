@@ -14,7 +14,7 @@ class RRRequest extends FormRequest
     public function rules()
     {
 
-        if($this->header('x-rr-submit')){
+        if($this->method('PUT')){
 
             return [
                 'purpose' => 'required',

@@ -11,26 +11,17 @@ Document Activation
 @section('content')
 <div class="row">
     <div class="col-xl-12">
-        <div class="card card-custom gutter-b" id="card-box">
-           
-            <!--begin::Body-->
-            <div class="card-body">
-                <form id="kt_form" action="{{ route('fms.documents.activation.submit') }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="">Document ID</label>
-                        <input type="text" name="document" class="form-control" autofocus required>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Liaison QR</label>
-                        <input type="password" name="liaison" class="form-control" required>
-                    </div>
-                    <hr>
-                    <button class="btn btn-primary"><i class="flaticon2-magnifier-tool"></i> Search</button>
-                </form>
-            </div>
-            <!--end::Body-->
-        </div>
+        <x-ui.card >
+            <form action="{{ route('fms.documents.activation.submit') }}" method="POST">
+                @csrf
+
+                <x-ui.form.input label="Document ID" type="text" name="document" value="{{ old('document') }}" required autofocus />
+                <x-ui.form.input label="Liaison QR" type="password" name="liaison" required />
+
+                <hr>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+            </form>
+        </x-ui.card>
     </div>
 </div>
 @endsection

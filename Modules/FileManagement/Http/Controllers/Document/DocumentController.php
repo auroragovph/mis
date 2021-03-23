@@ -48,7 +48,7 @@ class DocumentController extends Controller
 
             // checking if the qr code match
             if(!$document || $document->qr != $request->get('qr')){
-                return redirect()->back()->with('alert-error', 'Document not found.');
+                return redirect(route('fms.documents.track'))->with('alert-error', 'Document not found.');
             }
 
             require base_path()."/Modules/FileManagement/Includes/SwitchDocument.php";

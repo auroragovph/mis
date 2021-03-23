@@ -20,14 +20,13 @@ class CancellationController extends Controller
         return view('filemanagement::documents.cancel');
     }
 
-    public function check(CancellationRequest $request)
+    public function form(CancellationRequest $request)
     {
         $id = series($request->post('document'));
 
         $document = FMS_Document::find($id);
 
         if(!$document || $document->qr != $request->post('document')){
-
             // activity loger
             activitylog([
                 'name' => 'fms',
@@ -38,42 +37,23 @@ class CancellationController extends Controller
                     ]
                 ]
             ]);
-
-
             return redirect()->back()->with('alert-error', 'Document not found.');
         }
 
         // activity loger
         activitylog([
             'name' => 'fms',
-            'log' => 'Check document for cancellation.',
-            'props' => [
-                'model' => [
-                    'id' => $id,
-                    'class' => FMS_Document::class
-                ]
-            ]
-        ]);
-
-        return redirect(route('fms.documents.cancel.form', $document->id));
-    }
-
-    public function form(FMS_Document $id)
-    {
-        // activity loger
-        activitylog([
-            'name' => 'fms',
             'log' => 'Request document cancellation form and checked.', 
             'props' => [
                 'model' => [
-                    'id' => $id->id,
+                    'id' => $document->id,
                     'class' => FMS_Document::class
                 ]
             ]
         ]);
 
 
-        return view('filemanagement::documents.cancel', ['document' => $id]);
+        return view('filemanagement::documents.cancel', ['document' => $document]);
     }
 
     public function submit(CancellationRequest $request, $id)

@@ -6,6 +6,7 @@
 
 /storage/*.key
 /vendor
+.vscode
 .env
 .env.backup
 .phpunit.result.cache

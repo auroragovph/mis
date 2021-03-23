@@ -15,7 +15,7 @@ class PRController extends Controller
     public function __construct()
     {
         // middlewares
-        $this->middleware('fms.document.check', ['only' => ['show', 'edit', 'update', 'print']]);
+        // $this->middleware('fms.document.check', ['only' => ['show', 'edit', 'update', 'print']]);
         $this->middleware(['permission:fms.document.create'], ['only' => ['create', 'store']]);
         $this->middleware(['permission:fms.document.edit'], ['only' => ['edit', 'update']]);
         // $this->middleware(['only.ajax'], ['only' => ['store', 'update']]);
@@ -91,11 +91,14 @@ class PRController extends Controller
         // setting session
         session()->flash('alert-success', 'Purchase request has been encoded.');
 
-        return response()->json([
-            'message' => "Purchase request has been encoded.",
-            'route' => route('fms.procurement.request.show', $pr->id)
-        ]);
+        if($request->ajax()){
+            return response()->json([
+                'message' => "Purchase request has been encoded.",
+                'route' => route('fms.procurement.request.show', $pr->id)
+            ]);
+        }
 
+        return redirect(route('fms.procurement.request.show', $pr->id));
     }
 
     public function show($id)

@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
 
             // PermissionRoleTableSeeder::class,
 
-            // AccountSeeder::class
+            AccountSeeder::class
         ]);
     }
 }

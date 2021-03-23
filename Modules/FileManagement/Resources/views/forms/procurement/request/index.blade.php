@@ -6,16 +6,9 @@ Purchase Request (PR)
 @endsection
 
 @section('toolbar')
-<!--begin::Toolbar-->
-<div class="d-flex align-items-center">
-    <!--begin::Button-->
-    <a href="{{ route('fms.procurement.request.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-        <i class="fal fa-plus"></i> New Purchase Request
-    </a>
-    <!--end::Button-->
-   
-</div>
-<!--end::Toolbar-->
+<a href="{{ route('fms.procurement.request.create') }}" class="btn btn-primary px-3 font-size-base">
+    <i class="fas fa-plus"></i> New Purchase Request
+</a>
 @endsection
 
 @section('content')
@@ -23,14 +16,15 @@ Purchase Request (PR)
 <div class="card card-custom">
     <div class="card-body">
         
-        <table id="fms_proc_pr_dt" class="table table-bordered table-striped" data-api="{{ route('fms.procurement.request.index') }}">
+        <table id="fms_proc_pr_dt" class="table table-bordered table-striped table-sm" data-api="{{ route('fms.procurement.request.index') }}">
             <thead>
                   <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
+                    <th>QR</th>
+                    <th>Number</th>
+                    <th>Office</th>
+                    <th>Particulars</th>
+                    <th>Amount</th>
+                    <th>Action</th>
                   </tr>
             </thead>
         </table>

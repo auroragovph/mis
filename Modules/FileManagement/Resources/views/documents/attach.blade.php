@@ -20,14 +20,9 @@ Document Attach
     <div class="col-xl-8">
         <!--begin::Advance Table Widget 5-->
         <div class="card card-custom gutter-b" id="card-box" data-card="true">
-            <!--begin::Header-->
-            <div class="card-header border-0 py-5">
-                <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label font-weight-bolder text-dark">Attachment Form</span>
-                    {{-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> --}}
-                </h3>
-            </div>
-            <!--end::Header-->
+
+            <x-ui.card.title title="Attachment Form" />
+
             <!--begin::Body-->
             <div class="card-body">
                 <form id="kt_form" action="{{ route('fms.documents.attach.attach', $document->id) }}">

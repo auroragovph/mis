@@ -13,13 +13,8 @@ Purchase Request
 
 <!--begin::Advance Table: Widget 7-->
 <div class="card card-custom gutter-b" id="card-box">
-    <!--begin::Header-->
-   <div class="card-header py-3">
-        <div class="card-title align-items-start flex-column">
-            <h5 class="card-label font-weight-bolder text-dark">Purchase Request Form</h5>
-        </div>
-    </div>
-    <!--end::Header-->
+
+    <x-ui.card.title title="Purchase Request Form" />
 
     <!--begin::Body-->
     <div class="card-body">
@@ -27,28 +22,17 @@ Purchase Request
             @csrf
             <div class="row">
                 <div class="col-md-6">
-                    <!--begin::Group-->
-                    <div class="form-group">
-                        <label>Fund</label>
-                        <input type="text" class="form-control" name="fund" required/>
-                    </div>
+                    <x-ui.form.input label="Fund" type="text" name="fund" value="{{ old('fund') }}" required />
                 </div>
                 <!--end::Group-->
                 <!--begin::Group-->
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label>FPP</label>
-                        <input type="text" class="form-control" name="fpp" required/>
-                        
-                    </div>
+                    <x-ui.form.input label="FPP" type="text" name="fpp" value="{{ old('fpp') }}" required />
                 </div>
                 <!--end::Group-->
                 <!--begin::Group-->
                 <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Purpose</label>
-                        <textarea name="purpose" cols="30" rows="3" class="form-control"></textarea>
-                    </div>
+                    <x-ui.form.text-area label="Purpose" name="purpose" value="{{ old('purpose') }}" required />
                 </div>
                 <!--end::Group-->
             </div>
@@ -60,32 +44,22 @@ Purchase Request
                     <div data-repeater-list="lists" class="col-lg-12">
                         <div data-repeater-item="" class="form-group row align-items-center">
                             <div class="col-md-3">
-                                <label>Stock Number:</label>
-                                <input type="text" name="stock" class="form-control" />
-                                <div class="d-md-none mb-2"></div>
+                                <x-ui.form.input label="Stock Number:" type="text" name="stock" />
                             </div>
                             <div class="col-md-3">
-                                <label>Unit:</label>
-                                <input type="text" name="unit" class="form-control"/>
-                                <div class="d-md-none mb-2"></div>
+                                <x-ui.form.input label="Unit:" type="text" name="unit" />
                             </div>
 
                             <div class="col-md-3">
-                                <label>Quantity:</label>
-                                <input type="number" min="0" class="form-control" name="quantity"/>
-                                <div class="d-md-none mb-2"></div>
+                                <x-ui.form.input label="Quantity:" type="number" name="quantity" min="0" />
                             </div>
 
                             <div class="col-md-3">
-                                <label>Item Cost:</label>
-                                <input type="number" step="0.01" name="amount" class="form-control"/>
-                                <div class="d-md-none mb-2"></div>
+                                <x-ui.form.input label="Item Cost:" type="number" name="amount" min="0" step="0.01" />
                             </div>
 
-                            <div class="col-md-12 mt-5">
-                                <label>Item Description:</label>
-                                <textarea name="description"  cols="30" rows="3" class="form-control"></textarea>
-                                <div class="d-md-none mb-2"></div>
+                            <div class="col-md-12 mt-2">
+                                <x-ui.form.text-area label="Item Description" name="description" required />
                             </div>
                            
                             <div class="col-md-1">
@@ -106,63 +80,49 @@ Purchase Request
             <hr>
 
             <h4>Signatories</h4>
-
-
             <div class="row">
                 <div class="col-md-4">
-                    <!--begin::Group-->
-                    <div class="form-group">
-                        <label>Requesting Officer</label>
-                        <select name="requesting" class="form-control select2" required>
-                            <option value=""></option>
-                            @foreach($employees->where('division_id', auth_division()) as $employee)
-                                <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                   
+
+                    <x-ui.form.select2 label="Requesting Officer" name="requesting" required >
+                        @foreach($employees->where('division_id', auth_division()) as $employee)
+                                <option {{ sh($employee->id, old('requesting')) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
+                        @endforeach
+                    </x-ui.form.select2> 
+
+
+
                 </div>
                 <!--end::Group-->
                 <!--begin::Group-->
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Treasury</label>
-                        <select name="treasury" class="form-control select2" required>
-                            <option value=""></option>
-
-                            @foreach($employees->where('division_id', config('constants.office.PTO')) as $employee)
-                                <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <x-ui.form.select2 label="Treasury" name="treasury" required >
+                        @foreach($employees->where('division_id', config('constants.office.PTO')) as $employee)
+                            <option {{ sh($employee->id, old('treasury')) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
+                        @endforeach
+                    </x-ui.form.select2> 
                 </div>
                 <!--end::Group-->
                 <!--begin::Group-->
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Approving Officer</label>
-                        <select name="approving" class="form-control select2" required>
-                            <option value=""></option>
 
-                            @foreach($employees->where('division_id', auth_division()) as $employee)
-                                <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <x-ui.form.select2 label="Approving Officer" name="approving" required >
+                        @foreach($employees->where('division_id', auth_division()) as $employee)
+                            <option {{ sh($employee->id, old('approving')) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
+                        @endforeach
+                    </x-ui.form.select2> 
+
                 </div>
                 <!--end::Group-->
             </div>
 
             <hr>
 
-            <div class="form-group">
-                <label>Liaison Officer</label>
-                <select name="liaison" class="form-control select2" required>
-                    <option value=""></option>
-                    @foreach($employees->where('division_id', auth()->user()->employee->division_id)->where('liaison', true) as $employee)
-                        <option value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
-                    @endforeach
-                </select>
-            </div>
+            <x-ui.form.select2 label="Liaison Officer" name="liaison" required >
+                @foreach($employees->where('division_id', auth()->user()->employee->division_id)->where('liaison', true) as $employee)
+                    <option {{ sh($employee->id, old('liaison')) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
+                @endforeach
+            </x-ui.form.select2> 
 
             <hr>
 
@@ -192,7 +152,6 @@ Purchase Request
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 
 {{-- Repeater --}}
-
 <script src="{{ asset('adminlte/plugins/repeater/repeater.js') }}"></script>
 @endsection
 

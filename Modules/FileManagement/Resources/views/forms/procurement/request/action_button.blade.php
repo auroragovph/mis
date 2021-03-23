@@ -1,65 +1,25 @@
+<div class="dropdown">
+    <button class="btn bg-navy dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Actions
+    </button>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 
-<!--begin::Dropdown-->
-<div class="dropdown dropdown-inline">
-    <a href="#" class="btn btn-light-dark btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       <i class="flaticon2-menu-2"></i> Actions
-    </a>
-    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right py-3 m-0">
-        <!--begin::Navigation-->
-        <ul class="navi navi-hover">
+        <h6 class="dropdown-header">Actions:</h6>
 
-            <li class="navi-header font-weight-bold py-4">
-                <span class="font-size-lg">Actions:</span>
-            </li>
+        @include('filemanagement::documents.general_action_button', ['button_doc_id' => $pr->document_id])
 
-            <li class="navi-separator mb-3 opacity-70"></li>
+        <div class="dropdown-divider"></div>
 
-            @include('filemanagement::documents.general_action_button', ['button_doc_id' => $pr->document_id])
+        <a class="dropdown-item" href="{{ route('fms.procurement.request.edit', $pr->id) }}">Edit Document</a>
+        <a class="dropdown-item" href="{{ route('fms.procurement.request.print', $pr->id) }}">Print Document</a>
 
-
-            <li class="navi-separator mb-3 opacity-70"></li>
-
-            <li class="navi-item">
-                <a href="{{ route('fms.procurement.request.edit', $pr->id) }}" class="navi-link">
-                    <span class="navi-text">
-                        <i class="flaticon2-contract"></i> Edit Document
-                    </span>
-                </a>
-            </li>
-            
+        @if($pr->document->purchase_order == null)
+            <a class="dropdown-item" href="{{ route('fms.procurement.order.create', ['document' => $pr->document_id]) }}">Convert into PO</a>     
+        @else 
+            <a class="dropdown-item" href="{{route('fms.procurement.order.show', $pr->document->purchase_order->id) }}">Show Purchase Order</a>
+        @endif
 
 
 
-            <li class="navi-item">
-                <a href="{{ route('fms.procurement.request.print', $pr->id) }}" class="navi-link">
-                    <span class="navi-text">
-                        <i class="flaticon2-printer"></i> Print Document
-                    </span>
-                </a>
-            </li>
-
-
-
-            @if($pr->document->purchase_order == null)
-            <li class="navi-item">
-                <a target="_new" href="{{ route('fms.procurement.order.create', ['document' => $pr->document_id]) }}" class="navi-link">
-                    <span class="navi-text">
-                        <i class="flaticon2-open-box"></i> Convert into PO
-                    </span>
-                </a>
-            </li>
-            @else 
-            <li class="navi-item">
-                <a target="_new" href="{{ route('fms.procurement.order.show', $pr->document->purchase_order->id) }}" class="navi-link">
-                    <span class="navi-text">
-                        <i class="flaticon-eye"></i> Show Purchase Order
-                    </span>
-                </a>
-            </li>
-            @endif
-
-        </ul>
-        <!--end::Navigation-->
     </div>
 </div>
-<!--end::Dropdown-->

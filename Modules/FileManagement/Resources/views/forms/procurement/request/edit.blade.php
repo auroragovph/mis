@@ -6,25 +6,15 @@ Purchase Request
 @endsection
 
 @section('toolbar')
- <!--begin::Button-->
- <a href="{{ route('fms.procurement.request.index') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-    <i class="fal fa-arrow-left"></i> Return back
-</a>
-<!--end::Button-->
+
 @endsection
 
 @section('content')
 
 <!--begin::Advance Table: Widget 7-->
 <div class="card card-custom gutter-b" id="card-box" data-card="true" >
-    <!--begin::Header-->
-   <div class="card-header py-3">
-        <div class="card-title align-items-start flex-column">
-            <h3 class="card-label font-weight-bolder text-dark">Purchase Request Update Form</h3>
-            <span class="text-muted font-weight-bold font-size-sm mt-1">Please fill up the form</span>
-        </div>
-    </div>
-    <!--end::Header-->
+  
+    <x-ui.card.title title="Purchase Request Update Form" />
 
     <!--begin::Body-->
     <div class="card-body">
@@ -65,7 +55,7 @@ Purchase Request
                 <!--end::Group-->
             </div>
            
-            <div class="separator separator-dashed mb-3"></div>
+            <hr>
 
             <div id="kt_repeater_1">
                 <div class="form-group row">
@@ -102,8 +92,8 @@ Purchase Request
                             </div>
                            
                             <div class="col-md-1">
-                                <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-light-danger mt-5">
-                                <i class="fal fa-times"></i></a>
+                                <a href="javascript:;" data-repeater-delete="" class="btn btn-sm font-weight-bolder btn-danger mt-5">
+                                <i class="fas fa-times"></i></a>
                             </div>
                         </div>
                         @endforeach
@@ -111,14 +101,13 @@ Purchase Request
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12">
-                        <a href="javascript:;" data-repeater-create="" class="btn btn-sm font-weight-bolder btn-light-primary">
-                        <i class="fal fa-plus"></i>Add New Row</a>
+                        <a href="javascript:;" data-repeater-create="" class="btn btn-sm btn-primary">
+                        <i class="fas fa-plus mr-1"></i>Add New Row</a>
                     </div>
                 </div>
             </div>
 
-            <div class="separator separator-dashed mb-5"></div>
-
+            <hr>
 
             <h4>Signatories</h4>
 
@@ -129,8 +118,8 @@ Purchase Request
                     <div class="form-group">
                         <label>Requesting Officer</label>
                         <select name="requesting" class="form-control select2" required>
+                            <option value=""></option>
                             @foreach($employees->where('division_id', auth_division()) as $employee)
-                                <option value=""></option>
                                 <option {{ sh($employee->id, $pr->requesting_id) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                             @endforeach
                         </select>
@@ -142,8 +131,8 @@ Purchase Request
                     <div class="form-group">
                         <label>Treasury</label>
                         <select name="treasury" class="form-control select2" required>
+                            <option value=""></option>
                             @foreach($employees->where('division_id', config('constants.office.PTO')) as $employee)
-                                <option value=""></option>
                                 <option {{ sh($employee->id, $pr->treasury_id) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                             @endforeach
                         </select>
@@ -155,8 +144,8 @@ Purchase Request
                     <div class="form-group">
                         <label>Approving Officer</label>
                         <select name="approving" class="form-control select2" required>
+                            <option value=""></option>
                             @foreach($employees->where('division_id', auth_division()) as $employee)
-                                <option value=""></option>
                                 <option {{ sh($employee->id, $pr->approving_id) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                             @endforeach
                         </select>
@@ -167,23 +156,20 @@ Purchase Request
 
 
 
-            <div class="separator separator-dashed mb-5"></div>
+            <hr>
 
             <div class="form-group">
                 <label>Liaison Officer</label>
                 <select name="liaison" class="form-control select2" required>
+                    <option value=""></option>
                     @foreach($employees->where('division_id', auth()->user()->employee->division_id)->where('liaison', true) as $employee)
-                        <option value=""></option>
                         <option {{ sh($employee->id, $pr->document->liaison_id) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
                     @endforeach
                 </select>
             </div>
 
-            <div class="separator separator-dashed mb-5"></div>
-
-
-            <button type="submit" class="btn btn-primary mt-5" name="submitButton">Save Changes</button>
-
+            <hr>
+            <button type="submit" class="btn btn-primary" name="submitButton">Submit</button>
         </form>
     </div>
 
@@ -195,6 +181,8 @@ Purchase Request
 
 
 @section('css-vendor')
+<!-- Select2 -->
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
 @endsection
 
 @section('css-custom')
@@ -202,6 +190,10 @@ Purchase Request
 
 
 @section('js-vendor')
+<!-- Select2 -->
+<script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Repeater -->
+<script src="{{ asset('adminlte/plugins/repeater/repeater.js') }}"></script>
 @endsection
 
 @section('js-custom')

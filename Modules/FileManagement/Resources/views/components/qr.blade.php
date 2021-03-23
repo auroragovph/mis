@@ -3,25 +3,24 @@
     <!--begin::Body-->
     <div class="card-body pt-15">
 
-        <!--begin::User-->
         <div class="text-center mb-10">
-            
-            <img class="w-50 h-50" src="data:image/svg+xml;base64, {{ qr_to_base64($document->qr) }} ">
+            <img class="w-25 h-25" src="data:image/png;base64, {{ qr_to_base64($document->qr) }} ">
+            <p class="">{{ $document->qr }}</p>
 
+            <h3 class="font-weight-bolder my-2 mt-3">{!! strtoupper(doc_type_only($document->type)) !!}</h3>
 
-            <p class="my-2 mt-3">{{ $document->qr }}</p>
-
-            <h2 class="font-weight-bolder my-2 mt-3">{!! strtoupper(doc_type_only($document->type)) !!}</h2>
-
-            <span class="label label-light-{{ document_status($document->status, 'label') }} label-inline font-weight-bold label-lg">{{ document_status($document->status) }}</span>
-
+            <span class="badge badge-{{ document_status($document->status, 'label') }} text-uppercase">
+                {{ document_status($document->status) }}
+            </span>
         </div>
-        <!--end::User-->
+
+        <hr>
+
+
 
         
         <!--begin::Contact-->
         <div class="py-9">
-
             <p class="font-weight-bold mr-2">
                 Requesting Office: <br>
                 <span class="text-muted font-weight-normal">{{ office_helper($document->division) }}</span>

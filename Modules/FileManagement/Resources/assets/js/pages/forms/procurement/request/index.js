@@ -15,12 +15,27 @@ var KTDTList = function() {
 			"autoWidth": false,
 			"ajax": _api,
 			"columns": [
-				{ "data": "name" },
-				{ "data": "position" },
-				{ "data": "office" },
-				{ "data": "extn" },
-				{ "data": "start_date" },
-				{ "data": "salary" }
+				{ data: "qr" },
+				{ data: "number" },
+				{ data: "office" },
+				{ data: "particulars" },
+				{ data: "amount" },
+				{ 
+					data: null,
+					orderable: false,
+					className: 'text-center',
+					render: function(data, type, row){
+						return `
+							<a target="_blank" href="${data.show}" class="text-primary" title="Show Document">
+								<i class="fas fa-eye"></i>
+							</a>
+							|
+							<a target="_blank" href="${data.edit}" class="text-warning" title="Edit Document">
+								<i class="fas fa-edit"></i>
+							</a>
+						`;
+					}
+				}
 			]
 		});
 

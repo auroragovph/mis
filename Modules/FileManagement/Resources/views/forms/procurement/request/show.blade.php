@@ -6,14 +6,7 @@ Purchase Request
 @endsection
 
 @section('toolbar')
- <!--begin::Button-->
- <a href="{{ route('fms.procurement.request.index') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base mr-2">
-    <i class="fal fa-arrow-left"></i> Return back
-</a>
-<!--end::Button-->
-
-@include('filemanagement::forms.procurement.request.action_button')
-
+    @include('filemanagement::forms.procurement.request.action_button')
 @endsection
 
 @section('content')
@@ -24,14 +17,9 @@ Purchase Request
     <div class="col-xl-8">
           <!--begin::Advance Table Widget 5-->
           <div class="card card-custom  gutter-b">
-            <!--begin::Header-->
-            <div class="card-header border-0 py-5">
-                <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label font-weight-bolder text-dark">Purchare Request Details</span>
-                    {{-- <span class="text-muted mt-3 font-weight-bold font-size-sm">More than 400+ new members</span> --}}
-                </h3>
-            </div>
-            <!--end::Header-->
+           
+            <x-ui.card.title title="Purchase Request Details" />
+            
             <!--begin::Body-->
             <div class="card-body py-0">
 
@@ -64,7 +52,7 @@ Purchase Request
                    </div>
     
                     <div class="table-responsive">
-                        <table class="table table-hover mt-10">
+                        <table class="table table-hover mt-10 table-sm">
                             <thead>
                                 <tr>
                                     <th>#</th>

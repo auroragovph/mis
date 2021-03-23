@@ -84,8 +84,8 @@ class RRController extends Controller
         }
 
         // converting LIAISON QR TO ID
-        $lid = employee_id_helper($request->liaison);
-        $liaison = HR_Employee::whereIdCard($lid)->first();
+        $liaison = HR_Employee::find_liaison($request->liaison);
+
 
         // checking if the liaison exists
         if($liaison == null){
@@ -104,23 +104,7 @@ class RRController extends Controller
 
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'The liaison officer not found.');
         }
-        if($liaison->liaison == false){
-
-            // activity loger
-            activitylog([
-                'name' => 'fms',
-                'log' => 'Request to receive or release the document but failed. Reason: Employee is not registered as liaison.', 
-                'props' => [
-                    'model' => [
-                        'id' => $id,
-                        'class' => FMS_Document::class
-                    ]
-                ]
-            ]);
-
-            return redirect(route('fms.documents.rr.index'))->with('alert-error', 'Employee is not registered as liaison.');
-        }
-
+       
 
         $track = FMS_Tracking::with('division.office')->where('document_id', $id)->orderBy('created_at', 'DESC')->first();
 
@@ -206,6 +190,8 @@ class RRController extends Controller
         // logging
         // FMS_DocumentLog::log($id, $acm);
 
-        return response()->json(['message' => $acm, 'route' => route('fms.documents.rr.index')]);
+        return redirect(route('fms.documents.rr.index'))->with('alert-success', $acm);
+
+        // return response()->json(['message' => $acm, 'route' => route('fms.documents.rr.index')]);
     }
 }

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\View\Components\Ui\Card;
+namespace App\View\Components\Ui;
 
 use Illuminate\View\Component;
 
-class Title extends Component
+class Card extends Component
 {
-
     public $title;
 
 
@@ -27,6 +26,6 @@ class Title extends Component
      */
     public function render()
     {
-        return view('components.ui.card.title');
+        return view('components.ui.card');
     }
 }

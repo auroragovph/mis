@@ -354,7 +354,9 @@ if (!function_exists('show_status')) {
     {
         $status = document_status($status);
         $color = document_status($status, 'label');
-        return "<span class=\"label label-light-{$color} label-inline font-weight-bold \">{$status}</span>";
+        return "<span class=\"badge badge-{$color}\">{$status}</span>";
+        // return "<span class=\"badge badge-danger\">New</span>";
+        // return "<span class=\"label label-light-{$color} label-inline font-weight-bold \">{$status}</span>";
     }
 }
 
@@ -379,54 +381,55 @@ if (!function_exists('document_status')) {
      */
     function document_status($status, $return = 'status')
     {
-        switch ($status) {
-            case '0':
+        switch ((int)$status) {
+            
+            case 0:
                 $label =  'danger';
                 $status = 'Cancelled';
                 break;
 
-            case '1':
+            case 1:
                 $label = 'warning';
                 $status = 'Wating for Activation';
                 break;
 
-            case '2':
+            case 2:
                 $label = 'primary';
                 $status = 'On Process';
                 break;
 
-            case '3':
+            case 3:
                 $label = 'success';
                 $status = 'Approved';
                 break;
 
-            case '4':
+            case 4:
                 $label = 'danger';
                 $status = 'Disapproved';
                 break;
 
-            case '5':
+            case 5:
                 $label = 'warning';
                 $status = 'Pending';
                 break;
 
-            case '6':
+            case 6:
                 $label = 'danger';
                 $status = 'Pending';
                 break;
 
-            case '7':
+            case 7:
                 $label = 'success';
                 $status = 'For Withdrawal';
                 break;
 
-            case '8':
+            case 8:
                 $label = 'primary';
                 $status = 'Paid';
                 break;
 
             default:
-                $label = 'inverse';
+                $label = 'secondary';
                 $status = 'Undefined';
                 break;
         }

@@ -35,21 +35,20 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
             Route::get('/track',                [DocumentController::class, 'track'])       ->name('track');
     
             Route::group(['prefix' => 'cancel', 'middleware' => 'can:fms.document.cancel', 'as' => 'cancel.'], function(){
-                Route::get('/',                 [CancellationController::class, 'index'])   ->name('index');
-                Route::post('/',                [CancellationController::class, 'check'])   ->name('check');
-                Route::get('/{id}/cancel',      [CancellationController::class, 'form'])    ->name('form');
-                Route::post('/{id}/cancel',     [CancellationController::class, 'submit'])  ->name('submit');
+                Route::get('/',         [CancellationController::class, 'index'])   ->name('index');
+                Route::post('/',        [CancellationController::class, 'form'])    ->name('form');
+                Route::post('/{id}',    [CancellationController::class, 'submit'])  ->name('submit');
             });
     
             Route::group(['prefix' => 'activate', 'middleware' => 'can:fms.sa.activate', 'as' => 'activation.'], function(){
                 Route::get('/',                 [ActivationController::class, 'index'])     ->name('index');
-                Route::post('/',                [ActivationController::class, 'submit'])    ->name('submit')    ->middleware('only.ajax');
+                Route::post('/',                [ActivationController::class, 'submit'])    ->name('submit');
             });
     
             Route::group(['prefix' => 'receive-release', 'middleware' => 'can:fms.sa.rr', 'as' => 'rr.'], function(){
-                Route::get('/',                 [RRController::class, 'index'])             ->name('index');
-                Route::post('/',                [RRController::class, 'form'])              ->name('form');
-                Route::put('/',                 [RRController::class, 'submit'])            ->name('submit');
+                Route::get('/',     [RRController::class, 'index'])     ->name('index');
+                Route::post('/',    [RRController::class, 'form'])      ->name('form');
+                Route::put('/',     [RRController::class, 'submit'])    ->name('submit');
             });
     
             Route::group(['prefix' => 'attachments', 'middleware' => 'can:fms.sa.attach', 'as' => 'attach.'], function(){

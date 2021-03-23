@@ -9,8 +9,8 @@ Procurement
 <!--begin::Toolbar-->
 <div class="d-flex align-items-center">
     <!--begin::Button-->
-    <a href="{{ route('fms.procurement.request.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-        <i class="fal fa-plus"></i> New Purchase Request
+    <a href="{{ route('fms.procurement.request.create') }}" class="btn btn-primary btn-sm px-3 font-size-base">
+        <i class="fas fa-plus"></i> New Purchase Request
     </a>
     <!--end::Button-->
    
@@ -19,40 +19,29 @@ Procurement
 @endsection
 
 @section('content')
-<!--begin::Card-->
-<div class="card card-custom">
-    <div class="card-body">
-        <!--begin: Search Form-->
-        <!--begin::Search Form-->
-        <div class="mb-7">
-            <div class="row align-items-center">
-                <div class="col-lg-9 col-xl-8">
-                    <div class="row align-items-center">
-                        <div class="col-md-4 my-2 my-md-0">
-                            <div class="input-icon">
-                                <input type="text" class="form-control" placeholder="Search..." id="kt_datatable_search_query" />
-                                <span>
-                                    <i class="flaticon2-search-1 text-muted"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        <!--end::Search Form-->
-        <!--end: Search Form-->
-        <!--begin: Datatable-->
-        <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable_fms_procurement_list"></div>
-        <!--end: Datatable-->
-    </div>
-</div>
-<!--end::Card-->
+<x-ui.card>
+    <table id="fms_proc_dt" class="table table-bordered table-striped table-sm" data-api="{{ route('fms.procurement.index') }}">
+        <thead>
+              <tr>
+                <th>#</th>
+                <th>QR</th>
+                <th>Number</th>
+                <th>Type</th>
+                <th>Office</th>
+                <th>Particulars</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+        </thead>
+    </table>
+</x-ui.card>
 @endsection
 
-
 @section('css-vendor')
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endsection
 
 @section('css-custom')
@@ -60,10 +49,15 @@ Procurement
 
 
 @section('js-vendor')
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
 @endsection
 
 @section('js-custom')
 <script src="{{ asset('js/Modules/FileManagement/pages/forms/procurement/index.js') }}"></script>
 @endsection
-
-

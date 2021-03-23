@@ -241,7 +241,7 @@
             <br>
 
 
-            <img class="align-right" style="display: block; margin-right:50px" height="30" width="30" src="data:image/svg+xml;base64, {{ qr_to_base64($pr->document->qr) }} ">
+            <img class="align-right" style="display: block; margin-right:50px" height="30" width="30" src="data:image/png;base64, {{ qr_to_base64($pr->document->qr) }} ">
         <br><br>
             <p class="text-right" style="display: block; font-size:11px; margin-top:-1px; margin-right:40px;">
 

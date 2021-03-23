@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\HumanResource\Database\factories\EmployeeFactory;
+use Modules\HumanResource\Traits\Relationship\EmployeeRelationship;
 use Modules\System\Entities\Office\SYS_Division;
 
 class HR_Employee extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, EmployeeRelationship;
 
     protected $guarded = [];
     protected $table = 'hrm_employees';
@@ -50,18 +51,14 @@ class HR_Employee extends Model
         return $query->where('division_id', authenticated()->employee->division_id);
     }
 
-    public function division()
+    public static function find_liaison($card)
     {
-        return $this->belongsTo(SYS_Division::class, 'division_id', 'id');
+        $self = new static;
+        $liaison =  $self->where('card', employee_id_helper($card))->where('liaison', true)->first();
+        return ($liaison) ? $liaison : null;
     }
 
-    public function account()
-    {
-        return $this->hasOne(Account::class, 'employee_id', 'id');
-    }
+    
 
-    public function position()
-    {
-        return $this->belongsTo(HR_Plantilla::class, 'position_id', 'id');
-    }
+
 }

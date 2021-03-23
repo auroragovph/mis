@@ -19,28 +19,14 @@ Document Cancellation
     </div>
 
     <div class="col-xl-8">
-        <div class="card card-custom  gutter-b">
-            <!--begin::Header-->
-            <div class="card-header border-0 pt-5">
-                <h3 class="card-title align-items-start flex-column">
-                    <span class="card-label font-weight-bolder text-dark">Document Cancellation Form</span>
-                </h3>
-            </div>
-            <!--end::Header-->
-            <!--begin::Body-->
-            <div class="card-body">
-                <form action="{{ route('fms.documents.cancel.submit', $document->id) }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="">Reason for document cancellation</label>
-                        <textarea name="reason" cols="30" rows="3" class="form-control"></textarea>
-                    </div>
-                    <hr>
-                    <button class="btn btn-danger">Cancel this document</button>
-                </form>
-            </div>
-            <!--end::Body-->
-        </div>
+        <x-ui.card title="Document Cancellation Form">
+            <form action="{{ route('fms.documents.cancel.submit', $document->id) }}" method="POST">
+                @csrf
+                <x-ui.form.textarea label="Reason for document cancellation" name="reason"></x-ui.form.textarea>
+                <hr>
+                <button type="submit" class="btn btn-danger">Cancel this document</button>
+            </form>
+        </x-ui.card>
     </div>
 </div>
 @else 
@@ -50,7 +36,7 @@ Document Cancellation
            
             <!--begin::Body-->
             <div class="card-body">
-                <form action="{{ route('fms.documents.cancel.check') }}" method="POST">
+                <form action="{{ route('fms.documents.cancel.form') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="">Document ID</label>

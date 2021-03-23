@@ -13,6 +13,7 @@ var KTDTList = function() {
 			"responsive": true, 
 			"lengthChange": false, 
 			"autoWidth": false,
+			"stateSave": true,
 			"ajax": _api,
 			"columns": [
 				{ data: "qr" },
@@ -36,7 +37,16 @@ var KTDTList = function() {
 						`;
 					}
 				}
-			]
+			],
+			createdRow: function (row, data, dataIndex) {
+				if(data.status == "0"){
+					$(row).addClass('bg-red');
+				}
+
+				if(data.status == "1"){
+					$(row).addClass('bg-warning');
+				}
+			},
 		});
 
 	};

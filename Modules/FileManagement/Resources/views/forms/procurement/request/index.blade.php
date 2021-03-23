@@ -12,25 +12,20 @@ Purchase Request (PR)
 @endsection
 
 @section('content')
-<!--begin::Card-->
-<div class="card card-custom">
-    <div class="card-body">
-        
-        <table id="fms_proc_pr_dt" class="table table-bordered table-striped table-sm" data-api="{{ route('fms.procurement.request.index') }}">
-            <thead>
-                  <tr>
-                    <th>QR</th>
-                    <th>Number</th>
-                    <th>Office</th>
-                    <th>Particulars</th>
-                    <th>Amount</th>
-                    <th>Action</th>
-                  </tr>
-            </thead>
-        </table>
-    </div>
-</div>
-<!--end::Card-->
+<x-ui.card>
+    <table id="fms_proc_pr_dt" class="table table-bordered table-striped table-sm" data-api="{{ route('fms.procurement.request.index') }}">
+        <thead>
+              <tr>
+                <th>QR</th>
+                <th>Number</th>
+                <th>Office</th>
+                <th>Particulars</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+        </thead>
+    </table>
+</x-ui.card>
 @endsection
 
 @section('css-vendor')

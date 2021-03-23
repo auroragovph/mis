@@ -2,85 +2,53 @@
 // Class definition
 
 var KTDTList = function() {
-	// Private functions
 
-	// basic demo
-	var _demo = function() {
+	
+	var _dt = function() {
 
         var _token = $('meta[name=csrf-token]').attr('content');
+		var _api = $("#fms_proc_dt").data('api');
 
-		var datatable = $('#kt_datatable_fms_procurement_list').KTDatatable({
-			// datasource definition
-			data: {
-				type: 'remote',
-				source: {
-					read: {
-                        url: window.location.href,
-                        headers: {'X-CSRF-TOKEN': _token},
-                        method: 'GET',
-					},
-				},
-				pageSize: 10, // display 20 records per page
-				serverPaging: false,
-				serverFiltering: false,
-				serverSorting: false,
+		var datatable = $('#fms_proc_dt').DataTable({
+			"responsive": true, 
+			"lengthChange": false, 
+			"autoWidth": false,
+			"stateSave": true,
+			"ajax": _api,
+			"columns": [
+				{ data: "id" },
+				{ data: "qr" },
+				{ data: "number" },
+				{ data: "type" },
+				{ data: "office" },
+				{ data: "particulars" },
+				{ data: "amount" },
+				{ 
+					data: null,
+					orderable: false,
+					className: 'text-center',
+					render: function(data, type, row){
+						return `
+							<a target="_blank" href="${data.show}" class="text-primary" title="Show Document">
+								<i class="fas fa-eye"></i>
+							</a>
+							|
+							<a target="_blank" href="${data.edit}" class="text-warning" title="Edit Document">
+								<i class="fas fa-edit"></i>
+							</a>
+						`;
+					}
+				}
+			],
+			createdRow: function (row, data, dataIndex) {
+				if(data.status == "0"){
+					$(row).addClass('bg-red');
+				}
+
+				if(data.status == "1"){
+					$(row).addClass('bg-warning');
+				}
 			},
-
-			// layout definition
-			layout: {
-				scroll: false, // enable/disable datatable scroll both horizontal and vertical when needed.
-				footer: false, // display/hide footer
-			},
-
-			// column sorting
-			sortable: true,
-
-			pagination: true,
-
-			search: {
-                input: $('#kt_datatable_search_query'),
-                key: 'generalSearch'
-            },
-
-			// columns definition
-			columns: [
-				{
-					field: 'encoded',
-					title: 'Encoded Date'
-				},{
-					field: 'qr',
-					title: 'QR'
-				},{
-					field: 'number',
-					title: 'Number'
-				},{
-					field: 'office',
-					title: 'Requesting Office'
-				},{
-					field: 'particulars',
-					title: 'Particulars'
-				},{
-					field: 'amount',
-					title: 'Amount'
-				},{
-					field: 'type',
-					title: 'Type'
-				}, {
-					field: 'Actions',
-					title: 'Actions',
-					sortable: false,
-					width: 130,
-					overflow: 'visible',
-					autoHide: false,
-					template: function(row) {
-                        return `
-                            <a href="${row.show}" class="btn btn-icon btn-light-primary btn-sm mr-2" title="Show">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            
-	                    `;
-					},
-				}],
 		});
 
 	};
@@ -88,7 +56,7 @@ var KTDTList = function() {
 	return {
 		// public functions
 		init: function() {
-			_demo();
+			_dt();
 		},
 	};
 }();

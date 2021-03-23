@@ -171,17 +171,19 @@ class PRController extends Controller
         ]);
 
         // setting session
-        session()->flash('alert-success', 'Purchase request has been updated.');
+        // session()->flash('alert-success', 'Purchase request has been updated.');
 
         // activity loger
         activitylog(['name' => 'fms', 'log' => 'Update purchase request.', 'props' => [
             'edit' => ['model' => FMS_PR::class,'id' => $pr->id]
         ]]);
 
-        return response()->json([
-            'message' => "Purchase request has been updated.",
-            'route' => route('fms.procurement.request.show', $pr->id)
-        ]);
+        return redirect(route('fms.procurement.request.show', $pr->id))->with('alert-success', "Purchase request has been updated.");
+
+        // return response()->json([
+        //     'message' => "Purchase request has been updated.",
+        //     'route' => route('fms.procurement.request.show', $pr->id)
+        // ]);
 
     }
 

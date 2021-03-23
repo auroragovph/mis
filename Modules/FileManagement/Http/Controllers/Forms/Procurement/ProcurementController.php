@@ -71,7 +71,7 @@ class ProcurementController extends Controller
                 ]);
             }
 
-            return response()->json($lists);
+            return response()->json(["data" => $lists]);
         }
 
         return view('filemanagement::forms.procurement.index');

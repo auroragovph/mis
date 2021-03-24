@@ -12,11 +12,11 @@ Purchase Request
 @section('content')
 <div class="row">
     
-    <div class="col-xl-4">
+    <div class="col-xl-3">
         <x-fms-qr :document="$pr->document" />
     </div>
 
-    <div class="col-xl-8">
+    <div class="col-xl-9">
 
         <x-ui.card title="Purchase Request Detail">
 

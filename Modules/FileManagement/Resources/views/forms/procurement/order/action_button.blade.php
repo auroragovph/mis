@@ -1,77 +1,36 @@
-<!--begin::Dropdown-->
-<div class="dropdown dropdown-inline">
-    <a href="#" class="btn btn-light-dark btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       <i class="flaticon2-menu-2"></i> Actions
-    </a>
-    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right py-3 m-0">
-        <!--begin::Navigation-->
-        <ul class="navi navi-hover">
+<div class="dropdown">
+    <button class="btn bg-navy dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Actions
+    </button>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
 
-            <li class="navi-header font-weight-bold py-4">
-                <span class="font-size-lg">Actions:</span>
-            </li>
+        <h6 class="dropdown-header">Actions:</h6>
 
-            <li class="navi-separator mb-3 opacity-70"></li>
+        @include('filemanagement::documents.general_action_button', [
+            'button_doc_id' => $po->document_id,
+            'qr' => $po->document->qr
+        ])
 
-            @include('filemanagement::documents.general_action_button', ['button_doc_id' => $po->document_id])
+        <div class="dropdown-divider"></div>
 
-            <li class="navi-separator mb-3 opacity-70"></li>
+        <a class="dropdown-item" href="{{ route('fms.procurement.order.edit', $po->id) }}">Edit Document</a>
+        <a class="dropdown-item" href="{{ route('fms.procurement.order.print', $po->id) }}">Print Document</a>
 
+        <a class="dropdown-item" href="{{route('fms.procurement.request.show', $po->document->purchase_request->id) }}">Show Purchase Request</a>
 
+        <div class="dropdown-divider"></div>
 
-            <li class="navi-item">
-                <a href="{{ route('fms.procurement.order.edit', $po->id) }}" class="navi-link">
-                    <span class="navi-text">
-                        <i class="flaticon2-contract"></i> Edit Document
-                    </span>
-                </a>
-            </li>
+        @if($po->document->type == config('constants.document.type.procurement.order'))
+            <a class="dropdown-item" href="{{ route('fms.procurement.cafoa.create', [
+                'document' => $po->document_id
+            ]) }}">Attach CAFOA</a>
+        @endif
 
-            <li class="navi-item">
-                <a href="{{ route('fms.procurement.order.print', $po->id) }}" class="navi-link">
-                    <span class="navi-text">
-                        <i class="flaticon2-printer"></i> Print Document
-                    </span>
-                </a>
-            </li>
-
-            <li class="navi-separator mb-3 opacity-70"></li>
-
-            @if($po->document->type == config('constants.document.type.procurement.order'))
-
-            <li class="navi-item">
-                <a href="{{ route('fms.procurement.cafoa.create', $po->document_id) }}" class="navi-link">
-                    <span class="navi-text">
-                        <i class="flaticon2-clip-symbol"></i> Attach CAFOA
-                    </span>
-                </a>
-            </li>
-
-            @endif
-
-            @if($po->document->type == config('constants.document.type.procurement.cafoa'))
-
-            <li class="navi-item">
-                <a target="_new" href="{{ route('fms.procurement.cafoa.show', $po->document->cafoa->id) }}" class="navi-link">
-                    <span class="navi-text">
-                        <i class="flaticon-eye"></i> Show CAFOA
-                    </span>
-                </a>
-            </li>
-
-            @endif
+        @if($po->document->type == config('constants.document.type.procurement.cafoa'))
+            <a class="dropdown-item" target="_new" href="{{ route('fms.procurement.cafoa.show', $po->document->cafoa->id) }}">Show CAFOA</a>
+        @endif
 
 
-            <li class="navi-item">
-                <a target="_new" href="{{ route('fms.procurement.request.show', $po->document->purchase_request->id) }}" class="navi-link">
-                    <span class="navi-text">
-                        <i class="flaticon-eye"></i> Show Purchase Request
-                    </span>
-                </a>
-            </li>
 
-        </ul>
-        <!--end::Navigation-->
     </div>
 </div>
-<!--end::Dropdown-->

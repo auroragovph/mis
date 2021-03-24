@@ -1,7 +1,7 @@
 <x-ui.card>
 
     <div class="text-center mb-10">
-        <img class="w-25 h-25" src="data:image/png;base64, {{ qr_to_base64($document->qr) }} ">
+        <img class="w-25 h-25" src="data:image/svg+xml;base64, {{ qr_to_base64($document->qr) }} ">
         <p class="">{{ $document->qr }}</p>
 
         <h3 class="font-weight-bolder my-2 mt-3">{!! strtoupper(doc_type_only($document->type)) !!}</h3>

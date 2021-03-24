@@ -121,9 +121,11 @@ class AttachmentController extends Controller
             ]
         ]);
 
-        return response()->json([
-            'message' => 'Attachment success'
-        ]);
+        return redirect()->back()->with('alert-success', 'Attachment success');
+
+        // return response()->json([
+        //     'message' => 'Attachment success'
+        // ]);
     }
 
     public function file($file)

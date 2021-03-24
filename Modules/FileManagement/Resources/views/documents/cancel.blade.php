@@ -22,7 +22,7 @@ Document Cancellation
         <x-ui.card title="Document Cancellation Form">
             <form action="{{ route('fms.documents.cancel.submit', $document->id) }}" method="POST">
                 @csrf
-                <x-ui.form.textarea label="Reason for document cancellation" name="reason"></x-ui.form.textarea>
+                <x-ui.form.text-area label="Reason for document cancellation" name="reason"></x-ui.form.text-area>
                 <hr>
                 <button type="submit" class="btn btn-danger">Cancel this document</button>
             </form>

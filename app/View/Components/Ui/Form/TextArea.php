@@ -14,9 +14,9 @@ class TextArea extends Component
      * @return void
      */
     public function __construct(
-        $label = '',
-        $class = null, 
         $name, 
+        $label = '',
+        $class = null,
         $value = null, 
         $required = false, 
         $size = [10,2]

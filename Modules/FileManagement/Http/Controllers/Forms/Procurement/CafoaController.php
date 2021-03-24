@@ -22,7 +22,7 @@ class CafoaController extends Controller
             })->get();
 
             $datas = CafoaDTResource::collection($model);
-            return response()->json($datas);
+            return response()->json(["data" => $datas]);
         }
 
         activitylog(['name' => 'fms', 'log' => 'Request cafoa list']);
@@ -30,8 +30,10 @@ class CafoaController extends Controller
         return view('filemanagement::forms.procurement.cafoa.index');
     }
 
-    public function create($id)
+    public function create(Request $request)
     {
+        $id = $request->get('document');
+
         $document = FMS_Document::with('purchase_order')
             ->where('type', config('constants.document.type.procurement.order'))
             ->findOrFail($id);
@@ -55,8 +57,10 @@ class CafoaController extends Controller
         ]);
     }
 
-    public function store(CafoaStoreRequest $request, $id)
+    public function store(CafoaStoreRequest $request)
     {
+        $id = $request->post('document');
+        
         // storing document
         $document = FMS_Document::find($id);
         $document->type = config('constants.document.type.procurement.cafoa');
@@ -74,7 +78,7 @@ class CafoaController extends Controller
         ]);
 
         // setting session
-        session()->flash('alert-success', 'Cafoa has been encoded.');
+        // session()->flash('alert-success', 'Cafoa has been encoded.');
 
         // activity loger
         activitylog([
@@ -88,10 +92,12 @@ class CafoaController extends Controller
             ]
         ]);
 
-        return response()->json([
-            'message' => "CAFOA has been encoded.",
-            'route' => route('fms.procurement.cafoa.show', $cafoa->id)
-        ]);
+        return redirect(route('fms.procurement.cafoa.show'))->with('alert-success', 'CAFOA has been encoded.');
+
+        // return response()->json([
+        //     'message' => "CAFOA has been encoded.",
+        //     'route' => route('fms.procurement.cafoa.show', $cafoa->id)
+        // ]);
     }
 
     public function show($id)

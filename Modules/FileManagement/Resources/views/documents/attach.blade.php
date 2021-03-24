@@ -20,12 +20,10 @@ Document Attach
     <div class="col-xl-8">
 
         <x-ui.card title="Attachment Form">
-            <form id="kt_form" action="{{ route('fms.documents.attach.attach', $document->id) }}">
-
+            <form method="POST" action="{{ route('fms.documents.attach.attach', $document->id) }}">
+                @csrf
                 <x-ui.form.input label="Name" type="text" name="name" value="{{ old('name') }}" required />
                 <x-ui.form.input label="File" type="file" name="file" />
-
-
           
                 <div class="row">
                     <div class="col-md-6">
@@ -46,7 +44,7 @@ Document Attach
             
                 <hr>
             
-                <button href="#" class="btn btn-primary btn-shadow font-weight-bold mr-2">Attach</button>
+                <button type="submit" class="btn btn-primary btn-shadow font-weight-bold mr-2">Attach</button>
 
             </form>
         </x-ui.card>

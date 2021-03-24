@@ -23,7 +23,7 @@ class POController extends Controller
             })->get();
 
             $datas = OrderDTResource::collection($model);
-            return response()->json($datas);
+            return response()->json(["data" => $datas]);
         }
 
         // activity loger
@@ -96,7 +96,7 @@ class POController extends Controller
         ]);
 
         // setting session
-        session()->flash('alert-success', 'Purchase order has been encoded.');
+        // session()->flash('alert-success', 'Purchase order has been encoded.');
 
         // adding attachmeent
         // FMS_DocumentAttach::create([
@@ -106,10 +106,12 @@ class POController extends Controller
         //     'url'   => json_encode(array('fms.procurement.order.show', $po->id))
         // ]);
 
-        return response()->json([
-            'message' => "Purchase order has been encoded.",
-            'route' => route('fms.procurement.order.show', $po->id)
-        ]);
+        return redirect(route('fms.procurement.order.show', $po->id))->with('alert-success', "Purchase order has been encoded.");
+
+        // return response()->json([
+        //     'message' => "Purchase order has been encoded.",
+        //     'route' => route('fms.procurement.order.show', $po->id)
+        // ]);
 
 
     }
@@ -170,10 +172,13 @@ class POController extends Controller
                                         )
         ]);
 
-        return response()->json([
-            'message' => "Purchase order has been updated.",
-            'route' => route('fms.procurement.order.show', $po->id)
-        ]);
+        return redirect(route('fms.procurement.order.show', $po->id))->with('alert-success', "Purchase order has been updated.");
+
+
+        // return response()->json([
+        //     'message' => "Purchase order has been updated.",
+        //     'route' => route('fms.procurement.order.show', $po->id)
+        // ]);
 
     }
 

@@ -24,6 +24,7 @@ class CafoaStoreRequest extends FormRequest
             'accountant'        => "required|exists:{$hrtable},id",
             'lists'             => "required|array",
             'liaison'           => [
+                                    'sometimes',
                                     'required',
                                     Rule::exists($hrtable, 'id')->where('liaison', 1)
                                     ]

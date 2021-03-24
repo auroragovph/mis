@@ -32,10 +32,6 @@ var KTDTList = function() {
 							<a target="_blank" href="${data.show}" class="text-primary" title="Show Document">
 								<i class="fas fa-eye"></i>
 							</a>
-							|
-							<a target="_blank" href="${data.edit}" class="text-warning" title="Edit Document">
-								<i class="fas fa-edit"></i>
-							</a>
 						`;
 					}
 				}

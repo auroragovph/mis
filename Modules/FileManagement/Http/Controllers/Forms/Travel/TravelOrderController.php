@@ -14,6 +14,7 @@ use Modules\FileManagement\Http\Requests\Forms\TravelOrder\UpdateRequest;
 use Modules\FileManagement\Transformers\Forms\Travel\TravelOrderDTResource;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
+use Modules\System\Entities\Office\SYS_Office;
 
 class TravelOrderController extends Controller
 {
@@ -21,7 +22,7 @@ class TravelOrderController extends Controller
     {
         if($request->ajax()){
             $datas = TravelOrderDTResource::collection(FMS_TO::with('lists.employee', 'document')->get());
-            return response()->json($datas);
+            return response()->json(["data" => $datas]);
         }
 
         activitylog(['name' => 'fms', 'log' => 'Request travel order list']);
@@ -33,7 +34,13 @@ class TravelOrderController extends Controller
     {
         activitylog(['name' => 'fms', 'log' => 'Request travel order form']);
 
-        return view('filemanagement::forms.travel.order.create');
+        $divisions = SYS_Division::with('office')->get();
+        $employees = HR_Employee::with('position')->get();
+
+        return view('filemanagement::forms.travel.order.create', [
+            'divisions' => $divisions,
+            'employees' => $employees
+        ]);
     }
 
     public function store(StoreRequest $request)
@@ -75,6 +82,8 @@ class TravelOrderController extends Controller
             ]
         ]);
 
+        return redirect(route('fms.travel.order.show', $to->id));
+
         return response()->json([
             'message' => "Travel Order has been encoded.",
             'route' => route('fms.travel.order.show', $to->id)
@@ -104,8 +113,9 @@ class TravelOrderController extends Controller
     public function edit($id)
     {
         $to = FMS_TO::with('document', 'lists')->findOrFail($id);
-        $employees = HR_Employee::with('position')->onlyDivision()->get();
+
         $divisions = SYS_Division::with('office')->get();
+        $employees = HR_Employee::with('position')->get();
 
         // activity loger
         activitylog([
@@ -169,6 +179,9 @@ class TravelOrderController extends Controller
                 ]
             ]
         ]);
+
+        return redirect(route('fms.travel.order.show', $to->id));
+
 
         return response()->json([
             'message' => "Travel Order has been updated.",

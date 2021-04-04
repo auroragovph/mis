@@ -16,7 +16,6 @@ Purchase Order
         <h5>Supplier</h5>
         <hr>
 
-
         <div class="row">
             <div class="col-md-6">
                 <x-ui.form.input label="Firm / Business Name" name="supplier_firm" required />
@@ -28,7 +27,7 @@ Purchase Order
             </div>
             <!--end::Group-->
         </div>
-
+    
         <div class="row">
             <div class="col-md-6">
                 <x-ui.form.input label="Address" name="supplier_address" required />
@@ -72,7 +71,7 @@ Purchase Order
 
         <h5>Order</h5>
         <hr>
-
+    
         <div class="row">
             <div class="col-md-6">
                 <x-ui.form.input label="Place of Delivery" name="delivery_place" required />
@@ -84,7 +83,7 @@ Purchase Order
             </div>
             <!--end::Group-->
         </div>
-
+    
         <div class="row">
             <div class="col-md-6">
                 <x-ui.form.input label="Delivery Term" name="delivery_term" required />
@@ -104,25 +103,25 @@ Purchase Order
                 <div data-repeater-list="lists" class="col-lg-12">
                     @foreach($document->purchase_request->lists as $list)
                     <div data-repeater-item="" class="form-group row align-items-center">
-
+    
                         <div class="col-md-3">
                             <x-ui.form.input label="Stock Number:" name="stock" />
                         </div>
-
+    
                         <div class="col-md-3">
                             <x-ui.form.input label="Unit:" name="unit" :value="$list['unit'] ?? ''" />
                         </div>
-
+    
                         <div class="col-md-3">
                             <x-ui.form.input label="Quantity:" type="number" name="quantity" :value="$list['quantity'] ?? ''" />
                         </div>
-
+    
                         <div class="col-md-3">
                             <x-ui.form.input label="Item Cost:" type="number" name="amount" :value="$list['amount'] ?? ''" />
                         </div>
-
+    
                         <div class="col-md-12">
-                            <x-ui.form.text-area label="Item Description:" name="amount" :value="$list['description'] ?? ''" />
+                            <x-ui.form.text-area label="Item Description:" name="description" :value="$list['description'] ?? ''" />
                         </div>
                        
                         <div class="col-md-1">
@@ -143,6 +142,7 @@ Purchase Order
 
         <hr>
 
+        
         <div class="row">
             <div class="col-md-12">
 
@@ -160,21 +160,12 @@ Purchase Order
 
         <div class="row">
             <div class="col-md-12">
-                <x-ui.form.text-area name="particulars" label="Particulars" :value="" />
-                <!--begin::Group-->
-                <div class="form-group">
-                    <label>Particulars</label>
-                    <textarea name="particulars" cols="30" rows="3" class="form-control">{{ $document->purchase_request->purpose ?? '' }}</textarea>
-                </div>
+                <x-ui.form.text-area name="particulars" label="Particulars" :value="$document->purchase_request->purpose" />
             </div>
             <!--end::Group-->
         </div>
-
         <hr>
-
-
         <button type="submit" class="btn btn-primary" name="submitButton">Submit</button>
-
     </form>
 </x-ui.card>
 @endsection

@@ -11,7 +11,7 @@ CAFOA for Procurement
 
 @section('content')
 <x-ui.card>
-    <table id="kt_datatable_fms_cafoa_list" class="table table-bordered table-striped table-sm" data-api="{{ route('fms.procurement.cafoa.index') }}">
+    <table id="kt_datatable_fms_cafoa_list" class="table table-bordered table-striped table-sm">
         <thead>
               <tr>
                 <th>QR</th>

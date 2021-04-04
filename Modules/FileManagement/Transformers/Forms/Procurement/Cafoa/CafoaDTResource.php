@@ -28,8 +28,8 @@ class CafoaDTResource extends JsonResource
 
             'status' => show_status($this->document->status),
 
-            'show' => route('fms.cafoa.show', $this->id),
-            'edit' => route('fms.cafoa.edit', $this->id)
+            'show' => route('fms.procurement.cafoa.show', $this->id),
+            'edit' => route('fms.procurement.cafoa.edit', $this->id)
         ];
     }
 }

@@ -7,14 +7,14 @@
         <h6 class="dropdown-header">Actions:</h6>
 
         @include('filemanagement::documents.general_action_button', [
-            'button_doc_id' => $cafoa->document_id,
-            'qr' => $cafoa->document->qr
+            'button_doc_id' => $to->document_id,
+            'qr' => $to->document->qr
         ])
 
         <div class="dropdown-divider"></div>
 
-        <a class="dropdown-item" href="{{ route('fms.procurement.cafoa.edit', $cafoa->id) }}">Edit Document</a>
-        <a class="dropdown-item" href="{{ route('fms.cafoa.print', $cafoa->id) }}">Print Document</a>
+        <a class="dropdown-item" href="{{ route('fms.travel.order.edit', $to->id) }}">Edit Document</a>
+        <a class="dropdown-item" href="{{ route('fms.travel.order.print', $to->id) }}">Print Document</a>
 
         
 

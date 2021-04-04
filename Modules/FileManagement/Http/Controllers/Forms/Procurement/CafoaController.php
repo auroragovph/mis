@@ -92,7 +92,7 @@ class CafoaController extends Controller
             ]
         ]);
 
-        return redirect(route('fms.procurement.cafoa.show'))->with('alert-success', 'CAFOA has been encoded.');
+        return redirect(route('fms.procurement.cafoa.show', $cafoa->id))->with('alert-success', 'CAFOA has been encoded.');
 
         // return response()->json([
         //     'message' => "CAFOA has been encoded.",

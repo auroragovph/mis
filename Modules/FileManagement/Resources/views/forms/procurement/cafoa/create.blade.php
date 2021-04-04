@@ -53,7 +53,7 @@ CAFOA (For Procurement)
                         </div>
 
                         <div class="col-md-3">
-                            <x-ui.form.input type="number" label="Amount:" name="amount" value="{{ $amount ?? 0 }}" />
+                            <x-ui.form.input step="0.01" type="number" label="Amount:" name="amount" value="{{ $amount ?? 0 }}" />
                         </div>
                        
                         <div class="col-md-1 text-center my-auto">

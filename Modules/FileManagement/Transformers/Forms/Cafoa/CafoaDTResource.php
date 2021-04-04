@@ -20,11 +20,14 @@ class CafoaDTResource extends JsonResource
             'qr' => $this->document->qr,
             'number' => $this->number,
             'payee' => $this->payee,
+            'office' => office_helper($this->document->division),
+            'particulars' => '',
             'amount' => number_format(floatval(collect($this->lists)->sum(function($row){
                 return floatval($row['amount'] ?? 0);
             })), 2),
 
-            'status' => $this->document->status,
+            'status' => show_status($this->document->status),
+
             'show' => route('fms.cafoa.show', $this->id),
             'edit' => route('fms.cafoa.edit', $this->id)
         ];

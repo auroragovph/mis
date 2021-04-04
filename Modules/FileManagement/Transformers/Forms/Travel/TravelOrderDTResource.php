@@ -36,6 +36,7 @@ class TravelOrderDTResource extends JsonResource
             'number' => $this->number,
             'employees' => $employees,
             'destination' => $this->destination,
+            'purpose' => $this->purpose,
             'departure' => $this->departure,
             'status' => $this->document->status,
             'show' => route('fms.travel.order.show', $this->id),

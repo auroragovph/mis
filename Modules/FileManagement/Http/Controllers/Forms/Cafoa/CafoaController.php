@@ -22,7 +22,7 @@ class CafoaController extends Controller
             })->get();
 
             $datas = CafoaDTResource::collection($model);
-            return response()->json($datas);
+            return response()->json(["data" => $datas]);
         }
 
         activitylog(['name' => 'fms', 'log' => 'Request cafoa list']);
@@ -101,7 +101,7 @@ class CafoaController extends Controller
         ]);
 
          // setting session
-         session()->flash('alert-success', 'Cafoa has been encoded.');
+         session()->flash('alert-success', 'CAFOA has been encoded.');
 
         // activity loger
         activitylog([
@@ -115,10 +115,13 @@ class CafoaController extends Controller
             ]
         ]);
 
-         return response()->json([
-             'message' => "CAFOA has been encoded.",
-             'route' => route('fms.cafoa.show', $cafoa->id)
-         ]);
+        return redirect(route('fms.cafoa.show', $cafoa->id));
+
+
+        //  return response()->json([
+        //      'message' => "CAFOA has been encoded.",
+        //      'route' => route('fms.cafoa.show', $cafoa->id)
+        //  ]);
 
         
     }
@@ -186,10 +189,13 @@ class CafoaController extends Controller
             ]
         ]);
 
-         return response()->json([
-             'message' => "CAFOA has been updated.",
-             'route' => route('fms.cafoa.show', $cafoa->id)
-         ]);
+        return redirect(route('fms.cafoa.show', $cafoa->id));
+
+
+        //  return response()->json([
+        //      'message' => "CAFOA has been updated.",
+        //      'route' => route('fms.cafoa.show', $cafoa->id)
+        //  ]);
 
     }
 

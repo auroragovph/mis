@@ -66,66 +66,71 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
             });
     });
 
-    Route::group(['prefix' => 'procurement', 'as' => 'procurement.'],function(){
+    Route::group(['prefix' => 'forms'], function(){
 
-        Route::get('/',                         [ProcurementController::class, 'index'])    ->name('index');
+        Route::group(['prefix' => 'procurement', 'as' => 'procurement.'],function(){
 
-        Route::group(['prefix' => 'request', 'as' => 'request.'], function(){
-            Route::resource('/',                PRController::class)                ->except(['destroy'])    ->parameters(['' => 'id']);
-            Route::get('/{id}/print',           [PRController::class, 'print'])     ->name('print');
-        });
-
-        Route::group(['prefix' => 'order', 'as' => 'order.'], function(){
-            Route::resource('/',        POController::class)                ->except(['destroy'])       ->parameters(['' => 'id']);
-            Route::get('/{id}/print',  [POController::class, 'print'])     ->name('print');
-
-        });
-
-        Route::group(['prefix' => 'cafoa', 'as' => 'cafoa.'], function(){
-            Route::resource('/',    ProcurementCafoaController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
-
-            // Route::get('/create/{id}', [ProcurementCafoaController::class, 'create'])->name('create');
-            // Route::post('/create/{id}', [ProcurementCafoaController::class, 'store'])->name('store');
-            // Route::get('/{id}', [ProcurementCafoaController::class, 'show'])->name('show');
-        });
-
-        Route::group(['prefix' => 'consolidate', 'as' => 'consolidate.'], function(){
-            Route::get('/',             [ConsolidationController::class, 'index'])  ->name('index');
-            Route::post('/',            [ConsolidationController::class, 'check'])  ->name('check');
-            Route::post('/form',        [ConsolidationController::class, 'form'])   ->name('form');
-            Route::post('/consolidate', [ConsolidationController::class, 'store'])  ->name('store');
-        });
-
-        Route::group(['prefix' => 'iar', 'as' => 'iar.'],function(){
-            Route::resource('/',    IARController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
-        });
-
-    });
+            Route::get('/',                         [ProcurementController::class, 'index'])    ->name('index');
     
-    Route::group(['prefix' => 'cafoa', 'as' => 'cafoa.'],function(){
-        Route::resource('/',                CafoaController::class)             ->except(['destroy'])   ->parameters(['' => 'id']);
-        Route::get('/{id}/print',           [CafoaController::class, 'print'])  ->name('print');
-    });
-
-    Route::group(['prefix' => 'travel', 'as' => 'travel.'],function(){
-
-        Route::group(['prefix' => 'order', 'as' => 'order.'], function(){
-            Route::resource('/',                TravelOrderController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
-            Route::get('/{id}/print',           [TravelOrderController::class, 'print'])                ->name('print');
+            Route::group(['prefix' => 'request', 'as' => 'request.'], function(){
+                Route::resource('/',                PRController::class)                ->except(['destroy'])    ->parameters(['' => 'id']);
+                Route::get('/{id}/print',           [PRController::class, 'print'])     ->name('print');
+            });
+    
+            Route::group(['prefix' => 'order', 'as' => 'order.'], function(){
+                Route::resource('/',        POController::class)                ->except(['destroy'])       ->parameters(['' => 'id']);
+                Route::get('/{id}/print',  [POController::class, 'print'])     ->name('print');
+    
+            });
+    
+            Route::group(['prefix' => 'cafoa', 'as' => 'cafoa.'], function(){
+                Route::resource('/',    ProcurementCafoaController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
+    
+                // Route::get('/create/{id}', [ProcurementCafoaController::class, 'create'])->name('create');
+                // Route::post('/create/{id}', [ProcurementCafoaController::class, 'store'])->name('store');
+                // Route::get('/{id}', [ProcurementCafoaController::class, 'show'])->name('show');
+            });
+    
+            Route::group(['prefix' => 'consolidate', 'as' => 'consolidate.'], function(){
+                Route::get('/',             [ConsolidationController::class, 'index'])  ->name('index');
+                Route::post('/',            [ConsolidationController::class, 'check'])  ->name('check');
+                Route::post('/form',        [ConsolidationController::class, 'form'])   ->name('form');
+                Route::post('/consolidate', [ConsolidationController::class, 'store'])  ->name('store');
+            });
+    
+            Route::group(['prefix' => 'iar', 'as' => 'iar.'],function(){
+                Route::resource('/',    IARController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
+            });
+    
+        });
+        
+        Route::group(['prefix' => 'cafoa', 'as' => 'cafoa.'],function(){
+            Route::resource('/',                CafoaController::class)             ->except(['destroy'])   ->parameters(['' => 'id']);
+            Route::get('/{id}/print',           [CafoaController::class, 'print'])  ->name('print');
+        });
+    
+        Route::group(['prefix' => 'travel', 'as' => 'travel.'],function(){
+    
+            Route::group(['prefix' => 'order', 'as' => 'order.'], function(){
+                Route::resource('/',                TravelOrderController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
+                Route::get('/{id}/print',           [TravelOrderController::class, 'print'])                ->name('print');
+            });
+    
+            Route::group(['prefix' => 'itinerary', 'as' => 'itinerary.'], function(){
+                Route::resource('/',                ItineraryController::class)     ->except(['destroy'])    ->parameters(['' => 'id']);
+                Route::get('/{id}/print',           [ItineraryController::class, 'print'])                   ->name('print');
+            });
+    
+           
+    
+        });
+    
+        Route::group(['prefix' => 'application-for-leave', 'as' => 'afl.'],function(){
+            Route::resource('/',         AFLController::class)                  ->except(['destroy'])       ->parameters(['' => 'id']);
+            Route::get('/{id}/print',   [AFLController::class, 'print'])        ->name('print');
         });
 
-        Route::group(['prefix' => 'itinerary', 'as' => 'itinerary.'], function(){
-            Route::resource('/',                ItineraryController::class)     ->except(['destroy'])    ->parameters(['' => 'id']);
-            Route::get('/{id}/print',           [ItineraryController::class, 'print'])                   ->name('print');
-        });
-
-       
-
-    });
-
-    Route::group(['prefix' => 'application-for-leave', 'as' => 'afl.'],function(){
-        Route::resource('/',         AFLController::class)                  ->except(['destroy'])       ->parameters(['' => 'id']);
-        Route::get('/{id}/print',   [AFLController::class, 'print'])        ->name('print');
+      
     });
 
 });

@@ -14,44 +14,18 @@ Application for Leave
 @endsection
 
 @section('content')
-<!--begin::Card-->
-<div class="card card-custom">
-    <div class="card-body">
-        <table id="fms_afl_dt" class="table table-bordered table-striped">
-            <thead>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>C</td>
-                  </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<!--end::Card-->
-
+<x-ui.card>
+  <table id="fms_afl_dt" class="table table-bordered table-striped table-sm">
+      <thead>
+            <tr>
+              <th>QR</th>
+              <th>Employees</th>
+              <th>Type</th>
+              <th>Action</th>
+            </tr>
+      </thead>
+  </table>
+</x-ui.card>
 @endsection
 
 

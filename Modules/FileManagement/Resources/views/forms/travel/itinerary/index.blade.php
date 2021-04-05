@@ -19,36 +19,20 @@ Itinerary Of Travel
 @endsection
 
 @section('content')
-<!--begin::Card-->
-<div class="card card-custom">
-    <div class="card-body">
-        <!--begin: Search Form-->
-        <!--begin::Search Form-->
-        <div class="mb-7">
-            <div class="row align-items-center">
-                <div class="col-lg-9 col-xl-8">
-                    <div class="row align-items-center">
-                        <div class="col-md-4 my-2 my-md-0">
-                            <div class="input-icon">
-                                <input type="text" class="form-control" placeholder="Search..." id="kt_datatable_search_query" />
-                                <span>
-                                    <i class="flaticon2-search-1 text-muted"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        <!--end::Search Form-->
-        <!--end: Search Form-->
-        <!--begin: Datatable-->
-        <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable_fms_iot_list"></div>
-        <!--end: Datatable-->
-    </div>
-</div>
-<!--end::Card-->
+<x-ui.card>
+    <table id="fms_afl_dt" class="table table-bordered table-striped table-sm">
+        <thead>
+              <tr>
+                <th>QR</th>
+                <th>Number</th>
+                <th>Employees</th>
+                <th>Destination</th>
+                <th>Purpose</th>
+                <th>Action</th>
+              </tr>
+        </thead>
+    </table>
+</x-ui.card>
 @endsection
 
 

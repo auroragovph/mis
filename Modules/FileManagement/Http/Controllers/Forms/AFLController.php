@@ -18,7 +18,9 @@ class AFLController extends Controller
         if($request->ajax()){
             $model = FMS_AFL::with('document', 'employee')->get();
             $datas = AFLDTResource::collection($model);
-            return response()->json($datas);
+            return response()->json([
+                "data" => $datas
+            ]);
         }
 
 
@@ -99,6 +101,8 @@ class AFLController extends Controller
             'inclusives' => $inclusives->sort()->values()->all(),
             'credits' => $credits
         ]);
+
+        return redirect(route('fms.afl.show'))->with('alert-success', 'Application for leave has been encoded.');
 
         return response()->json([
             'message' => 'Application for leave has been encoded.',
@@ -198,6 +202,8 @@ class AFLController extends Controller
         ]);
 
         $afl->document()->update(['liaison_id' => $request->post('liaison')]);
+
+        return redirect(route('fms.afl.show', $afl->id))->with('alert-success', 'AFL has been updated.');
 
         return response()->json([
             'message' => 'Application for leave has been updated.',

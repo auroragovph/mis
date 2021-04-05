@@ -10,7 +10,7 @@ Travel Order
 <div class="d-flex align-items-center">
     <!--begin::Button-->
     <a href="{{ route('fms.travel.order.create') }}" class="btn btn-primary font-weight-bold btn-sm px-3 font-size-base">
-        <i class="fal fa-plus"></i> New Travel Order
+        <i class="fas fa-plus"></i> New Travel Order
     </a>
     <!--end::Button-->
    

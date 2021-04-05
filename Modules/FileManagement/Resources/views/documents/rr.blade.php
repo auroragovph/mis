@@ -2,7 +2,13 @@
 
 
 @section('page-title')
-Receive / Release
+
+    @isset($document)
+        {{ ($track->action == 0) ? 'Receiving Page' : 'Releasing Page' }}
+    @else 
+        Receive / Release
+    @endisset
+
 @endsection
 
 @section('toolbar')
@@ -34,11 +40,13 @@ Receive / Release
                 <hr>
     
                 <div class="mt-10">
-                    @if($track->action == 0)
-                        <button type="submit" class="btn btn-primary"> <i class="fas fa-file-download"></i> RECEIVE</button>
-                    @else 
-                        <button type="submit" class="btn btn-primary"> <i class="fas fa-file-upload"></i> RELEASE</button>
-                    @endif
+                    <button type="submit" class="btn btn-primary"> 
+                        @if($track->action == 0)
+                            <i class="fas fa-file-download"></i> RECEIVE
+                        @else 
+                            <i class="fas fa-file-upload"></i> RELEASE
+                        @endif
+                    </button>
                 </div>
                 
             </form>
@@ -68,6 +76,8 @@ Receive / Release
 
 
 @section('css-vendor')
+<!-- Select2 -->
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
 @endsection
 
 @section('css-custom')
@@ -75,8 +85,17 @@ Receive / Release
 
 
 @section('js-vendor')
+<!-- Select2 -->
+<script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 @endsection
 
 @section('js-custom')
-{{-- <script src="{{ asset('js/Modules/FileManagement/pages/documents/rr.js') }}"></script> --}}
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+		$(".select2").select2({
+			placeholder: "Select in the list",
+		});
+    })
+</script>
 @endsection

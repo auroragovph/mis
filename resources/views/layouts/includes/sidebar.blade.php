@@ -35,7 +35,14 @@
       <!-- Sidebar Menu -->
       <nav class="mt-3">
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
-            @include('layouts.includes.sidebar-menu', ['menus' => config('filemanagement.menu')])
+          
+          <li class="nav-item">
+            <a href="{{ route('dashboard') }}" class="nav-link {{ Route::current()->getName() == 'dashboard' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-th-large"></i>
+                <p>Dashboard</p>
+            </a>
+          </li>
+          @include('layouts.includes.sidebar-menu', ['menus' => config('filemanagement.menu')])
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

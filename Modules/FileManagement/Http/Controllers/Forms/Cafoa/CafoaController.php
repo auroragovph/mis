@@ -6,12 +6,10 @@ use Illuminate\Http\Request;
 use Modules\System\Entities\Employee;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\FileManagement\Entities\Cafoa\Cafoa;
-use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\Document\Document;
 use Modules\FileManagement\Http\Controllers\Forms\FormController;
 use Modules\FileManagement\Http\Requests\Forms\Cafoa\StoreRequest;
 use Modules\FileManagement\Transformers\Forms\Cafoa\CafoaDTResource;
-use Modules\FileManagement\Http\Requests\Forms\Cafoa\CafoaStoreRequest;
 use Modules\FileManagement\Http\Requests\Forms\Cafoa\UpdateRequest;
 
 class CafoaController extends FormController

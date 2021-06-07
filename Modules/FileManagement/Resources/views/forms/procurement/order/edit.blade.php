@@ -2,7 +2,7 @@
 
 
 @section('page-title')
-Purchase Order
+Purchase Order Update Form
 @endsection
 
 @section('toolbar')
@@ -10,7 +10,7 @@ Purchase Order
 @endsection
 
 @section('content')
-<x-ui.card title="PO Update Form">
+<x-ui.card>
     <form class="form" method="POST" action="{{ route('fms.procurement.order.update', $po->id) }}">
         @csrf
         @method('put')
@@ -63,7 +63,7 @@ Purchase Order
                 <div class="form-group">
                     <label>PR Number/s</label>
                     <select name="pr_number[]" class="form-control select2-tags" multiple>
-                        @foreach($po->pr_number as $pr_number)
+                        @foreach($po->pr_number ?? [] as $pr_number)
                             <option selected>{{ $pr_number }}</option>
                         @endforeach
                     </select>

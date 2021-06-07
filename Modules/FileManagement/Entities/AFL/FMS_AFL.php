@@ -4,10 +4,13 @@ namespace Modules\FileManagement\Entities\AFL;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\HumanResource\Entities\HR_Employee;
-use Modules\FileManagement\Entities\Document\FMS_Document;
+use Modules\FileManagement\Traits\Documents\HasDocument;
+use Modules\FileManagement\Traits\Documents\HasFormable;
 
 class FMS_AFL extends Model
 {
+    use HasFormable, HasDocument;
+    
     protected $guarded = [];
     protected $table = 'fms_form_afl';
 
@@ -16,11 +19,6 @@ class FMS_AFL extends Model
         'credits' => 'json',
         'inclusives' => 'json'
     ];
-
-    public function document()
-    {
-        return $this->belongsTo(FMS_Document::class, 'document_id');
-    }
 
     public function employee()
     {

@@ -9,6 +9,14 @@ Inspection and Acceptance Report
 @endsection
 
 @section('content')
+<x-ui.card>
+    <form action="{{ route('fms.procurement.iar.create') }}">
+        @csrf
+        <x-ui.form.input label="QR Number / PO Number" name="number" autofocus required/>
+        <hr>
+        <button type="submit" class="btn bg-gradient-primary"><i class="fas fa-search"></i> Search</button>
+    </form>
+</x-ui.card>
 @endsection
 
 

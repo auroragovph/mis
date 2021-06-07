@@ -2,7 +2,13 @@
 
 
 @section('page-title')
-CAFOA
+
+    @if(request()->get('attachment') == true)
+        {{ request()->get('header') }}
+    @else 
+        CAFOA
+    @endif
+
 @endsection
 
 @section('toolbar')
@@ -10,7 +16,7 @@ CAFOA
 @endsection
 
 @section('content')
-<x-ui.card title="CAFOA Form">
+<x-ui.card>
     <form class="form" method="POST" action="{{ route('fms.cafoa.store') }}">
         @csrf
         <div class="row">
@@ -108,13 +114,18 @@ CAFOA
 
         <hr>
 
-        <x-ui.form.select2 label="Liaison Officer" name="liaison" required >
-            @foreach($employees->where('division_id', auth()->user()->employee->division_id)->where('liaison', true) as $employee)
-                <option {{ sh($employee->id, old('liaison')) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
-            @endforeach
-        </x-ui.form.select2> 
 
-        <hr>
+        @if(request()->get('attachment') == false)
+
+            <x-ui.form.select2 label="Liaison Officer" name="liaison" required >
+                @foreach($employees->where('division_id', auth()->user()->employee->division_id)->where('liaison', true) as $employee)
+                    <option {{ sh($employee->id, old('liaison')) }} value="{{ $employee->id }}">{{ name_helper($employee->name) }}</option>
+                @endforeach
+            </x-ui.form.select2> 
+
+            <hr>
+
+        @endif
 
         <button type="submit" class="btn btn-primary" name="submitButton">Submit</button>
 

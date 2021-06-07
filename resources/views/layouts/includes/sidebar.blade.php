@@ -9,12 +9,12 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="pb-3 mt-3 mb-3 user-panel d-flex">
         <div class="image">
           <img src="{{ asset('adminlte/dist/images/user.png') }}" class="elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ name_helper(authenticated()->employee->name) }}</a>
+          <a href="{{ route('sys.profile.index') }}" class="d-block">{{ name_helper(authenticated()->employee->name) }}</a>
         </div>
       </div>
 
@@ -42,7 +42,10 @@
                 <p>Dashboard</p>
             </a>
           </li>
+
           @include('layouts.includes.sidebar-menu', ['menus' => config('filemanagement.menu')])
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -14,23 +14,42 @@
         <div class="dropdown-divider"></div>
 
         <a class="dropdown-item" href="{{ route('fms.procurement.order.edit', $po->id) }}">Edit Document</a>
-        <a class="dropdown-item" href="{{ route('fms.procurement.order.print', $po->id) }}">Print Document</a>
 
-        <a class="dropdown-item" href="{{route('fms.procurement.request.show', $po->document->purchase_request->id) }}">Show Purchase Request</a>
+        <a class="dropdown-item" href="{{ route('fms.procurement.order.show',[
+            'id' => $po->id,
+            'print' => true
+        ]) }}">Print Document</a>
+
+        @php
+            $pr = $po->document->forms->where('formable_type', 'Purchase Request')->first();
+            $pr = $pr->formable;
+        @endphp
+
+        <a class="dropdown-item" href="{{route('fms.procurement.request.show', $pr->id) }}">Show Purchase Request</a>
 
         <div class="dropdown-divider"></div>
 
-        @if($po->document->type == config('constants.document.type.procurement.order'))
-            <a class="dropdown-item" href="{{ route('fms.procurement.cafoa.create', [
-                'document' => $po->document_id
-            ]) }}">Attach CAFOA</a>
+        @php($attached_forms = $po->document->forms->pluck('formable_type')->toArray())
+
+        @if(in_array('CAFOA', $attached_forms))
+
+            <?php
+                $cafoa = $po->document->forms->where('formable_type', 'CAFOA')->first();
+                $cafoa = $cafoa->formable;
+            ?>
+
+
+            <a class="dropdown-item" target="_new" href="{{ route('fms.cafoa.show', $cafoa->id) }}">Show CAFOA</a>
+
+        @else 
+                <a class="dropdown-item" href="{{ route('fms.cafoa.create', [
+                    'attachment' => true,
+                    'document_id' => $po->document_id,
+                    'qr' => $po->document->qr,
+                    'token' => csrf_token(),
+                    'header' => 'Attach CAFOA for Procurement'
+                ]) }}">Attach CAFOA</a>
         @endif
-
-        @if($po->document->type == config('constants.document.type.procurement.cafoa'))
-            <a class="dropdown-item" target="_new" href="{{ route('fms.procurement.cafoa.show', $po->document->cafoa->id) }}">Show CAFOA</a>
-        @endif
-
-
 
     </div>
 </div>

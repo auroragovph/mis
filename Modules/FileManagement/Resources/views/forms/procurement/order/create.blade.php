@@ -2,7 +2,7 @@
 
 
 @section('page-title')
-Purchase Order
+Purchase Order Form
 @endsection
 
 @section('toolbar')
@@ -10,7 +10,7 @@ Purchase Order
 @endsection
 
 @section('content')
-<x-ui.card title="PO Form">
+<x-ui.card>
     <form class="form" id="kt_form" method="POST" action="{{ route('fms.procurement.order.store') }}">
         @csrf
         <h5>Supplier</h5>
@@ -160,7 +160,7 @@ Purchase Order
 
         <div class="row">
             <div class="col-md-12">
-                <x-ui.form.text-area name="particulars" label="Particulars" :value="$document->purchase_request->purpose" />
+                <x-ui.form.text-area name="particulars" label="Particulars" :value="$document->purchase_request->particulars" />
             </div>
             <!--end::Group-->
         </div>

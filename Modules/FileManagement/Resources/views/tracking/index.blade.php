@@ -64,8 +64,8 @@ Document Tracker
                             <td>
                                 @if(!$loop->last)
                                     {{ get_date_diff($track->created_at, $tracks[$i+1]['created_at']) }}
-                                @else 
-                                    {{ get_date_diff($document->created_at, $tracks[$i]['created_at']) }}
+                                {{-- @else  --}}
+                                    {{-- {{ get_date_diff($document->created_at, $tracks[$i]['created_at']) }} --}}
                                 @endif
                             </td>
                         </tr>

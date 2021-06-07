@@ -80,7 +80,6 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
             Route::group(['prefix' => 'order', 'as' => 'order.'], function(){
                 Route::resource('/',        POController::class)                ->except(['destroy'])       ->parameters(['' => 'id']);
                 Route::get('/{id}/print',  [POController::class, 'print'])     ->name('print');
-    
             });
     
             Route::group(['prefix' => 'cafoa', 'as' => 'cafoa.'], function(){
@@ -98,7 +97,7 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
                 Route::post('/consolidate', [ConsolidationController::class, 'store'])  ->name('store');
             });
     
-            Route::group(['prefix' => 'iar', 'as' => 'iar.'],function(){
+            Route::group(['prefix' => 'air', 'as' => 'iar.'],function(){
                 Route::resource('/',    IARController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
             });
     
@@ -106,7 +105,6 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
         
         Route::group(['prefix' => 'cafoa', 'as' => 'cafoa.'],function(){
             Route::resource('/',                CafoaController::class)             ->except(['destroy'])   ->parameters(['' => 'id']);
-            Route::get('/{id}/print',           [CafoaController::class, 'print'])  ->name('print');
         });
     
         Route::group(['prefix' => 'travel', 'as' => 'travel.'],function(){

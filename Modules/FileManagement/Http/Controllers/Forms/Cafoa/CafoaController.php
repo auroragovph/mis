@@ -3,21 +3,36 @@
 namespace Modules\FileManagement\Http\Controllers\Forms\Cafoa;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
+use Modules\System\Entities\Employee;
 use Modules\HumanResource\Entities\HR_Employee;
-use Modules\FileManagement\Entities\Document\FMS_Document;
-use Modules\FileManagement\Http\Requests\Forms\Cafoa\CafoaStoreRequest;
+use Modules\FileManagement\Entities\Cafoa\Cafoa;
+use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
+use Modules\FileManagement\Entities\Document\Document;
+use Modules\FileManagement\Http\Controllers\Forms\FormController;
+use Modules\FileManagement\Http\Requests\Forms\Cafoa\StoreRequest;
 use Modules\FileManagement\Transformers\Forms\Cafoa\CafoaDTResource;
+use Modules\FileManagement\Http\Requests\Forms\Cafoa\CafoaStoreRequest;
+use Modules\FileManagement\Http\Requests\Forms\Cafoa\UpdateRequest;
 
-class CafoaController extends Controller
+class CafoaController extends FormController
 {
+    public function __construct()
+    {
+        $this->model = Cafoa::class;
+        $this->doctype = config('constants.document.type.cafoa');
+        $this->alias = 'cafoa';
+        $this->routes = [
+            'show' => 'fms.cafoa.show'
+        ];
+
+    }
+
     public function index(Request $request)
     {
 
         if($request->ajax()){
 
-            $model = FMS_Cafoa::with('document')->whereHas('document', function($q){
+            $model = Cafoa::with('document')->whereHas('document', function($q){
                 $q->where('division_id', auth_division());
             })->get();
 
@@ -41,6 +56,18 @@ class CafoaController extends Controller
 
         activitylog(['name' => 'fms', 'log' => 'Request cafoa form']);
 
+        if(request()->has('attachment')){
+
+            $doc_id = request()->get('document_id');
+            $document = Document::findOrFail($doc_id);
+
+            if($document->qr !== request()->get('qr')){
+                return abort(404);
+            }
+
+            session(['fms.document.attach.cafoa' => (int)$doc_id]);
+        }
+
 
         return view('filemanagement::forms.cafoa.create', [
             'employees' => $employees
@@ -49,22 +76,14 @@ class CafoaController extends Controller
 
     public function edit($id)
     {
-        $employees = HR_Employee::whereIn('division_id', [
+        $employees = Employee::whereIn('division_id', [
             auth()->user()->employee->division_id,
             config('constants.office.ACCOUNTING'),
             config('constants.office.PTO'),
             config('constants.office.BUDGET'),
         ])->get();
 
-        $cafoa = FMS_Cafoa::with(
-                'document',
-                'requesting',
-                'budget',
-                'accounting',
-                'treasury'
-            )
-        ->findOrFail($id);
-
+        $cafoa = Cafoa::with('document')->findOrFail($id);
 
         // activity loger
         activitylog([
@@ -73,7 +92,7 @@ class CafoaController extends Controller
             'props' => [
                 'model' => [
                     'id' => $id,
-                    'class' => FMS_Cafoa::class
+                    'class' => Cafoa::class
                 ]
             ]
         ]);
@@ -84,82 +103,62 @@ class CafoaController extends Controller
         ]);
     }
 
-    public function store(CafoaStoreRequest $request)
+    public function store(StoreRequest $request)
     {
-        // storing document
-        $document = FMS_Document::directStore($request->post('liaison'), config('constants.document.type.cafoa'));
-
-        $cafoa = FMS_Cafoa::create([
+        $forms = [
             'payee' => $request->post('payee'),
-            'document_id' => $document->id,
             'requesting_id' => $request->post('requesting'),
             'treasury_id' => $request->post('treasury'),
             'budget_id' => $request->post('budget'),
             'accountant_id' => $request->post('accountant'),
             'requesting_id' => $request->post('requesting'),
             'lists' => $request->post('lists')
-        ]);
+        ];
 
-         // setting session
-         session()->flash('alert-success', 'CAFOA has been encoded.');
+        $attached = session()->pull('fms.document.attach.cafoa');
 
-        // activity loger
-        activitylog([
-            'name' => 'fms',
-            'log' => 'Encode cafoa', 
-            'props' => [
-                'model' => [
-                    'id' => $cafoa->id,
-                    'class' => FMS_Cafoa::class
-                ]
-            ]
-        ]);
+        if($attached !== null){
+            $forms['document_id'] = (int)$attached;
+            $attach_status = true;
+        }
 
-        return redirect(route('fms.cafoa.show', $cafoa->id));
+            
+        $cafoa = $this->save($forms, $attach_status ?? false);
 
+        if(request()->ajax()){
 
-        //  return response()->json([
-        //      'message' => "CAFOA has been encoded.",
-        //      'route' => route('fms.cafoa.show', $cafoa->id)
-        //  ]);
+            return response()->json([
+                'message' => "CAFOA has been encoded.",
+                'route' => route('fms.cafoa.show', $cafoa->id)
+            ], 201);
 
-        
+        }
+
+        return redirect(route('fms.cafoa.show', $cafoa->id))
+                ->with('alert-success', "CAFOA has been encoded.");
     }
 
     public function show($id)
     {
-        $cafoa = FMS_Cafoa::with(
-                                'document.attachments',
-                                'document.liaison',
-                                'document.encoder',
-                                'document.division.office',
-                                'requesting',
-                                'budget',
-                                'accounting',
-                                'treasury'
-                        )
-                    ->findOrFail($id);
 
-        // activity loger
-        activitylog([
-            'name' => 'fms',
-            'log' => 'Request information of CAFOA', 
-            'props' => [
-                'model' => [
-                    'id' => $cafoa->id,
-                    'class' => FMS_Cafoa::class
-                ]
-            ]
-        ]);
+        $rels = [
+            'requesting',
+            'budget',
+            'accounting',
+            'treasury'
+        ];
 
-        return view('filemanagement::forms.cafoa.show', compact('cafoa'));
+        $cafoa = $this->details((int)$id);
+
+        return view('filemanagement::forms.cafoa.show')
+                ->with('cafoa', $cafoa);
+
     }
 
-    public function update(CafoaStoreRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        $cafoa = FMS_Cafoa::with('document')->findOrFail($id);
 
-        $cafoa->update([
+        $forms = [
             'payee' => $request->post('payee'),
             'requesting_id' => $request->post('requesting'),
             'treasury_id' => $request->post('treasury'),
@@ -167,65 +166,21 @@ class CafoaController extends Controller
             'accountant_id' => $request->post('accountant'),
             'requesting_id' => $request->post('requesting'),
             'lists' => $request->post('lists')
-        ]);
+        ];
 
-        $cafoa->document()->update([
-            'liaison_id' => $request->post('liaison')
-        ]);
+        $cafoa = $this->patch($id, $forms);
 
-        // setting session
-        session()->flash('alert-success', 'Cafoa has been updated.');
+        if(request()->ajax()){
+            return response()->json([
+                'message' => 'CAFOA has been updated.',
+                'route' => route('fms.cafoa.show', $cafoa->id)
+            ], 200);
+        }
 
-
-        // activity loger
-        activitylog([
-            'name' => 'fms',
-            'log' => 'Update CAFOA information', 
-            'props' => [
-                'model' => [
-                    'id' => $cafoa->id,
-                    'class' => FMS_Cafoa::class
-                ]
-            ]
-        ]);
-
-        return redirect(route('fms.cafoa.show', $cafoa->id));
+        return redirect(route('fms.cafoa.show', $cafoa->id))
+                    ->with('alert-success', 'CAFOA has been updated.');
+        
 
 
-        //  return response()->json([
-        //      'message' => "CAFOA has been updated.",
-        //      'route' => route('fms.cafoa.show', $cafoa->id)
-        //  ]);
-
-    }
-
-    public function print($id)
-    {
-
-        $cafoa = FMS_Cafoa::with(
-                                'document.attachments',
-                                'document.liaison',
-                                'document.encoder',
-                                'document.division.office',
-                                'requesting',
-                                'budget',
-                                'accounting',
-                                'treasury'
-                        )
-                    ->findOrFail($id);
-
-        // activity loger
-        activitylog([
-            'name' => 'fms',
-            'log' => 'Request information of CAFOA for print', 
-            'props' => [
-                'model' => [
-                    'id' => $cafoa->id,
-                    'class' => FMS_Cafoa::class
-                ]
-            ]
-        ]);
-
-        return view('filemanagement::forms.cafoa.print', compact('cafoa'));
     }
 }

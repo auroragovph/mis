@@ -32,13 +32,14 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        $route = (password_verify($request->input('password'), bcrypt('user123'))) ? route('sp.login.first') : route('dashboard');
+        // $route = (password_verify($request->input('password'), bcrypt('user123'))) ? route('sp.login.first') : route('dashboard');
         
         // saving into sessions
         $authenticated = Account::with('employee.position', 'employee.division.office')->find(auth()->user()->id);
         $request->session()->put('authenticated', $authenticated);
 
-        return redirect($route);        
+        // return redirect($route);        
+        return redirect(session()->pull('url.intended', route('dashboard')));        
     }
 
     /**

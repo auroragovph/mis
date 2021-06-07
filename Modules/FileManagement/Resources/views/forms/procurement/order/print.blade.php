@@ -196,7 +196,7 @@
                         <p class="text-center"><strong>_____<u>{{ name_helper($po->approving->name) }}</u>_____</strong></p>
                         <p class="text-center" style="margin-top: -10px;">Signature over Printed Name of Authorized Official</p>
 
-                        <p class="text-center"><u>{{ $po->approving->position->position }}</u></p>
+                        <p class="text-center"><u>{{ $po->approving->position->position ?? '' }}</u></p>
                         <p class="text-center" style="margin-top: -10px;">Designation</p>
 
                     </td>

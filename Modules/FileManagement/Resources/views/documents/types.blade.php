@@ -41,7 +41,7 @@
                         <!--begin::Body-->
                         <div class="card-body align-items-center d-flex justify-content-center">
 
-                            <a href="#" class="text-white font-weight-bold">Travel</a>
+                            <a href="{{ route('fms.travel.order.index') }}" class="text-white font-weight-bold">Travel</a>
                         </div>
                         <!--end::Body-->
                     </div>

@@ -10,7 +10,6 @@ class SystemController extends Controller
 {
     public function index()
     {
-        // return request()->is('system');
-        dd(route('fms.procurement.cafoa.create'));
+        return view('system::dashboard');
     }
 }

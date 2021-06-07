@@ -2,9 +2,12 @@
 
 namespace Modules\FileManagement\Traits\Documents;
 
+use Modules\FileManagement\Entities\Cafoa\Cafoa;
 use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\Procurement\FMS_PO;
 use Modules\FileManagement\Entities\Procurement\FMS_PR;
+use Modules\FileManagement\Entities\Procurement\PurchaseOrder;
+use Modules\FileManagement\Entities\Procurement\PurchaseRequest;
 
 trait Relationships {
 
@@ -15,17 +18,18 @@ trait Relationships {
 
     public function cafoa()
     {
-        return $this->hasOne(FMS_Cafoa::class, 'document_id');
+        return $this->hasOne(Cafoa::class, 'document_id');
+
     }
 
     public function purchase_request()
     {
-        return $this->hasOne(FMS_PR::class, 'document_id');
+        return $this->hasOne(PurchaseRequest::class, 'document_id');
     }
 
     public function purchase_order()
     {
-        return $this->hasOne(FMS_PO::class, 'document_id');
+        return $this->hasOne(PurchaseOrder::class, 'document_id');
     }
 
     public function travel_order()

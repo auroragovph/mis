@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DevController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    // return phpinfo();
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+
+Route::get('dev', DevController::class);
+

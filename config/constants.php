@@ -41,6 +41,7 @@ return [
             'disbursement'  => 600, 
             'payroll'       => 700,
             'procurement'   => [
+                'procurement' => 100,
                 'request'   => 101,
                 'order'     => 102,
                 'cafoa'     => 104,

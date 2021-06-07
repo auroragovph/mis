@@ -253,9 +253,11 @@
 
         <hr>
 
-        <img class="m-auto" height="100" width="100" src="data:image/svg+xml;base64, {{ qr_to_base64($cafoa->document->qr) }} ">
         
-        <p class="text-center">
+        <p class="text-right" style="margin-top: 0px;">
+            <img class="text-right" height="25" width="25" src="data:image/svg+xml;base64, {{ qr_to_base64($cafoa->document->qr) }} "> 
+
+            <br>
 
             {{ $cafoa->document->qr }}
         </p>

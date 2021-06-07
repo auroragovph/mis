@@ -5,75 +5,76 @@ namespace Modules\FileManagement\Http\Controllers\Forms\Procurement;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\FileManagement\Entities\Document\FMS_Document;
+use Modules\FileManagement\Entities\Procurement\Air;
+use Modules\FileManagement\Entities\Procurement\FMS_PO;
+use Modules\FileManagement\Http\Controllers\Forms\FormController;
+use Modules\FileManagement\Http\Requests\Forms\Procurement\IAR\StoreRequest;
 
-class IARController extends Controller
+class IARController extends FormController
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+
     public function index()
     {
         return view('filemanagement::forms.procurement.inspection.iar.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function create(Request $request)
     {
-        return view('filemanagement::create');
+        // check if the qr code exists
+        $qr_id = series($request->get('number'));
+
+        $proctypes = array_values(config('constants.document.type.procurement'));
+
+        $document = FMS_Document::whereIn('type', $proctypes)
+            ->where('id', $qr_id)
+            ->first();
+
+        // checking document if exists
+        if (!$document or $document->qr !== $request->get('number')) {
+
+            $document = FMS_PO::where('number', $request->get('number'))->first();
+            if (!$document) {
+                return redirect(route('fms.procurement.iar.index'))->with('alert-error', 'QR Code / PO Number not found');
+            }
+        }
+
+
+        if (get_class($document) !== FMS_PO::class) {
+            $document = $document->purchase_order();
+        }
+
+        return view('filemanagement::forms.procurement.inspection.iar.create', [
+            'po' => $document
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $air = Air::create([
+            'document_id' => $request->post('document_id'),
+            'po_id' => $request->post('po_id'),
+            'number' => $request->post('number'),
+            'invoice' => $request->post('invoice'),
+            'invoice_date' => $request->post('invoice_date'),
+            'lists' => $request->post('lists')
+        ]);
+
+        $air->formable()->create([
+            'document_id' => $request->post('document_id'),
+        ]);
+
+        return redirect(route('fms.procurement.iar.show', $air->id))->with('alert-success', 'Form has been encoded');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
-        return view('filemanagement::show');
-    }
+        $air = Air::with('document')->findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('filemanagement::edit');
-    }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        return view('filemanagement::forms.procurement.inspection.iar.show', [
+            'air' => $air,
+            'po' => $air->document->purchase_order
+        ]);
     }
 }

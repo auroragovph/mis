@@ -1,2 +1,2 @@
-@extends('layouts.vertical')
+@extends('layouts.horizontal')
 

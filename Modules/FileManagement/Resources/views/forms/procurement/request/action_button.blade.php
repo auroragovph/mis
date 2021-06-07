@@ -14,7 +14,7 @@
         <div class="dropdown-divider"></div>
 
         <a class="dropdown-item" href="{{ route('fms.procurement.request.edit', $pr->id) }}">Edit Document</a>
-        <a class="dropdown-item" href="{{ route('fms.procurement.request.print', $pr->id) }}">Print Document</a>
+        <a target="_blank" class="dropdown-item" href="{{ route('fms.procurement.request.show', $pr->id) }}?print=true">Print Document</a>
 
         @if($pr->document->purchase_order == null)
             <a class="dropdown-item" href="{{ route('fms.procurement.order.create', ['document' => $pr->document_id]) }}">Convert into PO</a>     

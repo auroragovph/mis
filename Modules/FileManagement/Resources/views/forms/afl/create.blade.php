@@ -10,7 +10,7 @@ Application For Leave Form
 @endsection
 
 @section('content')
-<x-ui.card title="AFL Form">
+<x-ui.card>
     <form action="{{ route('fms.afl.store') }}" method="POST" x-data="{leaveType: 'Vacation'}">
         @csrf
 
@@ -256,7 +256,6 @@ Application For Leave Form
 
 <!-- DatePicker -->
 <script src="{{ asset('adminlte/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-
 
 <!-- Select2 -->
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>

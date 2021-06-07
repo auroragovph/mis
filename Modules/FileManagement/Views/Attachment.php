@@ -8,6 +8,7 @@ class Attachment extends Component
 {
 
     public $attachments;
+    public $forms;
 
 
     /**
@@ -17,9 +18,10 @@ class Attachment extends Component
      * @param  string  $message
      * @return void
      */
-    public function __construct($attachments = [])
+    public function __construct($attachments = [], $forms = [])
     {
         $this->attachments = $attachments;
+        $this->forms = $forms;
     }
 
     /**

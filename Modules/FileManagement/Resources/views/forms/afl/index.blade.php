@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 
-@section('title')
+@section('page-title')
 Application for Leave
 @endsection
 

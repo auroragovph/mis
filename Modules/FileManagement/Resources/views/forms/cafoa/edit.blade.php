@@ -2,7 +2,7 @@
 
 
 @section('page-title')
-CAFOA
+CAFOA Update Form
 @endsection
 
 @section('toolbar')
@@ -10,7 +10,7 @@ CAFOA
 @endsection
 
 @section('content')
-<x-ui.card title="CAFOA Update Form">
+<x-ui.card>
     <form class="form" method="POST" action="{{ route('fms.cafoa.update', $cafoa->id) }}">
         @csrf
         @method('put')
@@ -50,7 +50,7 @@ CAFOA
                         </div>
 
                         <div class="col-md-3">
-                            <x-ui.form.input step="0.01" type="number" label="Amount:" name="amount" value="{{ $amount ?? 0 }}" />
+                            <x-ui.form.input step="0.01" type="number" label="Amount:" name="amount" value="{{ $list['amount'] ?? 0 }}" />
                         </div>
                        
                         <div class="col-md-1 text-center my-auto">

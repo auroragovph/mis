@@ -89,7 +89,7 @@ CAFOA
 
         </x-ui.card>
         
-        <x-fms-attachments :attachments="$cafoa->document->attachments" />
+        <x-fms-attachments :attachments="$cafoa->document->attachments" :forms="$cafoa->document->forms" />
         
     </div>
 </div>

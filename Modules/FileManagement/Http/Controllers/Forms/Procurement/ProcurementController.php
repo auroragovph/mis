@@ -4,6 +4,7 @@ namespace Modules\FileManagement\Http\Controllers\Forms\Procurement;
 
 use Carbon\Carbon;
 use Illuminate\Routing\Controller;
+use Modules\FileManagement\Entities\Document\Document;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 
 class ProcurementController extends Controller
@@ -16,7 +17,7 @@ class ProcurementController extends Controller
 
             $procurement_types = array_values(config('constants.document.type.procurement'));
 
-            $procurements = FMS_Document::with(
+            $procurements = Document::with(
                 'purchase_request', 'purchase_order', 'cafoa', 'division.office'
             )->whereIn('type', $procurement_types)->get();
 

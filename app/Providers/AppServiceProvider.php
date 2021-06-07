@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // load morph map
+        $this->morphMap();
+    }
+
+
+    public function morphMap(): void
+    {
+        Relation::morphMap([
+            'Purchase Request' => \Modules\FileManagement\Entities\Procurement\PurchaseRequest::class,
+            'Purchase Order' => \Modules\FileManagement\Entities\Procurement\PurchaseOrder::class,
+            'CAFOA' => \Modules\FileManagement\Entities\Cafoa\Cafoa::class,
+        ]);
     }
 }

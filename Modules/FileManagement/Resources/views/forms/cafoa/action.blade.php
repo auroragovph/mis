@@ -14,9 +14,6 @@
         <div class="dropdown-divider"></div>
 
         <a class="dropdown-item" href="{{ route('fms.cafoa.edit', $cafoa->id) }}">Edit Document</a>
-        <a class="dropdown-item" href="{{ route('fms.cafoa.print', $cafoa->id) }}">Print Document</a>
-
-        
-
+        <a class="dropdown-item" target="_blank" href="{{ route('fms.cafoa.show', $cafoa->id) }}?print">Print Document</a>
     </div>
 </div>

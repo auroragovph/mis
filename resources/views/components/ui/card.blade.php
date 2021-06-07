@@ -1,10 +1,10 @@
 <!--begin::Advance Table: Widget 7-->
-<div class="card card-custom gutter-b" >
+<div class="card card-custom gutter-b {{ $class }}" {{ $attributes }}>
 
     @empty(!$title)
         <!--begin::Header-->
-        <div class="card-header border-0 mt-2">
-            <h3 class="card-title align-items-start flex-column">
+        <div class="border-0 card-header">
+            <h3 class="mt-2 card-title align-items-start flex-column">
                 <span class="card-label font-weight-bolder text-dark">{{ $title }}</span>
             </h3>
         </div>

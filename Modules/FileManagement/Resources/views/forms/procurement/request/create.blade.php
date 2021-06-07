@@ -23,9 +23,17 @@ Purchase Request
                 <x-ui.form.input label="FPP" type="text" name="fpp" value="{{ old('fpp') }}" required />
             </div>
             <!--end::Group-->
+        </div>
+
+        <div class="row">
             <!--begin::Group-->
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <x-ui.form.text-area label="Purpose" name="purpose" value="{{ old('purpose') }}" required />
+            </div>
+            <!--end::Group-->
+            <!--begin::Group-->
+            <div class="col-md-6">
+                <x-ui.form.text-area label="Particulars" name="particulars" value="{{ old('particulars') }}" required />
             </div>
             <!--end::Group-->
         </div>

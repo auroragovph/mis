@@ -4,21 +4,34 @@ namespace Modules\FileManagement\Http\Controllers\Forms\Procurement;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\FileManagement\Entities\Document\Document;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\FileManagement\Entities\Procurement\FMS_PO;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
+use Modules\FileManagement\Entities\Procurement\PurchaseOrder;
+use Modules\FileManagement\Http\Controllers\Forms\FormController;
 use Modules\FileManagement\Http\Requests\Forms\Procurement\Order\StoreRequest;
 use Modules\FileManagement\Http\Requests\Forms\Procurement\Order\UpdateRequest;
 use Modules\FileManagement\Transformers\Forms\Procurement\Order\OrderDTResource;
 
-class POController extends Controller
+class POController extends FormController
 {
+    public function __construct()
+    {
+        $this->model = PurchaseOrder::class;
+        $this->doctype = config('constants.document.type.procurement.order');
+        $this->alias = 'purchase_order';
+        $this->routes = [
+            'show' => 'fms.procurement.order.show'
+        ];
+    }
+
     public function index()
     {
         if(request()->ajax()){
 
-            $model = FMS_PO::with('document.division.office')->whereHas('document', function($q){
+            $model = PurchaseOrder::with('document.division.office')->whereHas('document', function($q){
                 $q->where('division_id', auth_division());
             })->get();
 
@@ -35,9 +48,8 @@ class POController extends Controller
     public function create(Request $request)
     {
         $id = (int)$request->get('document');
-        
 
-        $document = FMS_Document::with('purchase_request')
+        $document = Document::with('purchase_request')
             ->where('id', $id)
             ->where('type', config('constants.document.type.procurement.request'))
             ->firstOrFail();
@@ -60,14 +72,14 @@ class POController extends Controller
 
         $id = session()->get('fms.document.create.po');
 
-        $document = FMS_Document::with('purchase_request')
+        $document = Document::with('purchase_request')
             ->where('id', $id)
             ->where('type', config('constants.document.type.procurement.request'))
             ->firstOrFail();
 
 
 
-        $po = FMS_PO::create([
+        $forms = [
             'document_id'           => $id,
             'approving_id'          => $request->post('approving'),
             'number'                => $request->post('number'),
@@ -87,7 +99,9 @@ class POController extends Controller
                                         'term'     => $request->post('delivery_term'),
                                         'payment'  => $request->post('delivery_payment'),
                                         )
-        ]);
+            ];
+
+        $po = $this->save($forms, true);
 
 
         // changing status of the document
@@ -95,49 +109,38 @@ class POController extends Controller
             'type' => config('constants.document.type.procurement.order')
         ]);
 
-        // setting session
-        // session()->flash('alert-success', 'Purchase order has been encoded.');
+        if(request()->ajax()){
+            return response()->json([
+                'message' => "Purchase order has been encoded.",
+                'route' => route('fms.procurement.order.show', $po->id)
+            ], 201);
+        }
 
-        // adding attachmeent
-        // FMS_DocumentAttach::create([
-        //     'document_id' => $id,
-        //     'description' => 'Purchase Order',
-        //     'mime'  => 'url/sys',
-        //     'url'   => json_encode(array('fms.procurement.order.show', $po->id))
-        // ]);
-
-        return redirect(route('fms.procurement.order.show', $po->id))->with('alert-success', "Purchase order has been encoded.");
-
-        // return response()->json([
-        //     'message' => "Purchase order has been encoded.",
-        //     'route' => route('fms.procurement.order.show', $po->id)
-        // ]);
-
-
+        return redirect(route('fms.procurement.order.show', $po->id))
+                ->with('alert-success', "Purchase order has been encoded.");
     }
 
     public function show($id)
     {
-        $po = FMS_PO::with(
-            'document.attachments',
-            'document.liaison',
-            'document.encoder',
-            'document.division.office',
-            )->findOrFail($id);
+        $po = $this->details($id);
 
+        if(request()->has('print') && request()->get('print') == true){
+            
+            return view('filemanagement::forms.procurement.order.print', [
+                'po' => $po
+            ]);
+        }
 
         return view('filemanagement::forms.procurement.order.show', [
             'po' => $po
         ]);
+
     }
 
     public function edit($id)
     {
-
-        $po = FMS_PO::with('document')->findOrFail($id);
-
+        $po = PurchaseOrder::with('document')->findOrFail($id);
         $employees = HR_Employee::get();
-
         // setting sessions
         session(['fms.document.edit.po' => $po->id]);
 
@@ -149,9 +152,7 @@ class POController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        $po = FMS_PO::findOrFail($id);
-
-        $po->update([
+        $forms = [
             'approving_id'          => $request->post('approving'),
             'number'                => $request->post('number'),
             'mode_of_procurement'   => $request->post('mode_of_procurement'),
@@ -170,21 +171,24 @@ class POController extends Controller
                                         'term'     => $request->post('delivery_term'),
                                         'payment'  => $request->post('delivery_payment'),
                                         )
-        ]);
+        ];
+
+        $po = $this->patch($id, $forms);
+
+        if(request()->ajax()){
+            return response()->json([
+                    'message' => "Purchase order has been updated.",
+                    'route' => route('fms.procurement.order.show', $po->id)
+                ]);
+        }
 
         return redirect(route('fms.procurement.order.show', $po->id))->with('alert-success', "Purchase order has been updated.");
-
-
-        // return response()->json([
-        //     'message' => "Purchase order has been updated.",
-        //     'route' => route('fms.procurement.order.show', $po->id)
-        // ]);
 
     }
 
     public function print($id)
     {
-        $po = FMS_PO::with(
+        $po = PurchaseOrder::with(
             'document.attachments',
             'document.liaison',
             'document.encoder',

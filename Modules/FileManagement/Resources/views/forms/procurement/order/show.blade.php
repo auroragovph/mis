@@ -131,7 +131,7 @@ Purchase Order
         </x-ui.card>
 
         <!--end::Advance Table Widget 5-->
-        <x-fms-attachments :attachments="$po->document->attachments" />
+        <x-fms-attachments :attachments="$po->document->attachments" :forms="$po->document->forms" />
         
     </div>
 </div>

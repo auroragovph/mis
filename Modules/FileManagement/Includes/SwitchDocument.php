@@ -1,9 +1,9 @@
 <?php
 
 use Modules\FileManagement\Entities\AFL\FMS_AFL;
-use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
-use Modules\FileManagement\Entities\Procurement\FMS_PO;
-use Modules\FileManagement\Entities\Procurement\FMS_PR;
+use Modules\FileManagement\Entities\Cafoa\Cafoa;
+use Modules\FileManagement\Entities\Procurement\PurchaseOrder;
+use Modules\FileManagement\Entities\Procurement\PurchaseRequest;
 use Modules\FileManagement\Entities\Travel\FMS_IOT;
 use Modules\FileManagement\Entities\Travel\FMS_TO;
 
@@ -25,7 +25,7 @@ switch($document->type){
 
     case config('constants.document.type.procurement.request'): // PURCHASE REQUEST
 
-        $pr = FMS_PR::with('requesting')->where('document_id', $id)->get()->first();
+        $pr = PurchaseRequest::with('requesting')->where('document_id', $id)->get()->first();
 
         $lists = collect($pr->lists);
 
@@ -42,7 +42,7 @@ switch($document->type){
         break;
 
     case config('constants.document.type.procurement.order'): //PURCHASE ORDER
-        $po = FMS_PO::where('document_id', $id)->first();
+        $po = PurchaseOrder::where('document_id', $id)->first();
         $lists = collect($po->lists);
 
         $datas['PO Number'] = $po->number;
@@ -58,7 +58,7 @@ switch($document->type){
     
     case config('constants.document.type.procurement.cafoa'): // PURCHASE PROCUREMENT CAFOA
     case config('constants.document.type.cafoa'): 
-        $cafoa = FMS_Cafoa::where('document_id', $id)->first();
+        $cafoa = Cafoa::where('document_id', $id)->first();
 
         $datas['Number'] = $cafoa->number;
         $datas['Payee'] = $cafoa->payee;

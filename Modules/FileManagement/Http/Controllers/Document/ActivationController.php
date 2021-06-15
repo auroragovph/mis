@@ -3,10 +3,12 @@
 namespace Modules\FileManagement\Http\Controllers\Document;
 
 use Illuminate\Routing\Controller;
+use Modules\FileManagement\Entities\Document\Document;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Document\FMS_Tracking;
 use Modules\FileManagement\Http\Requests\Document\ActivationRequest;
+use Modules\System\Entities\Employee;
 
 class ActivationController extends Controller
 {
@@ -25,7 +27,7 @@ class ActivationController extends Controller
     {
 
         $id = series($request->document);
-        $document = FMS_Document::find($id);
+        $document = Document::find($id);
 
         if($document == null || $request->document != $document->qr){
             // activity loger
@@ -35,7 +37,7 @@ class ActivationController extends Controller
                 'props' => [
                     'model' => [
                         'id' => $id,
-                        'class' => FMS_Document::class
+                        'class' => Document::class
                     ]
                 ]
             ]);
@@ -54,7 +56,7 @@ class ActivationController extends Controller
                 'props' => [
                     'model' => [
                         'id' => $id,
-                        'class' => FMS_Document::class
+                        'class' => Document::class
                     ]
                 ]
             ]);
@@ -73,7 +75,7 @@ class ActivationController extends Controller
                 'props' => [
                     'model' => [
                         'id' => $id,
-                        'class' => FMS_Document::class
+                        'class' => Document::class
                     ]
                 ]
             ]);
@@ -82,7 +84,7 @@ class ActivationController extends Controller
         }
 
         // checking liaison
-        $liaison = HR_Employee::find_liaison($request->liaison);
+        $liaison = Employee::find_liaison($request->liaison);
 
         if($liaison == null){
 
@@ -95,7 +97,7 @@ class ActivationController extends Controller
                 'props' => [
                     'model' => [
                         'id' => $id,
-                        'class' => FMS_Document::class
+                        'class' => Document::class
                     ]
                 ]
             ]);
@@ -116,7 +118,7 @@ class ActivationController extends Controller
             'props' => [
                 'model' => [
                     'id' => $id,
-                    'class' => FMS_Document::class
+                    'class' => Document::class
                 ]
             ]
         ]);

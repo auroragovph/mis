@@ -2,7 +2,7 @@
 
 
 @section('page-title')
-Document Attach
+Attach Document
 @endsection
 
 @section('toolbar')
@@ -56,12 +56,17 @@ Document Attach
 <div class="row">
     <div class="col-xl-12">
         <x-ui.card>
-            <form action="{{ route('fms.documents.attach.check') }}" method="POST">
+            <form action="{{ route('fms.documents.attach.check') }}" method="POST" x-data="{type: 'hardcopy'}">
                 @csrf
-                <div class="form-group">
-                    <label for="">Document ID</label>
-                    <input type="text" name="document" class="form-control" autofocus autocomplete="off">
-                </div>
+
+                <x-ui.form.input label="Document ID" name="document" autofocus autocomplete="off" />
+
+                <x-ui.form.select label="Attachment Type">
+                    <option value="hardcopy">Hardcopy Documents</option>
+                    <option value="dynamic">Dynamic Attach Form</option>
+                    <option value="newform">Dynamic Attach Form (Encode New Document)</option>
+                </x-ui.form.select>
+
                 <hr>
                 <button class="btn btn-primary"><i class="flaticon2-magnifier-tool"></i> Search</button>
             </form>
@@ -81,10 +86,13 @@ Document Attach
 
 
 @section('js-vendor')
+<!-- AlpineJS -->
+<script src="{{ asset('adminlte/plugins/alpine/alpine.min.js') }}"></script>
+
 @endsection
 
 @section('js-custom')
-<script src="{{ asset('js/Modules/FileTracking/pages/documents/attachment.js') }}"></script>
+{{-- <script src="{{ asset('js/Modules/FileTracking/pages/documents/attachment.js') }}"></script> --}}
 @endsection
 
 

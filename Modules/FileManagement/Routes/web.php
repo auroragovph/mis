@@ -50,6 +50,7 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
                 Route::post('/',    [RRController::class, 'form'])      ->name('form');
                 Route::put('/',     [RRController::class, 'submit'])    ->name('submit');
             });
+            
     
             Route::group(['prefix' => 'attachments', 'middleware' => 'can:fms.sa.attach', 'as' => 'attach.'], function(){
                 Route::get('/',                 [AttachmentController::class, 'index'])     ->name('index');
@@ -58,6 +59,8 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
                 Route::post('/{id}/attachments',[AttachmentController::class, 'attach'])    ->name('attach');
                 Route::get('/{file}/stream',    [AttachmentController::class, 'file'])      ->name('file');
             });
+
+
     
             Route::group(['prefix' => 'numbering', 'middleware' => 'can:fms.sa.number', 'as' => 'number.'], function(){
                 Route::get('/',                 [NumberingController::class, 'index'])      ->name('index');

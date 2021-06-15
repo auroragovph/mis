@@ -42,6 +42,13 @@ return [
                 ],
 
                 [
+                    'name' => 'Attach Document',
+                    'route' => 'fms.documents.attach.index',
+                    'permissions' => ['fms.sa.activate'],
+                    'icon' => 'fas fa-paperclip'
+                ],
+
+                [
                     'name' => 'Cancellation',
                     'route' => 'fms.documents.cancel.index',
                     'permissions' => ['fms.document.cancel'],

@@ -26,15 +26,15 @@ class DatabaseSeeder extends Seeder
         // we will include here
         $this->call([
 
-            // OfficeTableSeeder::class,
-            // SalaryGradeTableSeeder::class,
-            // PlantillaTableSeeder::class,
-            // EmployeeTableSeeder::class,
+            OfficeTableSeeder::class,
+            SalaryGradeTableSeeder::class,
+            PlantillaTableSeeder::class,
+            EmployeeTableSeeder::class,
 
             // PermissionTableSeeder::class,
             // RoleTableSeeder::class,
 
-            // PermissionRoleTableSeeder::class,
+            PermissionRoleTableSeeder::class,
 
             AccountSeeder::class
         ]);

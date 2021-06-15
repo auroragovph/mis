@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\FileManagement\Entities\Document\FMS_Document as Document;
-use Modules\FileManagement\Entities\Procurement\FMS_PO as PurchaseOrder;
+use Modules\FileManagement\Entities\Document\Document;
+use Modules\FileManagement\Entities\Procurement\PurchaseOrder;
 
 class FmsFormAirCreateTable extends Migration
 {

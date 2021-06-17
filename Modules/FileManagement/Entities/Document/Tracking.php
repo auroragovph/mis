@@ -2,14 +2,12 @@
 
 namespace Modules\FileManagement\Entities\Document;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 use Illuminate\Support\Facades\Auth;
-use Modules\HumanResource\Entities\HR_Employee;
+use Modules\System\Entities\Employee;
+use Illuminate\Database\Eloquent\Model;
 use Modules\System\Entities\Office\SYS_Division;
 
-class FMS_Tracking extends Model
+class Tracking extends Model
 {
     // use SoftDeletes;
 
@@ -18,12 +16,12 @@ class FMS_Tracking extends Model
 
     public function liaison()
     {
-        return $this->belongsTo(HR_Employee::class, 'liaison_id');
+        return $this->belongsTo(Employee::class, 'liaison_id');
     }
 
     public function clerk()
     {
-        return $this->belongsTo(HR_Employee::class, 'user_id');
+        return $this->belongsTo(Employee::class, 'user_id');
     }
 
     public function division()

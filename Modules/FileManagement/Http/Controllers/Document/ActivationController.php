@@ -6,7 +6,7 @@ use Illuminate\Routing\Controller;
 use Modules\FileManagement\Entities\Document\Document;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\FileManagement\Entities\Document\FMS_Document;
-use Modules\FileManagement\Entities\Document\FMS_Tracking;
+use Modules\FileManagement\Entities\Document\Tracking;
 use Modules\FileManagement\Http\Requests\Document\ActivationRequest;
 use Modules\System\Entities\Employee;
 
@@ -42,7 +42,9 @@ class ActivationController extends Controller
                 ]
             ]);
 
-            return redirect()->back()->with('alert-error', 'Document not found');
+            return redirect()
+                    ->back()
+                    ->with('alert-error', 'Document not found');
         }
 
         if($document->status == '0'){
@@ -109,7 +111,7 @@ class ActivationController extends Controller
         $document->save();
 
         // save to tracking
-        FMS_Tracking::log($id, 0, 'Document Activation', 2, (int)$liaison->id);
+        Tracking::log($id, 0, 'Document Activation', 2, (int)$liaison->id);
 
         // activity loger
         activitylog([

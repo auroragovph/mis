@@ -23,8 +23,8 @@
 
     </div>
     <div class="col-xl-8">
-        @php($title_form = ($track->action == 0) ? 'Receive Form' : 'Release Form')
-        <x-ui.card :title="$title_form">
+       
+        <x-ui.card>
             <form method="POST" action="{{ route('fms.documents.rr.submit') }}">
                 @csrf
                 @method('PUT')

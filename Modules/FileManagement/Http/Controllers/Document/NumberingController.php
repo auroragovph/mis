@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
 use Modules\FileManagement\Entities\Document\FMS_Document;
-use Modules\FileManagement\Entities\Document\FMS_Tracking;
+use Modules\FileManagement\Entities\Document\Tracking;
 use Modules\FileManagement\Entities\Procurement\FMS_PR;
 use Modules\FileManagement\Entities\Travel\FMS_TO;
 
@@ -92,7 +92,7 @@ class NumberingController extends Controller
 
         // you must receive first the document
         // fetch the latest track of the document
-        $logs = FMS_Tracking::where('document_id', $id)->orderBy('id', 'DESC')->first();
+        $logs = Tracking::where('document_id', $id)->orderBy('id', 'DESC')->first();
         if($logs->action !== 1){
 
             // activity loger
@@ -207,7 +207,7 @@ class NumberingController extends Controller
                     'number' => $request->post('number')
                 ]);
 
-                FMS_Tracking::log($document->document_id, 1, 'Attach number to the document', 2);
+                Tracking::log($document->document_id, 1, 'Attach number to the document', 2);
 
                 $response['message'] = 'Attachment success.';
                 $response['status'] = 200;

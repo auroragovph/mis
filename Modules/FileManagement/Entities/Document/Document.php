@@ -3,24 +3,13 @@
 namespace Modules\FileManagement\Entities\Document;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\HumanResource\Entities\HR_Employee;
-use Modules\FileManagement\Entities\AFL\FMS_AFL;
-use Modules\System\Entities\Office\SYS_Division;
+use Illuminate\Support\Facades\Auth;
 use Modules\FileManagement\Entities\Document\Form;
-use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
-// use Modules\FileManagement\Entities\Obr\FMS_ObligationRequest;
-use Modules\FileManagement\Entities\Procurement\FMS_PO;
-use Modules\FileManagement\Entities\Procurement\FMS_PR;
-use Modules\FileManagement\Entities\Travel\FMS_Itinerary;
 use Modules\FileManagement\Traits\Documents\Relationships;
-use Modules\FileManagement\Entities\Travel\FMS_TravelOrder;
-
-use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
-use Modules\FileManagement\Entities\Procurement\FMS_PurchaseRequest;
-
+use Modules\System\Entities\Employee;
+use Modules\System\Entities\Office\SYS_Division;
 
 class Document extends Model
 {
@@ -29,12 +18,13 @@ class Document extends Model
     protected $guarded = [];
     protected $table = 'fms_documents';
     protected $casts = [
-        'properties'  => 'json'
+        'properties' => 'json',
+        'status' => 'integer',
     ];
 
     public static function getTableName()
     {
-        return with(new static)->getTable();
+        return with(new static )->getTable();
     }
 
     /**
@@ -49,11 +39,10 @@ class Document extends Model
             'division_id' => Auth::user()->employee->division_id,
             'liaison_id' => $liaison,
             'encoder_id' => Auth::user()->employee_id,
-            'type' => $type
+            'type' => $type,
             // 'particulars' => $particulars
         ]);
     }
-
 
     public function scopeOnlyDivision($query)
     {
@@ -70,7 +59,7 @@ class Document extends Model
 
     public function getQrAttribute()
     {
-        return Carbon::parse($this->created_at)->format('Ymd').$this->id;
+        return Carbon::parse($this->created_at)->format('Ymd') . $this->id;
     }
 
     public function getEncodedAttribute()
@@ -80,12 +69,12 @@ class Document extends Model
 
     public function encoder()
     {
-        return $this->belongsTo(HR_Employee::class, 'encoder_id');
+        return $this->belongsTo(Employee::class, 'encoder_id');
     }
 
     public function liaison()
     {
-        return $this->belongsTo(HR_Employee::class, 'liaison_id');
+        return $this->belongsTo(Employee::class, 'liaison_id');
     }
 
     public function division()
@@ -100,16 +89,16 @@ class Document extends Model
 
     public function attachments()
     {
-        return $this->hasMany(FMS_DocumentAttach::class, 'document_id');
+        return $this->hasMany(Attachment::class, 'document_id');
     }
 
     public function tracks()
     {
-        return $this->hasMany(FMS_Tracking::class, 'document_id');
+        return $this->hasMany(Tracking::class, 'document_id');
     }
 
     public function latestTrack()
     {
-        return $this->hasMany(FMS_Tracking::class, 'document_id')->orderByDesc('created_at')->take(1);
+        return $this->hasMany(Tracking::class, 'document_id')->orderByDesc('created_at')->take(1);
     }
 }

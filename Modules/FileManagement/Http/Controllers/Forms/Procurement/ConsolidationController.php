@@ -8,7 +8,7 @@ use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Office\SYS_Division;
 use Modules\FileManagement\Entities\Procurement\FMS_PR;
 use Modules\FileManagement\Entities\Document\FMS_Document;
-use Modules\FileManagement\Entities\Document\FMS_Tracking;
+use Modules\FileManagement\Entities\Document\Tracking;
 use Modules\FileManagement\Http\Requests\Forms\Procurement\Request\PRStoreRequest;
 
 class ConsolidationController extends Controller
@@ -158,7 +158,7 @@ class ConsolidationController extends Controller
                 'updated_at'    => $now,
             ]);
         }
-        FMS_Tracking::insert($inserts);
+        Tracking::insert($inserts);
 
 
         // setting session

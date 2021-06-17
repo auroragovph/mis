@@ -96,7 +96,7 @@ Purchase Request
 
         </x-ui.card>
         
-        <x-fms-attachments :attachments="$pr->document->attachments" />
+        <x-fms-attachments :attachments="$pr->document->attachments" :forms="$pr->document->forms" />
     </div>
 </div>
 @endsection

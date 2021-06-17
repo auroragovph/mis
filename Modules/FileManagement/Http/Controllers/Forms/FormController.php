@@ -26,7 +26,7 @@ class FormController extends Controller
             ]);
 
         } catch (\Exception $e){
-            return throw $e;
+            return $e;
         }
         
         return $data;

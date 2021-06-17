@@ -55,9 +55,9 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
             Route::group(['prefix' => 'attachments', 'middleware' => 'can:fms.sa.attach', 'as' => 'attach.'], function(){
                 Route::get('/',                 [AttachmentController::class, 'index'])     ->name('index');
                 Route::post('/',                [AttachmentController::class, 'check'])     ->name('check');
-                Route::get('/{id}/attachments', [AttachmentController::class, 'form'])      ->name('form');
-                Route::post('/{id}/attachments',[AttachmentController::class, 'attach'])    ->name('attach');
-                Route::get('/{file}/stream',    [AttachmentController::class, 'file'])      ->name('file');
+                Route::get('/hardcopy',         [AttachmentController::class, 'hardcopy'])  ->name('hardcopy');
+                Route::post('/hardcopy',        [AttachmentController::class, 'attach'])    ->name('attach');
+
             });
 
 
@@ -131,7 +131,6 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
             Route::get('/{id}/print',   [AFLController::class, 'print'])        ->name('print');
         });
 
-      
     });
 
 });

@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
         $authenticated = Account::with('employee.position', 'employee.division.office')->find(auth()->user()->id);
         $request->session()->put('authenticated', $authenticated);
 
-        // return redirect($route);        
+        session()->flash('welcome_back');
         return redirect(session()->pull('url.intended', route('dashboard')));        
     }
 

@@ -8,7 +8,7 @@
 
         @include('filemanagement::documents.general_action_button', [
             'button_doc_id' => $pr->document_id,
-            'qr' => $pr->document->qr
+            'qrcode' => $pr->document->qr
         ])
 
         <div class="dropdown-divider"></div>

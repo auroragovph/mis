@@ -7,7 +7,7 @@ use Illuminate\Routing\Controller;
 use Modules\FileManagement\Entities\Document\Document;
 use Modules\FileManagement\Entities\Document\FMS_Document;
 use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
-use Modules\FileManagement\Entities\Document\FMS_Tracking;
+use Modules\FileManagement\Entities\Document\Tracking;
 
 class DocumentController extends Controller
 {
@@ -54,7 +54,7 @@ class DocumentController extends Controller
 
             require base_path()."/Modules/FileManagement/Includes/SwitchDocument.php";
 
-            $tracks = FMS_Tracking::with('liaison', 'clerk', 'division.office')->where('document_id', $id)->orderBy('id', 'DESC')->get();
+            $tracks = Tracking::with('liaison', 'clerk', 'division.office')->where('document_id', $id)->orderBy('id', 'DESC')->get();
 
         }
 

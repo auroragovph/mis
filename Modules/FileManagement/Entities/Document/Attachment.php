@@ -3,9 +3,9 @@
 namespace Modules\FileManagement\Entities\Document;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\HumanResource\Entities\HR_Employee;
+use Modules\System\Entities\Employee;
 
-class FMS_DocumentAttach extends Model
+class Attachment extends Model
 {
     protected $guarded = [];
     protected $table = 'fms_documents_attachment';
@@ -17,7 +17,7 @@ class FMS_DocumentAttach extends Model
     {
         parent::boot();
 
-        FMS_DocumentAttach::saving(function ($model) {
+        Attachment::saving(function ($model) {
             $model->employee_id = authenticated()->employee_id;
             $model->status = 1;
         });
@@ -25,6 +25,6 @@ class FMS_DocumentAttach extends Model
 
     public function employee()
     {
-        return $this->belongsTo(HR_Employee::class, 'employee_id', 'id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 }

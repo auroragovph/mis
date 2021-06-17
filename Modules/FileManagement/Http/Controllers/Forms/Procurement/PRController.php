@@ -101,7 +101,7 @@ class PRController extends FormController
 
             return $this->print($pr);
         }
-
+        
         return view('filemanagement::forms.procurement.request.show', [
             'pr' => $pr
         ]);

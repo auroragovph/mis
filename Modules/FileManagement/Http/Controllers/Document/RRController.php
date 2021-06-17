@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\HumanResource\Entities\HR_Employee;
-use Modules\FileManagement\Entities\Document\FMS_Document;
-use Modules\FileManagement\Entities\Document\FMS_Tracking;
+use Modules\FileManagement\Entities\Document\Document;
+use Modules\FileManagement\Entities\Document\Tracking;
 use Modules\FileManagement\Http\Requests\Document\RRRequest;
+use Modules\System\Entities\Employee;
 
 class RRController extends Controller
 {
@@ -27,7 +28,7 @@ class RRController extends Controller
         // converting DOCUMENT QR
         $id = series($request->document);
 
-        $document = FMS_Document::with('encoder', 'liaison', 'division.office')->find($id);
+        $document = Document::with('encoder', 'liaison', 'division.office')->find($id);
 
         // checking if document exists
         if($document == null || $document->qr !== $request->document){
@@ -39,7 +40,7 @@ class RRController extends Controller
                 'props' => [
                     'model' => [
                         'id' => $id,
-                        'class' => FMS_Document::class
+                        'class' => Document::class
                     ]
                 ]
             ]);
@@ -57,7 +58,7 @@ class RRController extends Controller
                 'props' => [
                     'model' => [
                         'id' => $id,
-                        'class' => FMS_Document::class
+                        'class' => Document::class
                     ]
                 ]
             ]);
@@ -75,7 +76,7 @@ class RRController extends Controller
                 'props' => [
                     'model' => [
                         'id' => $id,
-                        'class' => FMS_Document::class
+                        'class' => Document::class
                     ]
                 ]
             ]);
@@ -84,7 +85,7 @@ class RRController extends Controller
         }
 
         // converting LIAISON QR TO ID
-        $liaison = HR_Employee::find_liaison($request->liaison);
+        $liaison = Employee::find_liaison($request->liaison);
 
 
         // checking if the liaison exists
@@ -97,7 +98,7 @@ class RRController extends Controller
                 'props' => [
                     'model' => [
                         'id' => $id,
-                        'class' => FMS_Document::class
+                        'class' => Document::class
                     ]
                 ]
             ]);
@@ -106,7 +107,7 @@ class RRController extends Controller
         }
        
 
-        $track = FMS_Tracking::with('division.office')->where('document_id', $id)->orderBy('created_at', 'DESC')->first();
+        $track = Tracking::with('division.office')->where('document_id', $id)->orderBy('created_at', 'DESC')->first();
 
         // check if you can receive this paper
 
@@ -119,7 +120,7 @@ class RRController extends Controller
                 'props' => [
                     'model' => [
                         'id' => $id,
-                        'class' => FMS_Document::class
+                        'class' => Document::class
                     ]
                 ]
             ]);
@@ -140,7 +141,7 @@ class RRController extends Controller
                     'props' => [
                         'model' => [
                             'id' => $id,
-                            'class' => FMS_Document::class
+                            'class' => Document::class
                         ]
                     ]
                 ]);
@@ -165,7 +166,7 @@ class RRController extends Controller
             'props' => [
                 'model' => [
                     'id' => $id,
-                    'class' => FMS_Document::class
+                    'class' => Document::class
                 ]
             ]
         ]);
@@ -182,13 +183,13 @@ class RRController extends Controller
         $id = session()->pull('fms.document.edit');
         $liaison = session()->pull('fms.document.liaison');
         $action = session()->pull('fms.document.track');
-        $document = FMS_Document::find($id);
+        $document = Document::find($id);
         $document->update(['status' => $request->status]);
-        $track = FMS_Tracking::log($id, $action, $request->purpose, $request->status, $liaison);
+        $track = Tracking::log($id, $action, $request->purpose, $request->status, $liaison);
         ($action == 0) ? $acm = 'Document has been release.' : $acm = 'Document has been receive.' ;
 
         // logging
-        // FMS_DocumentLog::log($id, $acm);
+        // DocumentLog::log($id, $acm);
 
         return redirect(route('fms.documents.rr.index'))->with('alert-success', $acm);
 

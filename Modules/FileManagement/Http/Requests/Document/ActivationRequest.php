@@ -5,6 +5,7 @@ namespace Modules\FileManagement\Http\Requests\Document;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Modules\HumanResource\Entities\HR_Employee;
+use Modules\System\Entities\Employee;
 
 class ActivationRequest extends FormRequest
 {
@@ -15,6 +16,9 @@ class ActivationRequest extends FormRequest
      */
     public function rules()
     {
+
+        $employees_table = (new Employee())->getTable();
+
         return [
             'document'      =>  ['required'],
             'liaison'       =>  ['required']

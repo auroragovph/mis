@@ -59,7 +59,7 @@ class CafoaController extends FormController
             $doc_id = request()->get('document_id');
             $document = Document::findOrFail($doc_id);
 
-            if($document->qr !== request()->get('qr')){
+            if($document->qr != request()->get('qrcode')){
                 return abort(404);
             }
 

@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
             'Purchase Request' => \Modules\FileManagement\Entities\Procurement\PurchaseRequest::class,
             'Purchase Order' => \Modules\FileManagement\Entities\Procurement\PurchaseOrder::class,
             'CAFOA' => \Modules\FileManagement\Entities\Cafoa\Cafoa::class,
+            'Travel Order' => \Modules\FileManagement\Entities\Travel\TravelOrder::class,
         ]);
     }
 }

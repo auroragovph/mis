@@ -6,7 +6,10 @@ Travel Order
 @endsection
 
 @section('toolbar')
-    @include('filemanagement::forms.travel.order.action')
+    @include('filemanagement::documents.general_action_button', [
+        'qrcode' => $to->document->qr,
+        'document_id' => $to->document->id
+    ])
 @endsection
 
 @section('content')
@@ -17,7 +20,7 @@ Travel Order
     </div>
     <div class="col-xl-8">
 
-        <x-ui.card title="Travel Order Details">
+        <x-ui.card>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <tr>
@@ -73,9 +76,15 @@ Travel Order
                     </tbody>
                 </table>
             </div>
+
+            @include('filemanagement::forms.travel.order.buttons')
+
+
+
         </x-ui.card>
 
-        <x-fms-attachments :attachments="$to->document->attachments" />
+        <x-fms-attachments :attachments="$to->document->attachments" :forms="$to->document->forms" />
+
 
         
          

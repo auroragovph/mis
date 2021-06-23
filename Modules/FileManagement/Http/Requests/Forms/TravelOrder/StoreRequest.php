@@ -4,7 +4,7 @@ namespace Modules\FileManagement\Http\Requests\Forms\TravelOrder;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
-use Modules\HumanResource\Entities\HR_Employee;
+use Modules\System\Entities\Employee;
 use Modules\System\Entities\Office\SYS_Division;
 
 class StoreRequest extends FormRequest
@@ -27,11 +27,11 @@ class StoreRequest extends FormRequest
             'purpose'       => 'required',
             'liaison'       => [
                                     'required',
-                                    Rule::exists(HR_Employee::getTableName(), 'id')->where('liaison', 1)
+                                    Rule::exists(Employee::getTableName(), 'id')->where('liaison', 1)
                                 ],
             'approval'       => [
                                     'required',
-                                    Rule::exists(HR_Employee::getTableName(), 'id')
+                                    Rule::exists(Employee::getTableName(), 'id')
                                 ]
 
         ];

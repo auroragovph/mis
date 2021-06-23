@@ -1,4 +1,4 @@
-<div class="dropdown">
+{{-- <div class="dropdown">
     <button class="btn bg-navy dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Actions
     </button>
@@ -19,4 +19,7 @@
         
 
     </div>
-</div>
+</div> --}}
+
+<a href="{{ route('fms.travel.order.edit', $to->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+<a href="{{ route('fms.travel.order.show', $to->id) }}?print=1" class="btn btn-default btn-sm"><i class="fas fa-print"></i> Print</a>

@@ -84,15 +84,7 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
                 Route::resource('/',        POController::class)                ->except(['destroy'])       ->parameters(['' => 'id']);
                 Route::get('/{id}/print',  [POController::class, 'print'])     ->name('print');
             });
-    
-            Route::group(['prefix' => 'cafoa', 'as' => 'cafoa.'], function(){
-                Route::resource('/',    ProcurementCafoaController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
-    
-                // Route::get('/create/{id}', [ProcurementCafoaController::class, 'create'])->name('create');
-                // Route::post('/create/{id}', [ProcurementCafoaController::class, 'store'])->name('store');
-                // Route::get('/{id}', [ProcurementCafoaController::class, 'show'])->name('show');
-            });
-    
+           
             Route::group(['prefix' => 'consolidate', 'as' => 'consolidate.'], function(){
                 Route::get('/',             [ConsolidationController::class, 'index'])  ->name('index');
                 Route::post('/',            [ConsolidationController::class, 'check'])  ->name('check');

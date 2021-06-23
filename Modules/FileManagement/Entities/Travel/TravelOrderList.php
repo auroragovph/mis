@@ -3,9 +3,9 @@
 namespace Modules\FileManagement\Entities\Travel;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\HumanResource\Entities\HR_Employee;
+use Modules\System\Entities\Employee;
 
-class FMS_TOL extends Model
+class TravelOrderList extends Model
 {
     protected $primaryKey = null;
     public $incrementing = false;
@@ -14,12 +14,12 @@ class FMS_TOL extends Model
 
     public function form()
     {
-        return $this->belongsTo(FMS_TO::class, 'form_id');
+        return $this->belongsTo(TravelOrder::class, 'form_id');
     }
 
     public function employee()
     {
-        return $this->belongsTo(HR_Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
    
 }

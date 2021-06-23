@@ -1,0 +1,2 @@
+<a href="{{ route('fms.procurement.order.edit', $po->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+<a href="{{ route('fms.procurement.order.show', $po->id) }}?print=1" class="btn btn-default btn-sm"><i class="fas fa-print"></i> Print</a>

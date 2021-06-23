@@ -55,15 +55,9 @@
                     <option value="" selected hidden></option>
                     <option value="{{ route('fms.afl.index') }}">Application For Leave (AFL)</option>
                     <option value="{{ route('fms.cafoa.index') }}">Certification On Appropriations, Funds And Obligation Of Allotment (CAFOA)</option>
-                    {{-- <option value="{{ route('fms.obr.index') }}">Obligation Request (OBR)</option> --}}
-
-
-                    {{-- PROCUREMENT --}}
-                    
 
                     <option value="{{ route('fms.procurement.request.index') }}">Procurement - Purchase Request (PR) </option>
                     <option value="{{ route('fms.procurement.order.index') }}">Procurement - Purchase Order (PO)</option>
-                    <option value="{{ route('fms.procurement.cafoa.index') }}">Procurement - Certification On Appropriations, Funds And Obligation Of Allotment (CAFOA)</option>
 
                     {{-- TRAVEL --}}
                     <option value="{{ route('fms.travel.itinerary.index') }}">Travel - Itinerary of Travel </option>

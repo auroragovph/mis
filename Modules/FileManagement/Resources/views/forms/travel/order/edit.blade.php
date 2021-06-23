@@ -2,7 +2,7 @@
 
 
 @section('page-title')
-Travel Order
+Travel Order Update Form
 @endsection
 
 @section('toolbar')
@@ -10,7 +10,7 @@ Travel Order
 @endsection
 
 @section('content')
-<x-ui.card title="Travel Order Form">
+<x-ui.card>
 <form class="form" id="kt_form" method="POST" action="{{ route('fms.travel.order.update', $to->id) }}">
     @csrf
     @method('PATCH')

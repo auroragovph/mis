@@ -3,12 +3,8 @@
 namespace Modules\FileManagement\Http\Controllers\Forms\Procurement;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Modules\FileManagement\Entities\Document\Document;
 use Modules\HumanResource\Entities\HR_Employee;
-use Modules\FileManagement\Entities\Procurement\FMS_PO;
-use Modules\FileManagement\Entities\Document\FMS_Document;
-use Modules\FileManagement\Entities\Document\FMS_DocumentAttach;
 use Modules\FileManagement\Entities\Procurement\PurchaseOrder;
 use Modules\FileManagement\Http\Controllers\Forms\FormController;
 use Modules\FileManagement\Http\Requests\Forms\Procurement\Order\StoreRequest;
@@ -47,7 +43,7 @@ class POController extends FormController
 
     public function create(Request $request)
     {
-        $id = (int)$request->get('document');
+        $id = (int)$request->get('document_id');
 
         $document = Document::with('purchase_request')
             ->where('id', $id)
@@ -77,8 +73,6 @@ class POController extends FormController
             ->where('type', config('constants.document.type.procurement.request'))
             ->firstOrFail();
 
-
-
         $forms = [
             'document_id'           => $id,
             'approving_id'          => $request->post('approving'),
@@ -102,7 +96,6 @@ class POController extends FormController
             ];
 
         $po = $this->save($forms, true);
-
 
         // changing status of the document
         $document->update([

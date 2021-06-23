@@ -18,7 +18,7 @@ class ProcurementController extends Controller
             $procurement_types = array_values(config('constants.document.type.procurement'));
 
             $procurements = Document::with(
-                'purchase_request', 'purchase_order', 'cafoa', 'division.office'
+                'purchase_request', 'purchase_order', 'division.office'
             )->whereIn('type', $procurement_types)->get();
 
             foreach($procurements as $proc){
@@ -26,7 +26,7 @@ class ProcurementController extends Controller
                 switch($proc->type){
                     case config('constants.document.type.procurement.request'): 
                         $number         = $proc->purchase_request->number;
-                        $particulars    = $proc->purchase_request->purpose;
+                        $particulars    = $proc->purchase_request->particulars;
                         $amount         = number_format(collect($proc->purchase_request->lists)->sum(function($row){
                                             return (floatval($row['quantity'] ?? 0) * floatval($row['amount'] ?? 0));
                                             }), 2);
@@ -42,13 +42,6 @@ class ProcurementController extends Controller
                         $view           = route('fms.procurement.order.show', $proc->purchase_order->id);
                         $type           = 'Purchase Order';
                         break;
-                    case config('constants.document.type.procurement.cafoa'): 
-                            $number         = $proc->cafoa->number;
-                            $particulars    = $proc->cafoa->particulars;
-                            $amount         = number_format(collect($proc->cafoa->lists)->sum('amount'), 2);
-                            $view           = route('fms.cafoa.show', $proc->cafoa->id);
-                            $type           = 'Cafoa';
-                            break;
                     default:
                         $number         = null;
                         $particulars    = null;

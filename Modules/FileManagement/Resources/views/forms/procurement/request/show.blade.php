@@ -6,7 +6,10 @@ Purchase Request
 @endsection
 
 @section('toolbar')
-    @include('filemanagement::forms.procurement.request.action_button')
+    @include('filemanagement::documents.general_action_button', [
+        'qrcode' => $pr->document->qr,
+        'document_id' => $pr->document->id
+    ])
 @endsection
 
 @section('content')
@@ -93,6 +96,9 @@ Purchase Request
                     </tbody>
                 </table>
             </div>
+
+            @include('filemanagement::forms.procurement.request.buttons')
+
 
         </x-ui.card>
         

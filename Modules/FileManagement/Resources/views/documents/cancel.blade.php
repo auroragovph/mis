@@ -19,7 +19,7 @@ Document Cancellation
     </div>
 
     <div class="col-xl-8">
-        <x-ui.card title="Document Cancellation Form">
+        <x-ui.card>
             <form action="{{ route('fms.documents.cancel.submit', $document->id) }}" method="POST">
                 @csrf
                 <x-ui.form.text-area label="Reason for document cancellation" name="reason"></x-ui.form.text-area>

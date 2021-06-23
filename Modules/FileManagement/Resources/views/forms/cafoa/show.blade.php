@@ -6,7 +6,10 @@ CAFOA
 @endsection
 
 @section('toolbar')
-    @include('filemanagement::forms.cafoa.action')
+@include('filemanagement::documents.general_action_button', [
+    'qrcode' => $cafoa->document->qr,
+    'document_id' => $cafoa->document->id
+])
 @endsection
 
 @section('content')
@@ -16,7 +19,7 @@ CAFOA
     </div>
     <div class="col-xl-8">
 
-        <x-ui.card title="CAFOA Details">
+        <x-ui.card>
 
             <div class="table-responsive">
                 <table class="table table-hover mt-3 table-sm">
@@ -84,6 +87,9 @@ CAFOA
                     </tbody>
                 </table>
             </div>
+
+
+            @include('filemanagement::forms.cafoa.buttons')
 
 
 

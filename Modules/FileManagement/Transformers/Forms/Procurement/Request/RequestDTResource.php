@@ -22,7 +22,7 @@ class RequestDTResource extends JsonResource
             'qr' => $this->document->qr,
             'encoded' => $this->document->encoded,
             'office' => office_helper($this->document->division),
-            'particulars' => $this->purpose,
+            'particulars' => $this->particulars,
             'status' => $this->document->status,
             'amount' => number_format($lists->sum(function($row){
                 $qty = intval($row['quantity'] ?? 0);

@@ -1,0 +1,2 @@
+<a href="{{ route('fms.cafoa.edit', $cafoa->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+<a href="{{ route('fms.cafoa.show', $cafoa->id) }}?print=1" class="btn btn-default btn-sm"><i class="fas fa-print"></i> Print</a>

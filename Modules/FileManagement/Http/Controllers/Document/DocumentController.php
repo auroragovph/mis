@@ -42,13 +42,13 @@ class DocumentController extends Controller
 
     public function track(Request $request)
     {
-        if($request->has('qr')){
+        if($request->has('qrcode')){
 
-            $id = series($request->get('qr'));
+            $id = series($request->get('qrcode'));
             $document = Document::with('attachments', 'encoder', 'liaison', 'division.office')->find($id);
 
             // checking if the qr code match
-            if(!$document || $document->qr != $request->get('qr')){
+            if(!$document || $document->qr != $request->get('qrcode')){
                 return redirect(route('fms.documents.track'))->with('alert-error', 'Document not found.');
             }
 

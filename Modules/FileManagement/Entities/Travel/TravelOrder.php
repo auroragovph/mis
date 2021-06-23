@@ -3,12 +3,15 @@
 namespace Modules\FileManagement\Entities\Travel;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\HumanResource\Entities\HR_Employee;
+use Modules\FileManagement\Entities\Document\Document;
+use Modules\FileManagement\Traits\Documents\HasFormable;
 use Modules\System\Entities\Office\SYS_Division;
-use Modules\FileManagement\Entities\Document\FMS_Document;
+use Modules\System\Entities\Employee;
 
-class FMS_TO extends Model
+class TravelOrder extends Model
 {
+    use HasFormable;
+    
     protected $guarded = [];
     protected $table = 'fms_form_travel_order';
 
@@ -18,7 +21,7 @@ class FMS_TO extends Model
 
     public function document()
     {
-        return $this->belongsTo(FMS_Document::class, 'document_id');
+        return $this->belongsTo(Document::class, 'document_id');
     }
 
     public function charging()
@@ -28,11 +31,11 @@ class FMS_TO extends Model
 
     public function approval()
     {
-        return $this->belongsTo(HR_Employee::class, 'approval_id');
+        return $this->belongsTo(Employee::class, 'approval_id');
     }
 
     public function lists()
     {
-        return $this->hasMany(FMS_TOL::class, 'form_id');
+        return $this->hasMany(TravelOrderList::class, 'form_id');
     }
 }

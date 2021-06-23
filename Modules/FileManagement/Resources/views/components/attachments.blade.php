@@ -22,10 +22,30 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $form->formable_type }}</td>
                             <td>Dynamic Form</td>
-                            <td>{{ $form->formable->created_at }}</td>
+                            <td>{{ date($form->formable->created_at) }}</td>
                             <td>{{ $form->formable->particulars ?? null }}</td>
                             <td></td>
-                            <td></td>
+                            <td>
+                                @switch($form->formable_type)
+                                    @case('Purchase Request')
+                                        @php($href = route('fms.procurement.request.show', $form->formable->id))
+                                    @break
+                                    @case('Purchase Order')
+                                        @php($href = route('fms.procurement.order.show', $form->formable->id))
+                                    @break
+                                    @case('CAFOA')
+                                        @php($href = route('fms.cafoa.show', $form->formable->id))
+                                    @break
+                                    @default
+                                        @php($href = '#')
+                                    @break
+                                @endswitch
+
+                                @if($href !== '#')
+                                    <a href="{{ $href ?? '#' }}" class="btn btn-xs btn-default"><i class="fas fa-eye"></i></a>
+                                @endif
+
+                            </td>
                         </tr>
 
                         @php($x = $loop->last ? $loop->iteration : 0)

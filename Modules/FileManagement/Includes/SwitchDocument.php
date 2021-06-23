@@ -6,6 +6,7 @@ use Modules\FileManagement\Entities\Procurement\PurchaseOrder;
 use Modules\FileManagement\Entities\Procurement\PurchaseRequest;
 use Modules\FileManagement\Entities\Travel\FMS_IOT;
 use Modules\FileManagement\Entities\Travel\FMS_TO;
+use Modules\FileManagement\Entities\Travel\TravelOrder;
 
 switch($document->type){
 
@@ -71,7 +72,7 @@ switch($document->type){
 
 
     case config('constants.document.type.travel.order'): //TRAVEL ORDER
-        $to = FMS_TO::with('lists.employee')->where('document_id', $id)->first();
+        $to = TravelOrder::with('lists.employee')->where('document_id', $id)->first();
 
         $datas['TO Number'] = $to->number;
         $datas['Destination'] = $to->destination;

@@ -82,7 +82,7 @@ Document Tracker
     <div class="col-xl-12">
         <x-ui.card>
             <form action="{{ route('fms.documents.track') }}" method="GET">
-                <x-ui.form.input label="Document ID" type="text" name="qr" value="{{ old('qr') }}" required autofocus autocomplete="off" />
+                <x-ui.form.input label="Document ID" type="text" name="qrcode" value="{{ old('qrcode') }}" required autofocus autocomplete="off" />
                 <hr>
                 <button class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
             </form>

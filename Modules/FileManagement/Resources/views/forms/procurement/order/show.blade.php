@@ -6,7 +6,10 @@ Purchase Order
 @endsection
 
 @section('toolbar')
-@include('filemanagement::forms.procurement.order.action_button')
+    @include('filemanagement::documents.general_action_button', [
+        'qrcode' => $po->document->qr,
+        'document_id' => $po->document->id
+    ])
 @endsection
 
 @section('content')
@@ -127,6 +130,10 @@ Purchase Order
                     </tbody>
                 </table>
             </div>
+
+
+            @include('filemanagement::forms.procurement.order.buttons')
+
 
         </x-ui.card>
 

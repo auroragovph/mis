@@ -16,7 +16,7 @@ class AccountSeeder extends Seeder
     public function run()
     {
 
-        $file = base_path()."/database/seeds/sys/accounts.json";
+        $file = base_path()."/database/seeds/sys/account.json";
         $accounts = collect(json_decode(file_get_contents($file), true));
 
         $password = Hash::make('user123');

@@ -4,13 +4,14 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\HumanResource\Database\Seeders\EmployeeTableSeeder;
-use Modules\HumanResource\Database\Seeders\PlantillaTableSeeder;
-use Modules\System\Database\Seeders\OfficeTableSeeder;
-use Modules\HumanResource\Database\Seeders\SalaryGradeTableSeeder;
-use Modules\System\Database\Seeders\PermissionRoleTableSeeder;
-use Modules\System\Database\Seeders\PermissionTableSeeder;
 use Modules\System\Database\Seeders\RoleTableSeeder;
+use Modules\System\Database\Seeders\OfficeTableSeeder;
+use Modules\System\Database\Seeders\PermissionTableSeeder;
+use Modules\System\Database\Seeders\PermissionRoleTableSeeder;
+use Modules\HumanResource\Database\Seeders\EmployeeTableSeeder;
+use Modules\HumanResource\Database\Seeders\PositionTableSeeder;
+use Modules\HumanResource\Database\Seeders\PlantillaTableSeeder;
+use Modules\HumanResource\Database\Seeders\SalaryGradeTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,10 +27,10 @@ class DatabaseSeeder extends Seeder
         // we will include here
         $this->call([
 
-            OfficeTableSeeder::class,
-            SalaryGradeTableSeeder::class,
-            PlantillaTableSeeder::class,
-            EmployeeTableSeeder::class,
+            // OfficeTableSeeder::class,
+            // SalaryGradeTableSeeder::class,
+            // PositionTableSeeder::class,
+            // EmployeeTableSeeder::class,
 
             // PermissionTableSeeder::class,
             // RoleTableSeeder::class,

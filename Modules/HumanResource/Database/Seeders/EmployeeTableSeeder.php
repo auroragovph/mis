@@ -4,7 +4,7 @@ namespace Modules\HumanResource\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\HumanResource\Entities\HR_Employee;
+use Modules\HumanResource\Entities\Employee\Employee;
 
 class EmployeeTableSeeder extends Seeder
 {
@@ -27,14 +27,14 @@ class EmployeeTableSeeder extends Seeder
                 'division_id' => ($employee['division_id'] == 0) ? null : $employee['division_id'],
                 'position_id' => null,
                 'name' => json_encode([
-                    'fname' => $employee['name']['fname'],
-                    'lname' => $employee['name']['lname'],
-                    'mname' => $employee['name']['mname'],
-                    'sname' => $employee['name']['suffix'] ?? '',
+                    'first' => $employee['name']['first'],
+                    'last' => $employee['name']['last'],
+                    'middle' => $employee['name']['middle'],
+                    'suffix' => $employee['name']['suffix'] ?? '',
                     'title' => $employee['name']['title'] ?? '',
                 ]),
                 'info' => json_encode([
-                    'gender' => '',
+                    'sex' => '',
                     'address' => '',
                     'birthday' => '',
                     'civilStatus' => '',
@@ -56,6 +56,6 @@ class EmployeeTableSeeder extends Seeder
             ];
         }
 
-        HR_Employee::insert($lists);
+        Employee::insert($lists);
     }
 }

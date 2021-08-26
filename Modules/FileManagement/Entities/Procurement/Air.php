@@ -12,8 +12,10 @@ class Air extends Model
 
     protected $guarded = [];
     protected $table = 'fms_form_air';
+    
     protected $casts = [
-        'lists' => 'json'
+        'invoice' => 'json',
+        'lists' => 'json',
     ];
 
 }

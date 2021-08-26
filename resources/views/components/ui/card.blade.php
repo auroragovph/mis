@@ -1,20 +1,28 @@
 <!--begin::Advance Table: Widget 7-->
 <div class="card card-custom gutter-b {{ $class }}" {{ $attributes }}>
 
+   
+
     @empty(!$title)
-        <!--begin::Header-->
-        <div class="border-0 card-header">
-            <h3 class="mt-2 card-title align-items-start flex-column">
-                <span class="card-label font-weight-bolder text-dark">{{ $title }}</span>
-            </h3>
+    <div class="card-header">
+
+        <h3 class="card-title">
+            {{ $title }}
+        </h3>
+
+        <div class="card-actions">
+            {{ $actions ?? null }}
         </div>
-        <!--end::Header-->
+
+      </div>
     @endempty
 
     <!--begin::Body-->
     <div class="card-body">
         {{ $slot }}
     </div>
+
+    {{-- {{ $slot_outside }} --}}
 
     <!--end::Body-->
 </div>

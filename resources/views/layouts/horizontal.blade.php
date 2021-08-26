@@ -57,6 +57,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
+@routes()
+
+
 @include('layouts.includes.scripts')
 
 </body>

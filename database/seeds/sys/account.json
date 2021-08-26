@@ -1,0 +1,35 @@
+[
+    {
+        "employee_id": 1,
+        "username": "xijeixhan",
+        "password": "548f6cccd7b40ade46559b83c57b18a4e89ae837",
+        "properties": {
+            "auth": {
+                "firstLogin": true
+            }
+        },
+        "permission": "sys.sudo"
+    },
+    {
+        "employee_id": 2,
+        "username": "root",
+        "password": "358e11df130f9be6e7394bbebe044561db123c7d",
+        "properties": {
+            "auth": {
+                "firstLogin": true
+            }
+        },
+        "permission": "sys.sudo"
+    },
+    {
+        "employee_id": 3,
+        "username": "admin",
+        "password": "3d0f3b9ddcacec30c4008c5e030e6c13a478cb4f",
+        "properties": {
+            "auth": {
+                "firstLogin": true
+            }
+        },
+        "permission": "sys.sudo"
+    }
+]

@@ -1,5 +1,6 @@
 {
     "System": true,
     "FileManagement": true,
-    "HumanResource": true
+    "HumanResource": true,
+    "AwardCommittee": true
 }

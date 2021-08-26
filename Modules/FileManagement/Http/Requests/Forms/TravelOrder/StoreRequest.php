@@ -2,10 +2,10 @@
 
 namespace Modules\FileManagement\Http\Requests\Forms\TravelOrder;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
-use Modules\System\Entities\Employee;
-use Modules\System\Entities\Office\SYS_Division;
+use Illuminate\Validation\Rule;
+use Modules\HumanResource\Entities\Employee\Employee;
+use Modules\System\Entities\Office\Division;
 
 class StoreRequest extends FormRequest
 {
@@ -16,24 +16,18 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'employees'     => 'required',
-            'departure'     => 'required|date',
-            'arrival'       => 'required|date',
-            'charging'      =>  [
-                                    'required',
-                                    Rule::exists(SYS_Division::getTableName(), 'id')
-                                ],
-            'purpose'       => 'required',
-            'liaison'       => [
-                                    'required',
-                                    Rule::exists(Employee::getTableName(), 'id')->where('liaison', 1)
-                                ],
-            'approval'       => [
-                                    'required',
-                                    Rule::exists(Employee::getTableName(), 'id')
-                                ]
+        $employee_table = (new Employee())->getTable();
+        $division_table = (new Division())->getTable();
 
+        return [
+            'employees' => ['required', 'array'],
+            'departure' => ['required', 'date'],
+            'arrival'   => ['required', 'date'],
+            'charging'  => ['required', Rule::exists($division_table, 'id')],
+
+            'purpose'   => ['required'],
+            'liaison'   => ['sometimes', 'required', Rule::exists($employee_table, 'id')->where('liaison', 1)],
+            'requester' => ['required', Rule::exists($employee_table, 'id')],
         ];
     }
 

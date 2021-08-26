@@ -21,14 +21,19 @@
             </tr>
       </thead>
       <tbody>
+            @php($can_edit = authenticated()->can('sys.employee.update'))
             @foreach($employees as $employee)
               <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ name_helper($employee->name) }}</td>
                 <td>{{ office_helper($employee->division) }}</td>
-                <td>{{ $employee->position->position ?? null }}</td>
+                <td>{{ $employee->position->name ?? null }}</td>
                 <td>{{ $employee->employment['type'] ?? null }}</td>
-                <td></td>
+                <td class="text-center">
+                  @if($can_edit)
+                    <a href="{{ route('sys.admin.employee.edit', $employee->id) }}" class="btn btn-xs btn-default" ><i class="fas fa-edit"></i></a>
+                  @endif
+                </td>
               </tr>
             @endforeach
       </tbody>

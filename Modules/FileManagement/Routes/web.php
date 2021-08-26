@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Modules\FileManagement\Http\Controllers\DashboardController;
 use Modules\FileManagement\Http\Controllers\Document\{
     ActivationController,
     AttachmentController,
     CancellationController,
     DocumentController,
     NumberingController,
-    RRController
+    RRController,
+    TrackingController
 };
 use Modules\FileManagement\Http\Controllers\Forms\{
     AFLController,
@@ -24,20 +25,24 @@ use Modules\FileManagement\Http\Controllers\Forms\{
     Travel\ItineraryController,
     Travel\TravelOrderController
 };
+use Modules\FileManagement\Http\Controllers\Forms\Procurement\AirController;
 
 Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' => 'fms.'], function() {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::group(['prefix' => 'documents', 'as' => 'documents.'], function(){
 
             Route::get('/',                     [DocumentController::class, 'index'])       ->name('index');
             Route::get('/{id}/redirect',        [DocumentController::class, 'redirect'])    ->name('redirect');
             Route::get('/{id}/receipt',         [DocumentController::class, 'receipt'])     ->name('receipt');
-            Route::get('/track',                [DocumentController::class, 'track'])       ->name('track');
+
+            Route::get('/track',                TrackingController::class)                  ->name('track');
     
             Route::group(['prefix' => 'cancel', 'middleware' => 'can:fms.document.cancel', 'as' => 'cancel.'], function(){
                 Route::get('/',         [CancellationController::class, 'index'])   ->name('index');
-                Route::post('/',        [CancellationController::class, 'form'])    ->name('form');
-                Route::post('/{id}',    [CancellationController::class, 'submit'])  ->name('submit');
+                Route::get('/form',     [CancellationController::class, 'form'])    ->name('form');
+                Route::post('/form',    [CancellationController::class, 'submit'])  ->name('submit');
             });
     
             Route::group(['prefix' => 'activate', 'middleware' => 'can:fms.sa.activate', 'as' => 'activation.'], function(){
@@ -57,6 +62,8 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
                 Route::post('/',                [AttachmentController::class, 'check'])     ->name('check');
                 Route::get('/hardcopy',         [AttachmentController::class, 'hardcopy'])  ->name('hardcopy');
                 Route::post('/hardcopy',        [AttachmentController::class, 'attach'])    ->name('attach');
+
+                Route::get('/file/{url}',       [AttachmentController::class, 'file'])      ->name('file');
 
             });
 
@@ -92,8 +99,8 @@ Route::group(['prefix' => 'file-management', 'middleware' => 'auth:web', 'as' =>
                 Route::post('/consolidate', [ConsolidationController::class, 'store'])  ->name('store');
             });
     
-            Route::group(['prefix' => 'air', 'as' => 'iar.'],function(){
-                Route::resource('/',    IARController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
+            Route::group(['prefix' => 'air', 'as' => 'air.'],function(){
+                Route::resource('/',    AirController::class)   ->except(['destroy'])   ->parameters(['' => 'id']);
             });
     
         });

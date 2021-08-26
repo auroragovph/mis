@@ -2,7 +2,7 @@
 body { margin: 0 }
 .sheet {
   margin: 0;
-  /* overflow: hidden; */
+  overflow: hidden;
   position: relative;
   box-sizing: border-box;
   page-break-after: always;
@@ -46,94 +46,4 @@ body.legal.landscape  .sheet { width: 357mm; height: 215mm }
   body.letter, body.legal    { width: 216mm }
   body.letter.landscape      { width: 280mm }
   body.legal.landscape       { width: 357mm }
-}
-
-
-
-body{
-    font-family: 'Arial', sans-serif;
-}
-.page-border{
-    border: 2px solid black;
-}
-
-table{
-    width: 100%;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
-    border-collapse: collapse;
-}
-
-td,th {
-    vertical-align: baseline;
-}
-
-.pl-3{
-    padding-left: 10px;
-}
-
-.ml-3{
-    margin-left: 10px;
-}
-
-.text-right{
-    text-align: right;
-}
-
-.text-center{
-    text-align: center;
-}
-
-.center{
-    text-align: center;
-    vertical-align: middle;
-}
-
-.btm{
-    border-top: 2px solid black;
-}
-
-.bbm{
-    border-bottom: 2px solid black;
-}
-
-.blm{
-    border-left: 2px solid black;
-}
-
-.brm{
-    border-right: 2px solid black;
-}
-
-.bt{
-    border-top: 1px solid black;
-}
-
-.bb{
-    border-bottom: 1px solid black;
-}
-
-.bl{
-    border-left: 1px solid black;
-}
-
-.br{
-    border-right: 1px solid black;
-}
-
-.rep{
-    font-size: 12px;
-}
-
-.pro{
-    font-size: 12px;
-    margin-top: -5px;
-}
-
-h3{
-    font-size: 20px;
-}
-
-.footer-page p{
-    font-size: 10px;
 }

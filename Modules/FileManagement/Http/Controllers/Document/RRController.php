@@ -5,11 +5,11 @@ namespace Modules\FileManagement\Http\Controllers\Document;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Modules\HumanResource\Entities\HR_Employee;
+use Modules\FileManagement\Entities\Document\Track;
+use Modules\HumanResource\Entities\Employee\Employee;
 use Modules\FileManagement\Entities\Document\Document;
 use Modules\FileManagement\Entities\Document\Tracking;
 use Modules\FileManagement\Http\Requests\Document\RRRequest;
-use Modules\System\Entities\Employee;
 
 class RRController extends Controller
 {
@@ -20,179 +20,144 @@ class RRController extends Controller
 
     public function index()
     {
-        return view('filemanagement::documents.rr');
+        return view('filemanagement::actions.rr.index');
     }
 
     public function form(Request $request)
     {
+        $qrcode = $request->post('document');
+
         // converting DOCUMENT QR
-        $id = series($request->document);
+        $id = series($qrcode);
 
         $document = Document::with('encoder', 'liaison', 'division.office')->find($id);
 
         // checking if document exists
-        if($document == null || $document->qr !== $request->document){
+        if ($document == null || $document->qr !== $qrcode) {
 
             // activity loger
-            activitylog([
-                'name' => 'fms',
-                'log' => 'Request to receive or release the document but failed. Reason: Document not found.', 
-                'props' => [
-                    'model' => [
-                        'id' => $id,
-                        'class' => Document::class
-                    ]
-                ]
-            ]);
-
+            actlog('fms', 'Request to receive or release the document but failed. Reason: ' . message_box('document.not.found'), ['qrcode' => $qrcode]);
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'We cannot find this document. Please check the QR code and try again.');
         }
 
         // check if document is not cancelled
-        if($document->status == 0){
+        if ($document->status === 0) {
 
             // activity loger
-            activitylog([
-                'name' => 'fms',
-                'log' => 'Request to receive or release the document but failed. Reason: Document was cancelled.', 
-                'props' => [
-                    'model' => [
-                        'id' => $id,
-                        'class' => Document::class
-                    ]
-                ]
-            ]);
-
+            actlog('fms', 'Request to receive or release the document but failed. Reason: ' . message_box('document.cancelled'), ['qrcode' => $qrcode]);
             return redirect(route('fms.documents.rr.index'))->with('alert-error', 'The document has been cancelled.');
         }
 
-        // check if document is activated
-        if($document->status == 1){
+        
+        if ($document->status == 1) {
 
             // activity loger
             activitylog([
-                'name' => 'fms',
-                'log' => 'Request to receive or release the document but failed. Reason: Document is not activated.', 
+                'name'  => 'fms',
+                'log'   => 'Request to receive or release the document but failed. Reason: ' . message_box('document.not.activated'),
                 'props' => [
-                    'model' => [
-                        'id' => $id,
-                        'class' => Document::class
-                    ]
-                ]
+                    'qrcode' => $qrcode,
+                ],
             ]);
 
-            return redirect(route('fms.documents.rr.index'))->with('alert-error', 'Please activate the document first.');
+            return redirect(route('fms.documents.rr.index'))->with('alert-error', message_box('document.not.activated'));
         }
 
         // converting LIAISON QR TO ID
         $liaison = Employee::find_liaison($request->liaison);
 
-
         // checking if the liaison exists
-        if($liaison == null){
+        if ($liaison === null) {
 
             // activity loger
             activitylog([
-                'name' => 'fms',
-                'log' => 'Request to receive or release the document but failed. Reason: Liaison officer not found.', 
+                'name'  => 'fms',
+                'log'   => 'Request to receive or release the document but failed. Reason: ' . message_box('employee.liaison.not.found'),
                 'props' => [
-                    'model' => [
-                        'id' => $id,
-                        'class' => Document::class
-                    ]
-                ]
+                    'qrcode' => $qrcode,
+                ],
             ]);
 
-            return redirect(route('fms.documents.rr.index'))->with('alert-error', 'The liaison officer not found.');
+            return redirect(route('fms.documents.rr.index'))->with('alert-error', message_box('employee.liaison.not.found'));
         }
-       
 
-        $track = Tracking::with('division.office')->where('document_id', $id)->orderBy('created_at', 'DESC')->first();
+        $track = Track::with('division.office')->where('document_id', $id)->orderBy('created_at', 'DESC')->first();
 
         // check if you can receive this paper
 
-        if($track == null){
+        if ($track === null) {
 
             // activity loger
             activitylog([
-                'name' => 'fms',
-                'log' => 'Request to receive or release the document but failed. Reason: Tracks not found.', 
+                'name'  => 'fms',
+                'log'   => 'Request to receive or release the document but failed. Reason: ' . message_box('document.track.not.found'),
                 'props' => [
-                    'model' => [
-                        'id' => $id,
-                        'class' => Document::class
-                    ]
-                ]
+                    'qrcode' => $qrcode,
+                ],
             ]);
-            
-            return redirect(route('fms.documents.rr.index'))->with('alert-error', 'Tracks not found.');
-        }
-        //if the document is currently receive
-        if($track->action == 1){
-            // check if the document is receive in your division/office
-            if($track->division_id != Auth::user()->employee->division_id){
-                $office = office_helper($track->division);
 
+            return redirect(route('fms.documents.rr.index'))->with('alert-error', message_box('document.track.not.found'));
+        }
+
+        //if the document is currently receive
+        if ($track->action == 1) {
+            // check if the document is receive in your division/office
+            if ($track->division_id != Auth::user()->employee->division_id) {
+                $office = office_helper($track->division);
 
                 // activity loger
                 activitylog([
-                    'name' => 'fms',
-                    'log' => 'Request to receive or release the document but failed. Reason: Document was received in another office.', 
+                    'name'  => 'fms',
+                    'log'   => 'Request to receive or release the document but failed. Reason: '.message_box('document.rr.another_office'),
                     'props' => [
                         'model' => [
-                            'id' => $id,
-                            'class' => Document::class
-                        ]
-                    ]
+                            'id'    => $id,
+                            'class' => Document::class,
+                        ],
+                    ],
                 ]);
 
-
-                return redirect(route('fms.documents.rr.index'))->with('alert-error', "This document current receive at <b> {$office} </b>. Please release the document first and try again!");
+                return redirect(route('fms.documents.rr.index'))->with('alert-error', "This document current receive at <b> {$office} </b>. ".message_box('document.rr.release_first'));
             }
         }
 
         // requiring the switchs
-        require base_path()."/Modules/FileManagement/Includes/SwitchDocument.php";
+        require base_path() . "/Modules/FileManagement/Includes/SwitchDocument.php";
 
-        // setting session id 
+        // setting session id
         session(['fms.document.edit' => $id]);
         session(['fms.document.liaison' => $liaison->id]);
-        ($track->action == 0) ? session(['fms.document.track' => 1]) : session(['fms.document.track' => 0]);
+
+        $action = config('constants.document.action');
+
+        ($track->action == 0) ? session(['fms.document.track' => $action['receive']]) : session(['fms.document.track' => $action['release']]);
 
         // activity loger
         activitylog([
-            'name' => 'fms',
-            'log' => 'Request to receive or release the document.', 
+            'name'  => 'fms',
+            'log'   => 'Request to receive or release the document.',
             'props' => [
-                'model' => [
-                    'id' => $id,
-                    'class' => Document::class
-                ]
-            ]
+                'qrcode' => $qrcode
+            ],
         ]);
 
-        return view('filemanagement::documents.rr', [
+        return view('filemanagement::actions.rr.form', [
             'document' => $document,
-            'datas' => $datas,
-            'track' => $track
+            'datas'    => $datas,
+            'track'    => $track,
         ]);
     }
 
     public function submit(RRRequest $request)
     {
-        $id = session()->pull('fms.document.edit');
-        $liaison = session()->pull('fms.document.liaison');
-        $action = session()->pull('fms.document.track');
+        $id       = session()->pull('fms.document.edit');
+        $liaison  = session()->pull('fms.document.liaison');
+        $action   = session()->pull('fms.document.track');
         $document = Document::find($id);
         $document->update(['status' => $request->status]);
-        $track = Tracking::log($id, $action, $request->purpose, $request->status, $liaison);
-        ($action == 0) ? $acm = 'Document has been release.' : $acm = 'Document has been receive.' ;
-
-        // logging
-        // DocumentLog::log($id, $acm);
+        $track                = Track::log($id, $action, $request->purpose, $request->status, $liaison);
+        ($action == 0) ? $acm = message_box('document.rr.release') : $acm = message_box('document.rr.receive');
 
         return redirect(route('fms.documents.rr.index'))->with('alert-success', $acm);
-
-        // return response()->json(['message' => $acm, 'route' => route('fms.documents.rr.index')]);
     }
 }

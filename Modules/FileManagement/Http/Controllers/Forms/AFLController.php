@@ -8,18 +8,19 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\FileManagement\Entities\AFL\FMS_AFL;
-use Modules\FileManagement\Entities\Document\Form;
-use Modules\FileManagement\Entities\Document\FMS_Document;
+use Modules\FileManagement\Entities\AFL\Leave;
 use Modules\FileManagement\Transformers\Forms\AFL\AFLDTResource;
 use Modules\FileManagement\Http\Controllers\Forms\FormController;
 use Modules\FileManagement\Http\Requests\Forms\AFL\AFLStoreRequest;
+use Modules\FileManagement\Http\Requests\Forms\AFL\StoreRequest;
+use Modules\System\Entities\Employee;
 
 class AFLController extends FormController
 {
 
     public function __construct()
     {
-        $this->model = FMS_AFL::class;
+        $this->model = Leave::class;
         $this->doctype = config('constants.document.type.afl');
         $this->alias = 'afl';
         $this->routes = [
@@ -32,6 +33,7 @@ class AFLController extends FormController
         if($request->ajax()){
             $model = FMS_AFL::with('document', 'employee')->get();
             $datas = AFLDTResource::collection($model);
+
             return response()->json([
                 "data" => $datas
             ]);
@@ -48,15 +50,18 @@ class AFLController extends FormController
             config('constants.office.HRMO')
         ])->get();
 
-        // setting up the sesssion
+        // setting up the sesssion if the document is attached and checking the parameters
+        session_attached_form();
+
 
         return view('filemanagement::forms.afl.create', [
             'employees' => $employees
         ]);
     }
 
-    public function store(AFLStoreRequest $request) : RedirectResponse
+    public function store(StoreRequest $request) : RedirectResponse
     {
+
         $extra = $this->form_data($request, $request->post('leave_type'));
 
         $forms = [
@@ -68,20 +73,43 @@ class AFLController extends FormController
             'credits' => $extra['credits']
         ];
 
-        return $this->save($forms);
+        $attached = session()->pull('fms.document.attach');
+
+        if($attached !== null){
+            $forms['document_id'] = (int)$attached;
+            $attach_status = true;
+        }
+
+        $afl = $this->save($forms, $attach_status ?? false);
+
+        if(request()->ajax()){
+
+            return response()->json([
+                'message' => "Leave has been encoded.",
+                'route' => route('fms.afl.show', $afl->id)
+            ], 201);
+
+        }
+
+        return redirect(route('fms.afl.show', $afl->id))
+                ->with('alert-success', "Leave has been encoded.");
     }
 
     public function show($id)
     {
-        return $this->show_details($id, 'filemanagement::forms.afl.show', ['employee', 'hr', 'approval']);
+        $afl = $this->details($id, ['employee', 'hr', 'approval']);
+
+        return view('filemanagement::forms.afl.show', [
+            'afl' => $afl
+        ]);
     }
 
     public function edit($id)
     {
 
-        $afl = FMS_AFL::with('document')->findOrFail($id);
+        $afl = Leave::with('document')->findOrFail($id);
 
-        $employees = HR_Employee::whereIn('division_id', [
+        $employees = Employee::whereIn('division_id', [
             auth_division(),
             config('constants.office.HRMO')
         ])->get();

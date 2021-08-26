@@ -23,20 +23,17 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-3">
-            <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-collapse-hide-child nav-compact" data-widget="treeview"
-                role="menu" data-accordion="false">
-
+            <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-collapse-hide-child nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+                
                 <li class="nav-item mb-3">
-                    <a href="{{ route('dashboard') }}"
-                        class="nav-link">
+                    <a href="{{ route('dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-arrow-left"></i>
                         <p>Return Back</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('sys.admin.dashboard') }}"
-                        class="nav-link {{ Route::current()->getName() == 'sys.dashboard' ? 'active' : '' }}">
+                    <a href="{{ route('sys.admin.dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-th-large"></i>
                         <p>Dashboard</p>
                     </a>
@@ -53,13 +50,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('sys.admin.acl.account.index') }}"
-                        class="nav-link {{ Route::current()->getName() == 'sys.admin.acl.account.index' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>Accounts</p>
-                    </a>
-                </li>
+                
 
                 <li class="nav-item">
 
@@ -69,6 +60,7 @@
                     </a>
         
                     <ul class="nav nav-treeview">
+                        
                         <li class="nav-item">
                             <a href="{{ route('sys.admin.acl.role.index') }}" class="nav-link ">
                                 <i class="fas fa-user-tie nav-icon"></i>  <p>Roles</p>
@@ -76,10 +68,41 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('sys.admin.acl.perm.index') }}" class="nav-link ">
-                                <i class="fas fa-user-lock nav-icon"></i>  <p>Permissions</p>
+                            <a href="{{ route('sys.admin.acl.account.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>Accounts</p>
                             </a>
                         </li>
+
+                       
+                    </ul>
+                </li>
+
+                <li class="nav-header text-uppercase text-muted text-sm">System Management</li>
+                
+                <li class="nav-item">
+
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>Office Management <i class="right fas fa-angle-left"></i> </p>
+                    </a>
+        
+                    <ul class="nav nav-treeview">
+                        
+                        <li class="nav-item">
+                            <a href="{{ route('sys.admin.office.index') }}" class="nav-link ">
+                                <i class="fas fa-circle nav-icon"></i>  <p>Office</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('sys.admin.division.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-circle"></i>
+                                <p>Division</p>
+                            </a>
+                        </li>
+
+                       
                     </ul>
                 </li>
 

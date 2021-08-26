@@ -1,10 +1,11 @@
 {
     "name": "System",
-    "alias": "system",
+    "alias": "sys",
     "description": "",
     "keywords": [],
     "priority": 0,
     "providers": [
+        "Modules\\System\\Providers\\EventServiceProvider",
         "Modules\\System\\Providers\\SystemServiceProvider"
     ],
     "aliases": {},

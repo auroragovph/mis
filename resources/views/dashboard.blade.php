@@ -1,12 +1,12 @@
-@extends('layouts.master')
-
-
-@section('title', 'Dashboard')
-
-@section('action')
-@endsection
+@extends('layouts.tabler.index')
 
 @section('content')
-<img class="mx-auto d-block" src="{{ asset('media/logos/kumakalinga.png') }}" alt="">
+
+<div class="row">
+  <div class="col-12 text-center">
+    <img src="/assets/images/kumakalinga.png" alt="" width="50%" height="100%" >
+  </div>
+</div>
+
 @endsection
 

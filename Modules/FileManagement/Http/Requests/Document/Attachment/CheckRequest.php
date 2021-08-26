@@ -26,6 +26,6 @@ class CheckRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return (authenticated()->can('fms.sa.activate')) ? true : false;
     }
 }

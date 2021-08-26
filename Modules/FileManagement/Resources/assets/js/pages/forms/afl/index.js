@@ -24,11 +24,11 @@ var KTDTList = function() {
 					className: 'text-center',
 					render: function(data, type, row){
 						return `
-							<a target="_blank" href="${data.show}" class="text-primary" title="Show Document">
+							<a target="_blank" href="${data.show}" class="btn btn-xs btn-default" title="Show Document">
 								<i class="fas fa-eye"></i>
 							</a>
 							|
-							<a target="_blank" href="${data.edit}" class="text-warning" title="Edit Document">
+							<a target="_blank" href="${data.edit}" class="btn btn-xs btn-default" title="Edit Document">
 								<i class="fas fa-edit"></i>
 							</a>
 						`;

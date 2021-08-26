@@ -13,12 +13,10 @@ class Select2 extends Component
      *
      * @return void
      */
-    public function __construct($name, $label = '', $class = null, $required = false)
+    public function __construct($label = '', $class = null)
     {
         $this->label = $label;
         $this->class = $class;
-        $this->name = $name;
-        $this->required = $required;
     }
 
     /**

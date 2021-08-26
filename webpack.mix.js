@@ -14,3 +14,9 @@ const glob = require('glob');
     mix.js(file, `public/js/${file.replace('Resources/assets/js/', '')}`);
 });
 
+
+// TW
+mix.postCss("resources/css/tw.css", "public/css", [
+    require("tailwindcss"),
+]);
+

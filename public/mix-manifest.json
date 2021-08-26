@@ -1,4 +1,5 @@
 {
+    "/js/Modules/AwardCommittee/app.js": "/js/Modules/AwardCommittee/app.js",
     "/js/Modules/FileManagement/pages/forms/afl/create.js": "/js/Modules/FileManagement/pages/forms/afl/create.js",
     "/js/Modules/FileManagement/pages/forms/afl/index.js": "/js/Modules/FileManagement/pages/forms/afl/index.js",
     "/js/Modules/FileManagement/pages/forms/cafoa/create.js": "/js/Modules/FileManagement/pages/forms/cafoa/create.js",
@@ -16,8 +17,14 @@
     "/js/Modules/System/dt.js": "/js/Modules/System/dt.js",
     "/js/Modules/System/pages/ajax_form.js": "/js/Modules/System/pages/ajax_form.js",
     "/js/Modules/System/pages/profile.js": "/js/Modules/System/pages/profile.js",
-    "/css/Modules/System/app.css": "/css/Modules/System/app.css",
-    "/css/Modules/HumanResource/app.css": "/css/Modules/HumanResource/app.css",
+    "/js/Modules/System/select2-init.js": "/js/Modules/System/select2-init.js",
+    "/js/Modules/System/select2/office.js": "/js/Modules/System/select2/office.js",
+    "/css/Modules/FileManagement/print_helper.css": "/css/Modules/FileManagement/print_helper.css",
     "/css/Modules/FileManagement/paper.css": "/css/Modules/FileManagement/paper.css",
-    "/css/Modules/FileManagement/app.css": "/css/Modules/FileManagement/app.css"
+    "/css/Modules/FileManagement/forms/travel/order/print.css": "/css/Modules/FileManagement/forms/travel/order/print.css",
+    "/css/Modules/FileManagement/app.css": "/css/Modules/FileManagement/app.css",
+    "/css/Modules/AwardCommittee/app.css": "/css/Modules/AwardCommittee/app.css",
+    "/css/tw.css": "/css/tw.css",
+    "/css/Modules/System/app.css": "/css/Modules/System/app.css",
+    "/css/Modules/HumanResource/app.css": "/css/Modules/HumanResource/app.css"
 }

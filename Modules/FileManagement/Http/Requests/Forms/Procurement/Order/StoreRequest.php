@@ -3,6 +3,9 @@
 namespace Modules\FileManagement\Http\Requests\Forms\Procurement\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Modules\AwardCommittee\Entities\Procurement\Supplier;
+use Modules\HumanResource\Entities\Employee\Employee;
 
 class StoreRequest extends FormRequest
 {
@@ -13,8 +16,22 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
+        $supplier_table = (new Supplier())->getTable();
+        $hr_table       = (new Employee())->getTable();
+
         return [
-            //
+            'supplier'            => ['required', 'integer', Rule::exists($supplier_table, 'id')],
+            'number'              => ['required', 'string'],
+            'mode_of_procurement' => ['required', 'string'],
+            'pr_number'           => ['nullable'],
+            'delivery_place'      => ['required', 'string'],
+            'delivery_date'       => ['required', 'date'],
+            'delivery_term'       => ['required', 'string'],
+            'delivery_payment'    => ['required', 'string'],
+            'lists'               => ['required', 'array'],
+            'approver'            => ['required', 'integer', Rule::exists($hr_table, 'id')],
+            'particulars'         => ['required', 'string'],
+
         ];
     }
 
@@ -25,11 +42,6 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        if(session()->get('fms.document.create.po') == null){
-            return false;
-        }
-
         return (authenticated()->can('fms.document.create')) ? true : false;
-
     }
 }

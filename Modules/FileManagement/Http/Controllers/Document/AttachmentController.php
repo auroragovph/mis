@@ -4,11 +4,14 @@ namespace Modules\FileManagement\Http\Controllers\Document;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use Modules\FileManagement\Entities\Document\Attachment;
 use Modules\FileManagement\Entities\Document\Document;
 use Modules\FileManagement\Entities\Document\Form;
 use Modules\FileManagement\Http\Requests\Document\Attachment\CheckRequest;
+use Modules\FileManagement\Http\Requests\Document\Attachment\HardcopyRequest;
 
 class AttachmentController extends Controller
 {
@@ -20,29 +23,35 @@ class AttachmentController extends Controller
     public function index()
     {
         activitylog(['name' => 'fms', 'log' => 'Request document attach form.']);
-        return view('filemanagement::documents.attach.index');
+        return view('filemanagement::actions.attach.index');
     }
 
     public function check(CheckRequest $request)
     {
 
-        $id = series($request->post('document'));
+        $id       = series($request->post('document'));
         $document = Document::find($id);
 
         if (!$document or $document->qr !== $request->post('document')) {
             return redirect()
                 ->back()
-                ->with('alert-error', 'Document not found.');
+                ->with('alert-error', message_box('document.not.found'));
+        }
+
+        if ($document->status === 0) {
+            return redirect()
+                ->back()
+                ->with('alert-error', message_box('document.cancelled'));
         }
 
         switch ($request->post('attachtype')) {
 
             case 'hardcopy':
                 return redirect(route('fms.documents.attach.hardcopy', [
-                    'id' => $id,
-                    'qr' => $request->post('document'),
+                    'id'       => $id,
+                    'qr'       => $request->post('document'),
                     'checksum' => Str::random(10),
-                    'token' => Str::random(30),
+                    'token'    => Str::random(30),
                 ]));
                 break;
 
@@ -62,15 +71,15 @@ class AttachmentController extends Controller
 
                 $route = $this->newform($request->post('document_type_new_form'));
 
-                if($route == null){
+                if ($route == null) {
                     return abort(404);
                 }
 
                 return redirect(route($route, [
-                    'attachment' => true,
+                    'attachment'  => true,
                     'document_id' => $id,
-                    'qrcode' => $document->qr,
-                    'token' => csrf_token()
+                    'qrcode'      => $document->qr,
+                    'token'       => csrf_token(),
                 ]));
 
                 break;
@@ -93,49 +102,63 @@ class AttachmentController extends Controller
             return abort(404);
         }
 
-        return view('filemanagement::documents.attach.hardcopy', [
+        if ($document->status === 0) {
+            return redirect()->back()->with('alert-error', message_box('document.cancelled'));
+        }
+
+        return view('filemanagement::actions.attach.hardcopy', [
             'document' => $document,
         ]);
     }
 
-    public function attach(Request $request)
+    public function attach(HardcopyRequest $request)
     {
-        $id = $request->post("document_id");
-
-        $mime = '';
+        $id    = $request->post("document_id");
+        $mime  = 'text';
+        $url   = null;
 
         if ($request->hasFile('file')) {
 
-            $mime = 'file';
+            $file           = $request->file('file');
+            $hash_name      = $file->hashName();
+            $mime           = 'file';
+            $storage_folder = 'filemanagement/document/attachments';
 
-            $file = $request->file('file');
-            // $path = Storage::store;
-            $path = $file->store('filemanagement/document/attachments');
+            // checking if the uploaded file is an image
+            if (strpos($file->getMimeType(), 'image') !== false) {
+
+                $image = Image::make($file)->encode();
+
+                // store in laravel storage NOT in public folder
+                $store = Storage::put($storage_folder . "\\" . $hash_name, $image);
+            } else {
+                $store = Storage::put($storage_folder, $file);
+            }
+        }
+
+        if (isset($store) AND !$store) {
+            return redirect()
+                ->back()
+                ->with('alert-error', 'Uploading file unsuccess');
         }
 
         $attachment = Attachment::create([
             'document_id' => $id,
             'description' => $request->post('name'),
-            'url' => (isset($path)) ? str_replace('filemanagement/document/attachments/', '', $path) : null,
-            'mime' => ($mime == '') ? 'text' : 'file',
-            'properties' => array(
+            'url'         => $hash_name ?? null,
+            'mime'        => $mime,
+            'properties'  => array(
                 'number' => $request->post('number') ?? null,
-                'date' => $request->post('date') ?? null,
+                'date'   => $request->post('date') ?? null,
                 'amount' => $request->post('amount') ?? null,
-                'page' => $request->post('page') ?? null,
+                'page'   => $request->post('page') ?? null,
             ),
         ]);
 
         // activity loger
         activitylog([
             'name' => 'fms',
-            'log' => 'Add attachment to the document.',
-            'props' => [
-                'model' => [
-                    'id' => $id,
-                    'class' => Document::class,
-                ],
-            ],
+            'log'  => 'Add attachment to the document.',
         ]);
 
         return redirect()->back()->with('alert-success', 'Attachment success');
@@ -166,7 +189,7 @@ class AttachmentController extends Controller
         $invalids = array();
 
         foreach ($qrs as $qr) {
-            $id = series($qr);
+            $id       = series($qr);
             $document = Document::find($id);
 
             if (!$document or $document->qr !== $qr) {
@@ -176,13 +199,13 @@ class AttachmentController extends Controller
 
             // get all the attached documents
             $attachments = Form::where('document_id', $id)->get();
-            $forms = Form::insert($attachments->map(function ($att) use ($docid) {
+            $forms       = Form::insert($attachments->map(function ($att) use ($docid) {
                 return [
-                    'document_id' => $docid,
+                    'document_id'   => $docid,
                     'formable_type' => $att->formable_type,
-                    'formable_id' => $att->formable_id,
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'formable_id'   => $att->formable_id,
+                    'created_at'    => now(),
+                    'updated_at'    => now(),
                 ];
             })->toArray());
 
@@ -191,7 +214,7 @@ class AttachmentController extends Controller
         return true;
     }
 
-    public function newform(string $type) : string
+    public function newform(string $type): string
     {
         switch ($type) {
             case 'leave':
@@ -218,7 +241,7 @@ class AttachmentController extends Controller
                 $route = 'fms.travel.order.create';
                 break;
 
-            default: 
+            default:
                 $route = null;
                 break;
 

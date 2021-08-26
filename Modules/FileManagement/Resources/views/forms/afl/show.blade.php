@@ -7,7 +7,10 @@ Application For Leave
 
 @section('toolbar')
 
-@include('filemanagement::forms.afl.action')
+    @include('filemanagement::forms._includes.buttons', [
+        'qrcode' => $afl->document->qr,
+        'document_id' => $afl->document->id
+    ])
 
 @endsection
 
@@ -18,7 +21,7 @@ Application For Leave
     </div>
     <div class="col-xl-8">
 
-        <x-ui.card title="AFL Details">
+        <x-ui.card>
 
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -153,7 +156,7 @@ Application For Leave
             </div>
         </x-ui.card>
         
-        <x-fms-attachments :attachments="$afl->document->attachments" />
+        <x-fms-attachments :attachments="$afl->document->attachments" :forms="$afl->document->forms" />
         
     </div>
 </div>

@@ -3,7 +3,7 @@
 namespace Modules\System\Http\Livewire\Profile;
 
 use Livewire\Component;
-use Modules\System\Entities\SYS_ActivityLog;
+use Modules\System\Entities\ActivityLog;
 use Whoops\RunInterface;
 
 class Logs extends Component
@@ -32,7 +32,7 @@ class Logs extends Component
 
     public function fetch()
     {
-        return SYS_ActivityLog::where('employee_id', auth()->user()->employee_id)
+        return ActivityLog::where('employee_id', auth()->user()->employee_id)
         ->orderBy('created_at', 'DESC')
         ->take($this->take)
         ->get();
@@ -40,7 +40,7 @@ class Logs extends Component
 
     public function count_logs()
     {
-        return SYS_ActivityLog::where('employee_id', auth()->user()->employee_id)
+        return ActivityLog::where('employee_id', auth()->user()->employee_id)
                                 ->count();
     }
 }

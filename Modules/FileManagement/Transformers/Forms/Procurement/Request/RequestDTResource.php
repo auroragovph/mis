@@ -14,23 +14,20 @@ class RequestDTResource extends JsonResource
      */
     public function toArray($request)
     {
-        $lists = collect($this->lists);
-
         return [
             'id' => $this->id,
-            'number' => $this->number,
             'qr' => $this->document->qr,
-            'encoded' => $this->document->encoded,
+            'number' => $this->number,
+            
             'office' => office_helper($this->document->division),
             'particulars' => $this->particulars,
-            'status' => $this->document->status,
-            'amount' => number_format($lists->sum(function($row){
-                $qty = intval($row['quantity'] ?? 0);
-                $amount = floatval($row['amount'] ?? 0);
-                return $qty  * $amount;
-            }), 2),
-            'edit' => route('fms.procurement.request.edit', $this->id),
-            'show' => route('fms.procurement.request.show', $this->id)
+            'status' => show_status($this->document->status),
+            'amount' => number_format($this->total_amount, 2),
+
+            'action' => '
+                <a href="'.route('fms.procurement.request.show', $this->id).'">View</a>
+                <a href="'.route('fms.procurement.request.edit', $this->id).'">Edit</a>
+            '
         ];
     }
 }

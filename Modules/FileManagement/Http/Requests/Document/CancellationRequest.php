@@ -16,8 +16,7 @@ class CancellationRequest extends FormRequest
     public function rules()
     {
         return [
-            'document'      =>  'sometimes|required',
-            'reason'        =>  'sometimes|required'
+            'reason'        =>  ['required'],
         ];
     }
 

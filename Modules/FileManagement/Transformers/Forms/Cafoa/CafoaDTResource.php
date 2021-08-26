@@ -15,21 +15,19 @@ class CafoaDTResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'encoded' => $this->document->encoded,
-            'qr' => $this->document->qr,
-            'number' => $this->number,
-            'payee' => $this->payee,
-            'office' => office_helper($this->document->division),
-            'particulars' => '',
-            'amount' => number_format(floatval(collect($this->lists)->sum(function($row){
-                return floatval($row['amount'] ?? 0);
-            })), 2),
+            'id'          => $this->id,
+            'qr'          => $this->document->qr,
+            'number'      => $this->number,
+            'payee'       => $this->payee,
+            'office'      => office_helper($this->document->division),
+            'particulars' => $this->particulars,
+            'amount'      => number_format($this->total_amount, 2),
+            'status'      => show_status($this->document->status),
 
-            'status' => show_status($this->document->status),
-
-            'show' => route('fms.cafoa.show', $this->id),
-            'edit' => route('fms.cafoa.edit', $this->id)
+            'action'      => '
+                <a href="' . route('fms.cafoa.show', $this->id) . '">View</a>
+                <a href="' . route('fms.cafoa.edit', $this->id) . '">Edit</a>
+            ',
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace Modules\FileManagement\Entities\Document;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\System\Entities\Employee;
+use Modules\HumanResource\Entities\Employee\Employee;
 
 class Attachment extends Model
 {

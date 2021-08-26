@@ -2,18 +2,18 @@
 
 namespace Modules\FileManagement\Traits\Documents;
 
+use Modules\FileManagement\Entities\AFL\Leave;
 use Modules\FileManagement\Entities\Cafoa\Cafoa;
-use Modules\FileManagement\Entities\Cafoa\FMS_Cafoa;
-use Modules\FileManagement\Entities\Procurement\FMS_PO;
-use Modules\FileManagement\Entities\Procurement\FMS_PR;
 use Modules\FileManagement\Entities\Procurement\PurchaseOrder;
 use Modules\FileManagement\Entities\Procurement\PurchaseRequest;
+use Modules\FileManagement\Entities\Travel\Itinerary;
+use Modules\FileManagement\Entities\Travel\TravelOrder;
 
 trait Relationships {
 
     public function afl()
     {
-        return $this->hasOne(FMS_AFL::class, 'document_id');
+        return $this->hasOne(Leave::class, 'document_id');
     }
 
     public function cafoa()
@@ -34,12 +34,12 @@ trait Relationships {
 
     public function travel_order()
     {
-        return $this->hasOne(FMS_TravelOrder::class, 'document_id');
+        return $this->hasOne(TravelOrder::class, 'document_id');
     }
 
     public function itinerary()
     {
-        return $this->hasOne(FMS_Itinerary::class, 'document_id');
+        return $this->hasOne(Itinerary::class, 'document_id');
     }
 
 }

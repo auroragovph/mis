@@ -16,31 +16,19 @@ class TravelOrderDTResource extends JsonResource
     public function toArray($request)
     {
 
-        if(empty($this->lists)){
-
-            $employees = [];
-
-        }else{
-            $employees = '';
-
-            foreach($this->lists as $list){
-                $employees .= name_helper($list->employee->name).", ";
-            }
-        }
-
-
         return [
             'id' => $this->id,
-            'encoded' => $this->document->encoded,
-            'qr' => $this->document->qr,
+            // 'encoded' => $this->document->encoded,
+            'qr' => $this->document->qrcode,
             'number' => $this->number,
-            'employees' => $employees,
             'destination' => $this->destination,
             'purpose' => $this->purpose,
             'departure' => $this->departure,
-            'status' => $this->document->status,
-            'show' => route('fms.travel.order.show', $this->id),
-            'edit' => route('fms.travel.order.edit', $this->id)
+            'status' => show_status($this->document->status),
+            'action' => '
+                <a href="'.route('fms.travel.order.show', $this->id).'">View</a>
+                <a href="'.route('fms.travel.order.edit', $this->id).'">Edit</a>
+            '
         ];
     }
 }

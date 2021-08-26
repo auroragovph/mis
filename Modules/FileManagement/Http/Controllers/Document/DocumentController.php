@@ -22,7 +22,7 @@ class DocumentController extends Controller
                                     ->where('division_id', authenticated()->employee->division_id)
                                     ->get(['id', 'created_at']);
 
-        return view('filemanagement::documents.index', [
+        return view('filemanagement::document.index', [
             'documents' => $documents,
             'total' => Document::where('division_id', authenticated()->employee->division_id)->count()
         ]);
@@ -38,40 +38,5 @@ class DocumentController extends Controller
             'document' => $document,
             'datas' => $datas
         ]);
-    }
-
-    public function track(Request $request)
-    {
-        if($request->has('qrcode')){
-
-            $id = series($request->get('qrcode'));
-            $document = Document::with('attachments', 'encoder', 'liaison', 'division.office')->find($id);
-
-            // checking if the qr code match
-            if(!$document || $document->qr != $request->get('qrcode')){
-                return redirect(route('fms.documents.track'))->with('alert-error', 'Document not found.');
-            }
-
-            require base_path()."/Modules/FileManagement/Includes/SwitchDocument.php";
-
-            $tracks = Tracking::with('liaison', 'clerk', 'division.office')->where('document_id', $id)->orderBy('id', 'DESC')->get();
-
-        }
-
-        // activity loger
-        activitylog([
-            'name' => 'fms',
-            'log' => 'Track document'
-        ]);
-        
-
-        return view('filemanagement::tracking.index', [
-            'document'      => $document ?? null,
-            'rel'           => $rel ?? null,
-            'datas'         => $datas ?? [],
-            'tracks'        => $tracks ?? null
-        ]);
-
-        
     }
 }

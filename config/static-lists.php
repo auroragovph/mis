@@ -3,9 +3,9 @@
 return [
 
     'statusOfAppointment' => [
-        1 => 'Job Order',
-        2 => 'Casual',
-        3 => 'Permanent'
+        'Job Order',
+        'Casual',
+        'Permanent'
     ],
 
     'civilStatus' => ['Single', 'Married', 'Widowed', 'Annulled', 'Separated'],

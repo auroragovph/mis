@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.tabler.horizontal')
 
 
 @section('page-title')

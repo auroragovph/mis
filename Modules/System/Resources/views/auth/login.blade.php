@@ -1,81 +1,55 @@
+@extends('layouts.tabler.clean')
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
+@section('content')
+    <div class="page page-center">
+        <div class="container-tight py-4">
+            <div class="text-center mb-1">
+                <a href="#">
+                    <img src="/assets/logo/banner.png" height="150">
+                </a>
+            </div>
 
-    
-    @include('layouts.includes.meta')
-    @include('layouts.includes.styles')
+            <form class="card card-md" action="/login" method="post">
 
-    <style>
-        .login-box{
-            width: 460px;
-        }
-    </style>
+                @csrf
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Login to your account</h2>
 
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <!-- /.login-logo -->
-  <div class="card card-outline card-olive">
-    <div class="card-header text-center">
-        <img src="{{ asset('media/logos/logo-md.png') }}" alt="" width="100px" height="100px">
 
-        <p class="h3 mt-3"><b>AURORA</b> MIS</p>
-        <p class="h5">Management Information System</p>
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
+
+                    
+                    <x-ui.form.input label="Username" name="username" placeholder="Enter username"
+                        value="{{ old('username') }}" required />
+
+                    <x-ui.form.input type="password" label="Password" name="password" placeholder="Enter password"
+                        autocomplete="off" required />
+
+
+                    <div class="mb-3">
+                        <label class="form-check">
+                            <input type="checkbox" class="form-check-input" name="remember" />
+                            <span class="form-check-label">Remember me on this device</span>
+                        </label>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+            <div class="text-center text-muted mt-3">
+                Developed By: MIS-TEAM
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
 
-      @if ($errors->any())
-      <div class="alert alert-danger">
-          {{ $errors->first() }}
-      </div>
-      @endif
-
-      <form action="/login" method="post">
-        @csrf
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Username" name="username" value="{{ old('username') }}">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember" name="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
-        </div>
-        <hr>
-        <button type="submit" class="btn bg-olive btn-block">Sign In</button>
-      </form>
-
-   
-    </div>
-    <!-- /.card-body -->
-  </div>
-  <!-- /.card -->
-</div>
-<!-- /.login-box -->
-
-@include('layouts.includes.scripts')
-
-
-</body>
-</html>
+@endsection

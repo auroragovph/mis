@@ -8,11 +8,6 @@ var KTUInitPlugins = function () {
 	var initPlugins = function() {
 
 		// init select 2 employees
-		$(".select2").select2({
-			placeholder: "Select in the list",
-        });
-
-		// init select 2 employees
 		$(".select2-tags").select2({
 			tags: true
         });
@@ -23,7 +18,7 @@ var KTUInitPlugins = function () {
             isFirstItemUndeletable: true,
            
             show: function () {
-                $(this).slideDown();
+                $(this).slideDown(); 
             },
 
             hide: function (deleteElement) {                

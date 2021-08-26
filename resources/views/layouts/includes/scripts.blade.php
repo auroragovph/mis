@@ -5,6 +5,8 @@
 
 @yield('js-vendor')
 
+@stack('js-plugins')
+
 
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
@@ -12,5 +14,13 @@
 {{-- <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script> --}}
 
 @yield('js-custom')
+
+@stack('js-stack')
+
+
+
+
+
+
 
 

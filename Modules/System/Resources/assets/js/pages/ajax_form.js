@@ -6,26 +6,46 @@ $("#ajax_form").submit(function (e) {
 
     $.ajax({
         url: _form.attr("action"),
-        type: "POST",
+        type: _form.attr("method"),
         dataType: "json",
         data: _form.serialize(),
         success: function (Result) {
-            
+
+            Swal.fire({
+                title: 'Success',
+                text: Result.message ?? 'Success',
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonText: 'Ok.',
+                allowOutsideClick: false
+                
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    if("intended" in Result){
+                        window.location = Result.intended;
+                    }
+                    
+                }
+            })
         },
         error: function (xhr) {
+            
             switch (xhr.status) {
                 case 422:
                     let firstKey = Object.keys(xhr.responseJSON.errors)[0];
                     let firstError = xhr.responseJSON.errors[firstKey][0];
-                    var err = {title: "Invalid form submit", message: firstError}
+                    var err = { title: "Invalid form submit", message: firstError }
                     break;
 
                 default:
-                    var err = {title: xhr.statusText, message: xhr.responseJSON.message}
+                    var err = { title: xhr.statusText, message: xhr.responseJSON?.message}
                     break;
             }
 
-            swal(err.title, err.message, "error");
+            Swal.fire(err.title, err.message, "error")
+
         },
         beforeSend: function () {
             $(".card").append(`

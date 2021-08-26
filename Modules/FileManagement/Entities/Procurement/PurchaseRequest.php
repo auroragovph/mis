@@ -2,7 +2,7 @@
 
 namespace Modules\FileManagement\Entities\Procurement;
 
-use Modules\System\Entities\Employee;
+// use Modules\System\Entities\Employee;
 use Illuminate\Database\Eloquent\Model;
 use Modules\FileManagement\Entities\Document\Document;
 use Modules\FileManagement\Traits\Documents\HasDocument;
@@ -14,25 +14,22 @@ class PurchaseRequest extends Model
 
     protected $guarded = [];
     protected $table = 'fms_form_purchase_request';
+
     protected $casts = [
         'lists' => 'json',
+        'signatories' => 'json',
         'properties' => 'json'
     ];
 
-    public function requesting()
+    public function getTotalAmountAttribute()
     {
-        return $this->belongsTo(Employee::class, 'requesting_id');
-    }
+        $lists = collect($this->lists);
 
-    public function treasury()
-    {
-        return $this->belongsTo(Employee::class, 'treasury_id');
+        return $lists->sum(function($row){
+            $qty = intval($row['quantity'] ?? 0);
+            $amount = floatval($row['amount'] ?? 0);
+            return $qty  * $amount;
+        });
     }
-
-    public function approval()
-    {
-        return $this->belongsTo(Employee::class, 'approving_id');
-    }
-    
     
 }

@@ -2,9 +2,9 @@
 
 namespace Modules\FileManagement\Http\Requests\Forms\Cafoa;
 
-use Illuminate\Validation\Rule;
-use Modules\System\Entities\Employee;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Modules\HumanResource\Entities\Employee\Employee;
 
 class StoreRequest extends FormRequest
 {
@@ -18,16 +18,17 @@ class StoreRequest extends FormRequest
         $hrtable = (new Employee())->getTable();
 
         return [
-            'requesting'        => "required|exists:{$hrtable},id",
-            'budget'            => "required|exists:{$hrtable},id",
-            'treasury'          => "required|exists:{$hrtable},id",
-            'accountant'        => "required|exists:{$hrtable},id",
-            'lists'             => "required|array",
-            'liaison'           => [
-                                    'sometimes',
-                                    'required',
-                                    Rule::exists($hrtable, 'id')->where('liaison', 1)
-                                    ]
+            'requester'   => ['required', Rule::exists($hrtable, 'id')],
+            'budget'      => ['required', Rule::exists($hrtable, 'id')],
+            'treasury'    => ['required', Rule::exists($hrtable, 'id')],
+            'accountant'  => ['required', Rule::exists($hrtable, 'id')],
+            'lists'       => ['required', 'array'],
+            'particulars' => ['required'],
+            'liaison'     => [
+                'sometimes',
+                'required',
+                Rule::exists($hrtable, 'id')->where('liaison', 1),
+            ],
         ];
     }
 

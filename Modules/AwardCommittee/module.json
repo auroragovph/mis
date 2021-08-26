@@ -1,0 +1,13 @@
+{
+    "name": "AwardCommittee",
+    "alias": "award",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AwardCommittee\\Providers\\AwardCommitteeServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

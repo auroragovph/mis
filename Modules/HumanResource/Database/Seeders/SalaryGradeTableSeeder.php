@@ -4,7 +4,7 @@ namespace Modules\HumanResource\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\HumanResource\Entities\HR_SalaryGrade;
+use Modules\HumanResource\Entities\Employee\SalaryGrade;
 
 class SalaryGradeTableSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class SalaryGradeTableSeeder extends Seeder
         $file = base_path()."/database/seeds/hrm/salary_grade.json";
         // $file = storage_path('app/seeds/hrm/salary_grade.json');
         $sg = json_decode(file_get_contents($file), true);
-        HR_SalaryGrade::insert($sg);
+        SalaryGrade::insert($sg);
 
     }
 }

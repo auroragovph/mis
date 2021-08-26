@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->put('authenticated', $authenticated);
 
         session()->flash('welcome_back');
-        return redirect(session()->pull('url.intended', route('dashboard')));        
+        return redirect(session()->pull('url.intended', route('home')));        
     }
 
     /**

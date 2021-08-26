@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label>{{ $label }}</label>
-    <select {{ $attributes }} name="{{ $name }}" class="form-control select2 {{ $class }}" @if($required) required @endif style="width: 100%">
+    <label style="font-weight: 400">{{ $label }}:</label>
+    <select {{ $attributes }} class="form-control select2 {{ $class }}" style="width: 100%">
         <option value=""></option>
         {{ $slot }}
     </select>

@@ -8,7 +8,7 @@ use Modules\FileManagement\Entities\Document\Document;
 
 class FormController extends Controller
 {
-    public $model, $routes, $doctype, $alias;
+    public $model, $routes, $doctype, $alias, $circular;
 
     public function save(array $forms, bool $attached = false)
     {
@@ -22,7 +22,8 @@ class FormController extends Controller
 
             $data = $this->model::create($forms);
             $data->formable()->create([
-                'document_id' => $document->id ?? $forms['document_id']
+                'encoder_id'    => authenticated()->employee_id,
+                'document_id'   => $document->id ?? $forms['document_id']
             ]);
 
         } catch (\Exception $e){
@@ -35,27 +36,25 @@ class FormController extends Controller
     public function details(int $id, array $relations = [])
     {
 
-        $relations = array_merge($relations, [
+        $relations = [
             'document.attachments',
-            'document.encoder',
-            'document.liaison',
             'document.division.office',
-            'document.forms.formable'
-        ]);
+            'document.forms.formable',
+            ...$relations
+        ];
 
-        // activity loger
-        activitylog([
+        $data = $this->model::with($relations)->findOrFail($id);
+
+          // activity loger
+          activitylog([
             'name' => 'fms',
             'log' => 'Request information of ' . $this->alias,
             'props' => [
-                'model' => [
-                    'id' => $id,
-                    'class' => $this->model
-                ]
+                'qrcode' => $data->document->qr
             ]
         ]);
 
-        $data = $this->model::with($relations)->findOrFail($id);
+
         return $data;
     }
 

@@ -6,8 +6,11 @@ use Modules\System\Http\Controllers\Acl\PermissionController;
 use Modules\System\Http\Controllers\Acl\RoleController;
 use Modules\System\Http\Controllers\Auth\AuthenticatedSessionController;
 use Modules\System\Http\Controllers\EmployeeController;
+use Modules\System\Http\Controllers\Office\DivisionController;
+use Modules\System\Http\Controllers\Office\OfficeController;
 use Modules\System\Http\Controllers\ProfileController;
 use Modules\System\Http\Controllers\SystemController;
+use Modules\System\Http\Livewire\Auth\Login;
 
 Route::group(['prefix' => 'login', 'middleware' => ['guest']], function () {
     Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -51,5 +54,8 @@ Route::group(['prefix' => 'system', 'middleware' => 'auth:web', 'as' => 'sys.'],
 
 
         });
+
+        Route::resource('office', OfficeController::class);
+        Route::resource('division', DivisionController::class);
     });
 });

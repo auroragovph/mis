@@ -1,12 +1,12 @@
 <x-ui.card>
 
     <div class="text-center mb-10">
-        <img class="w-25 h-25" src="data:image/svg+xml;base64, {{ qr_to_base64($document->qr) }} ">
-        <p class="">{{ $document->qr }}</p>
+        <img width="30%"  height="30%" src="{{ qr_to_base64($document->qr) }} ">
+        <p class="mt-2 mb-2">{{ $document->qr }}</p>
 
-        <h4 class="font-weight-bold my-2 mt-3">{!! strtoupper(doc_type_only($document->type)) !!}</h4>
+        <h4 class="font-weight-bold">{!! strtoupper(doc_type_only($document->type)) !!}</h4>
 
-        <span class="badge badge-{{ document_status($document->status, 'label') }} text-uppercase">
+        <span class="badge bg-{{ document_status($document->status, 'label') }} text-uppercase">
             {{ document_status($document->status) }}
         </span>
     </div>
@@ -20,14 +20,16 @@
             <span class="text-muted font-weight-normal">{{ office_helper($document->division) }}</span>
         </p>
 
+        @php($qr_card_details = $document->card_info)
+
         <p class="font-weight-bold mr-2">
             Liaison Office: <br>
-            <span class="text-muted font-weight-normal">{{ name_helper($document->liaison->name) }}</span>
+            <span class="text-muted font-weight-normal">{{ name($qr_card_details['encoder']['name']) }}</span>
         </p>
 
         <p class="font-weight-bold mr-2">
             Encoded By: <br>
-            <span class="text-muted font-weight-normal">{{ name_helper($document->encoder->name) }}</span>
+            <span class="text-muted font-weight-normal">{{ name($qr_card_details['liaison']['name']) }}</span>
         </p>
 
         <p class="font-weight-bold mr-2">

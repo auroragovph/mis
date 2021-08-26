@@ -80,7 +80,7 @@ return [
 
                 [
                     'name'          => 'Inspection and Acceptance Report (IAR)',
-                    'route'         => 'fms.procurement.iar.index',
+                    'route'         => 'fms.procurement.air.index',
                     'permissions'   => ['fms.oa.procurement.inspection'],
                 ],
 

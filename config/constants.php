@@ -1,78 +1,92 @@
 <?php
 
-
 return [
 
-    'title'     => 'Aurora Management Information System',
-    'abbrv'     => 'AURORA MIS',
-    'lgu'       => 'Provincial Government of Aurora',
+    'title'         => 'Aurora Management Information System',
+    'abbrv'         => 'AURORA MIS',
 
-    'employee' => [
+    'lgu'           => [
+        'name'    => 'Provincial Government of Aurora',
+        'address' => 'Brgy. Suclayin, Baler, Aurora',
+        'slogan'  => 'Aurora, Gobyernong kumakalinga',
+    ],
 
-        'governor' => [
-            'fname'     => 'Gerardo',
-            'mname'     => 'A',
-            'lname'     => 'Noveras',
-            'suffix'    => 'Hon'
+    'circular_year' => 2020,
+
+    'employee'      => [
+
+        'head'      => [
+            'name'     => [
+                'first'  => 'Gerardo',
+                'middle' => 'A',
+                'last'   => 'Noveras',
+                'suffix' => 'Hon',
+            ],
+
+            'position' => 'Governor',
         ],
 
-        'vice-governor' => [
-            'fname'     => 'Christian',
-            'mname'     => 'M',
-            'lname'     => 'Noveras',
-            'suffix'    => 'Atty'
-        ]
+        'vice-head' => [
+            'name'     => [
+                'first'  => 'Christian',
+                'middle' => 'M',
+                'last'   => 'Noveras',
+                'suffix' => 'Atty.',
+            ],
+
+            'position' => 'Vice Governor',
+        ],
     ],
 
-    'office' => [
-        'HRMO'          => 13,
-        'PTO'           => 4,
-        'BUDGET'        => 5,
-        'ACCOUNTING'    => 7,
-        'GSO'           => 1,
-        'BAC'           => 1,          
+    'office'        => [
+        'HUMAN_RESOURCE'  => 13,
+        'TREASURY'        => 4,
+        'BUDGET'          => 5,
+        'ACCOUNTING'      => 7,
+        'GENERAL_SERVICE' => 1,
+        'AWARD_COMMITTEE' => 1,
     ],
 
-    'document' => [
+    'document'      => [
 
-        'type' => [
-            'afl'           => 500,
-            'cafoa'         => 400, 
-            'disbursement'  => 600, 
-            'payroll'       => 700,
-            'procurement'   => [
+        'type'   => [
+            'afl'          => 500,
+            'cafoa'        => 400,
+            'disbursement' => 600,
+            'payroll'      => 700,
+            'procurement'  => [
                 'procurement' => 100,
-                'request'   => 101,
-                'order'     => 102,
-                'cafoa'     => 104,
+                'request'     => 101,
+                'order'       => 102,
+                'cafoa'       => 104,
             ],
-            'travel'        => [
-                'order'         => 301,
-                'itinerary'     => 302
+            'travel'       => [
+                'order'     => 301,
+                'itinerary' => 302,
             ],
-            'others'            => [
-                'liquidation'       => 901,
-                'ob-slip'           => 902,
-                'pow'               => 903,
-                'mission-order'     => 904,
-            ]
+            'others'       => [
+                'liquidation'   => 901,
+                'ob-slip'       => 902,
+                'pow'           => 903,
+                'mission-order' => 904,
+            ],
 
         ],
 
         'action' => [
-            'receive' => 1, 
-            'release' => 0
+            'receive' => 1,
+            'release' => 0,
         ],
 
         'status' => [
-            'cancelled'     => [ 'id' => 0, 'color' => 'danger',    'text' => 'cancelled'],
-            'activate'      => [ 'id' => 1, 'color' => 'warning',   'text' => 'waiting for activation'],
-            'process'       => [ 'id' => 2, 'color' => 'primary',   'text' => 'on process'],
-            'approved'      => [ 'id' => 3, 'color' => 'success',   'text' => 'approved'],
-            'disapproved'   => [ 'id' => 4, 'color' => 'danger',    'text' => 'disapproved'],
-            'pending'       => [ 'id' => 5, 'color' => 'info',      'text' => 'pending'],
-        ]
+            'cancelled'   => ['id' => 0, 'color' => 'danger', 'text' => 'cancelled'],
+            'activate'    => ['id' => 1, 'color' => 'warning', 'text' => 'waiting for activation'],
+            'process'     => ['id' => 2, 'color' => 'primary', 'text' => 'on process'],
+            'approved'    => ['id' => 3, 'color' => 'success', 'text' => 'approved'],
+            'disapproved' => ['id' => 4, 'color' => 'danger', 'text' => 'disapproved'],
+            'pending'     => ['id' => 5, 'color' => 'info', 'text' => 'pending'],
+        ],
 
-    ]
+    ],
 
 ];

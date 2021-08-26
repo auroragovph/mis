@@ -3,13 +3,12 @@
 /**
  *  Utility Helpers for Management Information System of Provincial Government of Aurora
  *
- *  @package		CodeIgniter
- *	@subpackage		Utility Helper
- *	@category		Helpers
- *	@author			JMPRNS@github
- *	@link			https://github.com/jmprns/fms
+ *  @package        CodeIgniter
+ *    @subpackage        Utility Helper
+ *    @category        Helpers
+ *    @author            JMPRNS@github
+ *    @link            https://github.com/jmprns/fms
  */
-
 
 if (!function_exists('employees')) {
     /**
@@ -29,8 +28,6 @@ if (!function_exists('employees')) {
         return $employees->get();
     }
 }
-
-
 
 if (!function_exists('ucnames')) {
     /**
@@ -74,11 +71,9 @@ if (!function_exists('name_decode')) {
     {
         $final = array();
 
-
-
         // check first if DOT exists
         if (strpos($name, '.') !== false) {
-            $explode = explode('.', $name);
+            $explode        = explode('.', $name);
             $final['lname'] = name_mutate($explode[1]);
             $final['mname'] = name_mutate(substr($explode[0], -1));
             $final['fname'] = name_mutate(substr_replace($explode[0], '', -1));
@@ -121,20 +116,17 @@ if (!function_exists('name_decode')) {
 if (!function_exists('numwords')) {
     /**
      * Convert number to readable word
-     * @param string $number
-     * @param string $currency
-     * @return string
      */
-    function numwords($number, string $currency = 'pesos')
+    function numwords(mixed $number, string $currency = 'pesos'): string
     {
-        $amount = explode('.', (string)$number);
+        $amount = explode('.', (string) $number);
 
         // return $amount;
 
         $whole_number = new NumberFormatter('ph', NumberFormatter::SPELLOUT);
-        $whole = $whole_number->format($amount[0]);
+        $whole        = $whole_number->format($amount[0]);
 
-        $whole_plural = ((int)$amount[0] <= 1) ? 'peso' : 'pesos';
+        $whole_plural = ((int) $amount[0] <= 1) ? 'peso' : 'pesos';
 
         $words = $whole . " " . $whole_plural;
 
@@ -143,7 +135,7 @@ if (!function_exists('numwords')) {
             $cent_value = (strlen($amount[1]) == 1) ? $amount[1] . "0" : $amount[1];
 
             $cent_number = new NumberFormatter('ph', NumberFormatter::SPELLOUT);
-            $cent = $cent_number->format($cent_value);
+            $cent        = $cent_number->format($cent_value);
 
             $plural = ($cent_value > 1) ? 'centavos' : 'centavo';
 
@@ -157,10 +149,8 @@ if (!function_exists('numwords')) {
 if (!function_exists('numonly')) {
     /**
      * Remove all the string in a string except for numbers
-     * @param string $currency
-     * @return int 
      */
-    function numonly($string)
+    function numonly(string $string): int
     {
         return preg_replace('/[^0-9]/', '', $string);
     }
@@ -185,24 +175,23 @@ if (!function_exists('doc_match')) {
 if (!function_exists('series')) {
     /**
      * Convert series to document ID
-     * @param string 
-     * @return string
      */
-    function series($string)
+    function series(string $string)
     {
+        $string = preg_replace('~\D~', '', $string);
 
         if (strlen($string) <= 8) {
             return $string;
         }
 
-        return (int)substr($string, 8, 8);
+        return (int) substr($string, 8, 8);
     }
 }
 
 if (!function_exists('fts_series')) {
     /**
      * Convert FTS series to integer
-     * @param string 
+     * @param string
      * @return string
      */
     function fts_series($string, $action = 'decode')
@@ -213,25 +202,24 @@ if (!function_exists('fts_series')) {
             return (strpos($string, 'SR') == false) ? 'SR-' . str_pad($string, 11, '0', STR_PAD_LEFT) : $string;
         }
 
-        return (int)preg_replace('/[^0-9]/', '', $string);
+        return (int) preg_replace('/[^0-9]/', '', $string);
     }
 }
 
 if (!function_exists('fts_action_button')) {
     /**
      * Convert FTS series to integer
-     * @param string 
+     * @param string
      * @return string
      */
     function fts_action_button($series, $edit = ['route' => '', 'id' => 0])
     {
 
-        $action =   '<div class="dropdown dropleft">
+        $action = '<div class="dropdown dropleft">
                         <button class="btn btn-default btn-xs" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fal fa-cog"></i>  Actions
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
-
 
         if ($edit['route'] != '') {
             if (authenticated()->can('fts.document.edit')) {
@@ -251,24 +239,10 @@ if (!function_exists('fts_action_button')) {
     }
 }
 
-if (!function_exists('divisions')) {
-    /**
-     * Get the lists of divisions with it's office
-     * @param string 
-     * @return object|array
-     */
-    function divisions($type = 'object')
-    {
-        $divisions = Modules\System\Entities\Office\SYS_Division::with('office')->get();
-        return ($type == 'array') ? $divisions->toArray() : $divisions;
-    }
-}
-
-
 if (!function_exists('is_date')) {
     /**
      * Check if the string is date
-     * @param string 
+     * @param string
      * @return bool
      */
     function is_date($string)
@@ -304,8 +278,8 @@ if (!function_exists('doc_type_only')) {
             case 102:
                 $type = 'Purchase Order';
                 break;
-            
-            case 104: 
+
+            case 104:
                 $type = 'CAFOA <br> (Procurement)';
                 break;
 
@@ -350,88 +324,89 @@ if (!function_exists('show_status')) {
     /**
      * Return color of the status in the show form
      * @param string
-     * @return string  
+     * @return string
      */
-    function show_status($status)
+    function show_status($status_id)
     {
-        $status = document_status($status);
-        $color = document_status($status, 'label');
-        return "<span class=\"badge badge-{$color}\">{$status}</span>";
+
+        $status = document_status($status_id);
+        $color  = document_status($status_id, 'label');
+        return "<span class=\"badge bg-{$color}\">{$status}</span>";
+
         // return "<span class=\"badge badge-danger\">New</span>";
         // return "<span class=\"label label-light-{$color} label-inline font-weight-bold \">{$status}</span>";
     }
 }
 
+
 if (!function_exists('authenticated')) {
     /**
      * Return the current authenticated user
-     * @return object  
      */
     function authenticated()
     {
-        // return session()->get('authenticated');
-        return auth()->user();
+        // return auth()->user();
+        return session()->get('authenticated');
     }
 }
-
 
 if (!function_exists('document_status')) {
     /**
      * Return color of the status in the show form
      * @param string
-     * @return string  
+     * @return string
      */
-    function document_status($status, $return = 'status')
+    function document_status(int $status, $return = 'status')
     {
-        switch ((int)$status) {
-            
+        switch ((int) $status) {
+
             case 0:
-                $label =  'danger';
+                $label  = 'danger';
                 $status = 'Cancelled';
                 break;
 
             case 1:
-                $label = 'warning';
+                $label  = 'warning';
                 $status = 'Wating for Activation';
                 break;
 
             case 2:
-                $label = 'primary';
+                $label  = 'primary';
                 $status = 'On Process';
                 break;
 
             case 3:
-                $label = 'success';
+                $label  = 'success';
                 $status = 'Approved';
                 break;
 
             case 4:
-                $label = 'danger';
+                $label  = 'danger';
                 $status = 'Disapproved';
                 break;
 
             case 5:
-                $label = 'warning';
+                $label  = 'warning';
                 $status = 'Pending';
                 break;
 
             case 6:
-                $label = 'danger';
+                $label  = 'danger';
                 $status = 'Returned';
                 break;
 
             case 7:
-                $label = 'success';
+                $label  = 'success';
                 $status = 'For Withdrawal';
                 break;
 
             case 8:
-                $label = 'primary';
+                $label  = 'primary';
                 $status = 'Paid';
                 break;
 
             default:
-                $label = 'secondary';
+                $label  = 'secondary';
                 $status = 'Undefined';
                 break;
         }
@@ -440,12 +415,11 @@ if (!function_exists('document_status')) {
     }
 }
 
-
 if (!function_exists('transmittal_status')) {
     /**
      * Return color of the status in the show form
      * @param string
-     * @return string  
+     * @return string
      */
     function transmittal_status($transmittal)
     {
@@ -460,19 +434,19 @@ if (!function_exists('transmittal_status')) {
         switch ($transmittal->status) {
 
             case '1':
-                $status =  '<span class="badge bg-primary">PENDING</span>';
+                $status = '<span class="badge bg-primary">PENDING</span>';
                 break;
 
             case '2':
-                $status =  '<span class="badge bg-success">RECEIVED</span>';
+                $status = '<span class="badge bg-success">RECEIVED</span>';
                 break;
 
             case '3':
-                $status =  '<span class="badge bg-danger">EXPIRED</span>';
+                $status = '<span class="badge bg-danger">EXPIRED</span>';
                 break;
 
             default:
-                $status =  '<span class="badge bg-black">UNDEFINED</span>';
+                $status = '<span class="badge bg-black">UNDEFINED</span>';
                 break;
         }
 
@@ -486,10 +460,10 @@ if (!function_exists('sh')) {
      * @param string
      * @return string
      */
-    function sh($a, $b)
+    function sh($a, $b, $type = 'selected')
     {
         if ($a == $b) {
-            return 'selected';
+            return $type;
         }
     }
 }
@@ -553,11 +527,9 @@ if (!function_exists('tonh')) {
 
         $string = '';
 
-
         foreach ($employees as $employee) {
             $string .= name_helper($employee->name) . ", ";
         }
-
 
         return substr($string, 0, -2);
     }
@@ -606,7 +578,7 @@ if (!function_exists('office_helper')) {
             return null;
         }
 
-        $office = $array['office'];
+        $office   = $array['office'];
         $division = ['name' => $array['name'], 'alias' => $array['alias']];
 
         // check if the division is the main office .... return the office name
@@ -619,6 +591,16 @@ if (!function_exists('office_helper')) {
             $off = ($office['alias'] == null) ? '' : "{$office['alias']} - ";
             return ($division['alias'] == null) ? "{$off} {$division['name']}" : "{$off} {$division['name']} ({$division['alias']})";
         }
+    }
+}
+
+if (!function_exists('office_name')) {
+    /**
+     * Get the office name with it's alias.
+     */
+    function office_name(\Modules\System\Entities\Office\Office $office): string
+    {
+        return ($office->alias == null) ? $office->name : $office->name . " (" . $office->alias . ") ";
     }
 }
 
@@ -635,7 +617,7 @@ if (!function_exists('hrefroute')) {
         $route = route($route, $id);
 
         return "
-            <a 
+            <a
             target=\"_blank\"
             href=\"{$route}\"
             class=\"btn btn-{$size} bg-gradient-{$color}\"
@@ -657,15 +639,16 @@ if (!function_exists('user_agent')) {
      */
     function user_agent()
     {
-
         $agent = new Jenssegers\Agent\Agent();
 
         return [
-            'ip' => request()->getClientIp(),
-            'browser' => $agent->browser(),
-            'device' => $agent->device(),
-            'platform' => $agent->platform()
+            'ip'       => request()->getClientIp(),
+            'browser'  => $agent->browser(),
+            'device'   => $agent->device(),
+            'platform' => $agent->platform(),
+            'request'  => request(),
         ];
+
     }
 }
 
@@ -681,7 +664,6 @@ if (!function_exists('name_to_username')) {
     }
 }
 
-
 if (!function_exists('menu_helper')) {
     /**
      * Convert name to username
@@ -690,26 +672,36 @@ if (!function_exists('menu_helper')) {
     function menu_helper($string)
     {
         $current_url = request()->url();
-        $menu_url = request()->getSchemeAndHttpHost() . "/" . $string;
+        $menu_url    = request()->getSchemeAndHttpHost() . "/" . $string;
         return (strpos($current_url, $menu_url) === false) ? '' : 'menu-item-here';
     }
 }
-
 
 if (!function_exists('qr_to_base64')) {
     /**
      * Convert name to username
      * @return array
      */
-    function qr_to_base64($string)
+    function qr_to_base64($string, $code_only = false)
     {
         $format = (extension_loaded('imagick')) ? 'png' : 'svg';
-        $qr = \SimpleSoftwareIO\QrCode\Facades\QrCode::format($format)
-            ->size(500)
+        $qr     = \SimpleSoftwareIO\QrCode\Facades\QrCode::format($format)
+            ->size(50)
             ->margin(1.5)
             ->generate($string);
 
-        return base64_encode($qr);
+        $base64 = base64_encode($qr);
+
+        if ($code_only) {
+            return $base64;
+        }
+
+        if ($format == 'png') {
+            return 'data:image/png;base64,' . $base64;
+        }
+
+        return 'data:image/svg+xml;base64,' . $base64;
+
     }
 }
 
@@ -719,9 +711,9 @@ if (!function_exists('pretty_number')) {
      * @param string
      * @return string
      */
-    function pretty_number($string)
+    function pretty_number($string, $trail = true)
     {
-        return number_format(floatval($string), 2);
+        return number_format(floatval($string), ($trail) ? 2 : 0);
     }
 }
 
@@ -745,21 +737,22 @@ if (!function_exists('activitylog')) {
      */
     function activitylog($array)
     {
-        $name = $array['name'] ?? 'sys';
-        $log = $array['log'] ?? '';
+        $name       = $array['name'] ?? 'sys';
+        $log        = $array['log'] ?? '';
         $properties = $array['props'] ?? null;
 
-        $log = \Modules\System\Entities\SYS_ActivityLog::create([
-            'name' => $name,
-            'log' => $log,
-            'properties' => $properties,
+        $log = \Modules\System\Entities\ActivityLog::create([
+            'name'        => $name,
+            'log'         => $log,
+            'properties'  => $properties,
             // 'employee_id' => authenticated()->employee_id,
             'employee_id' => auth()->user()->employee_id,
-            'agent' => user_agent()
+            'agent'       => user_agent(),
         ]);
+
+        return $log;
     }
 }
-
 
 if (!function_exists('arrdif')) {
     /**
@@ -782,7 +775,7 @@ if (!function_exists('arrdif')) {
 
                     $changes[$key] = [
                         'old' => $old[$key],
-                        'new' => $new[$key]
+                        'new' => $new[$key],
                     ];
                 }
             }
@@ -806,6 +799,169 @@ if (!function_exists('convert_bytes')) {
     }
 }
 
+if (!function_exists('session_attached_form')) {
+    /**
+     * Setting session for the attached document
+     */
+
+    function session_attached_form(): bool
+    {
+        if (request()->has('attachment') and request()->get('attachment') == true) {
+            $doc_id   = request()->get('document_id');
+            $document = \Modules\FileManagement\Entities\Document\Document::findOrFail($doc_id);
+            if ($document->qr != request()->get('qrcode')) {
+                return abort(404);
+            }
+
+            session(['fms.document.attach' => (int) $doc_id]);
+            return true;
+
+        }
+
+        return false;
+
+    }
+}
+
+if (!function_exists('get_instance_class_type')) {
+    /**
+     * Convert name to username
+     * @return array
+     */
+    function get_instance_class_type($form)
+    {
+        switch (get_class($form)) {
+
+            case \App\Models\Form\Afl::class:
+                return 'Application For Leave';
+                break;
+
+            case \App\Models\Form\Dv::class:
+                return 'Disbursement Voucher';
+                break;
+
+            case \App\Models\Form\Cafoa::class:
+                return 'CAFOA';
+                break;
+
+            case \App\Models\Form\Itinerary::class:
+                return 'Itinerary of Travel';
+                break;
+
+            case \App\Models\Form\Payroll::class:
+                return 'Payroll';
+                break;
+
+            case \App\Models\Form\Pr::class:
+                return 'Purchase Request';
+                break;
+
+            case \App\Models\Form\To::class;
+                return 'Travel Order';
+                break;
+
+            case \App\Models\Form\Liquidation::class;
+                return 'Liquidation Report';
+                break;
+
+        }
+    }
+}
+
+if (!function_exists('actlog')) {
+    /**
+     * Add logs to the system
+     * @param string $name
+     * @param string|null $log
+     * @param array $props
+     * @return object
+     */
+    function actlog(string $name = 'sys', $log = null, ?array $props = null): object
+    {
+        return activitylog([
+            'name'  => $name,
+            'log'   => $log,
+            'props' => $props,
+        ]);
+    }
+}
+
+if (!function_exists('message_box')) {
+
+    /**
+     * Get the message box
+     */
+    function message_box(string $key): string
+    {
+        $file    = include app_path('Helpers/messagebox.php');
+        $message = \Illuminate\Support\Arr::get($file, $key);
+
+        if (is_array($message)) {
+            return '';
+        }
+
+        return $message;
+    }
+}
+
+if (!function_exists('name')) {
+    /**
+     * Name Helper
+     */
+    function name(array $name, string $arrangement = 'FMIL'): string
+    {
+        if ($name == null) {
+            return null;
+        }
+
+        $name = (array) $name;
+
+        $fname = (array_key_exists('first', $name)) ? ucfirst($name['first']) : "";
+        $lname = (array_key_exists('last', $name)) ? ucfirst($name['last']) : "";
+        $mname = (array_key_exists('middle', $name)) ? ucfirst($name['middle']) : "";
+
+        // $fname = @$name['fname'];
+        // $mname = @$name['mname'];
+        // $lname = @$name['lname'];
+
+        switch ($arrangement) {
+
+            case 'LFMI':
+                $name = $lname . ", " . $fname . " " . @$mname[0] . ".";
+                break;
+
+            case 'LFM':
+                $name = $lname . ", " . $fname . " " . $mname;
+                break;
+
+            case 'FMIL':
+                $name = $fname . " " . @$mname[0] . ". " . $lname;
+                break;
+
+            case 'FL':
+                $name = $fname . " " . $lname;
+                break;
+
+            case 'FMNL':
+                $name = $fname . " " . $mname . " " . $lname;
+                break;
+
+            case 'SYM-F':
+                $name = strtoupper($fname[0]);
+                break;
+
+            case 'SYM-FL':
+                $name = strtoupper($fname[0] . $lname[0]);
+                break;
+
+            default:
+                $name = '';
+                break;
+        }
+
+        return $name;
+    }
+}
 
 if (!function_exists('checkbox_svg')) {
     /**
@@ -816,43 +972,43 @@ if (!function_exists('checkbox_svg')) {
 
     function checkbox_svg($width = '100px', $height = '100px', $type = 'checked')
     {
-        if($type == 'checked'){
+        if ($type == 'checked') {
             return '
-                <svg height="'.$height.'" viewBox="0 0 512 512" width="'.$width.'" xmlns="http://www.w3.org/2000/svg">
+                <svg height="' . $height . '" viewBox="0 0 512 512" width="' . $width . '" xmlns="http://www.w3.org/2000/svg">
                     <path d="m452
                             512h-392c-33.085938
-                            0-60-26.914062-60-60v-392c0-33.085938 
-                            26.914062-60 60-60h392c33.085938 
-                            0 
-                            60 
-                            26.914062 
-                            60 
-                            60v392c0 
-                            33.085938-26.914062 
-                            60-60 
-                            60zm-392-472c-11.027344 
-                            0-20 
-                            8.972656-20 
-                            20v392c0 
-                            11.027344 
-                            8.972656 
-                            20 
-                            20 
-                            20h392c11.027344 
-                            0 
-                            20-8.972656 
-                            20-20v-392c0-11.027344-8.972656-20-20-20zm370.898438 
-                            111.34375-29.800782-26.6875-184.964844 
-                            206.566406-107.351562-102.046875-27.558594 
-                            28.988281 137.21875 
-                            130.445313zm0 
+                            0-60-26.914062-60-60v-392c0-33.085938
+                            26.914062-60 60-60h392c33.085938
+                            0
+                            60
+                            26.914062
+                            60
+                            60v392c0
+                            33.085938-26.914062
+                            60-60
+                            60zm-392-472c-11.027344
+                            0-20
+                            8.972656-20
+                            20v392c0
+                            11.027344
+                            8.972656
+                            20
+                            20
+                            20h392c11.027344
+                            0
+                            20-8.972656
+                            20-20v-392c0-11.027344-8.972656-20-20-20zm370.898438
+                            111.34375-29.800782-26.6875-184.964844
+                            206.566406-107.351562-102.046875-27.558594
+                            28.988281 137.21875
+                            130.445313zm0
                             0"/>
                     </svg>
             ';
-        }else{
+        } else {
             return '
             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                        width="'.$width.'" height="'.$height.'" viewBox="0 0 401.998 401.998" style="enable-background:new 0 0 401.998 401.998;"
+                        width="' . $width . '" height="' . $height . '" viewBox="0 0 401.998 401.998" style="enable-background:new 0 0 401.998 401.998;"
                         xml:space="preserve">
                 <g>
                     <path d="M377.87,24.126C361.786,8.042,342.417,0,319.769,0H82.227C59.579,0,40.211,8.042,24.125,24.126
@@ -899,60 +1055,56 @@ if (!function_exists('checkbox_svg')) {
     }
 }
 
-
-
 function tracking_table_status($status)
 {
     switch ($status) {
         case '0':
-            $status =  '<span class="btn-danger ">CANCELLED</span>';
+            $status = '<span class="btn-danger ">CANCELLED</span>';
             break;
 
         case '1':
-            $status =  '<span class="btn-warning ">DEACTIVATED</span>';
+            $status = '<span class="btn-warning ">DEACTIVATED</span>';
             break;
 
         case '2':
-            $status =  '<span class="btn-primary ">ON PROCESS</span>';
+            $status = '<span class="btn-primary ">ON PROCESS</span>';
             break;
 
         case '3':
-            $status =  '<span class="btn-success ">APPROVED</span>';
+            $status = '<span class="btn-success ">APPROVED</span>';
             break;
 
         case '4':
-            $status =  '<span class="btn-danger ">DISAPPROVED</span>';
+            $status = '<span class="btn-danger ">DISAPPROVED</span>';
             break;
 
         case '5':
-            $status =  '<span class="btn-info ">PENDING</span>';
+            $status = '<span class="btn-info ">PENDING</span>';
             break;
 
         case '6':
-            $status =  '<span class="btn-warning ">RETURNED</span>';
+            $status = '<span class="btn-warning ">RETURNED</span>';
             break;
 
         case '7':
-            $status =  '<span class="bg-olive">FOR WITHDRAWAL</span>';
+            $status = '<span class="bg-olive">FOR WITHDRAWAL</span>';
             break;
 
         case '8':
-            $status =  '<span class="bg-lime">PAID</span>';
+            $status = '<span class="bg-lime">PAID</span>';
             break;
 
         default:
-            $status =  '<span class="btn-inverse ">UNDEFINED</span>';
+            $status = '<span class="btn-inverse ">UNDEFINED</span>';
             break;
     }
     return $status;
 }
 
-
-
 /**
  * Convert the document attached into array
  * @param string
- * @return string  
+ * @return string
  */
 function implode_attached($attachments)
 {
@@ -964,7 +1116,6 @@ function implode_attached($attachments)
 
     return implode(',', $data);
 }
-
 
 /**
  * Get the unique values id
@@ -985,12 +1136,6 @@ function unique_array($delimeter, $datas)
     return $array;
 }
 
-
-
-
-
-
-
 /**
  * Improved in_array_multiple function
  * @param string
@@ -998,11 +1143,8 @@ function unique_array($delimeter, $datas)
  */
 function in_array_any($needles, $haystack)
 {
-    return (bool)array_intersect($needles, $haystack);
+    return (bool) array_intersect($needles, $haystack);
 }
-
-
-
 
 /**
  * LEAVE HELPER
@@ -1012,7 +1154,7 @@ function in_array_any($needles, $haystack)
 function leave_helper($type)
 {
 
-    switch ((int)$type) {
+    switch ((int) $type) {
         case 1:
             $type = 'Vacation';
             break;
@@ -1031,7 +1173,6 @@ function leave_helper($type)
     }
     return $type;
 }
-
 
 /**
  * Text Print Helper
@@ -1057,7 +1198,6 @@ function print_text_helper($string)
         $formatted = '10px';
     }
 
-
     return $formatted;
 }
 
@@ -1082,18 +1222,19 @@ function padding_helper($string, $length, $pad = STR_PAD_BOTH)
  */
 function name_helper($name, $arrangement = 'FMIL')
 {
+    if ($name == null) {
+        return null;
+    }
 
-    $name = (array)$name;
+    $name = (array) $name;
 
-    $fname = (array_key_exists('fname', $name)) ? ucfirst($name['fname']) : "";
-    $lname = (array_key_exists('lname', $name)) ? ucfirst($name['lname']) : "";
-    $mname = (array_key_exists('mname', $name)) ? ucfirst($name['mname']) : "";
+    $fname = (array_key_exists('first', $name)) ? ucfirst($name['first']) : "";
+    $lname = (array_key_exists('last', $name)) ? ucfirst($name['last']) : "";
+    $mname = (array_key_exists('middle', $name)) ? ucfirst($name['middle']) : "";
 
     // $fname = @$name['fname'];
     // $mname = @$name['mname'];
     // $lname = @$name['lname'];
-
-
 
     switch ($arrangement) {
 
@@ -1125,7 +1266,6 @@ function name_helper($name, $arrangement = 'FMIL')
             $name = strtoupper($fname[0] . $lname[0]);
             break;
 
-
         default:
             $name = null;
             break;
@@ -1133,12 +1273,6 @@ function name_helper($name, $arrangement = 'FMIL')
 
     return $name;
 }
-
-
-
-
-
-
 
 /**
  * OFFICE ALIAS HELPER
@@ -1189,7 +1323,6 @@ function employment_helper($type)
     return $em;
 }
 
-
 /**
  * ACTION HELPER
  * @param string
@@ -1214,10 +1347,6 @@ function action_helper($act)
     return $a;
 }
 
-
-
-
-
 /**
  * DATE DIFFERENCE
  * @param int
@@ -1238,12 +1367,12 @@ function get_date_diff($time1, $time2, $precision = 3)
     }
     // Set up intervals and diffs arrays
     $intervals = array('year', 'month', 'day', 'hour', 'minute', 'second');
-    $diffs = array();
+    $diffs     = array();
     foreach ($intervals as $interval) {
         // Create temp time from time1 and interval
         $ttime = strtotime('+1 ' . $interval, $time1);
         // Set initial values
-        $add = 1;
+        $add    = 1;
         $looped = 0;
         // Loop until temp time is smaller than time2
         while ($time2 >= $ttime) {
@@ -1252,7 +1381,7 @@ function get_date_diff($time1, $time2, $precision = 3)
             $ttime = strtotime("+" . $add . " " . $interval, $time1);
             $looped++;
         }
-        $time1 = strtotime("+" . $looped . " " . $interval, $time1);
+        $time1            = strtotime("+" . $looped . " " . $interval, $time1);
         $diffs[$interval] = $looped;
     }
     $count = 0;
@@ -1276,7 +1405,6 @@ function get_date_diff($time1, $time2, $precision = 3)
     return implode(", ", $times);
 }
 
-
 /**
  * Permission helper
  * @param array
@@ -1291,7 +1419,7 @@ function permission_helper($array = '', $strict = false)
         return true;
     }
 
-    $count = 0;
+    $count       = 0;
     $permissions = $_SESSION['permissions'];
 
     if (!is_array($array)) {

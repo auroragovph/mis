@@ -26,28 +26,29 @@ switch($document->type){
 
     case config('constants.document.type.procurement.request'): // PURCHASE REQUEST
 
-        $pr = PurchaseRequest::with('requesting')->where('document_id', $id)->get()->first();
+        $pr = PurchaseRequest::where('document_id', $id)->get()->first();
 
         $lists = collect($pr->lists);
 
         $datas['PR Number'] = $pr->number;
-        $datas['Requesting Officer'] = name_helper($pr->requesting->name);
-        $datas['Purpose'] = $pr->purpose;
         $datas['Fund'] = $pr->fund;
-        $datas['FPP'] = $pr->fpp;
         $datas['Amount'] = number_format($lists->sum(function($row){
             return (floatval($row['quantity'] ?? 0) * floatval($row['amount'] ?? 0));
         }), 2);
+
+        $datas['Purpose'] = $pr->purpose;
+        $datas['Particulars'] = $pr->particulars;
+
 
         $rel = $pr;
         break;
 
     case config('constants.document.type.procurement.order'): //PURCHASE ORDER
-        $po = PurchaseOrder::where('document_id', $id)->first();
+        $po = PurchaseOrder::with('supplier_rel')->where('document_id', $id)->first();
         $lists = collect($po->lists);
 
         $datas['PO Number'] = $po->number;
-        $datas['Supplier']  = $po->supplier['firm'];
+        $datas['Supplier']  = $po->supplier_rel->name;
         $datas['Amount']  = number_format($lists->sum(function($row){
             return (floatval($row['quantity'] ?? 0) * floatval($row['amount'] ?? 0));
         }), 2);

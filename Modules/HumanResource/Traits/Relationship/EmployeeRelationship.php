@@ -2,15 +2,15 @@
 
 namespace Modules\HumanResource\Traits\Relationship;
 
+use Modules\HumanResource\Entities\Employee\Position;
 use Modules\System\Entities\Account;
-use Modules\HumanResource\Entities\HR_Plantilla;
-use Modules\System\Entities\Office\SYS_Division;
+use Modules\System\Entities\Office\Division;
 
 trait EmployeeRelationship{
     
     public function division()
     {
-        return $this->belongsTo(SYS_Division::class, 'division_id', 'id');
+        return $this->belongsTo(Division::class, 'division_id', 'id');
     }
 
     public function account()
@@ -20,6 +20,6 @@ trait EmployeeRelationship{
 
     public function position()
     {
-        return $this->belongsTo(HR_Plantilla::class, 'position_id', 'id');
+        return $this->belongsTo(Position::class, 'position_id', 'id');
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\View\Component;
 
 class TextArea extends Component
 {
-    public $label, $size, $class, $name, $value, $required;
+    public $label, $size, $class;
     
     /**
      * Create a new component instance.
@@ -14,19 +14,13 @@ class TextArea extends Component
      * @return void
      */
     public function __construct(
-        $name, 
         $label = '',
-        $class = null,
-        $value = null, 
-        $required = false, 
-        $size = [10,2]
+        $size = [10,2],
+        $class = ''
     ){
         $this->label = $label;
-        $this->class = $class;
-        $this->name = $name;
-        $this->value = $value;
-        $this->required = $required;
         $this->size = $size;
+        $this->class = $class;
 
     }
 

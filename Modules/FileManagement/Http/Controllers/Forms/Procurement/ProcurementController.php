@@ -2,72 +2,69 @@
 
 namespace Modules\FileManagement\Http\Controllers\Forms\Procurement;
 
-use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Modules\FileManagement\Entities\Document\Document;
-use Modules\FileManagement\Entities\Document\FMS_Document;
 
 class ProcurementController extends Controller
 {
     public function index()
     {
-        if(request()->ajax()){
-
-            $lists = array();
-
-            $procurement_types = array_values(config('constants.document.type.procurement'));
-
-            $procurements = Document::with(
-                'purchase_request', 'purchase_order', 'division.office'
-            )->whereIn('type', $procurement_types)->get();
-
-            foreach($procurements as $proc){
-
-                switch($proc->type){
-                    case config('constants.document.type.procurement.request'): 
-                        $number         = $proc->purchase_request->number;
-                        $particulars    = $proc->purchase_request->particulars;
-                        $amount         = number_format(collect($proc->purchase_request->lists)->sum(function($row){
-                                            return (floatval($row['quantity'] ?? 0) * floatval($row['amount'] ?? 0));
-                                            }), 2);
-                        $view           = route('fms.procurement.request.show', $proc->purchase_request->id);
-                        $type           = 'Purchase Request';
-                        break;
-                    case config('constants.document.type.procurement.order'): 
-                        $number         = $proc->purchase_order->number;
-                        $particulars    = $proc->purchase_order->particulars;
-                        $amount         = number_format(collect($proc->purchase_order->lists)->sum(function($row){
-                                            return (floatval($row['quantity'] ?? 0) * floatval($row['amount'] ?? 0));
-                                            }), 2);
-                        $view           = route('fms.procurement.order.show', $proc->purchase_order->id);
-                        $type           = 'Purchase Order';
-                        break;
-                    default:
-                        $number         = null;
-                        $particulars    = null;
-                        $amount         = null;
-                        $view           = null;
-                        $type           = null;
-                        break;
-                }
-
-
-                array_push($lists, [
-                    'id'            =>  $proc->id,
-                    'qr'            =>  $proc->qr,
-                    'encoded'       =>  Carbon::parse($proc->created_at)->format('Y-m-d h:i A'),
-                    'number'        =>  $number,
-                    'amount'        =>  $amount,
-                    'particulars'   =>  $particulars,
-                    'show'          =>  $view,
-                    'type'          =>  $type,
-                    'office'        =>  office_helper($proc->division)
-                ]);
-            }
-
-            return response()->json(["data" => $lists]);
+        if (request()->ajax()) {
+            $lists = $this->_dt();
+            return response()->json($lists);
         }
 
         return view('filemanagement::forms.procurement.index');
+    }
+
+    public function _dt()
+    {
+        $lists = array();
+
+        $procurement_types = array_values(config('constants.document.type.procurement'));
+
+        $procurements = Document::with(
+            'purchase_request', 'purchase_order', 'division.office'
+        )->whereIn('type', $procurement_types)->get();
+
+        foreach ($procurements as $proc) {
+
+            switch ($proc->type) {
+                case config('constants.document.type.procurement.request'):
+                    $number      = $proc->purchase_request->number;
+                    $particulars = $proc->purchase_request->particulars;
+                    $amount      = number_format($proc->purchase_request->total_amount, 2);
+                    $view        = route('fms.procurement.request.show', $proc->purchase_request->id);
+                    $type        = 'Purchase Request';
+                    break;
+                case config('constants.document.type.procurement.order'):
+                    $number      = $proc->purchase_order->number;
+                    $particulars = $proc->purchase_order->particulars;
+                    $amount      = number_format($proc->purchase_order->total_amount, 2);
+                    $view        = route('fms.procurement.order.show', $proc->purchase_order->id);
+                    $type        = 'Purchase Order';
+                    break;
+                default:
+                    $number      = null;
+                    $particulars = null;
+                    $amount      = null;
+                    $view        = null;
+                    $type        = null;
+                    break;
+            }
+
+            array_push($lists, [
+                '#'           => $proc->id,
+                'QR Code'     => $proc->qrcode,
+                'Number'      => $number,
+                'Type'        => $type,
+                'Particulars' => $particulars,
+                'Amount'      => $amount,
+                'Actions'     => '<a href="' . $view . '">View</a>',
+            ]);
+        }
+
+        return $lists;
+
     }
 }

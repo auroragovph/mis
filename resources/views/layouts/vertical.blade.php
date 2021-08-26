@@ -26,7 +26,12 @@
   </nav>
   <!-- /.navbar -->
 
-  @include('layouts.includes.sidebar')
+  @isset($sidebar)
+    @include($sidebar)
+  @else 
+    @include('layouts.includes.sidebar')
+  @endisset
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -65,7 +70,32 @@
 </div>
 <!-- ./wrapper -->
 
+@routes()
+
+
+
+
 @include('layouts.includes.scripts')
+
+<script>
+  $(document).ready(function () {
+
+    var url = window.location.href;
+
+    $('.nav-sidebar li a').filter(function() {
+          return this.href == url;
+    }).addClass('active');
+
+    $('.nav-sidebar li a').filter(function() {
+      return this.href == url;
+    }).addClass('active')
+    .parent().parent().parent()
+    .addClass('menu-open')
+    .children(':first-child')
+    .addClass('active');
+
+  })
+</script>
 
 </body>
 </html>

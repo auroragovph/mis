@@ -4,6 +4,7 @@ namespace Modules\System\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use Nwidart\Modules\Facades\Module;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Permission;
 
@@ -20,44 +21,24 @@ class PermissionRoleTableSeeder extends Seeder
 
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $permissionNames = [
-            'sys.sudo', 
+        $all_permissions = array();
+        $modules = Module::all();
 
-            'fms.*',
-            'fms.sa.*',
-            'fms.sa.activate',
-            'fms.sa.attach',
-            'fms.sa.number',
-            'fms.sa.rr',
-            'fms.sa.transmittal',
-
-            'fms.oa.procurement.pr.consolidation',
-            'fms.oa.procurement.inspection',
-
-            'fms.document.*',
-            'fms.document.create',
-            'fms.document.edit',
-            'fms.document.cancel',
+        foreach($modules as $module){
+            $path = module_path($module, 'Config/permissions.php');
+            if(file_exists($path)){
+                $permissions = include $path;
+                $all_permissions = array_merge($all_permissions, $permissions['lists']);
+            }
+            
+        }
 
 
-            'fts.*',
-            'fts.sa.*',
-            'fts.sa.attach',
-            'fts.sa.number',
-            'fts.sa.rr',
-            'fts.sa.qr',
-            'fts.sa.transmittal',
-            'fts.document.*',
-            'fts.document.view',
-            'fts.document.create',
-            'fts.document.edit',
-            'fts.document.print'
-
-        ];
-
-
-        $permissions = collect($permissionNames)->map(function ($permission) {
-            return ['name' => $permission, 'guard_name' => 'web'];
+        $permissions = collect($all_permissions)->map(function($permission){
+            return [
+                'name' => $permission,
+                'guard_name' => 'web'
+            ];
         });
 
         Permission::insert($permissions->toArray());
@@ -67,22 +48,7 @@ class PermissionRoleTableSeeder extends Seeder
                 'name' => 'ROOT',
                 'permissions' => ['sys.sudo']
             ],
-
-            [
-                'name' => 'FTS - User',
-                'permissions' => ['fts.sa.rr', 'fts.sa.attach', 'fts.sa.number']
-            ],
-
-            [
-                'name' => 'FTS - Special User',
-                'permissions' => ['fts.*']
-            ],
-
-            [
-                'name' => 'FTS - Encoder User',
-                'permissions' => ['fts.document.*']
-            ],
-
+            
             [
                 'name' => 'FMS - User',
                 'permissions' => ['fms.sa.rr', 'fms.sa.attach', 'fms.sa.number', 'fms.document.create']

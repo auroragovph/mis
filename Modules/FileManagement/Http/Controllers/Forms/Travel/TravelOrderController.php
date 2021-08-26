@@ -4,41 +4,32 @@ namespace Modules\FileManagement\Http\Controllers\Forms\Travel;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Modules\FileManagement\Entities\Document\Document;
-use Modules\FileManagement\Entities\Travel\FMS_TO;
-use Modules\FileManagement\Entities\Document\FMS_Document;
-use Modules\FileManagement\Entities\Travel\FMS_TOL;
 use Modules\FileManagement\Entities\Travel\TravelOrder;
-use Modules\FileManagement\Entities\Travel\TravelOrderList;
 use Modules\FileManagement\Http\Controllers\Forms\FormController;
 use Modules\FileManagement\Http\Requests\Forms\TravelOrder\StoreRequest;
-use Modules\FileManagement\Http\Requests\Forms\TravelOrder\TravelOrderStoreRequest;
 use Modules\FileManagement\Http\Requests\Forms\TravelOrder\UpdateRequest;
 use Modules\FileManagement\Transformers\Forms\Travel\TravelOrderDTResource;
-use Modules\HumanResource\Entities\HR_Employee;
-use Modules\System\Entities\Employee;
+use Modules\HumanResource\Entities\Employee\Employee;
+use Modules\System\Entities\Office\Division;
 use Modules\System\Entities\Office\SYS_Division;
-use Modules\System\Entities\Office\SYS_Office;
 
 class TravelOrderController extends FormController
 {
     public function __construct()
     {
-        $this->model = TravelOrder::class;
+        $this->model   = TravelOrder::class;
         $this->doctype = config('constants.document.type.travel.order');
-        $this->alias = 'travel_order';
-        $this->routes = [
-            'show' => 'fms.travel.order.show'
+        $this->alias   = 'travel_order';
+        $this->routes  = [
+            'show' => 'fms.travel.order.show',
         ];
     }
 
-
     public function index(Request $request)
     {
-        if($request->ajax()){
-            $datas = TravelOrderDTResource::collection(TravelOrder::with('lists.employee', 'document')->get());
-            return response()->json(["data" => $datas]);
+        if ($request->ajax()) {
+            $datas = TravelOrderDTResource::collection(TravelOrder::with('document')->get());
+            return response()->json($datas);
         }
 
         activitylog(['name' => 'fms', 'log' => 'Request travel order list']);
@@ -50,68 +41,101 @@ class TravelOrderController extends FormController
     {
         activitylog(['name' => 'fms', 'log' => 'Request travel order form']);
 
-        $divisions = SYS_Division::with('office')->get();
+        $divisions = Division::with('office')->get();
         $employees = Employee::with('position')->get();
+
+        // checking if the attached document
+        session_attached_form();
 
         return view('filemanagement::forms.travel.order.create', [
             'divisions' => $divisions,
-            'employees' => $employees
+            'employees' => $employees,
         ]);
     }
 
     public function store(StoreRequest $request)
     {
-        $forms = [
-            'destination' => $request->destination,
-            'departure' => Carbon::parse($request->departure)->format('Y-m-d'),
-            'arrival' => Carbon::parse($request->arrival)->format('Y-m-d'),
-            'purpose' => $request->purpose,
-            'instruction' => $request->instruction,
-            'approval_id' => $request->approval,
-            'charging_id' => $request->charging
+
+        $employees = Employee::with('position')->whereIn('id', [
+            ...$request->post('employees'),
+            (int) $request->post('requester')])
+            ->get();
+
+        $travelers = [];
+
+        foreach ($request->post('employees') as $traveler) {
+            $details     = $employees->where('id', $traveler)->first();
+            $travelers[] = [
+                'id'       => $details->id,
+                'name'     => name($details->name),
+                'position' => $details->position->name ?? null,
+            ];
+        }
+
+        $requester = $employees->where('id', $request->post('requester'))->first();
+
+        $signatories = [
+            'requester' => [
+                'id'       => $requester->id,
+                'name'     => name($requester->name),
+                'position' => $requester->position->name ?? null,
+            ],
+            'approval'  => [
+                'id'       => null,
+                'name'     => name(config('constants.employee.head.name')),
+                'position' => config('constants.employee.head.position'),
+            ],
         ];
 
-        $to = $this->save($forms);
+        $forms = [
+            'charging_id' => $request->post('charging'),
+            'destination' => $request->post('destination'),
+            'departure'   => Carbon::parse($request->post('departure'))->format('Y-m-d'),
+            'arrival'     => Carbon::parse($request->post('arrival'))->format('Y-m-d'),
+            'purpose'     => $request->post('purpose'),
+            'instruction' => $request->post('instruction'),
+            'signatories' => $signatories,
+            'employees'   => $travelers,
+        ];
 
-        // inserting to lists
-        $tol = TravelOrderList::insert(collect($request->post('employees'))->map(function($item, $key) use($to){
-            $data['form_id'] = $to->id;
-            $data['employee_id'] = $item;
-            return $data;
-        })->toArray());
+        // checked if was attached
+        $attached = session()->pull('fms.document.attach');
+        if ($attached !== null) {
+            $forms['document_id'] = (int) $attached;
+            $attach_status        = true;
+        }
 
+        $to = $this->save($forms, $attach_status ?? false);
 
         if (request()->ajax()) {
             return response()->json([
                 'message' => 'Travel Order has been encoded.',
-                'route' =>route('fms.travel.order.show', $to->id)
+                'route'   => route('fms.travel.order.show', $to->id),
             ], 201);
         }
 
         return redirect(route('fms.travel.order.show', $to->id))
             ->with('alert-success', 'Purchase request has been encoded.');
-        
+
     }
 
     public function show($id)
     {
 
         $rels = [
-            'lists.employee.position',
-            'charging',
-            'approval.position'
+            'charging'
         ];
 
         $to = $this->details($id, $rels);
 
         if (request()->has('print')) {
             return view('filemanagement::forms.travel.order.print', [
-                'to' => $to
+                'to' => $to,
             ]);
         }
 
-        return view('filemanagement::forms.travel.order.show',[
-            'to' => $to
+        return view('filemanagement::forms.travel.order.show', [
+            'to' => $to,
         ]);
     }
 
@@ -120,47 +144,47 @@ class TravelOrderController extends FormController
 
         $to = $this->details($id);
 
-        $divisions = SYS_Division::with('office')->get();
-        $employees = HR_Employee::with('position')->get();
+        $divisions = Division::with('office')->get();
+        $employees = Employee::with('position')->get();
 
         return view('filemanagement::forms.travel.order.edit', [
             'employees' => $employees,
             'divisions' => $divisions,
-            'to' => $to
+            'to'        => $to,
         ]);
     }
 
     public function update(UpdateRequest $request, $id)
     {
         $forms = [
-            'number' => $request->post('number'),
+            'number'      => $request->post('number'),
             'destination' => $request->destination,
-            'departure' => Carbon::parse($request->departure)->format('Y-m-d'),
-            'arrival' => Carbon::parse($request->arrival)->format('Y-m-d'),
-            'purpose' => $request->purpose,
+            'departure'   => Carbon::parse($request->departure)->format('Y-m-d'),
+            'arrival'     => Carbon::parse($request->arrival)->format('Y-m-d'),
+            'purpose'     => $request->purpose,
             'instruction' => $request->instruction,
             'approval_id' => $request->approval,
-            'charging_id' => $request->charging
+            'charging_id' => $request->charging,
         ];
 
         $to = $this->patch($id, $forms);
 
-         // inserting to lists
-         TravelOrderList::where('form_id', $to->id)->delete();
-         $tol = TravelOrderList::insert(collect($request->post('employees'))->map(function($item, $key) use($to){
-             $data['form_id'] = $to->id;
-             $data['employee_id'] = $item;
-             return $data;
-         })->toArray());
+        // inserting to lists
+        TravelOrderList::where('form_id', $to->id)->delete();
+        $tol = TravelOrderList::insert(collect($request->post('employees'))->map(function ($item, $key) use ($to) {
+            $data['form_id']     = $to->id;
+            $data['employee_id'] = $item;
+            return $data;
+        })->toArray());
 
         if (request()->ajax()) {
             return response()->json([
                 'message' => "Travel order has been updated.",
-                'route' => route('fms.travel.order.show', $to->id)
+                'route'   => route('fms.travel.order.show', $to->id),
             ]);
         }
 
-        return  redirect(route('fms.travel.order.show', $to->id))
+        return redirect(route('fms.travel.order.show', $to->id))
             ->with('alert-success', "Purchase request has been updated.");
 
     }

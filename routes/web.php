@@ -18,10 +18,11 @@ Route::get('/', function () {
     return redirect(route('dashboard'));
 });
 
-Route::get('/dashboard', function () {
-    // return phpinfo();
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function(){
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::view('home', 'home')->name('home');
+});
+
 
 
 Route::get('dev', DevController::class);

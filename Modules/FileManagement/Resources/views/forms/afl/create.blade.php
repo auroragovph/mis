@@ -222,6 +222,8 @@ Application For Leave Form
 
         <hr>
 
+        @if(!request()->has('attachment'))
+
         <div class="row">
             <div class="col-md-12">
                 <x-ui.form.select2 label="Liaison Officer" name="liaison" required>
@@ -232,6 +234,8 @@ Application For Leave Form
                 </x-ui.form.select2>
             </div>
         </div>
+
+        @endif
 
         <button type="submit" class="btn btn-primary mt-3" name="submitButton">Submit</button>
 

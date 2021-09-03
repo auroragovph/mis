@@ -221,6 +221,7 @@ class PRController extends FormController
     }
 
     function print($pr) {
+
         $lists = collect($pr->lists);
 
         $total_amount = $lists->sum(function ($amount) {
@@ -279,7 +280,7 @@ class PRController extends FormController
             ],
         ]);
 
-        return view('filemanagement::forms.procurement.request.print', [
+        return view('filemanagement::forms.procurement.request.'.$pr->circular.'.print', [
             'pr'           => $pr,
             'pages'        => $pages,
             'total_amount' => $total_amount,

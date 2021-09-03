@@ -1,18 +1,14 @@
-<div class="header">
-
-    <div class="header-logo">
-       <img src="{{ asset('media/logos/logo-sm.png') }}" alt="">
+<div class="flex justify-between" style="height: 8%;">
+    <div class="flex p-5">
+       <img class="w-14 h-14" src="{{ asset('media/logos/logo-sm.png') }}" alt="">
     </div>
-
-    <div class="header-title">
+    <div class="text-center">
         <h4>Republic of the Philippines</h4>
-        <h3>Provincial Government of Aurora</h3>
-        <h4>Baler, Aurora</h4>
-
+        <h3>{{ get_config('lgu.name') }}</h3>
+        <h4>{{ get_config('lgu.address') }}</h4>
     </div>
 
-    <div class="header-apx">
-        <p>{{ $appendix ?? null }}</p>
+    <div class="flex items-center">
+        <p class="italic">{{ $appendix ?? null }}</p>
     </div>
-
 </div>

@@ -15,11 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(route('dashboard'));
+    return redirect(route('home'));
 });
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::view('home', 'home')->name('home');
 });
 

@@ -516,24 +516,6 @@ if (!function_exists('auth_division')) {
     }
 }
 
-if (!function_exists('tonh')) {
-    /**
-     * Return all the name of the emloyees in travel order
-     * @param object
-     * @return string
-     */
-    function tonh($employees)
-    {
-
-        $string = '';
-
-        foreach ($employees as $employee) {
-            $string .= name_helper($employee->name) . ", ";
-        }
-
-        return substr($string, 0, -2);
-    }
-}
 
 if (!function_exists('employee_id_helper')) {
     /**
@@ -572,6 +554,36 @@ if (!function_exists('office_helper')) {
      * @return string
      */
     function office_helper($array, $return = 'all')
+    {
+
+        if ($array == null) {
+            return null;
+        }
+
+        $office   = $array['office'];
+        $division = ['name' => $array['name'], 'alias' => $array['alias']];
+
+        // check if the division is the main office .... return the office name
+        if ($division['name'] == 'MAIN') {
+            return ($office['alias'] == null) ? $office['name'] : "{$office['name']} ({$office['alias']})";
+        } else {
+            // if not the main return the division name with office alias
+
+            // check if the office name is null
+            $off = ($office['alias'] == null) ? '' : "{$office['alias']} - ";
+            return ($division['alias'] == null) ? "{$off} {$division['name']}" : "{$off} {$division['name']} ({$division['alias']})";
+        }
+    }
+}
+
+if (!function_exists('office')) {
+    /**
+     * DOC TYPE HELPER
+     * @param array
+     * @param string
+     * @return string
+     */
+    function office($array, $return = 'all')
     {
 
         if ($array == null) {
@@ -960,6 +972,22 @@ if (!function_exists('name')) {
         }
 
         return $name;
+    }
+}
+
+if (!function_exists('get_config')) {
+    /**
+     * Get config json file
+     */
+    function get_config(string $key)
+    {
+        $file = base_path()."/config/config.json";
+        $config = json_decode(file_get_contents($file), true);
+
+
+
+
+        return \Illuminate\Support\Arr::get($config, $key);
     }
 }
 

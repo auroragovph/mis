@@ -1,27 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> Purchase Request  |  {{ $pr->document->qr }} </title>
+@extends('filemanagement::forms._includes.print.paper', [
+'qrcode' => $pr->document->qrcode,
+'html_title' => 'Purchase Request',
+'appendix' => 'Appendix 47'
+])
 
-    @include('filemanagement::forms._includes.print.styles')
-    
-</head>
-<body class="A4">
 
-    <section class="sheet padding-5mm">
+@section('content')
+    <div class="border-t-2 border-l-2 border-r-2 border-black">
 
-        @include('filemanagement::forms._includes.print.header')
-
-        <div class="content">
-
+        <div>
+            <h3 class="text-center uppercase text-2xl font-bold">
+                Purchase Request
+            </h3>
         </div>
 
-        @include('filemanagement::forms._includes.print.footer', [
-            'qrcode' => $pr->document->qr
-        ])
-       
-    </section>
-   
-</body>
-</html>
+        <div class="mt-3 flex justify-between">
+            <p>LGU: <span></span></p>
+            <p>FUND: ____</p>
+        </div>
+
+    </div>
+@endsection

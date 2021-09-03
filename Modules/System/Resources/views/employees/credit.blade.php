@@ -1,4 +1,4 @@
-@extends('layouts.system')
+@extends('system::layouts.master')
 
 
 @section('page-title')
@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-<x-ui.card>
+<x-ui.card title="Employee Form">
 
     @isset($employee)
         <form id="ajax_form" action="{{ route('sys.admin.employee.update', $employee->id) }}" method="POST">
@@ -21,11 +21,7 @@
     @else 
         <form id="ajax_form" action="{{ route('sys.admin.employee.store') }}" method="POST">
     @endisset
-
         @csrf
-
-        <h5>Personal Information</h5>
-        <hr>
         <div class="row">
             <div class="col-md-4">
                 <x-ui.form.input label="First Name" name="fname" required :value="$employee->name['first'] ?? ''" />
@@ -52,17 +48,17 @@
                 <x-ui.form.input type="date" label="Birthdate" name="bday" required :value="$employee->info['birthday'] ?? ''" />
             </div>
             <div class="col-md-4">
-                <x-ui.form.select2 label="Civil Status" name="civil" required>
+                <x-ui.form.choices label="Civil Status" name="civil" required>
                     @foreach(config('static-lists.civilStatus') as $cs)
                         <option {{ sh($cs, $employee->info['civilStatus'] ?? null) }}>{{ $cs }}</option>
                     @endforeach
-                </x-ui.form.select2>
+                </x-ui.form.choices>
             </div>
             <div class="col-md-4">
-                <x-ui.form.select2 label="Sex" name="sex" required>
+                <x-ui.form.choices label="Sex" name="sex" required>
                     <option {{ sh($employee->info['sex'] ?? null, 'Male') }}>Male</option>
                     <option {{ sh($employee->info['sex'] ?? null, 'Female') }}>Female</option>
-                </x-ui.form.select2>
+                </x-ui.form.choices>
             </div>
         </div>
 
@@ -114,27 +110,4 @@
 
     </form>
 </x-ui.card>
-@endsection
-
-
-@section('css-vendor')
-<!-- Select2 -->
-<link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
-{{-- Sweetalert --}}
-<link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.css') }}">
-@endsection
-
-@section('css-custom')
-@endsection
-
-
-@section('js-vendor')
-<!-- Select2 -->
-<script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-@endsection
-
-@section('js-custom')
-<script src="{{ asset('js/Modules/System/pages/ajax_form.js') }}"></script>
-<script src="{{ asset('js/Modules/System/select2-init.js') }}"></script>
 @endsection

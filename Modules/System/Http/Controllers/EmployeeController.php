@@ -3,9 +3,10 @@
 namespace Modules\System\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Modules\System\Entities\Office\Division;
+use Modules\System\Transformers\Employee\DT;
 use Modules\HumanResource\Entities\Employee\Employee;
 use Modules\HumanResource\Entities\Employee\Position;
-use Modules\System\Entities\Office\Division;
 use Modules\System\Http\Requests\Employee\StoreRequest;
 use Modules\System\Http\Requests\Employee\UpdateRequest;
 
@@ -13,9 +14,10 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::with('division.office', 'position')->get();
-
-        return view('system::employees.index', compact('employees'));
+        if(request()->ajax()){
+            return $this->_dt();
+        }
+        return view('system::employees.index');
     }
 
     public function create()
@@ -125,6 +127,16 @@ class EmployeeController extends Controller
         ], 200);
 
 
+    }
+
+    public function _dt()
+    {
+        $heading = ['#', 'Name', 'Office', 'Position', 'Appoint', 'Action'];
+        $datas   = DT::collection(Employee::with('division.office', 'position')->get());
+        return [
+            'heading' => $heading,
+            'data'    => $datas ?? [],
+        ];
     }
 
 }

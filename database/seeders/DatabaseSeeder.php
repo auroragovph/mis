@@ -27,10 +27,10 @@ class DatabaseSeeder extends Seeder
         // we will include here
         $this->call([
 
-            // OfficeTableSeeder::class,
-            // SalaryGradeTableSeeder::class,
-            // PositionTableSeeder::class,
-            // EmployeeTableSeeder::class,
+            OfficeTableSeeder::class,
+            SalaryGradeTableSeeder::class,
+            PositionTableSeeder::class,
+            EmployeeTableSeeder::class,
 
             // PermissionTableSeeder::class,
             // RoleTableSeeder::class,

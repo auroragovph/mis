@@ -14,6 +14,8 @@ function serialize(form) {
 			case 'hidden':
 			case 'password':
 			case 'email':
+			case 'date':
+			case 'datetime-local':
 			case 'button':
 			case 'reset':
 			case 'submit':

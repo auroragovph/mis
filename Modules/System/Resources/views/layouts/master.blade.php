@@ -1,4 +1,4 @@
 @extends('layouts.tabler.horizontal', [
     '__module_title__' => 'System Modules',
-    '__navigation__' => 'system::layouts.navigation'
+    '__navigation__' => authenticated()->can('sys.sudo') ? 'system::layouts.navigation' : null
 ])

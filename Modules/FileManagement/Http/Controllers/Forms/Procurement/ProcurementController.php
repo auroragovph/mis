@@ -19,6 +19,8 @@ class ProcurementController extends Controller
 
     public function _dt()
     {
+        $heading = ['#', 'QR Code', 'Number', 'Type', 'Particulars', 'Amount', 'Action'];
+
         $lists = array();
 
         $procurement_types = array_values(config('constants.document.type.procurement'));
@@ -54,17 +56,21 @@ class ProcurementController extends Controller
             }
 
             array_push($lists, [
-                '#'           => $proc->id,
-                'QR Code'     => $proc->qrcode,
-                'Number'      => $number,
-                'Type'        => $type,
-                'Particulars' => $particulars,
-                'Amount'      => $amount,
-                'Actions'     => '<a href="' . $view . '">View</a>',
+                $proc->id,
+                $proc->qrcode,
+                $number,
+                $type,
+                $particulars,
+                $amount,
+                '<a href="' . $view . '">View</a>',
             ]);
         }
+        
 
-        return $lists;
+        return [
+            'heading' => $heading,
+            'data' => $lists
+        ];
 
     }
 }

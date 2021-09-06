@@ -62,17 +62,16 @@
             </div>
         </div>
 
-        <h5 class="mt-3">Employment Information</h5>
         <hr>
 
         <div class="row">
             <div class="col-md-6">
 
-                <x-ui.form.select2 label="Office" id="select2-office" name="division" required >
+                <x-ui.form.choices label="Office" id="select2-office" name="division" required >
                     @foreach($divisions as $division)
                         <option {{ sh($division->id, $employee->division_id ?? null) }} value="{{ $division->id }}">{{ office_helper($division) }}</option>
                     @endforeach
-                </x-ui.form.select2>
+                </x-ui.form.choices>
 
             </div>
             <div class="col-md-6">
@@ -83,18 +82,18 @@
 
         <div class="row">
             <div class="col-md-6">
-                <x-ui.form.select2 label="Position" name="position" required >
+                <x-ui.form.choices label="Position" name="position" required >
                     @foreach($positions as $position)
                         <option {{ sh($position->id, $employee->position_id ?? null) }} value="{{ $position->id }}">{{ $position->name }}</option>
                     @endforeach
-                </x-ui.form.select2>
+                </x-ui.form.choices>
             </div>
             <div class="col-md-6">
-                <x-ui.form.select2 label="Status of Appointment" name="appointment" required>
+                <x-ui.form.choices label="Status of Appointment" name="appointment" required>
                     @foreach(config('static-lists.statusOfAppointment') as $appointment)
                         <option {{ sh($appointment, $employee->employment['type'] ?? null) }}>{{ $appointment }}</option>
                     @endforeach
-                </x-ui.form.select2>
+                </x-ui.form.choices>
 
             </div>
         </div>
@@ -110,4 +109,6 @@
 
     </form>
 </x-ui.card>
+
+<x-include.form.ajax />
 @endsection

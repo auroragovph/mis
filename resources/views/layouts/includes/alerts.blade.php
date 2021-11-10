@@ -1,62 +1,33 @@
-
-{{-- BIG --}}
-
-@if(session('alert-success'))
-<div class="alert alert-success alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    <h5><i class="icon fas fa-check"></i> Success!</h5>
-    {!! session('alert-success') !!}
-  </div>
+@if (session('alert-success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> {!! session('alert-success') !!}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 @endif
 
-@if(session('alert-error'))
-<div class="alert alert-danger alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    <h5><i class="icon fas fa-ban"></i> Error!</h5>
-    {!! session('alert-error') !!}
-  </div>
+@if (session('alert-error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> {!! session('alert-error') !!}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 @endif
 
-@if(session('alert-warning'))
-<div class="alert alert-warning alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    <h5><i class="icon fas fa-exclamation-triangle"></i> Warning!</h5>
-    {!! session('alert-warning') !!}
-  </div>
+@if (session('alert-warning'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Warning!</strong> {!! session('alert-warning') !!}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 @endif
 
 
-{{-- SMALL --}}
-
-@if(session('alert-success-sm'))
-<div class="alert alert-success" role="alert">
-    {!! session('alert-success-sm') !!}
-</div>
+@if ($errors->any())
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <h3>Warning!</h3> <br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 @endif
-
-@if(session('alert-error-sm'))
-<div class="alert alert-danger" role="alert">
-    {!! session('alert-error-sm') !!}
-</div>
-@endif
-
-@if(session('alert-warning-sm'))
-<div class="alert alert-warning" role="alert">
-    {!! session('alert-warning-sm') !!}
-</div>
-@endif
-
-
-@if($errors->any())
-<div class="alert alert-danger alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    <h5><i class="icon fas fa-ban"></i> Error!</h5>
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-  </div>
-@endif
-
-

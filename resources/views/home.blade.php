@@ -1,4 +1,4 @@
-@extends('layouts.tabler.clean')
+@extends('layouts.clean')
 
 @section('content')
     <div class="page">

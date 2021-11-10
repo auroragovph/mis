@@ -1,66 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
+* Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
+* @version 1.0.0-beta3
+* @link https://tabler.io
+* Copyright 2018-2021 The Tabler Authors
+* Copyright 2018-2021 codecalm.net Paweł Kuna
+* Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
 -->
 <html lang="en">
+
 <head>
-  
-  @include('layouts.includes.meta')
-  @include('layouts.includes.styles')
 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Aurora Management Information System.</title>
 
+    @include('layouts.includes.styles')
 </head>
-<body class="hold-transition sidebar-collapse layout-top-nav accent-olive">
 
-<div class="wrapper">
+<body class="antialiased">
+    <div class="wrapper">
+        @include('layouts.includes.header')
 
-  @include('layouts.includes.horizontal.header')
-  @include('layouts.includes.horizontal.navbar')
+        @isset($__navigation__)
+            @include($__navigation__)
+        @else
+            @include('layouts.includes.navbar')
+        @endisset
 
-  {{-- @include('layouts.includes.sidebar') --}}
 
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper"> 
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">@yield('page-title')</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <div class="float-right">
-              @yield('toolbar')
+        <div class="page-wrapper">
+            <div class="container-xl">
+                <!-- Page title -->
+                <!-- Page title -->
+                <div class="page-header d-print-none">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <!-- Page pre-title -->
+                            <div class="page-pretitle">
+                                @yield('page-pretitle')
+                            </div>
+                            <h2 class="page-title">
+                                @yield('page-title')
+                            </h2>
+                        </div>
+                        <!-- Page title actions -->
+                        <div class="col-auto ms-auto d-print-none">
+                            @yield('page-action')
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+            <div class="page-body">
+                <div class="container-xl">
+                    @include('layouts.includes.alerts')
+                    @section('content')
+                    @show
+                </div>
+            </div>
+            @include('layouts.includes.footer')
+
+
+        </div>
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="content">
-      <div class="container">
-        @include('layouts.includes.alerts')
-        @yield('content')
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  @include('layouts.includes.footer')
-
-  
-</div>
-<!-- ./wrapper -->
-
-@routes()
 
 
-@include('layouts.includes.scripts')
-
+    @include('layouts.includes.scripts')
 </body>
+
 </html>

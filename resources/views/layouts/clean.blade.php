@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>@yield('html-title') Aurora Management Information System</title>
 
-    @include('layouts.tabler.includes.styles')
+    @include('layouts.includes.styles')
 
 </head>
 
@@ -19,7 +19,7 @@
     @section('content')
     @show
 
-    @include('layouts.tabler.includes.scripts')
+    @include('layouts.includes.scripts')
 
 </body>
 

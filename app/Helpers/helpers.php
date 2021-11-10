@@ -338,7 +338,6 @@ if (!function_exists('show_status')) {
     }
 }
 
-
 if (!function_exists('authenticated')) {
     /**
      * Return the current authenticated user

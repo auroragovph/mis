@@ -7,13 +7,16 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Account;
+use Modules\System\Http\Requests\Profile\Account\UsernameRequest;
 use Modules\System\Http\Requests\Profile\CredentialRequest;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        return view('system::profile.index');
+        $tab = request()->get('tab');
+
+        return view('system::profile.index',compact('tab'));
     }
 
     public function information(Request $request)
@@ -29,6 +32,11 @@ class ProfileController extends Controller
         return redirect()
             ->back()
             ->with('alert-success', 'Profile information has been updated.');
+    }
+
+    public function change_username(UsernameRequest $request)
+    {
+        
     }
 
     public function credentials(CredentialRequest $request)

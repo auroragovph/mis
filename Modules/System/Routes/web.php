@@ -27,6 +27,8 @@ Route::group(['prefix' => 'system', 'middleware' => 'auth:web', 'as' => 'sys.'],
 
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+
+        
         Route::patch('/information', [ProfileController::class, 'information'])->name('profile.information');
         Route::patch('/credentials', [ProfileController::class, 'credentials'])->name('profile.credentials');
     });

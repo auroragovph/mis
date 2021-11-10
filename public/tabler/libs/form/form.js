@@ -15,7 +15,7 @@ document.getElementById('ajax_form').addEventListener('submit', function (e) {
     .then(res => {
 
       Swal.fire({
-        title: 'Success',
+        title: res.data.title ?? 'Success',
         text: res.data.message ?? 'Success',
         icon: 'success',
         showCancelButton: false,
@@ -46,6 +46,10 @@ document.getElementById('ajax_form').addEventListener('submit', function (e) {
           title = res.data.message
           message = res.data.errors[firstErrorKey][0]
           break
+        case 419: // LARAVEL CONTROLLER ERROR
+          title = res.data.title ?? 'Error';
+          message = res.data.message ?? 'Something went wrong. Code: 419' 
+          break;
         default:
           break
 
@@ -58,8 +62,11 @@ document.getElementById('ajax_form').addEventListener('submit', function (e) {
       })
 
     }).finally(() => {
+      
       card.classList.toggle("whirl")
       card.classList.toggle("traditional")
+
+      
     });
 
 })

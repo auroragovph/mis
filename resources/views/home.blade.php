@@ -5,7 +5,7 @@
         <div class="container py-4">
             <div class="text-center mb-1">
                 <a href="#">
-                    <img src="/assets/logo/banner.png" height="150">
+                    <img src="/logo/banner.png" height="150">
                 </a>
 
                 <h1 class="mb-4">System Modules</h1>

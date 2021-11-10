@@ -5,10 +5,10 @@ namespace Modules\System\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
-use Modules\HumanResource\Entities\HR_Employee;
 use Modules\System\Entities\Account;
-use Modules\System\Http\Requests\Profile\Account\UsernameRequest;
-use Modules\System\Http\Requests\Profile\CredentialRequest;
+use Modules\System\Http\Requests\Profile\Security\UsernameRequest;
+use Modules\System\Http\Requests\Profile\Security\PasswordRequest;
+
 
 class ProfileController extends Controller
 {
@@ -36,17 +36,24 @@ class ProfileController extends Controller
 
     public function change_username(UsernameRequest $request)
     {
-        
+        $account = Account::findOrFail(auth()->id());
+        $account->username = $request->post('username');
+        $account->save();
+
+        return response()->json([
+            'message' => 'Username has been updated.',
+            'intended' => route('sys.profile.index', ['tab' => 'overview'])
+        ]);
     }
 
-    public function credentials(CredentialRequest $request)
+    public function change_password(PasswordRequest $request)
     {
         
         if(!Hash::check($request->post('password_old'), auth()->user()->password)){
 
-            return redirect()
-                    ->back()
-                    ->with('alert-error', 'Password mismatch');
+            return response()->json([
+                'message' => 'Password mismatch.'
+            ], 419);
         }
 
         $account = Account::find(auth()->id());
@@ -55,8 +62,9 @@ class ProfileController extends Controller
             'password' => Hash::make($request->post('password'))
         ]);
 
-        return redirect()
-                ->back()
-                ->with('alert-success', 'Password has been changed.');
+        return response()->json([
+            'message' => 'Password has been updated.',
+            'intended' => route('sys.profile.index', ['tab' => 'overview'])
+        ]);
     }
 }

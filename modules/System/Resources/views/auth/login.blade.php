@@ -5,7 +5,7 @@
         <div class="container-tight py-4">
             <div class="text-center mb-1">
                 <a href="#">
-                    <img src="/assets/logo/banner.png" height="150">
+                    <img src="{{ asset('logo/banner.png') }}" height="150">
                 </a>
             </div>
 

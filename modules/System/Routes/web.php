@@ -25,12 +25,18 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->midd
 Route::group(['prefix' => 'system', 'middleware' => 'auth:web', 'as' => 'sys.'], function () {
 
 
-    Route::prefix('profile')->group(function () {
-        Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
 
+        Route::get('/', [ProfileController::class, 'index'])->name('index');
+
+        Route::group(['prefix' => 'security', 'as' => 'security.'], function() {
+            Route::patch('username', [ProfileController::class, 'change_username'])->name('username');
+            Route::patch('password', [ProfileController::class, 'change_password'])->name('password');
+
+        });
         
-        Route::patch('/information', [ProfileController::class, 'information'])->name('profile.information');
-        Route::patch('/credentials', [ProfileController::class, 'credentials'])->name('profile.credentials');
+        Route::patch('/information', [ProfileController::class, 'information'])->name('information');
+        Route::patch('/credentials', [ProfileController::class, 'credentials'])->name('credentials');
     });
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

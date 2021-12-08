@@ -1,13 +1,13 @@
 <x-ui.card>
 
     <div class="text-center mb-10">
-        <img width="30%"  height="30%" src="{{ qr_to_base64($document->qr) }} ">
+        <img width="30%"  height="30%" src="{{ $document->qrcode_base64 }} ">
         <p class="mt-2 mb-2">{{ $document->qr }}</p>
 
         <h4 class="font-weight-bold">{!! strtoupper(doc_type_only($document->type)) !!}</h4>
 
-        <span class="badge bg-{{ document_status($document->status, 'label') }} text-uppercase">
-            {{ document_status($document->status) }}
+        <span class="badge bg-{{ \DocumentStatus::from($document->status)->color() }} text-uppercase">
+            {{ \DocumentStatus::from($document->status)->formal_label() }}
         </span>
     </div>
 

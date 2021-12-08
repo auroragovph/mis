@@ -21,10 +21,10 @@ class SupplierFactory extends Factory
     public function definition()
     {
         return [
-           'name'       => $this->faker->company,
-           'owner'      => $this->faker->name,
-           'address'    => $this->faker->address,
-           'tin'        => $this->faker->isbn10
+           'name'       => $this->faker->company(),
+           'owner'      => $this->faker->name(),
+           'address'    => $this->faker->address(),
+           'tin'        => $this->faker->isbn10()
         ];
     }
 }

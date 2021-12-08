@@ -492,8 +492,9 @@ if (!function_exists('dm_abort')) {
 if (!function_exists('iah')) {
     /**
      * Echo selected in select option
-     * @param string
-     * @param array
+     * 
+     * @param  $a string
+     * @param  $b array
      * @return string
      */
     function iah($a, $b)
@@ -982,10 +983,6 @@ if (!function_exists('get_config')) {
     {
         $file = base_path()."/config/config.json";
         $config = json_decode(file_get_contents($file), true);
-
-
-
-
         return \Illuminate\Support\Arr::get($config, $key);
     }
 }
@@ -1149,19 +1146,19 @@ function implode_attached($attachments)
  * @param string
  * @return string
  */
-function unique_array($delimeter, $datas)
-{
-    $array = array();
+// function unique_array($delimeter, $datas)
+// {
+//     $array = array();
 
-    foreach ($datas as $data) {
+//     foreach ($datas as $data) {
 
-        if (!in_array($data[$delimeter], $array)) {
-            $array[] = $data[$delimeter];
-        }
-    }
+//         if (!in_array($data[$delimeter], $array)) {
+//             $array[] = $data[$delimeter];
+//         }
+//     }
 
-    return $array;
-}
+//     return $array;
+// }
 
 /**
  * Improved in_array_multiple function

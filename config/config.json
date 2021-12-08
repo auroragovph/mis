@@ -3,8 +3,20 @@
     "abbrv": "Aurora MIS",
     "lgu": {
         "name": "Provincial Government of Aurora",
-        "address": "Brgy. Suclayin, Baler, Aurora",
-        "slogan": "Aurora, Gobyernong kumakalinga"
+        "address": {
+            "full": "Brgy. Suclayin, Baler, Aurora",
+            "municipality": "Baler",
+            "province": "Aurora",
+            "code": 3200
+        },
+
+        "slogan": "Aurora, Gobyernong kumakalinga",
+        "logo": {
+            "sm": "sm.png",
+            "md": "md.png",
+            "lg": "lg.png",
+            "banner": "images/kumakalinga.png"
+        }
     },
     "circular_year": 2020,
 

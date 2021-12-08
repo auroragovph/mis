@@ -2,7 +2,6 @@
 version: '3'
 services:
     laravel.test:
-        container_name: mis_app
         build:
             context: ./docker/8.1
             dockerfile: Dockerfile
@@ -22,7 +21,6 @@ services:
             - mysql
     mysql:
         image: 'mysql:8.0'
-        container_name: mis_db
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_DATABASE: '${DB_DATABASE}'
@@ -35,17 +33,6 @@ services:
             - sail
         healthcheck:
           test: ["CMD", "mysqladmin", "ping"]
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: mis_pma
-        networks:
-            - sail
-        ports:
-            - '8002:80'
-        environment:
-            MYSQL_USERNAME: "${DB_USERNAME}"
-            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
-            PMA_HOST: mysql
 networks:
     sail:
         driver: bridge

@@ -16,6 +16,8 @@ class TravelOrder extends Model
     protected $table = 'fms_form_travel_order';
 
     protected $casts = [
+        'departure' => 'date',
+        'arrival' => 'date',
         'employees' => 'json',
         'signatories' => 'json',
         'properties' => 'array'

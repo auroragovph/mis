@@ -167,6 +167,7 @@ return [
          */
 
         Intervention\Image\ImageServiceProvider::class,
+        Onecentlin\Adminer\ServiceProvider::class,
 
 
 
@@ -234,6 +235,15 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+
+        // CUSTOM PACKAGE ALIAS
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
+        // FileManagement ENUMS
+        'DocumentStatus' => \Modules\FileManagement\Enum\DocumentStatus::class,
+        'DocumentType' => \Modules\FileManagement\Enum\DocumentType::class,
+
 
     ],
 

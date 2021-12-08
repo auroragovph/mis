@@ -3,20 +3,21 @@
 namespace Modules\FileManagement\Http\Controllers\Forms\Procurement;
 
 use Illuminate\Http\Request;
+use Modules\System\Entities\Office\Office;
+use Modules\FileManagement\Enum\DocumentType;
+use Modules\HumanResource\Entities\Employee\Employee;
 use Modules\FileManagement\Entities\Procurement\PurchaseRequest;
 use Modules\FileManagement\Http\Controllers\Forms\FormController;
 use Modules\FileManagement\Http\Requests\Forms\Procurement\Request\StoreRequest;
 use Modules\FileManagement\Http\Requests\Forms\Procurement\Request\UpdateRequest;
 use Modules\FileManagement\Transformers\Forms\Procurement\Request\RequestDTResource;
-use Modules\HumanResource\Entities\Employee\Employee;
-use Modules\System\Entities\Office\Office;
 
 class PRController extends FormController
 {
     public function __construct()
     {
         $this->model    = PurchaseRequest::class;
-        $this->doctype  = config('constants.document.type.procurement.request');
+        $this->doctype  = DocumentType::PROCUREMENT_PURCHASE_REQUEST->value;
         $this->alias    = 'purchase_request';
         $this->circular = 2020;
         $this->routes   = [

@@ -12,7 +12,7 @@
                 @include('filemanagement::document.tile-form', [
                 'tile_title' => "Leave",
                 'tile_link' => route('fms.afl.index'),
-                'tile_image' => "/assets/illustrations/undraw_windy_day_x63l.svg"
+                'tile_image' => "/illustrations/undraw_windy_day_x63l.svg"
                 ])
             </div>
             <div class="col-md-6">
@@ -20,7 +20,7 @@
                 @include('filemanagement::document.tile-form', [
                 'tile_title' => "Procurement",
                 'tile_link' => route('fms.procurement.index'),
-                'tile_image' => "/assets/illustrations/undraw_deliveries_131a.svg"
+                'tile_image' => "/illustrations/undraw_deliveries_131a.svg"
                 ])
 
             </div>
@@ -28,7 +28,7 @@
                 @include('filemanagement::document.tile-form', [
                 'tile_title' => "Payroll",
                 'tile_link' => '#',
-                'tile_image' => "/assets/illustrations/undraw_wallet_aym5.svg"
+                'tile_image' => "/illustrations/undraw_wallet_aym5.svg"
                 ])
 
             </div>
@@ -36,7 +36,7 @@
                 @include('filemanagement::document.tile-form', [
                 'tile_title' => "Travel",
                 'tile_link' => route('fms.travel.order.index'),
-                'tile_image' => "/assets/illustrations/undraw_Traveling_re_weve.svg"
+                'tile_image' => "/illustrations/undraw_Traveling_re_weve.svg"
                 ])
 
             </div>

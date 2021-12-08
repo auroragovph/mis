@@ -1,0 +1,126 @@
+@page {
+    margin: 5mm;
+}
+
+/** Define now the real margins of every page in the PDF **/
+body {
+    margin-top: 5cm;
+    margin-left: 5mm;
+    margin-right: 5mm;
+    margin-bottom: 2cm;
+}
+
+p {
+    font-size: 12pt;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    position: fixed;
+    top: 0cm;
+    left: 0cm;
+    right: 0cm;
+    height: 4cm;
+
+    /** Extra personal styles **/
+    // background-color: #03a9f4;
+    // color: white;
+    text-align: center;
+    // line-height: 1.5cm;
+
+    table {
+        border-collapse: collapse;
+        border-bottom: 1px solid black;
+        // border: 1px solid black;
+        width: 100%;
+
+        tr td {
+            // border: 1px solid black;
+            text-align: center;
+
+
+            img {
+                width: 1in;
+                height: 1in;
+            }
+
+        }
+    }
+
+    h1 {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 10px;
+        /* font-weight: 500; */
+    }
+
+    .pretitle {
+        font-size: 9pt;
+
+    }
+
+    
+}
+
+footer {
+    position: fixed; 
+    bottom: 0cm; 
+    left: 0cm; 
+    right: 0cm;
+    height: 2cm;
+
+    /** Extra personal styles **/
+    // background-color: #03a9f4;
+
+    table {
+        border-collapse: collapse;
+        border-top: 1px solid black;
+        // border: 1px solid black;
+        width: 100%;
+
+        tr td {
+            // border: 1px solid black;
+            text-align: center;
+        }
+    }
+
+
+    .banner {
+        width: 70px;
+        height: 70px;
+    }
+
+    .qrcode {
+
+        &-image {
+            margin-top: 10px;
+            width: 50px;
+            height: 50px;
+        }
+
+        &-label {
+            font-size: 8pt;
+        }
+
+
+    }
+
+    
+}
+
+main {
+    // margin-top: 180px;
+    
+    p.number {
+        float: right;
+    }
+
+    table {
+        border-collapse: collapse;
+        // border: 1px solid black;
+        width: 100%;
+        margin: 0 50px;
+    }
+}

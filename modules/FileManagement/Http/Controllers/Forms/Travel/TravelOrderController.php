@@ -2,6 +2,7 @@
 
 namespace Modules\FileManagement\Http\Controllers\Forms\Travel;
 
+use PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\FileManagement\Entities\Travel\TravelOrder;
@@ -129,9 +130,7 @@ class TravelOrderController extends FormController
         $to = $this->details($id, $rels);
 
         if (request()->has('print')) {
-            return view('filemanagement::forms.travel.order.print', [
-                'to' => $to,
-            ]);
+            return $this->print($to);
         }
 
         return view('filemanagement::forms.travel.order.show', [
@@ -200,6 +199,12 @@ class TravelOrderController extends FormController
             'data' => $datas
         ];
 
+    }
+
+    private function print($to)
+    {
+        $pdf = PDF::loadView('filemanagement::forms.travel.order.print.driver', compact('to'));
+        return $pdf->stream('travel_order.pdf');
     }
 
 }

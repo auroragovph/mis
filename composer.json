@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "barryvdh/laravel-dompdf": "^0.9.0",
         "doctrine/dbal": "^3.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -19,13 +20,13 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.4",
         "mhmiton/laravel-modules-livewire": "^1.1",
+        "mikehaertl/php-pdftk": "^0.10.4",
         "nwidart/laravel-modules": "^8.2",
+        "onecentlin/laravel-adminer": "^5.3",
         "simplesoftwareio/simple-qrcode": "~4",
         "spatie/laravel-image-optimizer": "^1.6",
         "spatie/laravel-permission": "^4.0",
-        "staudenmeir/eloquent-json-relations": "^1.5",
-        "tightenco/ziggy": "^1.3",
-        "tmw/fpdm": "^2.9"
+        "staudenmeir/eloquent-json-relations": "^1.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
@@ -77,4 +78,5 @@
             "@php artisan key:generate --ansi"
         ]
     }
+    
 }

@@ -62,6 +62,23 @@ class Document extends Model
         return $this->getQrAttribute();
     }
 
+    public function getQrcodeBase64Attribute()
+    {
+        $format = (extension_loaded('imagick')) ? 'png' : 'svg';
+        $qr     = \SimpleSoftwareIO\QrCode\Facades\QrCode::format($format)
+            ->size(50)
+            ->margin(1.5)
+            ->generate($this->getQrAttribute());
+
+        $base64 = base64_encode($qr);
+
+        if ($format == 'png') {
+            return 'data:image/png;base64,' . $base64;
+        }
+
+        return 'data:image/svg+xml;base64,' . $base64;
+    }
+
     public function getEncodedAttribute()
     {
         return Carbon::parse($this->created_at)->format('F d, Y h:i A');

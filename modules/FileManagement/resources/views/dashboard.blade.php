@@ -1,0 +1,1 @@
+@extends('fms::layouts.master')

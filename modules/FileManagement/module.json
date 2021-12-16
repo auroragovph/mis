@@ -1,0 +1,13 @@
+{
+    "name": "FileManagement",
+    "alias": "fms",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FileManagement\\core\\Providers\\FileManagementServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

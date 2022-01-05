@@ -17,7 +17,7 @@
 
         @foreach ($modules as $module)
 
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-4 col-xl-3">
                 <div class="card h-100">
                     <div class="card-body text-center">
 

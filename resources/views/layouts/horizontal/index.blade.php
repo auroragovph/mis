@@ -5,7 +5,13 @@
 
     @include('layouts.partials.meta')
 
-    <title>Empty page - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <title>
+        Aurora Management Information System
+
+        @isset($__module_title__)
+            | {{ $__module_title__ }}
+        @endisset
+    </title>
 
     @include('layouts.partials.styles')
 
@@ -40,6 +46,10 @@
                                     @yield('page-title')
                                 </h2>
                             </div>
+
+                            <div class="col-auto ms-auto d-print-none">
+                                @yield('page-actions')
+                            </div>
                         </div>
                     </div>
 
@@ -51,6 +61,8 @@
             <div class="page-body">
                 <div class="container-xl">
                     <!-- Content here -->
+                    @include('layouts.partials.alerts')
+
                     @section('content')
                     @show
 

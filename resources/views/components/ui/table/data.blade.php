@@ -17,11 +17,11 @@
 
 @once
     @push('styles')
-        <link rel="stylesheet" href="/tabler/libs/datatable/style.css">
+        <link rel="stylesheet" href="/libs/datatable/style.css">
     @endpush
 
     @push('js-lib')
-        <script src="/tabler/libs/datatable/simple-datatables.js"></script>
+        <script src="/libs/datatable/simple-datatables.js"></script>
     @endpush
 @endonce
 

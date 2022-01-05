@@ -22,19 +22,19 @@ $api = $api ?? url()->current();
             <div class="skeleton-line"></div>
             <div class="skeleton-line"></div>
         </div>
-        
+
     </div>
 </div>
 
 
 @once
     @push('styles')
-        <link rel="stylesheet" href="/tabler/libs/datatable/style.css">
+        <link rel="stylesheet" href="/libs/datatable/style.css">
     @endpush
 
     @push('js-lib')
-        <script src="/tabler/libs/datatable/simple-datatables.js"></script>
-        <script src="/tabler/libs/axios/axios.min.js"></script>
+        <script src="/libs/datatable/simple-datatables.js"></script>
+        <script src="/libs/axios/axios.min.js"></script>
     @endpush
 @endonce
 

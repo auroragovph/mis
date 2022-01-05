@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             EmployeeTableSeeder::class,
         ]);
 
+        \Modules\FileManagement\core\Models\Procurement\Supplier::factory(100)->create();
         \Modules\System\core\Models\ACL\Account::factory(10)->create();
     }
 }

@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class $CLASS$ extends Migration
+{
+    public string $table;
+
+    public function __construct()
+    {
+        $this->table = (new Model)->getTable();
+    }
+
+    public function up()
+    {
+        Schema::create($this->table, function (Blueprint $table) {
+            $table->id();
+$FIELDS$
+            $table->timestamps();
+        });
+    }
+
+
+    public function down()
+    {
+        Schema::dropIfExists($this->table);
+    }
+}

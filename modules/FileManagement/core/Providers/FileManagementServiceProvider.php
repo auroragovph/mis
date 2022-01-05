@@ -2,9 +2,12 @@
 
 namespace Modules\FileManagement\core\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Database\Eloquent\Relations\Relation;
+
 
 class FileManagementServiceProvider extends ServiceProvider
 {
@@ -22,10 +25,27 @@ class FileManagementServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerMorphMap();
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerBladeComponents();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'database/migrations'));
+    }
+
+    public function registerMorphMap()
+    {
+
+        Relation::enforceMorphMap([
+
+            // PROCUREMENT
+            'Purchase Request' => \Modules\FileManagement\core\Models\Procurement\PurchaseRequest::class,
+            'Purchase Order' => \Modules\FileManagement\core\Models\Procurement\PurchaseOrder::class,
+
+            // TRAVEL
+            'Travel Order' => \Modules\FileManagement\core\Models\Travel\Order::class,
+
+        ]);
     }
 
     /**
@@ -85,6 +105,12 @@ class FileManagementServiceProvider extends ServiceProvider
         } else {
             $this->loadTranslationsFrom(module_path($this->moduleName, 'resources/lang'), $this->moduleNameLower);
         }
+    }
+
+    public function registerBladeComponents()
+    {
+        Blade::component('fms-qr', \Modules\FileManagement\core\Views\QR::class);
+        Blade::component('fms-attachments', \Modules\FileManagement\core\Views\Attachment::class);
     }
 
     /**

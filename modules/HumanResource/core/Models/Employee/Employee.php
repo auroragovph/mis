@@ -32,5 +32,12 @@ class Employee extends Model
         return $this->belongsTo(Position::class, 'position_id', 'id');
     }
 
+    public static function find_liaison(string $card): ?self
+    {
+        $self = new static;
+        $liaison =  $self->where('card', employee_id($card))->where('liaison', true)->first();
+        return ($liaison) ? $liaison : null;
+    }
+
 
 }

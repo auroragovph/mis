@@ -1,0 +1,4 @@
+@extends('layouts.horizontal.index', [
+    '__module_title__' => '$STUDLY_NAME$,
+    '__navigation__' => '$LOWER_NAME$::layouts.navigation'
+])

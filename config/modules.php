@@ -25,14 +25,17 @@ return [
      */
 
     'stubs'           => [
-        'enabled'      => false,
-        'path'         => base_path() . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
+        'enabled'      => true,
+        'path'         => base_path('stubs/modules'),
         'files'        => [
-            'routes/web'      => 'routes/web.php',
-            'routes/api'      => 'routes/api.php',
-            'views/index'     => 'resources/views/index.blade.php',
-            'views/master'    => 'resources/views/layouts/master.blade.php',
-            'scaffold/config' => 'core/Config/config.php',
+            'routes/web'       => 'routes/web.php',
+            'routes/api'       => 'routes/api.php',
+
+            'views/index'      => 'resources/views/index.blade.php',
+            'views/navigation' => 'resources/views/layouts/navigation.blade.php',
+            'views/master'     => 'resources/views/layouts/master.blade.php',
+
+            'scaffold/config'  => 'core/Config/config.php',
             // 'composer'        => 'composer.json',
             // 'assets/js/app'   => 'resources/assets/js/app.js',
             // 'assets/sass/app' => 'resources/assets/sass/app.scss',
@@ -58,7 +61,7 @@ return [
                 'PROVIDER_NAMESPACE',
             ],
         ],
-        'gitkeep'      => true,
+        'gitkeep'      => false,
     ],
     'paths'           => [
         /*
@@ -123,24 +126,19 @@ return [
             'notifications'   => ['path' => 'core/Notifications', 'generate' => false],
             'component-class' => ['path' => 'core/View/Component', 'generate' => false],
 
-
-
             //DATABASE'
             'migration'       => ['path' => 'database/migrations', 'generate' => true],
             'seeder'          => ['path' => 'database/seeders', 'generate' => true],
             'factory'         => ['path' => 'database/factories', 'generate' => true],
 
-
             // ROUTES
             'routes'          => ['path' => 'routes', 'generate' => true],
-
 
             // RESOURCES
             'assets'          => ['path' => 'resources/assets', 'generate' => false],
             'lang'            => ['path' => 'resources/lang', 'generate' => false],
             'views'           => ['path' => 'resources/views', 'generate' => true],
             'component-view'  => ['path' => 'resources/components', 'generate' => false],
-
 
             // TEST
             'test'            => ['path' => 'tests/Unit', 'generate' => true],

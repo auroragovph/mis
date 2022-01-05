@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class $CLASS$ extends Migration
+{
+
+    public string $table;
+
+    public function __construct()
+    {
+        $this->table = (new Model)->getTable();
+    }
+
+    public function up()
+    {
+        Schema::table($this->table, function (Blueprint $table) {
+$FIELDS_UP$
+        });
+    }
+
+
+    public function down()
+    {
+        Schema::table($this->table, function (Blueprint $table) {
+$FIELDS_DOWN$
+        });
+    }
+}

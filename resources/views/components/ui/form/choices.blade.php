@@ -8,10 +8,10 @@
 
 @once
     @push('styles')
-        <link href="/tabler/libs/tom-select/css/tom-select.bootstrap5.min.css" rel="stylesheet" />
+        <link href="/libs/tom-select/css/tom-select.bootstrap5.min.css" rel="stylesheet" />
     @endpush
     @push('js-lib')
-        <script src="/tabler/libs/tom-select/js/tom-select.complete.min.js"></script>
+        <script src="/libs/tom-select/js/tom-select.complete.min.js"></script>
     @endpush
 @endonce
 

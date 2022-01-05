@@ -9,7 +9,7 @@ if (!function_exists('authenticated')) {
         $user = auth()->user();
 
         return match($details) {
-            'division_id'   => $user->employee->division_id,
+            'office_id'   => $user->employee->office_id,
             'employee_id'   => $user->employee_id,
             'name'          => $user->employee->name,
             'username'      => strtolower($user->username),
@@ -36,9 +36,9 @@ if (!function_exists('name')) {
         // dd(empty($name_object));
 
         if ($name_object !== null) {
-            $first  = (is_null($first)) ? $name_object['first'] : $first;
-            $last   = (is_null($last)) ? $name_object['last'] : $last;
-            $middle = (is_null($middle)) ? $name_object['middle'] : $middle;
+            $first  = (is_null($first)) ? @$name_object['first'] : $first;
+            $last   = (is_null($last)) ? @$name_object['last'] : $last;
+            $middle = (is_null($middle)) ? @$name_object['middle'] : $middle;
         }
 
         $middle_initials = substr($middle, 0, 1);
@@ -68,11 +68,11 @@ if (!function_exists('sh')) {
     }
 }
 
-if (!function_exists('office')) {
+if (!function_exists('office2')) {
     /**
      * Mutate the office object and determine the office name
      */
-    function office(array | object | null $array, string $return = 'all'): ?string
+    function office2(array | object | null $array, string $return = 'all'): ?string
     {
 
         if ($array == null) {
@@ -92,6 +92,25 @@ if (!function_exists('office')) {
             $off = ($office['alias'] == null) ? '' : "{$office['alias']} - ";
             return ($division['alias'] == null) ? "{$off} {$division['name']}" : "{$off} {$division['name']} ({$division['alias']})";
         }
+    }
+}
+
+if (!function_exists('office')) {
+    /**
+     * Mutate the office object and determine the office name
+     */
+    function office(array | object | null $array, string $return = 'all'): ?string
+    {
+
+        if ($array == null) {
+            return null;
+        }
+
+        if($array['alias'] === null){
+            return $array['name'];
+        }
+
+        return $array['name']." (".$array['alias'].")";
     }
 }
 
@@ -155,7 +174,7 @@ if (!function_exists('message_box')) {
      */
     function message_box(string $key): string
     {
-        $file    = include app_path('Helpers/messagebox.php');
+        $file    = include app_path('Helpers/message_box.php');
         $message = \Illuminate\Support\Arr::get($file, $key);
 
         if (is_array($message)) {
@@ -172,7 +191,7 @@ if (!function_exists('user_agent')) {
      */
     function user_agent(): array
     {
-        $agent = new Jenssegers\Agent\Agent();
+        $agent = new \Jenssegers\Agent\Agent();
 
         return [
             'ip'       => request()->getClientIp(),
@@ -189,14 +208,13 @@ if (!function_exists('activitylog')) {
     /**
      * Insert activity logs
      */
-    function activitylog(string $name = 'sys', ?string $log = null, ?array $props = null): \App\Models\System\ActivityLog
+    function activitylog(string $name = 'sys', ?string $log = null, ?array $props = null): \Modules\System\core\Models\ActivityLog
     {
 
-        $log = \App\Models\System\ActivityLog::create([
+        $log = \Modules\System\core\Models\ActivityLog::create([
             'name'        => $name,
             'log'         => $log,
             'properties'  => $props,
-            // 'employee_id' => authenticated()->employee_id,
             'employee_id' => authenticated('employee_id'),
             'agent'       => user_agent(),
         ]);

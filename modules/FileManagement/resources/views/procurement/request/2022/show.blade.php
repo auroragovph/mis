@@ -81,8 +81,8 @@
                                     <td>{{ $item['unit'] }}</td>
                                     <td>{{ $item['description'] }}</td>
                                     <td>{{ $item['quantity'] }}</td>
-                                    <td class="text-end">{{ number_format($item['amount'], 2) }}</td>
                                     <td class="text-end">{{ number_format($item['cost'], 2) }}</td>
+                                    <td class="text-end">{{ number_format($item['total'], 2) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

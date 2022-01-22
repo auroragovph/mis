@@ -3,12 +3,12 @@
 namespace Modules\FileManagement\core\Models\Procurement;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\FileManagement\core\Traits\HasFormable;
-use Modules\FileManagement\core\Traits\HasSeries;
+use Modules\FileManagement\core\Enums\Document\Type as Doctype;
+use Modules\FileManagement\core\Traits\HasDocument;
 
 class PurchaseRequest extends Model
 {
-    use HasSeries, HasFormable;
+    use HasDocument;
 
     protected $table   = 'fms_procurement_request';
     protected $guarded = [];
@@ -19,11 +19,16 @@ class PurchaseRequest extends Model
         'properties'  => 'json',
     ];
 
+    public static function doctype()
+    {
+        return Doctype::PROCUREMENT_PURCHASE_REQUEST->value;
+    }
+
     public function getItemsAttribute()
     {
-        return collect($this->lists)->map(function ($item, $key) {
+        return collect($this->lists)->map(function ($item) {
 
-            $amount   = floatval($item['amount'] ?? 0);
+            $cost     = floatval($item['cost'] ?? 0);
             $quantity = intval($item['quantity'] ?? 0);
 
             return [
@@ -31,14 +36,14 @@ class PurchaseRequest extends Model
                 'unit'        => $item['unit'],
                 'description' => $item['description'],
                 'quantity'    => $quantity,
-                'amount'      => $amount,
-                'cost'        => $quantity * $amount,
+                'cost'        => $cost,
+                'total'       => $quantity * $cost,
             ];
         });
     }
 
     public function getTotalAmountAttribute()
     {
-        return $this->items->sum('cost');
+        return $this->items->sum('total');
     }
 }

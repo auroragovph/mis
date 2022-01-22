@@ -11,10 +11,12 @@
 @endsection
 
 @section('content')
+
     <div class="row row-cards">
         <div class="col-12">
             <x-ui.table.data-api title="Purchase Request List" />
         </div>
     </div>
-@endsection
 
+
+@endsection

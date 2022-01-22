@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\FileManagement\database\seeders\PPMPTableSeeder;
 use Modules\HumanResource\database\seeders\EmployeeTableSeeder;
 use Modules\System\database\seeders\OfficeTableSeederTableSeeder;
 
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OfficeTableSeederTableSeeder::class,
             EmployeeTableSeeder::class,
+            PPMPTableSeeder::class,
         ]);
 
         \Modules\FileManagement\core\Models\Procurement\Supplier::factory(100)->create();

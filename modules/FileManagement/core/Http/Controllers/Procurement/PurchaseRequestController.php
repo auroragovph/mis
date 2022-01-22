@@ -2,10 +2,12 @@
 
 namespace Modules\FileManagement\core\Http\Controllers\Procurement;
 
+use Illuminate\Http\Request;
 use Modules\FileManagement\core\Enums\Document\Type as Doctype;
 use Modules\FileManagement\core\Http\Controllers\FormController;
 use Modules\FileManagement\core\Http\Requests\Procurement\PurchaseRequest\StoreRequest;
 use Modules\FileManagement\core\Http\Requests\Procurement\PurchaseRequest\UpdateRequest;
+use Modules\FileManagement\core\Models\Procurement\PPMP;
 use Modules\FileManagement\core\Models\Procurement\PurchaseRequest;
 use Modules\HumanResource\core\Models\Employee\Employee;
 use Modules\System\core\Enums\Office as EnumsOffice;
@@ -27,23 +29,18 @@ class PurchaseRequestController extends FormController
     public function index()
     {
         if (request()->ajax()) {
-
-            // $model = PurchaseRequest::with('series')->whereHas('series', function ($q) {
-            //     $q->where('office_id', authenticated('office_id'));
-            // })->get();
-
             $model = PurchaseRequest::with('series.office')->get();
-
             $datas = \Modules\FileManagement\core\Http\Resources\Procurement\PurchaseRequest\DT::collection($model);
-
             return response()->json($datas);
         }
+
 
         return view('fms::procurement.request.index');
     }
 
     public function create()
     {
+
         $employees = Employee::whereIn('office_id', [
             authenticated('office_id'),
             EnumsOffice::TREASURY->value,
@@ -54,76 +51,39 @@ class PurchaseRequestController extends FormController
             authenticated('office_id'),
         ])->get()->toArray();
 
-        // checking if the attached document
-        // session_attached_form();
+        $ppmps = PPMP::where('office_id', 2)->first();
 
         return view('fms::procurement.request.' . $this->circular . '.create', [
             'heads'     => collect($heads),
             'employees' => $employees,
+            'ppmps'     => $ppmps,
         ]);
     }
 
     public function store(StoreRequest $request)
     {
-        $employees = Employee::with('position')->whereIn('id', [
-            $request->post('requesting'),
-            $request->post('treasury'),
-        ])->get();
-
-        $requester = $employees->where('id', $request->post('requesting'))->first();
-        $treasurer = $employees->where('id', $request->post('treasury'))->first();
-
-        $signatories = [
-
-            'requesting' => [
-                'id'       => $requester->id ?? null,
-                'name'     => name($requester->name),
-                'position' => $requester->position->name ?? null,
-            ],
-
-            'treasury'   => [
-                'id'       => $treasurer->id ?? null,
-                'name'     => name($treasurer->name),
-                'position' => $requester->treasurer->name ?? null,
-            ],
-
-            'approving'  => [
-                'id'       => null,
-                'name'     => name(config('constants.employee.chief_executive.name')),
-                'position' => config('constants.employee.chief_executive.position'),
-            ],
-
-        ];
-
-        $forms = [
-            'circular'    => $this->circular,
-            'fund'        => $request->post('fund'),
-            'fpp'         => $request->post('fpp'),
-            'purpose'     => $request->post('purpose'),
-            'particulars' => $request->post('particulars'),
-            'lists'       => $request->post('lists'),
-            'signatories' => $signatories,
-        ];
+        $forms             = $this->data($request);
+        $forms['circular'] = $this->circular;
 
         // checked if was attached
         $attached = session()->pull('fms.document.attach');
+
         if ($attached !== null) {
             $forms['series_id'] = (int) $attached;
             $attach_status      = true;
         }
-        $pr = $this->save($forms, $attach_status ?? false);
+
+        $pr = PurchaseRequest::createDocument($forms, $attach_status ?? false);
 
         return response()->json([
-            'message' => 'Purchase request has been encoded.',
-            'intended'   => route('fms.procurement.request.show', $pr->id),
+            'message'  => 'Purchase request has been encoded.',
+            'intended' => route('fms.procurement.request.show', $pr->id),
         ], 201);
     }
 
     public function show($id)
     {
-
         $pr = $this->details($id);
-
         if (request()->has('print')) {
             return $this->print($pr);
         }
@@ -150,50 +110,14 @@ class PurchaseRequestController extends FormController
 
     public function update(UpdateRequest $request, $id)
     {
-        $employees = Employee::with('position')->whereIn('id', [
-            $request->post('requesting'),
-            $request->post('treasury'),
-        ])->get();
-
-        $requester = $employees->where('id', $request->post('requesting'))->first();
-        $treasurer = $employees->where('id', $request->post('treasury'))->first();
-
-        $signatories = [
-
-            'requesting' => [
-                'id'       => $requester->id ?? null,
-                'name'     => name($requester->name),
-                'position' => $requester->position->name ?? null,
-            ],
-
-            'treasury'   => [
-                'id'       => $treasurer->id ?? null,
-                'name'     => name($treasurer->name),
-                'position' => $requester->treasurer->name ?? null,
-            ],
-
-            'approving'  => [
-                'id'       => null,
-                'name'     => name(config('constants.employee.chief_executive.name')),
-                'position' => config('constants.employee.chief_executive.position'),
-            ],
-
-        ];
-
-        $forms = [
-            'number'      => $request->post('number'),
-            'fund'        => $request->post('fund'),
-            'fpp'         => $request->post('fpp'),
-            'purpose'     => $request->post('purpose'),
-            'lists'       => $request->post('lists'),
-            'signatories' => $signatories,
-        ];
+        $forms             = $this->data($request);
+        $forms['number'] = $request->post('number');
 
         $pr = $this->patch($id, $forms);
 
         return response()->json([
-            'message' => "Purchase request has been updated.",
-            'intended'   => route('fms.procurement.request.show', $pr->id),
+            'message'  => "Purchase request has been updated.",
+            'intended' => route('fms.procurement.request.show', $pr->id),
         ]);
     }
 
@@ -262,5 +186,47 @@ class PurchaseRequestController extends FormController
             'pages'        => $pages,
             'total_amount' => $total_amount,
         ]);
+    }
+
+    private function data(Request $request)
+    {
+        $employees = Employee::with('position')->whereIn('id', [
+            $request->post('requesting'),
+            $request->post('treasury'),
+        ])->get();
+
+        $requester = $employees->where('id', $request->post('requesting'))->first();
+        $treasurer = $employees->where('id', $request->post('treasury'))->first();
+
+        $signatories = [
+
+            'requesting' => [
+                'id'       => $requester->id ?? null,
+                'name'     => name($requester->name),
+                'position' => $requester->position->name ?? null,
+            ],
+
+            'treasury'   => [
+                'id'       => $treasurer->id ?? null,
+                'name'     => name($treasurer->name),
+                'position' => $requester->treasurer->name ?? null,
+            ],
+
+            'approving'  => [
+                'id'       => null,
+                'name'     => name(config('constants.employee.chief_executive.name')),
+                'position' => config('constants.employee.chief_executive.position'),
+            ],
+
+        ];
+
+        return [
+            'fund'        => $request->post('fund'),
+            'fpp'         => $request->post('fpp'),
+            'purpose'     => $request->post('purpose'),
+            'particulars' => $request->post('particulars'),
+            'lists'       => $request->post('lists'),
+            'signatories' => $signatories,
+        ];
     }
 }

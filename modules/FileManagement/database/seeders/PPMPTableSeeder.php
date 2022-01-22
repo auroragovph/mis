@@ -1,30 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Modules\FileManagement\database\seeders;
 
-use PDF;
 use Faker\Factory;
-use Illuminate\Http\Request;
+use Illuminate\Database\Seeder;
 use Bezhanov\Faker\Provider\Commerce;
-use Illuminate\Support\Facades\Crypt;
-use Modules\FileManagement\core\Models\Document\Series;
+use Illuminate\Database\Eloquent\Model;
 use Modules\FileManagement\core\Models\Procurement\PPMP;
-use Modules\FileManagement\core\Models\Procurement\PurchaseRequest;
 
-class DevController extends Controller
+class PPMPTableSeeder extends Seeder
 {
-    public function __invoke(Request $request)
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-        dd($this->eloq());
-    }
+        Model::unguard();
 
-    public function eloq()
-    {
-
-    }
-
-    public function ppmp($request)
-    {
         $data = [];
 
         $faker = Factory::create();
@@ -60,5 +54,6 @@ class DevController extends Controller
             'description' => 'Office Supplies',
             'children' => $data
         ]);
+
     }
 }

@@ -1,1 +1,1 @@
-require('./bootstrap');
+require('@tabler/core/src/js/tabler')

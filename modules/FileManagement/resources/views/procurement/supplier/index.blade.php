@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-<div class="row row-cards">
+{{-- <div class="row row-cards">
     <div class="col-12">
         <x-ui.table.data>
             <thead>
@@ -36,7 +36,9 @@
             </tbody>
         </x-ui.table.data>
     </div>
-</div>
+</div> --}}
+
+@livewire('supplier')
 
 @include('fms::procurement.supplier.create')
 @endsection

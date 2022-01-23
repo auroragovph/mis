@@ -11,5 +11,5 @@
   {{ $attributes }}
   >
 
-  <use xlink:href="/icons/tabler.sprite.svg#{{$icon}}"></use>
+  <use xlink:href="/media/icons/tabler.sprite.svg#{{$icon}}"></use>
 </svg>

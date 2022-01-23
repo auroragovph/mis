@@ -2,8 +2,7 @@
 @stack('js-lib')
 
 <!-- Tabler Core -->
-<script src="/js/tabler.min.js"></script>
-<script src="/js/demo.min.js"></script>
+<script src="{{ mix('libraries/tabler/tabler.min.js') }}"></script>
 
 @stack('js-custom')
 

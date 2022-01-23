@@ -11,7 +11,19 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+
+// copy media to public
+mix.copyDirectory('resources/media', 'public/media')
+
+
+
+// Libraries and Plugins
+mix.copy('node_modules/@tabler/core/dist/css/tabler.min.css', 'public/libraries/tabler/tabler.min.css')
+.copy('node_modules/@tabler/core/dist/css/tabler-vendors.min.css', 'public/libraries/tabler/tabler-vendors.min.css')
+.copy('node_modules/@tabler/core/dist/js/tabler.min.js', 'public/libraries/tabler/tabler.min.js');
+
+
+
+
+
+

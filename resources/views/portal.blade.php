@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="text-center mb-1">
-        <img src="/logo/md.png" height="100" class="mb-4">
+        <img src="{{ asset('media/logo/md.png') }}" height="100" class="mb-4">
         <h1 class="mb-4">System Modules</h1>
     </div>
 

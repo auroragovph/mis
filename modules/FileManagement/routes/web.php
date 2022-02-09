@@ -18,25 +18,35 @@ Route::group(['prefix' => 'file-management', 'as' => 'fms.', 'middleware' => 'au
 
     Route::group(['prefix' => 'document', 'as' => 'document.'], function () {
 
-        Route::group(['prefix' => 'attachments', 'as' => 'attach.'], function () {
-            Route::get('/', [AttachmentController::class, 'index'])->name('index');
-            Route::post('/', [AttachmentController::class, 'check'])->name('check');
-            Route::get('/hardcopy', [AttachmentController::class, 'hardcopy'])->name('hardcopy');
-            Route::post('/hardcopy', [AttachmentController::class, 'attach'])->name('attach');
-
-            Route::get('/file/{url}', [AttachmentController::class, 'file'])->name('file');
-
+        Route::group([
+            'prefix'     => 'attachments',
+            'as'         => 'attach.',
+            'controller' => AttachmentController::class,
+        ], function () {
+            Route::get('', 'index')->name('index');
+            Route::post('', 'check')->name('check');
+            Route::get('/hardcopy', 'hardcopy')->name('hardcopy');
+            Route::post('/hardcopy', 'attach')->name('attach');
+            Route::get('/file/{url}', 'file')->name('file');
         });
 
-        Route::group(['prefix' => 'activate', 'as' => 'activate.'], function () {
-            Route::get('/', [ActivateController::class, 'index'])->name('index');
-            Route::post('/', [ActivateController::class, 'submit'])->name('submit');
+        Route::group([
+            'prefix'     => 'activate',
+            'as'         => 'activate.',
+            'controller' => ActivateController::class,
+        ], function () {
+            Route::get('', 'index')->name('index');
+            Route::post('', 'submit')->name('submit');
         });
 
-        Route::group(['prefix' => 'receive-release', 'as' => 'rr.'], function () {
-            Route::get('/', [RRController::class, 'index'])->name('index');
-            Route::post('/', [RRController::class, 'form'])->name('form');
-            Route::put('/', [RRController::class, 'submit'])->name('submit');
+        Route::group([
+            'prefix'     => 'receive-release',
+            'as'         => 'rr.',
+            'controller' => RRController::class,
+        ], function () {
+            Route::get('', 'index')->name('index');
+            Route::post('', 'form')->name('form');
+            Route::put('', 'submit')->name('submit');
         });
 
         Route::get('track', TrackingController::class)->name('track');
@@ -54,6 +64,5 @@ Route::group(['prefix' => 'file-management', 'as' => 'fms.', 'middleware' => 'au
     Route::group(['prefix' => 'travel', 'as' => 'travel.'], function () {
         Route::resource('order', OrderController::class);
     });
-
 
 });

@@ -6,7 +6,7 @@
 
 @section('page-actions')
 <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#modal">
-    Simple modal
+    New Supplier
 </a>
 @endsection
 

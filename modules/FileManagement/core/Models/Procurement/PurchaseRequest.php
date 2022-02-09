@@ -32,9 +32,9 @@ class PurchaseRequest extends Model
             $quantity = intval($item['quantity'] ?? 0);
 
             return [
-                'stock'       => $item['stock'],
-                'unit'        => $item['unit'],
-                'description' => $item['description'],
+                'stock'       => $item['stock'] ?? null,
+                'unit'        => $item['unit'] ?? null,
+                'description' => $item['description'] ?? null,
                 'quantity'    => $quantity,
                 'cost'        => $cost,
                 'total'       => $quantity * $cost,

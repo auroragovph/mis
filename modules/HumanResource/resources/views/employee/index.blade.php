@@ -1,0 +1,1 @@
+@extends('hrm::layouts.master')

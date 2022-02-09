@@ -36,7 +36,7 @@
 
         <p class="font-weight-bold mr-2">
             Encoded Date: <br>
-            <span class="text-muted font-weight-normal">{{ $series->encoded }}</span>
+            <span class="text-muted font-weight-normal">{{ $series->created_at->format('F d, Y') }}</span>
         </p>
 
         @if(!empty($datas))

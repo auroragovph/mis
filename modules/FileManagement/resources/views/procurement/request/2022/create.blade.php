@@ -1,18 +1,19 @@
 @extends('fms::layouts.master')
 
-
 @section('page-pretitle', 'Procurement')
 @section('page-title', 'Purchase Request')
 
-
-
-
 @section('content')
     <div class="row row-cards">
-        <div class="col-md-8">
+        <div class="col-12">
             <x-ui.card title="Request Form">
-                <form id="ajax_form" action="{{ route('fms.procurement.request.store') }}" method="POST">
-                    @csrf
+                <x-ui.form.ajax method="POST" action="{{ route('fms.procurement.request.store') }}">
+
+
+                    @if(request()->has('attachment'))
+                        <input type="hidden" name="__attachment" value="{{ encrypt(request()->get('attachment')) }}">
+                    @endif
+
                     <div class="row">
                         <div class="col-md-6">
                             <x-ui.form.input label="Fund" type="text" name="fund" value="{{ old('fund') }}" required />
@@ -57,15 +58,14 @@
                                 <tbody data-repeater-list="lists">
                                     <tr data-repeater-item="">
                                         <td>
-                                            <input name="stock" type="text" class="form-control form-control-sm">
+                                            <input name="stock" type="text" class="form-control ">
                                         </td>
                                         <td>
-                                            <input name="unit" disabled type="text" class="form-control form-control-sm">
+                                            <input name="unit" readonly type="text" class="form-control input-unit">
                                         </td>
                                         <td>
-                                            <select class="select2 form-control form-control-sm" name="item"
-                                                style="width: 100%">
-                                                <option></option>
+                                            <select type="text" class="form-control tom-select-pr">
+                                                <option value="">{{ 'Select from the list' }}</option>
                                                 @foreach ($ppmps->children as $ppmp)
 
                                                     @if ($ppmp->schedule === null)
@@ -76,18 +76,17 @@
                                                         data-json="{{ collect($ppmp)->only(['id', 'unit', 'unit_cost']) }}"
                                                         value="{{ $ppmp->id }}">{{ $ppmp->description }}</option>
                                                 @endforeach
-
                                             </select>
                                         </td>
                                         <td>
-                                            <textarea name="description" class="form-control form-control-sm"
+                                            <textarea name="description" class="form-control "
                                                 rows="1"></textarea>
                                         </td>
                                         <td>
-                                            <input name="quantity" type="number" class="form-control form-control-sm">
+                                            <input name="quantity" type="number" class="form-control ">
                                         </td>
                                         <td>
-                                            <input name="cost" disabled type="text" class="form-control form-control-sm">
+                                            <input name="cost" readonly type="text" class="form-control input-cost">
                                         </td>
                                         <td class="text-center">
                                             <a href="javascript:;" data-repeater-delete="" class="text-danger"
@@ -115,13 +114,13 @@
                         <div class="col-md-6">
 
 
-                            <x-ui.form.choices label="Requesting Officer" name="requesting" required>
+                            <x-ui.form.select-tom label="Requesting Officer" name="requesting" required>
 
                                 @foreach ($employees->where('office_id', authenticated('office_id')) as $employee)
                                     <option value="{{ $employee->id }}">{{ name($employee->name) }}</option>
                                 @endforeach
 
-                            </x-ui.form.choices>
+                            </x-ui.form.select-tom>
 
 
 
@@ -130,7 +129,7 @@
 
                         <!--begin::Group-->
                         <div class="col-md-6">
-                            <x-ui.form.choices label="Treasury" name="treasury" required>
+                            <x-ui.form.select-tom label="Treasury" name="treasury" required>
 
                                 @foreach ($employees->where('office_id', \OfficeEnum::TREASURY->value) as $employee)
                                     <option value="{{ $employee->id }}">
@@ -138,7 +137,7 @@
                                     </option>
                                 @endforeach
 
-                            </x-ui.form.choices>
+                            </x-ui.form.select-tom>
                         </div>
                         <!--end::Group-->
 
@@ -146,79 +145,33 @@
                     </div>
 
                     {{-- @if (!$is_attachment) --}}
-                    <x-ui.form.choices label="Liaison Officer" name="liaison" required>
+                    <x-ui.form.select-tom label="Liaison Officer" name="liaison" required>
                         @foreach ($employees->where('division_id', auth()->user()->employee->division_id)->where('liaison', true) as $employee)
                             <option value="{{ $employee->id }}">
                                 {{ name($employee->name) }}</option>
                         @endforeach
-                    </x-ui.form.choices>
+                    </x-ui.form.select-tom>
                     {{-- @endif --}}
 
                     <button type="submit" class="btn btn-primary" name="submitButton">Submit</button>
-                </form>
+                </x-ui.form.ajax>
             </x-ui.card>
         </div>
-        <div class="col-md-4">
-            <x-ui.card title="Instructions" />
-        </div>
     </div>
-
-
-    <x-include.form.ajax />
 @endsection
 
 
 @once
-    @push('styles')
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    @endpush
+
 
     @push('js-lib')
-        <script src="/libs/jquery/jquery.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script src="/libs/jquery-repeater/repeater.js"></script>
+
+        <script src="{{ mix('libraries/jquery/jquery.min.js') }}"></script>
+        <script src="{{ mix('libraries/repeater/repeater.min.js') }}"></script>
     @endpush
 @endonce
 
 
 @push('js-custom')
-    <script>
-        $(document).ready(function() {
-            let firstRow = $('.select2').select2({
-                placeholder: "Select an item",
-            })
-            firstRow.on('select2:select', function(e) {
-                var tr = $(this.parentElement.parentElement)
-                var data = e.params.data;
-                var list = JSON.parse(data.element.dataset.json)
-                tr.children().eq(5).children().first().val(list.unit_cost)
-                tr.children().eq(1).children().first().val(list.unit)
-            });
-
-        });
-
-
-
-        $('#kt_repeater_1').repeater({
-            initEmpty: false,
-            isFirstItemUndeletable: true,
-            show: function() {
-                let select2 = $(this).find("select")
-                let s2I = select2.select2({
-                    placeholder: "Select an item",
-                });
-                s2I.on('select2:select', function(e) {
-                    var tr = $(this.parentElement.parentElement)
-                    var data = e.params.data;
-                    var list = JSON.parse(data.element.dataset.json)
-                    tr.children().eq(5).children().first().val(list.unit_cost)
-                    tr.children().eq(1).children().first().val(list.unit)
-                });
-                $(this).slideDown();
-            },
-            hide: function(deleteElement) {
-                $(this).slideUp(deleteElement);
-            }
-        });
-    </script>
+   <script src="{{ mix('js/modules/FileManagement/procurement/request/create.js') }}"></script>
 @endpush

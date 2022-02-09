@@ -1,5 +1,20 @@
 {
+    "/js/modules/FileManagement/procurement/request/create.js": "/js/modules/FileManagement/procurement/request/create.js",
+    "/js/helpers/form.js": "/js/helpers/form.js",
+    "/js/helpers/tom-select.init.js": "/js/helpers/tom-select.init.js",
+    "/css/whirl.css": "/css/whirl.css",
+    "/css/vendors.css": "/css/vendors.css",
+    "/css/app.css": "/css/app.css",
     "/libraries/tabler/tabler.min.css": "/libraries/tabler/tabler.min.css",
     "/libraries/tabler/tabler-vendors.min.css": "/libraries/tabler/tabler-vendors.min.css",
-    "/libraries/tabler/tabler.min.js": "/libraries/tabler/tabler.min.js"
+    "/libraries/tabler/tabler.min.js": "/libraries/tabler/tabler.min.js",
+    "/libraries/jquery/jquery.slim.min.js": "/libraries/jquery/jquery.slim.min.js",
+    "/libraries/jquery/jquery.min.js": "/libraries/jquery/jquery.min.js",
+    "/libraries/axios/axios.min.js": "/libraries/axios/axios.min.js",
+    "/libraries/form-serialize/form-serialize.js": "/libraries/form-serialize/form-serialize.js",
+    "/libraries/sweetalert2/sweetalert2.all.min.js": "/libraries/sweetalert2/sweetalert2.all.min.js",
+    "/libraries/tom-select/tom-select.min.css": "/libraries/tom-select/tom-select.min.css",
+    "/libraries/tom-select/tom-select.bootstrap5.min.css": "/libraries/tom-select/tom-select.bootstrap5.min.css",
+    "/libraries/tom-select/tom-select.complete.min.js": "/libraries/tom-select/tom-select.complete.min.js",
+    "/libraries/repeater/repeater.min.js": "/libraries/repeater/repeater.min.js"
 }

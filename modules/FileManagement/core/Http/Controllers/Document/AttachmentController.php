@@ -70,10 +70,10 @@ class AttachmentController extends Controller
                 }
 
                 return redirect(route($route, [
-                    'attachment'  => true,
-                    'series_id' => $id,
-                    'qrcode'      => $series->qrcode,
-                    'token'       => csrf_token(),
+                    'attachment'    => true,
+                    'series_id'     => $id,
+                    'qrcode'        => $series->qrcode,
+                    'token'         => csrf_token(),
                 ]));
 
                 break;

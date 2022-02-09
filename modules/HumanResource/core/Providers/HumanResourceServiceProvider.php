@@ -2,6 +2,7 @@
 
 namespace Modules\HumanResource\core\Providers;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
@@ -16,6 +17,9 @@ class HumanResourceServiceProvider extends ServiceProvider
      * @var string $moduleNameLower
      */
     protected $moduleNameLower = 'humanresource';
+
+    protected string $alias = 'hrm';
+
 
     /**
      * Boot the application events.
@@ -66,11 +70,11 @@ class HumanResourceServiceProvider extends ServiceProvider
 
         $sourcePath = module_path($this->moduleName, 'resources/views');
 
-        $this->publishes([
-            $sourcePath => $viewPath
-        ], ['views', $this->moduleNameLower . '-module-views']);
-
+        $this->publishes([ $sourcePath => $viewPath ], ['views', $this->moduleNameLower . '-module-views']);
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
+
+        $this->publishes([ $sourcePath => $viewPath ], ['views', $this->alias . '-module-views']);
+        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->alias);
     }
 
     /**
@@ -102,7 +106,7 @@ class HumanResourceServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }

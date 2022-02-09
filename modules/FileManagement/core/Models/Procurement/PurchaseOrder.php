@@ -3,12 +3,12 @@
 namespace Modules\FileManagement\core\Models\Procurement;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\FileManagement\core\Traits\HasDocument;
 use Modules\FileManagement\core\Traits\HasFormable;
-use Modules\FileManagement\core\Traits\HasSeries;
 
 class PurchaseOrder extends Model
 {
-    use HasFormable, HasSeries;
+    use HasDocument;
 
     protected $guarded = [];
     protected $table   = 'fms_procurement_order';

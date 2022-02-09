@@ -5,6 +5,7 @@ namespace Modules\FileManagement\core\Http\Controllers\Procurement;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\FileManagement\core\Models\Procurement\Supplier;
+use Modules\FileManagement\core\Http\Requests\Procurement\Supplier\StoreRequest;
 
 class SupplierController extends Controller
 {
@@ -14,19 +15,14 @@ class SupplierController extends Controller
         return view('fms::procurement.supplier.index', compact('suppliers'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $supplier = Supplier::create([
-            'name'    => $request->post('name'),
-            'owner'   => $request->post('owner'),
-            'address' => $request->post('address'),
-            'tin'     => $request->post('tin'),
-        ]);
+        $supplier = Supplier::create($request->validated());
 
         return response()->json([
+            'data' => $supplier,
             'message' => 'Supplier has been encoded.',
-            'title' => 'Success',
-            'intended' => route('fms.procurement.supplier.index')
+            'title' => 'Success'
         ], 201);
     }
 }

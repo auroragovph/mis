@@ -1,6 +1,5 @@
 <x-ui.modal title="New Supplier">
-    <form id="ajax_form" method="POST" action="{{ route('fms.procurement.supplier.store') }}">
-        @csrf
+    <x-ui.form.ajax method="POST" action="{{ route('fms.procurement.supplier.store') }}">
         <div class="row">
             <div class="col-6">
                 <x-ui.form.input label="Business Name" name="name" />
@@ -18,9 +17,7 @@
             </div>
         </div>
 
-        <button class="btn btn-primary">Submit</button>
-    </form>
+        <button type="submit" class="btn btn-primary">Submit</button>
 
-    <x-include.form.ajax />
-
+    </x-ui.form.ajax>
 </x-ui.modal>

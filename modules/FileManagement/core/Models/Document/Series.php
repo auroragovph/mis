@@ -12,27 +12,6 @@ class Series extends Model
     protected $table = 'fms_document_series';
     protected $guarded = [];
 
-    /**
-     * Store directly in the database
-     */
-    public static function directStore(int $liaison, int $type): self
-    {
-        return static::create([
-            'office_id' => authenticated('office_id'),
-            'liaison_id' => $liaison,
-            'encoder_id' => authenticated('employee_id'),
-            'type' => $type
-        ]);
-    }
-
-    public function scopeToday($query)
-    {
-        $start = Carbon::now()->startOfDay();
-        $end = Carbon::now()->endOfDay();
-
-        return $query->whereIn('created_at', [$start, $end]);
-    }
-
     public function getQrAttribute()
     {
         return 'FMS-'.Carbon::parse($this->created_at)->format('Ymd') . $this->id;
@@ -60,22 +39,15 @@ class Series extends Model
         return 'data:image/svg+xml;base64,' . $base64;
     }
 
-    public function getEncodedAttribute()
-    {
-        return Carbon::parse($this->created_at)->format('F d, Y h:i A');
-    }
-
     public function getCardInfoAttribute()
     {
         $ids = [$this->liaison_id, $this->encoder_id];
         $employees = Employee::whereIn('id', $ids)->get();
 
-        $details = [
+        return [
             'encoder' => $employees->where('id', $this->encoder_id)->first(),
             'liaison' => $employees->where('id', $this->liaison_id)->first(),
         ];
-
-        return $details;
 
     }
 

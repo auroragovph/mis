@@ -9,6 +9,7 @@ use Modules\FileManagement\core\Http\Requests\Procurement\PurchaseRequest\StoreR
 use Modules\FileManagement\core\Http\Requests\Procurement\PurchaseRequest\UpdateRequest;
 use Modules\FileManagement\core\Models\Procurement\PPMP;
 use Modules\FileManagement\core\Models\Procurement\PurchaseRequest;
+use Modules\FileManagement\core\Services\FormService;
 use Modules\HumanResource\core\Models\Employee\Employee;
 use Modules\System\core\Enums\Office as EnumsOffice;
 use Modules\System\core\Models\Office;
@@ -41,6 +42,8 @@ class PurchaseRequestController extends FormController
     public function create()
     {
 
+        // dd(Doctype::PROCUREMENT_PURCHASE_REQUEST->value);
+
         $employees = Employee::whereIn('office_id', [
             authenticated('office_id'),
             EnumsOffice::TREASURY->value,
@@ -66,14 +69,17 @@ class PurchaseRequestController extends FormController
         $forms['circular'] = $this->circular;
 
         // checked if was attached
-        $attached = session()->pull('fms.document.attach');
+        $attached = $request->post('__attachment', false);
+        $attached = ($attached) ? decrypt($attached) : false;
 
-        if ($attached !== null) {
-            $forms['series_id'] = (int) $attached;
-            $attach_status      = true;
-        }
+        $form = (new FormService())
+                    ->type(Doctype::PROCUREMENT_PURCHASE_REQUEST->value)
+                    ->store($attached);
 
-        $pr = PurchaseRequest::createDocument($forms, $attach_status ?? false);
+        $forms['series_id'] = $form->series->id;
+
+        $pr = PurchaseRequest::create($forms);
+        $formable = $form->formable($pr);
 
         return response()->json([
             'message'  => 'Purchase request has been encoded.',
@@ -83,14 +89,17 @@ class PurchaseRequestController extends FormController
 
     public function show($id)
     {
-        $pr = $this->details($id);
-        if (request()->has('print')) {
-            return $this->print($pr);
-        }
+        // $pr = $this->details($id);
+        // if (request()->has('print')) {
+        //     return $this->print($pr);
+        // }
 
-        return view('fms::procurement.request.' . $pr->circular . '.show', [
-            'pr' => $pr,
-        ]);
+        // return view('fms::procurement.request.' . $pr->circular . '.show', [
+        //     'pr' => $pr,
+        // ]);
+
+        $pr = PurchaseRequest::with('series')->findOrFail($id);
+        return view('fms::procurement.request.show', compact('pr'));
     }
 
     public function edit($id)
@@ -188,7 +197,7 @@ class PurchaseRequestController extends FormController
         ]);
     }
 
-    private function data(Request $request)
+    private function data(Request $request): array
     {
         $employees = Employee::with('position')->whereIn('id', [
             $request->post('requesting'),

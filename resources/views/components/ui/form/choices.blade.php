@@ -5,13 +5,13 @@
         {{ $slot }}
     </select>
 </div>
-
+{{--
 @once
     @push('styles')
-        <link href="/libs/tom-select/css/tom-select.bootstrap5.min.css" rel="stylesheet" />
+        <link href="{{ mix('libraries/tom-select/tom-select.bootstrap5.min.css') }}" rel="stylesheet" />
     @endpush
     @push('js-lib')
-        <script src="/libs/tom-select/js/tom-select.complete.min.js"></script>
+        <script src="{{ mix('libraries/tom-select/tom-select.complete.min.js') }}"></script>
     @endpush
 @endonce
 
@@ -27,4 +27,4 @@
             }
         });
     </script>
-@endpush
+@endpush --}}

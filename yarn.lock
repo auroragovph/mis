@@ -926,6 +926,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@orchidjs/sifter@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@orchidjs/sifter/-/sifter-0.9.0.tgz#07eab78de2ac1799d2c169bf1f2e3e746d86c32c"
+  integrity sha512-NDYPhjdydJNbwDRvMFyUFFeImj1a+CJAwpjh/goKmvTHi726DPAJ1nW0X05p/GsorQgXHwhgDPyu6WaYqd4cRA==
+
 "@popperjs/core@^2.11.2":
   version "2.11.2"
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.2.tgz"
@@ -1501,12 +1506,12 @@ autoprefixer@^10.4.0:
     picocolors "^1.0.0"
     postcss-value-parser "^4.2.0"
 
-axios@^0.21:
-  version "0.21.4"
-  resolved "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
-  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+axios@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.25.0.tgz#349cfbb31331a9b4453190791760a8d35b093e0a"
+  integrity sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==
   dependencies:
-    follow-redirects "^1.14.0"
+    follow-redirects "^1.14.7"
 
 babel-loader@^8.2.3:
   version "8.2.3"
@@ -2686,10 +2691,15 @@ find-up@^4.0.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-follow-redirects@^1.0.0, follow-redirects@^1.14.0:
+follow-redirects@^1.0.0, follow-redirects@^1.14.7:
   version "1.14.7"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.7.tgz"
   integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
+
+form-serialize@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/form-serialize/-/form-serialize-0.7.2.tgz#b0a2ff0c22026fb6d3d15c9d33f6de6a432e4732"
+  integrity sha1-sKL/DCICb7bT0VydM/beakMuRzI=
 
 forwarded@0.2.0:
   version "0.2.0"
@@ -3245,6 +3255,16 @@ jest-worker@^27.4.1:
     "@types/node" "*"
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
+
+jquery.repeater@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/jquery.repeater/-/jquery.repeater-1.2.1.tgz#ea284a69374bf4478dc2e60af5e705b169cb1514"
+  integrity sha1-6ihKaTdL9EeNwuYK9ecFsWnLFRQ=
+
+jquery@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -4904,6 +4924,11 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
+sweetalert2@^11.3.6:
+  version "11.3.6"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.3.6.tgz#531a5f64bf3a5a2eea393be57f225d5e9ca3c75e"
+  integrity sha512-0JBlA36T1e0fuihcyvg4FjoucCOYNmbYDLrEOenGMVg1Jw7UHaC7FmDFp1qf9UGbO89pjgDJrfkThYln8TrYEQ==
+
 tapable@^2.1.1, tapable@^2.2.0:
   version "2.2.1"
   resolved "https://registry.npmjs.org/tapable/-/tapable-2.2.1.tgz"
@@ -4976,6 +5001,13 @@ toidentifier@1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.1.tgz"
   integrity sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==
+
+tom-select@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.0.0.tgz#751ac1087cce29bd40e09f1a604e9ad69451fc86"
+  integrity sha512-ArECm8bNnv8GMTpvSQawesKX6IDv32cylqivjbghwCddYwfngmz+nOtEhQZkEye7BY415eutqhb4XYim2EL8Hg==
+  dependencies:
+    "@orchidjs/sifter" "^0.9.0"
 
 tslib@^2.0.3:
   version "2.3.1"

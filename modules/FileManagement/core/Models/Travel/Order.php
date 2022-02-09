@@ -3,13 +3,12 @@
 namespace Modules\FileManagement\core\Models\Travel;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\FileManagement\core\Traits\HasSeries;
-use Modules\FileManagement\core\Traits\HasFormable;
+use Modules\FileManagement\core\Traits\HasDocument;
 use Modules\System\core\Models\Office;
 
 class Order extends Model
 {
-    use HasSeries, HasFormable;
+    use HasDocument;
 
     protected $table = 'fms_travel_order';
     protected $guarded = [];

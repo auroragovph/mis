@@ -31,9 +31,9 @@ This program was developed in Ubuntu 21.10. If you plan to develop this program 
 `docker run --rm -u "$(id -u):$(id -g)" -v $(pwd):/var/www/html -w /var/www/html laravelsail/php81-composer:latest composer install --ignore-platform-reqs`
 5. Now, we can start the development server by running: `./vendor/bin/sail up -d`
 6. Configure the program by running this commands:
-`./vendor/bin/sail artisan key:generate` - Generate application key of the program
-`./vendor/bin/sail artisan migrate` - Migrate the database schema
-`./vendor/bin/sail artisan db:seed` - Generate required initial data like offices and users to our program
-`./vendor/bin/sail yarn install` - Install front end dependencies
+`./vendor/bin/sail artisan key:generate` - Generate application key of the program  
+`./vendor/bin/sail artisan migrate` - Migrate the database schema  
+`./vendor/bin/sail artisan db:seed` - Generate required initial data like offices and users to our program  
+`./vendor/bin/sail yarn install` - Install front end dependencies  
 `./vendor/bin/sail yarn dev` - Compile front-end assets
 7. You can now access the programming in `localhost` 

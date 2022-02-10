@@ -4,8 +4,7 @@
 - [Tech Stack](#tech-stacks)
 - [Development Setup](#development-setup)
 - [Production Setup](#production-setup)
-	- [Migrating from development](#migrating)
-	- [Backups](#backups)
+	- [Migrating from development](#migrating-from-development)
 
 ## Tech Stacks
 | Badge | Type | Name | Version | Description |
@@ -37,4 +36,20 @@ This script also install *docker-compose* which is also a vital development prog
 `./vendor/bin/sail artisan db:seed` - Generate required initial data like offices and users to our program  
 `./vendor/bin/sail yarn install` - Install front end dependencies  
 `./vendor/bin/sail yarn dev` - Compile front-end assets
-7. You can now access the programming in `localhost` 
+7. You can now access the program in `localhost` 
+
+## Production Setup
+You can use the development setup instructions. You just need to adjust your Environment Variables found in **.env** file.
+
+### Migrating from development
+
+1. Update `APP_ENV` value to `production`. This option ensure that the server will return a gzipped assets to ensure low latency of sending response from the server.
+2. Update `APP_DEBUG` to `false`. This option will disable the error handling debug page of the program and return a 500 status code instead. 
+3. Change `APP_NAME` and `APP_URL` to your corresponding value.
+4. You can reset the datas of your program by running this two command:  
+`./vendor/bin/sail artisan migrate:fresh`  
+`./vendor/bin/sail artisan db:seed`
+5. Compile your front-end assets to a minified version by running this command:  
+`./vendor/bin/sail yarn build`  
+6. Your application is ready to access. 
+

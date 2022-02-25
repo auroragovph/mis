@@ -3,6 +3,7 @@ namespace Modules\System\database\factories\Acl;
 
 use Modules\System\core\Models\ACL\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class AccountFactory extends Factory
 {
@@ -23,7 +24,7 @@ class AccountFactory extends Factory
         return [
             'employee_id' => $this->faker->numberBetween(1, 100),
             'username' => $this->faker->userName(),
-            'password' => '$2a$12$cQmWZ69yVi/YtWGBP0.aQeijYoHyogmLB6GgLXk39L0RjAZBj0OBK',
+            'password' => Hash::make('password'),
             'status' => true
         ];
     }

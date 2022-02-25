@@ -1,5 +1,6 @@
 <?php
 
+
 if (!function_exists('authenticated')) {
     /**
      * Return specific details for authencated user
@@ -297,4 +298,16 @@ if (!function_exists('random_color')) {
         return \Illuminate\Support\Arr::random($selections);
     }
 
+}
+
+
+if (!function_exists('is_module_enable')) {
+    /**
+     * Checks if given module is enabled
+     *
+     */
+    function is_module_enable(string $moduleName): bool
+    {
+        return \Nwidart\Modules\Facades\Module::collections()->has($moduleName);
+    }
 }

@@ -12,7 +12,7 @@ return [
         'name'        => 'Human Resource Management',
         'description' => 'For BAC Office',
         'image'       => asset('media/illustrations/undraw_winners_ao2o.svg'),
-        'url'         => '#',
+        'url'         => route('hrm.dashboard'),
     ],
 
     [

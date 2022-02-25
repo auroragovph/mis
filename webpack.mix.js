@@ -58,6 +58,10 @@ let plugins = {
     // repeater
     "node_modules/jquery.repeater/jquery.repeater.min.js": public_path + "repeater/repeater.min.js",
 
+    // comboTree
+    "resources/js/plugins/comboTree/comboTree.css": public_path + "comboTree/comboTree.css",
+    "resources/js/plugins/comboTree/comboTree.js": public_path + "comboTree/comboTree.js",
+
 }
 
 for (plugin in plugins) {

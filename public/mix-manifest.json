@@ -2,6 +2,7 @@
     "/js/modules/FileManagement/procurement/request/create.js": "/js/modules/FileManagement/procurement/request/create.js",
     "/js/helpers/form.js": "/js/helpers/form.js",
     "/js/helpers/tom-select.init.js": "/js/helpers/tom-select.init.js",
+    "/js/plugins/comboTree/comboTree.js": "/js/plugins/comboTree/comboTree.js",
     "/css/whirl.css": "/css/whirl.css",
     "/css/vendors.css": "/css/vendors.css",
     "/css/app.css": "/css/app.css",
@@ -16,5 +17,7 @@
     "/libraries/tom-select/tom-select.min.css": "/libraries/tom-select/tom-select.min.css",
     "/libraries/tom-select/tom-select.bootstrap5.min.css": "/libraries/tom-select/tom-select.bootstrap5.min.css",
     "/libraries/tom-select/tom-select.complete.min.js": "/libraries/tom-select/tom-select.complete.min.js",
-    "/libraries/repeater/repeater.min.js": "/libraries/repeater/repeater.min.js"
+    "/libraries/repeater/repeater.min.js": "/libraries/repeater/repeater.min.js",
+    "/libraries/comboTree/comboTree.css": "/libraries/comboTree/comboTree.css",
+    "/libraries/comboTree/comboTree.js": "/libraries/comboTree/comboTree.js"
 }

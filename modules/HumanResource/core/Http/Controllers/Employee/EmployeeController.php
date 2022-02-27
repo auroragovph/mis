@@ -15,8 +15,8 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        // $offices = Office::get()->toFlatTree();
-        // $positions = Position::get();
-        // return view('hrm::employee.create', compact('offices', 'positions'));
+        $offices = Office::get()->toFlatTree();
+        $positions = Position::get();
+        return view('hrm::employee.create', compact('offices', 'positions'));
     }
 }

@@ -61,7 +61,11 @@
                         </x-ui.form.select-tom>
                     </div>
                     <div class="col">
-                        @include('hrm::components.office')
+                        <x-ui.form.select-tom label="Position" name="position" required>
+                            @foreach($positions as $position)
+                                <option value="{{ $position->id }}">{{ $position->name }}</option>
+                            @endforeach
+                        </x-ui.form.select-tom>
                     </div>
                 </div>
 
